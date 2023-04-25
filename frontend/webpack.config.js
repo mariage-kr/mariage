@@ -33,6 +33,15 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(woff(2)?|ttf|png|jpe?g|gif|webp)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ["@svgr/webpack", "file-loader"],
+      },
     ],
   },
   plugins: [
