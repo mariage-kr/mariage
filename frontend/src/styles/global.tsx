@@ -12,6 +12,7 @@ const style = () => css`
 
   h1 {
     font-size: 2.5rem;
+    color: #9c94d0;
   }
 
   span {

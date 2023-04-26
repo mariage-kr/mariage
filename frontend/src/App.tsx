@@ -1,7 +1,5 @@
 import GlobalStyle from './styles/global';
 
-import * as S from './index.styled';
-
 function App() {
   return (
     <>
