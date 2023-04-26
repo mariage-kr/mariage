@@ -33,9 +33,9 @@ class WeatherServiceTest {
         assertThat(actual).isNotNull();
     }
 
-    @DisplayName("해당 시간의 날씨가 이미 존재하는지 확인한다.")
+    @DisplayName("해당 시간의 날씨 정보가 존재하는지 확인한다.")
     @Test
-    void 해당_시간의_날씨가_이미_존재하는지_확인한다() {
+    void 해당_시간의_날씨_정보가_존재하는지_확인한다() {
         // given
         // when
         boolean actual = weatherService.validateWeatherTimeIsNotDuplicated();
