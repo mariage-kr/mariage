@@ -47,7 +47,7 @@ public class QLike extends EntityPathBase<Like> {
     public QLike(Class<? extends Like> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new com.multi.mariage.member.domain.QMember(forProperty("member"), inits.get("member")) : null;
-        this.review = inits.isInitialized("review") ? new com.multi.mariage.review.domain.QReview(forProperty("review")) : null;
+        this.review = inits.isInitialized("review") ? new com.multi.mariage.review.domain.QReview(forProperty("review"), inits.get("review")) : null;
     }
 
 }

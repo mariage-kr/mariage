@@ -15,6 +15,7 @@ import java.util.List;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "column_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)

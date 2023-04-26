@@ -1,5 +1,7 @@
 package com.multi.mariage.review.domain;
 
+import com.multi.mariage.category.domain.LowerCategory;
+import com.multi.mariage.category.domain.UpperCategory;
 import com.multi.mariage.like.domain.Like;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,6 +18,7 @@ import java.util.List;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "review_id")
     private Long id;
     private int productScore;
     private String productContent;
@@ -25,4 +28,10 @@ public class Review {
 
     @OneToMany(mappedBy = "review")
     private List<Like> likes = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UpperCategory upperCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private LowerCategory lowerCategory;
 }

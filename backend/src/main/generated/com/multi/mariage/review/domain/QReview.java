@@ -18,6 +18,8 @@ public class QReview extends EntityPathBase<Review> {
 
     private static final long serialVersionUID = -1766329528L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QReview review = new QReview("review");
 
     public final DateTimePath<java.time.LocalDateTime> date = createDateTime("date", java.time.LocalDateTime.class);
@@ -30,20 +32,34 @@ public class QReview extends EntityPathBase<Review> {
 
     public final ListPath<com.multi.mariage.like.domain.Like, com.multi.mariage.like.domain.QLike> likes = this.<com.multi.mariage.like.domain.Like, com.multi.mariage.like.domain.QLike>createList("likes", com.multi.mariage.like.domain.Like.class, com.multi.mariage.like.domain.QLike.class, PathInits.DIRECT2);
 
+    public final com.multi.mariage.category.domain.QLowerCategory lowerCategory;
+
     public final StringPath productContent = createString("productContent");
 
     public final NumberPath<Integer> productScore = createNumber("productScore", Integer.class);
 
+    public final com.multi.mariage.category.domain.QUpperCategory upperCategory;
+
     public QReview(String variable) {
-        super(Review.class, forVariable(variable));
+        this(Review.class, forVariable(variable), INITS);
     }
 
     public QReview(Path<? extends Review> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QReview(PathMetadata metadata) {
-        super(Review.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QReview(PathMetadata metadata, PathInits inits) {
+        this(Review.class, metadata, inits);
+    }
+
+    public QReview(Class<? extends Review> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.lowerCategory = inits.isInitialized("lowerCategory") ? new com.multi.mariage.category.domain.QLowerCategory(forProperty("lowerCategory")) : null;
+        this.upperCategory = inits.isInitialized("upperCategory") ? new com.multi.mariage.category.domain.QUpperCategory(forProperty("upperCategory")) : null;
     }
 
 }

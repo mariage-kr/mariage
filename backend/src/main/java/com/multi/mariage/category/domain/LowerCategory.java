@@ -1,28 +1,26 @@
-package com.multi.mariage.like.domain;
+package com.multi.mariage.category.domain;
 
-import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "likes")
-public class Like {
+public class LowerCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "lower_id")
     private Long id;
 
+    @OneToMany(mappedBy = "lowerCategory")
+    private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
-    private Review review;
+    private UpperCategory upperCategory;
 }
