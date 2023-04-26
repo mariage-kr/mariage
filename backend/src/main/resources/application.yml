@@ -1,0 +1,5 @@
+spring:
+  config:
+    import:
+      - security/application-database.yml
+      - security/application-openWeatherMap.yml
