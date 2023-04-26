@@ -2,6 +2,8 @@ package com.multi.mariage.weather.service;
 
 import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.domain.WeatherRepository;
+import com.multi.mariage.weather.exception.WeatherErrorCode;
+import com.multi.mariage.weather.exception.WeatherException;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -44,7 +46,7 @@ public class WeatherService {
             JSONParser parser = new JSONParser();
             parse = (JSONObject) parser.parse(openWeatherMapApi);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new WeatherException(WeatherErrorCode.OPEN_API_SERVER_ERROR);
         }
 
         Weather weather = Weather.builder()
@@ -52,6 +54,7 @@ public class WeatherService {
                 .date(getDate(parse))
                 .temp(getTemp(parse))
                 .build();
+
         return weatherRepository.save(weather);
     }
 
