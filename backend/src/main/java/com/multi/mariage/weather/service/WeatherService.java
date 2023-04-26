@@ -25,8 +25,8 @@ import java.util.TimeZone;
 @RequiredArgsConstructor
 @Service
 public class WeatherService {
+    private static final String PATTERN = "yyyy-MM-dd HH";
     private final WeatherRepository weatherRepository;
-
     @Value("${open.weather.key}")
     private String key;
     @Value("${open.weather.q}")
@@ -35,6 +35,11 @@ public class WeatherService {
     private String lang;
     @Value("${open.weather.units}")
     private String units;
+
+    public boolean validateWeatherTimeIsNotDuplicated() {
+        LocalDateTime date = getFormatLocalDateTime(System.currentTimeMillis());
+        return weatherRepository.existsByDate(date);
+    }
 
     @Transactional
     public Weather save() {
@@ -88,9 +93,14 @@ public class WeatherService {
     }
 
     private LocalDateTime getDate(JSONObject json) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
+        return getFormatLocalDateTime((long) json.get("dt") * 1000);
+    }
+
+    private LocalDateTime getFormatLocalDateTime(Long date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(PATTERN);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN);
         dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-        return LocalDateTime.parse(dateFormat.format((long) json.get("dt") * 1000), formatter);
+
+        return LocalDateTime.parse(dateFormat.format(date), formatter);
     }
 }
