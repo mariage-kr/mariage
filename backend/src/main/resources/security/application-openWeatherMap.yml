@@ -1,6 +1,0 @@
-open:
-  weather:
-    q: "Seoul"
-    lang: "kr"
-    units: "metric"
-    key: "59e48bac43a36114dbfa303542a49e85"
