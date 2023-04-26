@@ -25,7 +25,7 @@ public class QWeather extends EntityPathBase<Weather> {
 
     public final NumberPath<Double> temp = createNumber("temp", Double.class);
 
-    public final StringPath value = createString("value");
+    public final EnumPath<Value> value = createEnum("value", Value.class);
 
     public QWeather(String variable) {
         super(Weather.class, forVariable(variable));

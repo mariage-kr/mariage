@@ -1,9 +1,6 @@
 package com.multi.mariage.weather.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +16,33 @@ public class Weather {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double temp;
-    private String value;
+    @Enumerated(EnumType.STRING)
+    private Value value;
     private LocalDateTime date;
 
     @Builder
-    public Weather(double temp, String value, LocalDateTime date) {
+    public Weather(double temp, Long weatherId, LocalDateTime date) {
         this.temp = temp;
-        this.value = value;
+        this.value = setValue(weatherId);
         this.date = date;
+    }
+
+    private Value setValue(Long weatherId) {
+        if (weatherId / 100 == 2) {
+            return Value.THUNDERSTORM;
+        }
+        if (weatherId / 100 == 3) {
+            return Value.DRIZZLE;
+        }
+        if (weatherId / 100 == 5) {
+            return Value.RAIN;
+        }
+        if (weatherId / 100 == 6) {
+            return Value.SNOW;
+        }
+        if (weatherId == 800) {
+            return Value.CLEAR;
+        }
+        return Value.CLOUDS;
     }
 }

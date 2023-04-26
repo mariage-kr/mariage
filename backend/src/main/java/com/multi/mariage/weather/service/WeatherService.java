@@ -40,19 +40,19 @@ public class WeatherService {
     public Weather save() {
         String openWeatherMapApi = getOpenWeatherMapApi();
 
-        JSONObject parse;
+        JSONObject json;
 
         try {
             JSONParser parser = new JSONParser();
-            parse = (JSONObject) parser.parse(openWeatherMapApi);
+            json = (JSONObject) parser.parse(openWeatherMapApi);
         } catch (ParseException e) {
             throw new WeatherException(WeatherErrorCode.OPEN_API_SERVER_ERROR);
         }
 
         Weather weather = Weather.builder()
-                .value(String.valueOf(getId(parse)))
-                .date(getDate(parse))
-                .temp(getTemp(parse))
+                .weatherId(getId(json))
+                .date(getDate(json))
+                .temp(getTemp(json))
                 .build();
 
         return weatherRepository.save(weather);
@@ -83,7 +83,7 @@ public class WeatherService {
 
     private Long getId(JSONObject json) {
         JSONArray weathers = (JSONArray) json.get("weather");
-        JSONObject weather = (JSONObject) weathers.get(0);
+        JSONObject weather = (JSONObject) weathers.get(weathers.size() - 1);
         return (Long) weather.get("id");
     }
 
