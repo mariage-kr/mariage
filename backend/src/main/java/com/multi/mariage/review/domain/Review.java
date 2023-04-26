@@ -1,12 +1,14 @@
 package com.multi.mariage.review.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.multi.mariage.like.domain.Like;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,4 +21,8 @@ public class Review {
     private String productContent;
     private String foodContent;
     private int foodScore;
+    private LocalDateTime date;
+
+    @OneToMany(mappedBy = "review")
+    private List<Like> likes = new ArrayList<>();
 }
