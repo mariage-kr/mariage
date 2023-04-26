@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class MariageException extends RuntimeException {
-    private int statusCode;
-    private String errorCode;
-    private String message;
+    private final int statusCode;
+    private final String errorCode;
+    private final String message;
 
     public MariageException(ErrorCode code) {
         this.statusCode = code.getStatusCode();
