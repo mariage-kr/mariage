@@ -1,6 +1,8 @@
 import GlobalStyle from './styles/global';
+import LikeButton from './components/Button/Like/Like';
 
 function App() {
+  
   return (
     <>
       <GlobalStyle />
@@ -9,6 +11,8 @@ function App() {
       <h1>Mariage</h1>
       <h2>Mariage</h2>
       <h3>Mariage</h3>
+      
+      <LikeButton></LikeButton>
     </>
   );
 }
