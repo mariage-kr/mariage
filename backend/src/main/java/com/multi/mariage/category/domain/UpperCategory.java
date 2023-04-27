@@ -11,12 +11,16 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "upper_category")
 @Entity
 public class UpperCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "upper_id")
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private UpperValue upperValue;
 
     @OneToMany(mappedBy = "upperCategory")
     private List<Review> reviews = new ArrayList<>();

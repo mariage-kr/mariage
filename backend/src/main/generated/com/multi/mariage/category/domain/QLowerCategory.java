@@ -22,6 +22,8 @@ public class QLowerCategory extends EntityPathBase<LowerCategory> {
 
     public static final QLowerCategory lowerCategory = new QLowerCategory("lowerCategory");
 
+    public final EnumPath<LowerValue> category = createEnum("category", LowerValue.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<com.multi.mariage.review.domain.Review, com.multi.mariage.review.domain.QReview> reviews = this.<com.multi.mariage.review.domain.Review, com.multi.mariage.review.domain.QReview>createList("reviews", com.multi.mariage.review.domain.Review.class, com.multi.mariage.review.domain.QReview.class, PathInits.DIRECT2);

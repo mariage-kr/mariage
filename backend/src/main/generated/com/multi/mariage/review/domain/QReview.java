@@ -40,6 +40,8 @@ public class QReview extends EntityPathBase<Review> {
 
     public final com.multi.mariage.category.domain.QUpperCategory upperCategory;
 
+    public final com.multi.mariage.weather.domain.QWeather weather;
+
     public QReview(String variable) {
         this(Review.class, forVariable(variable), INITS);
     }
@@ -58,8 +60,9 @@ public class QReview extends EntityPathBase<Review> {
 
     public QReview(Class<? extends Review> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.lowerCategory = inits.isInitialized("lowerCategory") ? new com.multi.mariage.category.domain.QLowerCategory(forProperty("lowerCategory")) : null;
+        this.lowerCategory = inits.isInitialized("lowerCategory") ? new com.multi.mariage.category.domain.QLowerCategory(forProperty("lowerCategory"), inits.get("lowerCategory")) : null;
         this.upperCategory = inits.isInitialized("upperCategory") ? new com.multi.mariage.category.domain.QUpperCategory(forProperty("upperCategory")) : null;
+        this.weather = inits.isInitialized("weather") ? new com.multi.mariage.weather.domain.QWeather(forProperty("weather")) : null;
     }
 
 }

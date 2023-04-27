@@ -3,6 +3,7 @@ package com.multi.mariage.review.domain;
 import com.multi.mariage.category.domain.LowerCategory;
 import com.multi.mariage.category.domain.UpperCategory;
 import com.multi.mariage.like.domain.Like;
+import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,4 +35,14 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private LowerCategory lowerCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "weather_id")
+    private Weather weather;
+
+    /* 연관 관계 편의 메서드 */
+    public void setWeather(Weather weather) {
+        weather.getReviews().add(this);
+        this.weather = weather;
+    }
 }
