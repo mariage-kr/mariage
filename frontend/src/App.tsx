@@ -12,7 +12,6 @@ function App() {
       <h2>Mariage</h2>
       <h3>Mariage</h3>
       
-      <LikeButton></LikeButton>
     </>
   );
 }
