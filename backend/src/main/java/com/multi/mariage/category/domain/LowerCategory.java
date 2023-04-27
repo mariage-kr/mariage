@@ -26,5 +26,12 @@ public class LowerCategory {
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "upper_category_id")
     private UpperCategory upperCategory;
+
+    /* 연관 관계 편의 메서드 */
+    public void setUpperCategory(UpperCategory upperCategory) {
+        upperCategory.getLowerCategories().add(this);
+        this.upperCategory = upperCategory;
+    }
 }

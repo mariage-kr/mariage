@@ -17,7 +17,6 @@ public class Like {
     @Column(name = "like_id")
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -25,4 +24,15 @@ public class Like {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private Review review;
+
+    /* 연관 관계 편의 메서드 */
+    public void setMember(Member member) {
+        member.getLikes().add(this);
+        this.member = member;
+    }
+
+    public void setReview(Review review) {
+        review.getLikes().add(this);
+        this.review = review;
+    }
 }

@@ -36,7 +36,7 @@ public class Product {
     private List<Review> reviews = new ArrayList<>();
 
     /* 연관 관계 편의 메서드 */
-    public void addCountry(Country country) {
+    public void setCountry(Country country) {
         this.country = country;
         country.getProducts().add(this);
     }
