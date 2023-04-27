@@ -1,3 +1,4 @@
+import { Loading } from './components/Animation';
 import GlobalStyle from './styles/global';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <h1>Mariage</h1>
       <h2>Mariage</h2>
       <h3>Mariage</h3>
+      <Loading />
     </>
   );
 }
