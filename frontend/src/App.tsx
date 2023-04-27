@@ -5,7 +5,9 @@ import Routes from './routes/Routes';
 import { Suspense } from 'react';
 import Loading from './components/Loading/Loading';
 
+
 function App() {
+  
   return (
     <>
       <GlobalStyle />
