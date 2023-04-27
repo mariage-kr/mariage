@@ -4,6 +4,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,14 +19,14 @@ public class Like {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
+    @JoinColumn(name = "review_id", nullable = false)
     private Review review;
 
-    /* 연관 관계 편의 메서드 */
+    /* 연관관계 편의 메서드 */
     public void setMember(Member member) {
         member.getLikes().add(this);
         this.member = member;

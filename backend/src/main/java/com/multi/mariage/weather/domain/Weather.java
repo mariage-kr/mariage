@@ -15,17 +15,20 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Weather {
+    @OneToMany(mappedBy = "weather")
+    private final List<Review> reviews = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "weather_id")
     private Long id;
+    @Column(nullable = false)
     private double temp;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Value value;
-    private LocalDateTime date;
 
-    @OneToMany(mappedBy = "weather")
-    private final List<Review> reviews = new ArrayList<>();
+    @Column(nullable = false)
+    private LocalDateTime date;
 
     @Builder
     public Weather(double temp, Long weatherId, LocalDateTime date) {

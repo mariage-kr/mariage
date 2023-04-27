@@ -1,11 +1,10 @@
 package com.multi.mariage.review.domain;
 
 import com.multi.mariage.category.domain.FoodCategory;
-import com.multi.mariage.category.domain.LowerCategory;
-import com.multi.mariage.category.domain.UpperCategory;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -34,19 +33,11 @@ public class Review {
     private List<Like> likes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "upper_category_id")
-    private UpperCategory upperCategory;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lower_category_id")
-    private LowerCategory lowerCategory;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "weather_id")
+    @JoinColumn(name = "weather_id", nullable = false)
     private Weather weather;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -57,17 +48,11 @@ public class Review {
     @JoinColumn(name = "food_category_id")
     private FoodCategory foodCategory;
 
-    /* 연관 관계 편의 메서드 */
-    public void setUpperCategory(UpperCategory upperCategory) {
-        upperCategory.getReviews().add(this);
-        this.upperCategory = upperCategory;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
 
-    public void setLowerCategory(LowerCategory lowerCategory) {
-        lowerCategory.getReviews().add(this);
-        this.lowerCategory = lowerCategory;
-    }
-
+    /* 연관관계 편의 메서드 */
     public void setWeather(Weather weather) {
         weather.getReviews().add(this);
         this.weather = weather;
@@ -86,5 +71,9 @@ public class Review {
     public void setFoodCategory(FoodCategory foodCategory) {
         foodCategory.getReviews().add(this);
         this.foodCategory = foodCategory;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

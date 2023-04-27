@@ -1,5 +1,6 @@
 package com.multi.mariage.category.domain;
 
+import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -20,10 +21,11 @@ public class UpperCategory {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
     private UpperValue category;
 
     @OneToMany(mappedBy = "upperCategory")
-    private List<Review> reviews = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     @OneToMany(mappedBy = "upperCategory")
     private List<LowerCategory> lowerCategories = new ArrayList<>();

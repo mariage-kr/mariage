@@ -1,6 +1,6 @@
 package com.multi.mariage.category.domain;
 
-import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,16 +20,17 @@ public class LowerCategory {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
     private LowerValue category;
 
     @OneToMany(mappedBy = "lowerCategory")
-    private List<Review> reviews = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "upper_category_id")
     private UpperCategory upperCategory;
 
-    /* 연관 관계 편의 메서드 */
+    /* 연관관계 편의 메서드 */
     public void setUpperCategory(UpperCategory upperCategory) {
         upperCategory.getLowerCategories().add(this);
         this.upperCategory = upperCategory;

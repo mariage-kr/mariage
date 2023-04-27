@@ -19,7 +19,7 @@ public class Country {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "country_name", unique = true)
+    @Column(name = "country_name", nullable = false, unique = true)
     private Value name;
 
     @OneToMany(mappedBy = "country")

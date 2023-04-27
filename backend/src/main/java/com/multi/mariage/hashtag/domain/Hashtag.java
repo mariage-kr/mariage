@@ -17,6 +17,7 @@ public class Hashtag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String value;
 
     @OneToMany(mappedBy = "hashtag")

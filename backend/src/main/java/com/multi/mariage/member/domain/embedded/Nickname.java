@@ -5,6 +5,6 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Nickname {
-    @Column(name = "nickname")
+    @Column(name = "nickname", nullable = false)
     private String value;
 }

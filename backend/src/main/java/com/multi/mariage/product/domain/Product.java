@@ -1,7 +1,10 @@
 package com.multi.mariage.product.domain;
 
+import com.multi.mariage.category.domain.LowerCategory;
+import com.multi.mariage.category.domain.UpperCategory;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,16 +31,42 @@ public class Product {
 
     private String info;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id")
-    private Country country;
-
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
-    /* 연관 관계 편의 메서드 */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "upper_category_id", nullable = false)
+    private UpperCategory upperCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lower_category_id")
+    private LowerCategory lowerCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", nullable = false)
+    private Country country;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id", nullable = false)
+    private Image image;
+
+    /* 연관관계 편의 메서드 */
+    public void setUpperCategory(UpperCategory upperCategory) {
+        upperCategory.getProducts().add(this);
+        this.upperCategory = upperCategory;
+    }
+
+    public void setLowerCategory(LowerCategory lowerCategory) {
+        lowerCategory.getProducts().add(this);
+        this.lowerCategory = lowerCategory;
+    }
+
     public void setCountry(Country country) {
         this.country = country;
         country.getProducts().add(this);
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

@@ -19,7 +19,8 @@ public class FoodCategory {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private FoodValue food;
+    @Column(nullable = false, unique = true)
+    private FoodValue category;
 
     @OneToMany(mappedBy = "foodCategory")
     private List<Review> reviews = new ArrayList<>();
