@@ -32,6 +32,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final StringPath name = createString("name");
 
+    public final ListPath<com.multi.mariage.review.domain.Review, com.multi.mariage.review.domain.QReview> reviews = this.<com.multi.mariage.review.domain.Review, com.multi.mariage.review.domain.QReview>createList("reviews", com.multi.mariage.review.domain.Review.class, com.multi.mariage.review.domain.QReview.class, PathInits.DIRECT2);
+
     public QProduct(String variable) {
         this(Product.class, forVariable(variable), INITS);
     }

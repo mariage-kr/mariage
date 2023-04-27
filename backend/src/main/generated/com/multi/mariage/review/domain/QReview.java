@@ -34,6 +34,8 @@ public class QReview extends EntityPathBase<Review> {
 
     public final com.multi.mariage.category.domain.QLowerCategory lowerCategory;
 
+    public final com.multi.mariage.product.domain.QProduct product;
+
     public final StringPath productContent = createString("productContent");
 
     public final NumberPath<Integer> productScore = createNumber("productScore", Integer.class);
@@ -61,6 +63,7 @@ public class QReview extends EntityPathBase<Review> {
     public QReview(Class<? extends Review> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.lowerCategory = inits.isInitialized("lowerCategory") ? new com.multi.mariage.category.domain.QLowerCategory(forProperty("lowerCategory"), inits.get("lowerCategory")) : null;
+        this.product = inits.isInitialized("product") ? new com.multi.mariage.product.domain.QProduct(forProperty("product"), inits.get("product")) : null;
         this.upperCategory = inits.isInitialized("upperCategory") ? new com.multi.mariage.category.domain.QUpperCategory(forProperty("upperCategory")) : null;
         this.weather = inits.isInitialized("weather") ? new com.multi.mariage.weather.domain.QWeather(forProperty("weather")) : null;
     }
