@@ -1,5 +1,6 @@
 package com.multi.mariage.weather.domain;
 
+import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,17 +8,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Weather {
+    @OneToMany(mappedBy = "weather")
+    private final List<Review> reviews = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "weather_id")
     private Long id;
+    @Column(nullable = false)
     private double temp;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Value value;
+
+    @Column(nullable = false)
     private LocalDateTime date;
 
     @Builder
