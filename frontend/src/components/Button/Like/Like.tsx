@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as S from './Like.styled';
 
-import { Like } from '../../../assets/svg/Svg';
+import { Like } from '../../../assets/svg/SVG';
 
 interface LikeButtonProps {
   liked: boolean;
