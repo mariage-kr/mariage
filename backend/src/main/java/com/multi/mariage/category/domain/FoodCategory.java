@@ -11,20 +11,16 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "upper_category")
+@Table(name = "food_category")
 @Entity
-public class UpperCategory {
+public class FoodCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "upper_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private UpperValue category;
+    private FoodValue food;
 
-    @OneToMany(mappedBy = "upperCategory")
+    @OneToMany(mappedBy = "foodCategory")
     private List<Review> reviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "upperCategory")
-    private List<LowerCategory> lowerCategories = new ArrayList<>();
 }

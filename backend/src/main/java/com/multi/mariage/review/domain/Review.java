@@ -1,5 +1,6 @@
 package com.multi.mariage.review.domain;
 
+import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.domain.LowerCategory;
 import com.multi.mariage.category.domain.UpperCategory;
 import com.multi.mariage.hashtag.domain.Hashtag;
@@ -52,6 +53,10 @@ public class Review {
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_category_id")
+    private FoodCategory foodCategory;
+
     /* 연관 관계 편의 메서드 */
     public void setUpperCategory(UpperCategory upperCategory) {
         upperCategory.getReviews().add(this);
@@ -76,5 +81,10 @@ public class Review {
     public void setHashtag(Hashtag hashtag) {
         hashtag.getReviews().add(this);
         this.hashtag = hashtag;
+    }
+
+    public void setFoodCategory(FoodCategory foodCategory) {
+        foodCategory.getReviews().add(this);
+        this.foodCategory = foodCategory;
     }
 }
