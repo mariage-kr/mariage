@@ -31,9 +31,11 @@ public class Review {
     private List<Like> likes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "upper_category_id")
     private UpperCategory upperCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lower_category_id")
     private LowerCategory lowerCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,6 +43,17 @@ public class Review {
     private Weather weather;
 
     /* 연관 관계 편의 메서드 */
+    public void setUpperCategory(UpperCategory upperCategory) {
+        upperCategory.getReviews().add(this);
+        this.upperCategory = upperCategory;
+    }
+
+    public void setLowerCategory(LowerCategory lowerCategory) {
+        lowerCategory.getReviews().add(this);
+        this.lowerCategory = lowerCategory;
+    }
+
+
     public void setWeather(Weather weather) {
         weather.getReviews().add(this);
         this.weather = weather;
