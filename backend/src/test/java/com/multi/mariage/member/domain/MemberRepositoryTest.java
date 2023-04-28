@@ -1,17 +1,16 @@
 package com.multi.mariage.member.domain;
 
+import com.multi.mariage.common.annotation.RepositoryTest;
+import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.embedded.Email;
-import com.multi.mariage.fixture.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-class MemberRepositoryTest {
+class MemberRepositoryTest extends RepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;

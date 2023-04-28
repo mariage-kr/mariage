@@ -16,10 +16,11 @@ import java.util.List;
 public class FoodCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "food_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
+    @Column(name = "food_category",nullable = false, unique = true)
     private FoodValue category;
 
     @OneToMany(mappedBy = "foodCategory")

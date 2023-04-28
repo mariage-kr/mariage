@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  config:
+    import:
+      - security/application-openWeatherMap.yml
+      - security/application-database.yml

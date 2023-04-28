@@ -1,23 +1,20 @@
 package com.multi.mariage.member.service;
 
+import com.multi.mariage.common.annotation.ServiceTest;
+import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
-import com.multi.mariage.fixture.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Transactional
-@SpringBootTest
-class MemberServiceTest {
+class MemberServiceTest extends ServiceTest {
 
     @Autowired
     private MemberService memberService;

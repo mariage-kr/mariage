@@ -6,6 +6,8 @@ build/
 !**/src/test/**/build/
 **/resources/security/*.yml
 **/generated
+*.log
+
 ### STS ###
 .apt_generated
 .classpath

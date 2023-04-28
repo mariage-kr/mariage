@@ -1,4 +1,4 @@
-package com.multi.mariage.fixture;
+package com.multi.mariage.common.fixture;
 
 import com.multi.mariage.member.domain.Gender;
 import com.multi.mariage.member.domain.Member;

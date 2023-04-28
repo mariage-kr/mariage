@@ -1,51 +1,23 @@
 package com.multi.mariage.member.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.multi.mariage.member.domain.Gender;
-import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.common.annotation.ControllerTest;
+import com.multi.mariage.common.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.operation.preprocess.Preprocessors;
 import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-
-@AutoConfigureMockMvc
-@AutoConfigureRestDocs
-@Transactional
-@SpringBootTest
-class MemberControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+class MemberControllerTest extends ControllerTest {
 
     @DisplayName("사용자가 회원 가입한다.")
     @Test
     void 사용자가_회원_가입한다() throws Exception {
-        MemberSignupRequest memberSignupRequest = MemberSignupRequest.builder()
-                .birth(LocalDate.of(1998, 1, 1))
-                .email("mariage23@gmail.com")
-                .gender(Gender.MAN)
-                .name("마리아")
-                .nickname("Mariage")
-                .password("mariage12!@")
-                .build();
-
-        String content = objectMapper.writeValueAsString(memberSignupRequest);
+        String content = objectMapper.writeValueAsString(MemberFixture.MARI.toSignupRequest());
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/signup")
                         .content(content)
