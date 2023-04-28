@@ -13,7 +13,8 @@ public enum MemberErrorCode implements ErrorCode {
     NICKNAME_PATTERN_MUST_BE_VALID(400, "NICKNAME_01", "올바르지 않은 닉네임의 형식입니다."),
     NICKNAME_CANNOT_BE_OUT_OF_RANGE(400, "NICKNAME_02", "닉네임은 2자 이상 12자 이하여야 합니다."),
     PASSWORD_PATTERN_MUST_BE_VALID(400, "PASSWORD_01", "올바르지 않은 비밀번호 형식입니다."),
-    PASSWORD_CANNOT_BE_OUT_OF_RANGE(400, "PASSWORD_01", "비밀번호는 8자 이상 16자 이하여야 합니다.");
+    PASSWORD_CANNOT_BE_OUT_OF_RANGE(400, "PASSWORD_01", "비밀번호는 8자 이상 16자 이하여야 합니다."),
+    SIGNUP_INVALID_EMAIL(400, "SIGNUP_01", "이미 가입된 이메일입니다.");
     private final int statusCode;
     private final String errorCode;
     private final String message;
