@@ -32,6 +32,13 @@ public class Name {
         return new Name(value);
     }
 
+    private static void validateLengthInRange(String value) {
+        int length = value.length();
+        if (length < MIN_LENGTH || MAX_LENGTH < length) {
+            throw new MemberException(MemberErrorCode.NAME_CANNOT_BE_OUT_OF_RANGE);
+        }
+    }
+
     private static void validatePatternIsValid(String value) {
         if (isNotValid(value)) {
             throw new MemberException(MemberErrorCode.NAME_PATTERN_MUST_BE_VALID);
@@ -40,12 +47,5 @@ public class Name {
 
     private static boolean isNotValid(String value) {
         return !NAME_PATTERN.matcher(value).matches();
-    }
-
-    private static void validateLengthInRange(String value) {
-        int length = value.length();
-        if (length < MIN_LENGTH || MAX_LENGTH < length) {
-            throw new MemberException(MemberErrorCode.NAME_CANNOT_BE_OUT_OF_RANGE);
-        }
     }
 }
