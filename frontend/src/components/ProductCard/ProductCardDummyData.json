@@ -1,68 +1,68 @@
 {
-  "cards" : [
+  "cards": [
     {
-      "id":1,
-      "img":"../../assets/ProductCardDummyData/chamisul.png",
-      "review":"20",
-      "flagimg":"../../assets/ProductCardDummyData/korea.svg",
-      "country":"Korea",
-      "name":"참이슬"
+      "id": 1,
+      "img": "../../assets/ProductCardDummyData/chamisul.png",
+      "review": 20,
+      "flagimg": "../../assets/ProductCardDummyData/korea.svg",
+      "country": "Korea",
+      "name": "참이슬"
     },
     {
-      "id":2,
-      "img":"../../assets/ProductCardDummyData/chumchurum.png",
-      "review":"50",
-      "flagimg":"../../assets/ProductCardDummyData/korea.svg",
-      "country":"Korea",
-      "name":"처음처럼"
+      "id": 2,
+      "img": "../../assets/ProductCardDummyData/chumchurum.png",
+      "review": 50,
+      "flagimg": "../../assets/ProductCardDummyData/korea.svg",
+      "country": "Korea",
+      "name": "처음처럼"
     },
     {
-      "id":3,
-      "img":"../../assets/ProductCardDummyData/ganbareotosang.png",
-      "review":"120",
-      "flagimg":"../../assets/ProductCardDummyData/korea.svg",
-      "country":"Korea",
-      "name":"일품진로"
+      "id": 3,
+      "img": "../../assets/ProductCardDummyData/ganbareotosang.png",
+      "review": 120,
+      "flagimg": "../../assets/ProductCardDummyData/korea.svg",
+      "country": "Korea",
+      "name": "일품진로"
     },
     {
-      "id":4,
-      "img":"../../assets/ProductCardDummyData/ilpoomjinro.png",
-      "review":"80",
-      "flagimg":"../../assets/ProductCardDummyData/japan.svg",
-      "country":"Japan",
-      "name":"간바레오또상"
+      "id": 4,
+      "img": "../../assets/ProductCardDummyData/ilpoomjinro.png",
+      "review": 80,
+      "flagimg": "../../assets/ProductCardDummyData/japan.svg",
+      "country": "Japan",
+      "name": "간바레오또상"
     },
     {
-      "id":5,
-      "img":"../../assets/ProductCardDummyData/chamisul.png",
-      "review":"20",
-      "flagimg":"../../assets/ProductCardDummyData/korea.svg",
-      "country":"Korea",
-      "name":"참이슬"
+      "id": 5,
+      "img": "../../assets/ProductCardDummyData/chamisul.png",
+      "review": 20,
+      "flagimg": "../../assets/ProductCardDummyData/korea.svg",
+      "country": "Korea",
+      "name": "참이슬"
     },
     {
-      "id":6,
-      "img":"../../assets/ProductCardDummyData/chumchurum.png",
-      "review":"50",
-      "flagimg":"../../assets/ProductCardDummyData/korea.svg",
-      "country":"Korea",
-      "name":"처음처럼"
+      "id": 6,
+      "img": "../../assets/ProductCardDummyData/chumchurum.png",
+      "review": 50,
+      "flagimg": "../../assets/ProductCardDummyData/korea.svg",
+      "country": "Korea",
+      "name": "처음처럼"
     },
     {
-      "id":7,
-      "img":"../../assets/ProductCardDummyData/ganbareotosang.png",
-      "review":"120",
-      "flagimg":"../../assets/ProductCardDummyData/korea.svg",
-      "country":"Korea",
-      "name":"일품진로"
+      "id": 7,
+      "img": "../../assets/ProductCardDummyData/ganbareotosang.png",
+      "review": 120,
+      "flagimg": "../../assets/ProductCardDummyData/korea.svg",
+      "country": "Korea",
+      "name": "일품진로"
     },
     {
-      "id":8,
-      "img":"../../assets/ProductCardDummyData/ilpoomjinro.png",
-      "review":"80",
-      "flagimg":"../../assets/ProductCardDummyData/japan.svg",
-      "country":"Japan",
-      "name":"간바레오또상"
+      "id": 8,
+      "img": "../../assets/ProductCardDummyData/ilpoomjinro.png",
+      "review": 80,
+      "flagimg": "../../assets/ProductCardDummyData/japan.svg",
+      "country": "Japan",
+      "name": "간바레오또상"
     }
   ]
 }
