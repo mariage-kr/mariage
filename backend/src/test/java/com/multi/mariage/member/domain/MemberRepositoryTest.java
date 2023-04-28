@@ -1,7 +1,7 @@
 package com.multi.mariage.member.domain;
 
 import com.multi.mariage.member.domain.embedded.Email;
-import com.multi.mariage.member.fixture.MemberFixture;
+import com.multi.mariage.fixture.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

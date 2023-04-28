@@ -4,7 +4,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
-import com.multi.mariage.member.fixture.MemberFixture;
+import com.multi.mariage.fixture.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
