@@ -1,5 +1,7 @@
 package com.multi.mariage.member.domain.embedded;
 
+import com.multi.mariage.member.exception.MemberErrorCode;
+import com.multi.mariage.member.exception.MemberException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -35,7 +37,7 @@ public class Email {
 
     private static void validatePatternIsValid(String value) {
         if (isNotValid(value)) {
-            throw new RuntimeException();
+            throw new MemberException(MemberErrorCode.EMAIL_PATTERN_MUST_BE_VALID);
         }
     }
 
@@ -46,14 +48,14 @@ public class Email {
     private static void validateLengthInRangeByPrefix(String value) {
         int prefixLength = value.substring(0, value.indexOf("@")).length();
         if (prefixLength < PREFIX_MIN_LENGTH || PREFIX_MAX_LENGTH < prefixLength) {
-            throw new RuntimeException();
+            throw new MemberException(MemberErrorCode.EMAIL_ID_CANNOT_BE_OUT_OF_RANGE);
         }
     }
 
     private static void validateLengthInRangeByDomain(String value) {
         int domainLength = value.substring(value.indexOf("@") + 1, value.indexOf(".")).length();
         if (domainLength < DOMAIN_MIN_LENGTH || DOMAIN_MAX_LENGTH < domainLength) {
-            throw new RuntimeException();
+            throw new MemberException(MemberErrorCode.EMAIL_DOMAIN_NAME_CANNOT_BE_OUT_OF_RANGE);
         }
     }
 }

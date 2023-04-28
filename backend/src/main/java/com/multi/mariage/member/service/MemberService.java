@@ -2,6 +2,7 @@ package com.multi.mariage.member.service;
 
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
+import com.multi.mariage.member.domain.embedded.Email;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,11 @@ public class MemberService {
 
     @Transactional
     public Member signup(MemberSignupRequest request) {
-        Member.builder()
+        Member member = Member.builder()
                 .birth(request.getBirth())
-                .email()
+                .email(Email.of(request.getEmail()))
                 .gender(request.getGender())
                 .build();
-        memberRepository.save();
-        return null;
+        return memberRepository.save(member);
     }
 }
