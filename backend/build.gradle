@@ -2,6 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.6'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
+}
+
+configurations {
+    asciidoctorExt
 }
 
 group = 'com.multi'
@@ -37,26 +42,64 @@ dependencies {
     /* Open API */
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-	/* p6spy */
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
+    /* p6spy */
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+    /* RestAssured */
+    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    /* Spring Rest Docs */
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 /* Querydsl Start */
 def generated = 'src/main/generated'
 
 tasks.withType(JavaCompile) {
-	options.getGeneratedSourceOutputDirectory().set(file(generated))
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
 }
 
 sourceSets {
-	main.java.srcDirs += [generated]
+    main.java.srcDirs += [generated]
 }
 
 clean {
-	delete file(generated)
+    delete file(generated)
 }
 /* Querydsl End */
+
+/* RestDocs Start */
+tasks.named('test') {
+    useJUnitPlatform()
+
+    outputs.dir snippetsDir
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    dependsOn test
+    baseDirFollowsSourceFile()
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs/*')
+}
+
+bootJar {
+    dependsOn asciidoctor
+
+    copy {
+        from "${asciidoctor.outputDir}"
+        into file("src/main/resources/static/docs")
+    }
+
+    copy {
+        from file("src/main/resources/static")
+        into file("build/resources/main/static")
+    }
+}
+/* RestDocs End */

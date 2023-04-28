@@ -24,7 +24,7 @@ public class Weather {
     @Column(nullable = false)
     private double temp;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "weathers")
     private Value value;
 
     @Column(nullable = false)
