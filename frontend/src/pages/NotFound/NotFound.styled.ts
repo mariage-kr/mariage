@@ -17,7 +17,7 @@ const ButtonText = styled.span`
   padding-left: 5px;
 `;
 
-const Message = styled.div`
+const MessageContainer = styled.div`
   position: absolute;
   top: 30%;
   left: 50%;
@@ -25,6 +25,10 @@ const Message = styled.div`
   z-index: 1;
   margin: 30px 0 10px 0;
   font-size: 20px;
+`;
+
+const Message = styled.div`
+  font-size: 16px;
 `;
 
 const ButtonStyle = styled.div`
@@ -46,4 +50,4 @@ const LottieContainer = styled.div`
   top: 10%;
 `;
 
-export { Container, Text, Message, ButtonStyle, ButtonText, Button, LottieContainer };
+export { Container, Text, Message, MessageContainer, ButtonStyle, ButtonText, Button, LottieContainer };

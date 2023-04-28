@@ -25,9 +25,9 @@ function NotFound() {
     <div>
       <S.Container>
       
-      <S.Message>
+      <S.MessageContainer>
         <S.Text><span>404</span></S.Text>
-      <div>{ERROR_MESSAGE.NOTFOUND}</div>
+      <S.Message>{ERROR_MESSAGE.NOTFOUND}</S.Message>
       <S.ButtonStyle>
       <S.Button onClick={handleClickReturnButton}>
         <Back/><S.ButtonText>BACK</S.ButtonText>
@@ -37,7 +37,7 @@ function NotFound() {
       </S.Button>
       
       </S.ButtonStyle>
-      </S.Message>
+      </S.MessageContainer>
       
       <S.LottieContainer>
       <Error/>
