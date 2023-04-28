@@ -24,7 +24,6 @@ function NotFound() {
   return (
     <div>
       <S.Container>
-      
       <S.MessageContainer>
         <S.Text><span>404</span></S.Text>
       <S.Message>{ERROR_MESSAGE.NOTFOUND}</S.Message>
@@ -33,17 +32,14 @@ function NotFound() {
         <Back/><S.ButtonText>BACK</S.ButtonText>
       </S.Button>
       <S.Button onClick={handleClickHomeButton}>
-       <Home/> <S.ButtonText>HOME</S.ButtonText>
+        <Home/><S.ButtonText>HOME</S.ButtonText>
       </S.Button>
-      
       </S.ButtonStyle>
       </S.MessageContainer>
-      
       <S.LottieContainer>
       <Error/>
       </S.LottieContainer>
       </S.Container>
-      
     </div>
   );
 }

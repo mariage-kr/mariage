@@ -8,13 +8,13 @@ const Text = styled.div`
   display: flex;
   justify-content: center;
   align-items: center; 
-  font-size: 40px;
+  font-size: 4vw;
   color: #bb2649;
-  margin-bottom: 20px;
+  margin-bottom: 1.3889vw;
 `;
 
 const ButtonText = styled.span`
-  padding-left: 5px;
+  padding-left: 0.3472vw;
 `;
 
 const MessageContainer = styled.div`
@@ -23,12 +23,12 @@ const MessageContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -10%);
   z-index: 1;
-  margin: 30px 0 10px 0;
-  font-size: 20px;
+  margin: 2.0833vh 0 0.6944vh 0;
+  font-size: 1.3889vw;
 `;
 
 const Message = styled.div`
-  font-size: 16px;
+  font-size: 2vw;
 `;
 
 const ButtonStyle = styled.div`
@@ -42,7 +42,7 @@ const Button = styled.button`
   align-items: center;
   background: none;
   border-style: none;
-  padding: 10px 30px;
+  padding: 0.6944vh 2.0833vw;
   color: #bb2649;
 `;
 
