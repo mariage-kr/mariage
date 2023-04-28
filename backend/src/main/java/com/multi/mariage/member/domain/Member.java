@@ -8,8 +8,10 @@ import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,8 +58,28 @@ public class Member {
     @JoinColumn(name = "image_id")
     private Image image;
 
+    @Builder
+    public Member(LocalDate birth, Email email, Name name, Nickname nickname, Password password, Gender gender) {
+        this.birth = birth;
+        this.email = email;
+        this.name = name;
+        this.nickname = nickname;
+        this.password = password;
+        this.gender = gender;
+        this.role = Role.ROLE_USER;
+    }
+
     /* 연관관계 편의 메서드 */
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    /* Embedded Getter */
+    public String getEmail() {
+        return email.getValue();
+    }
+
+    public String getName() {
+        return name.getValue();
     }
 }

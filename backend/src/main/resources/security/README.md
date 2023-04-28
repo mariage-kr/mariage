@@ -8,6 +8,11 @@ spring:
     url: 
     username: 
     password:
+
+  data:
+    redis:
+      host: 
+      port: 
 ```
 
 application-openWeatherMap.yml 파일에 해당 내용이 담겨 있습니다.
