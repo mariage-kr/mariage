@@ -72,4 +72,13 @@ public class Member {
     public void setImage(Image image) {
         this.image = image;
     }
+
+    /* Embedded Getter */
+    public String getEmail() {
+        return email.getValue();
+    }
+
+    public String getName() {
+        return name.getValue();
+    }
 }
