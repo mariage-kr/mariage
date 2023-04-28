@@ -70,3 +70,38 @@
 1682664458716|2|statement|connection 10|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists review|drop table if exists review
 1682664458722|4|statement|connection 10|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists upper_category|drop table if exists upper_category
 1682664458733|5|statement|connection 10|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists weather|drop table if exists weather
+1682668532170|5|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists country cascade |drop table if exists country cascade 
+1682668532174|2|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists food_category cascade |drop table if exists food_category cascade 
+1682668532175|0|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists hashtag cascade |drop table if exists hashtag cascade 
+1682668532178|3|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists image cascade |drop table if exists image cascade 
+1682668532180|1|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists likes cascade |drop table if exists likes cascade 
+1682668532183|2|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists lower_category cascade |drop table if exists lower_category cascade 
+1682668532184|1|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists member cascade |drop table if exists member cascade 
+1682668532185|0|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists product cascade |drop table if exists product cascade 
+1682668532187|2|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists review cascade |drop table if exists review cascade 
+1682668532191|3|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists upper_category cascade |drop table if exists upper_category cascade 
+1682668532192|0|statement|connection 17|url jdbc:h2:mem:4951b733-932e-4a23-9e34-bb0cceba17bb|drop table if exists weather cascade |drop table if exists weather cascade 
+1682668532315|3|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table likes drop foreign key FKa4vkf1skcfu5r6o5gfb5jf295|alter table likes drop foreign key FKa4vkf1skcfu5r6o5gfb5jf295
+1682668532318|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table likes drop foreign key FK65pxk1tcl3qtbvlcrjyitq865|alter table likes drop foreign key FK65pxk1tcl3qtbvlcrjyitq865
+1682668532324|5|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table lower_category drop foreign key FKfr6x0b1qrgevbv7si8vaxknlw|alter table lower_category drop foreign key FKfr6x0b1qrgevbv7si8vaxknlw
+1682668532327|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table member drop foreign key FK8aioimg9ehitsos4op5lk5qjy|alter table member drop foreign key FK8aioimg9ehitsos4op5lk5qjy
+1682668532329|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table product drop foreign key FKs6hiicggtpkrxno0fm2fhcquk|alter table product drop foreign key FKs6hiicggtpkrxno0fm2fhcquk
+1682668532330|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table product drop foreign key FKsouy49035ik9r5ojgslbv3i3u|alter table product drop foreign key FKsouy49035ik9r5ojgslbv3i3u
+1682668532331|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table product drop foreign key FKie7m5x8y2etpvhxn05f6w143i|alter table product drop foreign key FKie7m5x8y2etpvhxn05f6w143i
+1682668532333|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table product drop foreign key FKmbmor9tfikpt08bj4ir911yve|alter table product drop foreign key FKmbmor9tfikpt08bj4ir911yve
+1682668532335|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table review drop foreign key FKcfex94jq12v73kadn7k8a5f46|alter table review drop foreign key FKcfex94jq12v73kadn7k8a5f46
+1682668532339|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table review drop foreign key FKgbx8x3anjkblvscqudtab1vbf|alter table review drop foreign key FKgbx8x3anjkblvscqudtab1vbf
+1682668532341|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table review drop foreign key FK2bu91x77t5ea5nb14e39mqcqs|alter table review drop foreign key FK2bu91x77t5ea5nb14e39mqcqs
+1682668532344|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table review drop foreign key FKiyof1sindb9qiqr9o8npj8klt|alter table review drop foreign key FKiyof1sindb9qiqr9o8npj8klt
+1682668532346|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|alter table review drop foreign key FKj00ydm9y04n4ni1qaekp30b7u|alter table review drop foreign key FKj00ydm9y04n4ni1qaekp30b7u
+1682668532349|3|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists country|drop table if exists country
+1682668532354|3|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists food_category|drop table if exists food_category
+1682668532357|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists hashtag|drop table if exists hashtag
+1682668532360|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists image|drop table if exists image
+1682668532363|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists likes|drop table if exists likes
+1682668532367|3|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists lower_category|drop table if exists lower_category
+1682668532372|3|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists member|drop table if exists member
+1682668532375|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists product|drop table if exists product
+1682668532378|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists review|drop table if exists review
+1682668532381|1|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists upper_category|drop table if exists upper_category
+1682668532384|2|statement|connection 18|url jdbc:mysql://localhost:3307/mariage?serverTimezone=Asia/Seoul|drop table if exists weather|drop table if exists weather
