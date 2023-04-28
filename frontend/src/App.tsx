@@ -1,7 +1,9 @@
-import Loading from './components/Loading/Loading';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import GlobalStyle from './styles/global';
-import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "./routes/Routes";
+import Routes from './routes/Routes';
+import { Suspense } from 'react';
+import Loading from './components/Loading/Loading';
 
 
 function App() {
@@ -10,7 +12,9 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
-            <Routes />
+        <Suspense fallback={<Loading />}>
+          <Routes />
+        </Suspense>
       </Router>
     </>
   );

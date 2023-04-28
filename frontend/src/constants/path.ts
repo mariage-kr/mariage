@@ -5,6 +5,7 @@ const BROWSER_PATH = {
   MY: '/my',
   PRODUCT: '/product',
   SIGN_UP: '/signup',
+  TEST: '/test' /* prod 때는 삭제 */,
 };
 
 export { BROWSER_PATH };

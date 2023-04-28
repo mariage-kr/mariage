@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import * as S from './Like.styled'; 
-import { ReactComponent as Like } from '../../../assets/svg/thumbs-up.svg';
+import { useState } from 'react';
+import * as S from './Like.styled';
+
+import { Like } from '../../../assets/svg/SVG';
 
 interface LikeButtonProps {
   liked: boolean;
@@ -12,10 +13,9 @@ const LikeButton = (props: LikeButtonProps) => {
 
   const handleButtonClick = () => {
     setLiked(!liked);
-  }
+  };
 
   return (
-    
     <S.Button liked={liked} onClick={handleButtonClick}>
       <S.Container>
         <Like fill={liked ? 'white' : 'black'} />

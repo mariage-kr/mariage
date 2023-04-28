@@ -1,13 +1,11 @@
-import Wine from '../../components/Animation/Wine';
+import LikeButton from '../../components/Button/Like/Like';
 
 function Main() {
-  
-    return (
-      <div>
-       메인
-       <Wine/>
-      </div>
-    );
-  }
-  
-  export default Main;
+  return (
+    <>
+      <h1>메인 페이지</h1>
+    </>
+  );
+}
+
+export default Main;
