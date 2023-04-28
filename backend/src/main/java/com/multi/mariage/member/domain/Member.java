@@ -8,6 +8,7 @@ import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -55,6 +56,17 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @Builder
+    public Member(LocalDate birth, Email email, Name name, Nickname nickname, Password password, Gender gender) {
+        this.birth = birth;
+        this.email = email;
+        this.name = name;
+        this.nickname = nickname;
+        this.password = password;
+        this.gender = gender;
+        this.role = Role.ROLE_USER;
+    }
 
     /* 연관관계 편의 메서드 */
     public void setImage(Image image) {
