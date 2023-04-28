@@ -13,6 +13,10 @@ const Text = styled.div`
   margin-bottom: 20px;
 `;
 
+const ButtonText = styled.span`
+  padding-left: 5px;
+`;
+
 const Message = styled.div`
   position: absolute;
   top: 30%;
@@ -30,6 +34,8 @@ const ButtonStyle = styled.div`
 `;
 
 const Button = styled.button`
+  display: flex;
+  align-items: center;
   background: none;
   border-style: none;
   padding: 10px 30px;
@@ -40,4 +46,4 @@ const LottieContainer = styled.div`
   top: 10%;
 `;
 
-export { Container, Text, Message, ButtonStyle, Button, LottieContainer };
+export { Container, Text, Message, ButtonStyle, ButtonText, Button, LottieContainer };
