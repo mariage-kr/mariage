@@ -1,4 +1,4 @@
-import * as S from './index.styled';
+import * as S from './Common.styled';
 
 interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';

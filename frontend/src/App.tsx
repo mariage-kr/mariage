@@ -1,13 +1,17 @@
 import Loading from './components/Loading/Loading';
 import GlobalStyle from './styles/global';
-import LikeButton from './components/Button/Like/Like';
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./routes/Routes";
+
 
 function App() {
   
   return (
     <>
       <GlobalStyle />
-      <Loading />
+      <Router>
+            <Routes />
+      </Router>
     </>
   );
 }
