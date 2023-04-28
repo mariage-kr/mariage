@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Common/Common';
 import Error from '../../components/Error/Error';
 import { BROWSER_PATH } from '../../constants/path';
 import { ERROR_MESSAGE } from '../../constants/message';
