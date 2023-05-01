@@ -63,8 +63,7 @@ function SignUp() {
       })
       .catch(error => {
         console.error(error);
-        // TODO: 추후 서버에서 받아온 에러를 출력
-        setErrorMessage('에러입니다.');
+        setErrorMessage(error.response.data.message);
         setIsValid(true);
       });
   };
