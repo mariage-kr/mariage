@@ -59,10 +59,36 @@ const Label = styled.label`
 `;
 
 const InfoMessage = styled.span<InfoMessageProps>`
-  color: red;
+  color: #bb2649;
   visibility: ${({ isValid }) => (isValid ? 'none' : 'hidden')};
   font-size: 0.7rem;
   margin-bottom: 15px;
 `;
 
-export { Container, Header, Wrapper, Input, Label, Button, InfoMessage };
+const ErrorMessage = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 460px;
+
+  border-radius: 3px;
+  background-color: #9c94d050;
+
+  color: #bb2649;
+  font-size: 1.1rem;
+
+  margin-bottom: 30px;
+`;
+
+export {
+  Container,
+  Header,
+  Wrapper,
+  Input,
+  Label,
+  Button,
+  InfoMessage,
+  ErrorMessage,
+};

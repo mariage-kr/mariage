@@ -17,6 +17,7 @@ import {
 function SignUp() {
   const navigate = useNavigate();
 
+  const [errorMessage, setErrorMessage] = useState('');
   const { value: name, setValue: setName } = useInput('');
   const { value: email, setValue: setEmail } = useInput('');
   const { value: password, setValue: setPassword } = useInput('');
@@ -24,6 +25,7 @@ function SignUp() {
   const { value: nickname, setValue: setNickname } = useInput('');
   const { value: birth, setValue: setBirth } = useInput('');
 
+  const [isValid, setIsValid] = useState(false);
   const [isValidName, setIsValidName] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
@@ -57,11 +59,13 @@ function SignUp() {
     console.log(baseURL);
     requestSignup({ name, email, password, nickname, birth })
       .then(() => {
-        console.log('su');
         navigate(BROWSER_PATH.LOGIN);
       })
       .catch(error => {
         console.error(error);
+        // TODO: 추후 서버에서 받아온 에러를 출력
+        setErrorMessage('에러입니다.');
+        setIsValid(true);
       });
   };
 
@@ -69,6 +73,7 @@ function SignUp() {
     <S.Container>
       <S.Header>회원가입</S.Header>
       <S.Wrapper>
+        {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>이름</S.Label>
         <S.Input
           type={'text'}
