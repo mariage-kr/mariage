@@ -16,4 +16,8 @@ public class Image {
 
     @Column(name = "image_name", nullable = false, unique = true)
     private String name;
+
+    public Image(String name) {
+        this.name = name;
+    }
 }
