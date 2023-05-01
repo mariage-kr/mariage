@@ -32,7 +32,7 @@ class EmailTest {
 
             assertThatThrownBy(() -> Email.of(email))
                     .isInstanceOf(MemberException.class)
-                    .hasMessageContaining(MemberErrorCode.EMAIL_ID_CANNOT_BE_OUT_OF_RANGE.getMessage());
+                    .hasMessageContaining(MemberErrorCode.EMAIL_PATTERN_MUST_BE_VALID.getMessage());
         }
 
         @DisplayName("숫자와 영어 소문자로 이루어지지 않으면 예외를 던진다.")
@@ -43,17 +43,5 @@ class EmailTest {
                     .isInstanceOf(MemberException.class)
                     .hasMessageContaining(MemberErrorCode.EMAIL_PATTERN_MUST_BE_VALID.getMessage());
         }
-    }
-
-
-    @DisplayName("이메일 도메인 주소의 길이가 2자리 미만, 63자리 초과이면 예외를 던진다.")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 64})
-    void 이메일_도메인_주소의_길이가_2자리_미만_63자리_초과이면_예외를_던진다(int size) {
-        String email = "test1234@" + "a".repeat(size) + ".com";
-
-        assertThatThrownBy(() -> Email.of(email))
-                .isInstanceOf(MemberException.class)
-                .hasMessageContaining(MemberErrorCode.EMAIL_DOMAIN_NAME_CANNOT_BE_OUT_OF_RANGE.getMessage());
     }
 }

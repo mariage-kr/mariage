@@ -3,6 +3,7 @@ package com.multi.mariage.member.service;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -19,9 +22,14 @@ class MemberServiceTest extends ServiceTest {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    private Member member;
+
     @BeforeEach
     void setUp() {
-        memberService.signup(MemberFixture.MARI.toSignupRequest());
+        member = memberService.signup(MemberFixture.MARI.toSignupRequest());
     }
 
     @DisplayName("회원 가입한다.")
@@ -42,5 +50,15 @@ class MemberServiceTest extends ServiceTest {
         assertThatThrownBy(() -> memberService.signup(request))
                 .isInstanceOf(MemberException.class)
                 .hasMessageContaining(MemberErrorCode.SIGNUP_INVALID_EMAIL.getMessage());
+    }
+
+    @DisplayName("회원 탈퇴한다.")
+    @Test
+    void 회원_탈퇴한다() {
+        memberService.withdrawal(member);
+
+        Optional<Member> actual = memberRepository.findById(member.getId());
+
+        assertThat(actual).isEmpty();
     }
 }

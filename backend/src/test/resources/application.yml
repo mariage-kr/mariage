@@ -8,3 +8,4 @@ spring:
     import:
       - security/application-openWeatherMap.yml
       - security/application-database.yml
+      - security/application-url.yml

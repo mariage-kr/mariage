@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,13 +42,8 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Gender gender;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
-    private boolean deleted;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Like> likes = new ArrayList<>();
@@ -59,13 +53,12 @@ public class Member {
     private Image image;
 
     @Builder
-    public Member(LocalDate birth, Email email, Name name, Nickname nickname, Password password, Gender gender) {
+    public Member(LocalDate birth, Email email, Name name, Nickname nickname, Password password) {
         this.birth = birth;
         this.email = email;
         this.name = name;
         this.nickname = nickname;
         this.password = password;
-        this.gender = gender;
         this.role = Role.ROLE_USER;
     }
 

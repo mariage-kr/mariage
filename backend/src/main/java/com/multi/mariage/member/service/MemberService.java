@@ -34,7 +34,6 @@ public class MemberService {
                 .password(Password.encrypt(request.getPassword(), passwordEncoder))
                 .nickname(Nickname.of(request.getNickname()))
                 .birth(request.getBirth())
-                .gender(request.getGender())
                 .build();
 
         return memberRepository.save(member);
@@ -44,5 +43,10 @@ public class MemberService {
         if (memberRepository.existsByEmail(email)) {
             throw new MemberException(MemberErrorCode.SIGNUP_INVALID_EMAIL);
         }
+    }
+
+    @Transactional
+    public void withdrawal(Member member) {
+        memberRepository.delete(member);
     }
 }

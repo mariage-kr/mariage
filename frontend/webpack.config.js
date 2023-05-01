@@ -5,6 +5,9 @@ const path = require('path');
 
 const webpack = require('webpack');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, './src/index.tsx'),
@@ -54,5 +57,8 @@ module.exports = {
       template: 'public/index.html',
     }),
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
+    }),
   ],
 };

@@ -21,6 +21,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     /* Database */
@@ -44,8 +45,6 @@ dependencies {
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     /* p6spy */
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-    /* RestAssured */
-    testImplementation 'io.rest-assured:rest-assured:5.3.0'
     /* Spring Rest Docs */
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
