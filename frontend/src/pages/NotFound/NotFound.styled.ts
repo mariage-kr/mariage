@@ -7,7 +7,7 @@ const Container = styled.div`
 const Text = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   font-size: 4vw;
   color: #bb2649;
   margin-bottom: 1.3889vw;
@@ -34,7 +34,7 @@ const Message = styled.div`
 const ButtonStyle = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -50,4 +50,13 @@ const LottieContainer = styled.div`
   top: 10%;
 `;
 
-export { Container, Text, Message, MessageContainer, ButtonStyle, ButtonText, Button, LottieContainer };
+export {
+  Container,
+  Text,
+  Message,
+  MessageContainer,
+  ButtonStyle,
+  ButtonText,
+  Button,
+  LottieContainer,
+};
