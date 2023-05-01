@@ -1,6 +1,8 @@
 package com.multi.mariage.storage.service;
 
 import com.multi.mariage.storage.domain.Image;
+import com.multi.mariage.storage.exception.StorageErrorCode;
+import com.multi.mariage.storage.exception.StorageException;
 import com.multi.mariage.storage.repository.StorageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,15 +26,30 @@ public class StorageService {
     private String fileDir;
 
     @Transactional
-    public Image save(MultipartFile file) throws IOException {
-        String originalFileName = file.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString();
-        String extension = Objects.requireNonNull(originalFileName)
-                .substring(originalFileName.lastIndexOf("."));
-        String savedFileName = uuid + extension;
-        Image image = new Image(savedFileName);
-
-        file.transferTo(new File(fileDir + savedFileName));
+    public Image save(MultipartFile file) {
+        String saveFileName = convertFileName(file.getOriginalFilename());
+        upload(file, saveFileName);
+        Image image = new Image(saveFileName);
         return storageRepository.save(image);
+    }
+
+    private String convertFileName(String originFileName) {
+        String uuid = UUID.randomUUID().toString();
+        String extension = "";
+        try {
+            extension = Objects.requireNonNull(originFileName)
+                    .substring(originFileName.lastIndexOf("."));
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new StorageException(StorageErrorCode.FILE_IS_NOT_EXIST);
+        }
+        return uuid + extension;
+    }
+
+    private void upload(MultipartFile file, String saveFileName) {
+        try {
+            file.transferTo(new File(fileDir + saveFileName));
+        } catch (IOException e) {
+            throw new StorageException(StorageErrorCode.FILE_UPLOAD_FAILED);
+        }
     }
 }

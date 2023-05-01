@@ -1,5 +1,7 @@
 package com.multi.mariage.storage.controller;
 
+import com.multi.mariage.storage.domain.Image;
+import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @RequestMapping("/api/images/auth")
 @RequiredArgsConstructor
 @RestController
@@ -19,8 +19,9 @@ public class StorageController {
     private final StorageService storageService;
 
     @PostMapping("/save")
-    public ResponseEntity<Void> save(@RequestParam MultipartFile file) throws IOException {
-        storageService.save(file);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ImageSavedResponse> save(@RequestParam MultipartFile file) {
+        Image savedImage = storageService.save(file);
+        ImageSavedResponse response = ImageSavedResponse.from(savedImage);
+        return ResponseEntity.ok(response);
     }
 }

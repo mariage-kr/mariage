@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -19,5 +22,13 @@ public class Image {
 
     public Image(String name) {
         this.name = name;
+    }
+
+    public static Image of(String fileName) {
+        String uuid = UUID.randomUUID().toString();
+        String extension = Objects.requireNonNull(fileName)
+                .substring(fileName.lastIndexOf("."));
+        String savedFileName = uuid + extension;
+        return new Image(savedFileName);
     }
 }
