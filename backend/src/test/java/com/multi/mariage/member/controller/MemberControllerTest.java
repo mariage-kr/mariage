@@ -32,8 +32,7 @@ class MemberControllerTest extends ControllerTest {
                                         PayloadDocumentation.fieldWithPath("email").description("회원 이메일"),
                                         PayloadDocumentation.fieldWithPath("password").description("회원 비밀번호"),
                                         PayloadDocumentation.fieldWithPath("nickname").description("회원 닉네임"),
-                                        PayloadDocumentation.fieldWithPath("birth").description("회원 생년월일"),
-                                        PayloadDocumentation.fieldWithPath("gender").description("회원 성별")
+                                        PayloadDocumentation.fieldWithPath("birth").description("회원 생년월일")
                                 )
                         )
                 )

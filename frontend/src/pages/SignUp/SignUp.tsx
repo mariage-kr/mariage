@@ -1,14 +1,27 @@
+import { requestSignup } from '../../apis/request/auth';
 import useInput from '../../hooks/useInput';
 
 import * as S from './SignUp.styled';
 
 function SignUp() {
-  const { value: name, setValue: setName } = useInput();
-  const { value: email, setValue: setEmail } = useInput();
-  const { value: password, setValue: setPassword } = useInput();
-  const { value: confirmPassword, setValue: setConfirmPassword } = useInput();
-  const { value: nickname, setValue: setNickname } = useInput();
-  const { value: birth, setValue: setBirth } = useInput();
+  const { value: name, setValue: setName } = useInput('');
+  const { value: email, setValue: setEmail } = useInput('');
+  const { value: password, setValue: setPassword } = useInput('');
+  const { value: confirmPassword, setValue: setConfirmPassword } = useInput('');
+  const { value: nickname, setValue: setNickname } = useInput('');
+  const { value: birth, setValue: setBirth } = useInput('');
+
+  const signup = () => {
+    const baseURL = process.env.BASE_URL;
+    console.log(baseURL);
+    requestSignup({ name, email, password, nickname, birth })
+      .then(() => {
+        console.log('su');
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <S.Container>
@@ -41,7 +54,9 @@ function SignUp() {
         />
         <S.Label>생년월일</S.Label>
         <S.Input type={'date'} value={birth} onChange={setBirth} required />
-        <S.Button>가입하기</S.Button>
+        <S.Button type={'submit'} onClick={signup}>
+          가입하기
+        </S.Button>
       </S.Wrapper>
     </S.Container>
   );

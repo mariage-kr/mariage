@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 
 const Input = styled.input`
   width: 460px;
-  height: 26px;
+  height: 42px;
 
   margin-bottom: 30px;
 
@@ -33,7 +33,7 @@ const Input = styled.input`
   outline: none;
 
   &:focus {
-    border-bottom: 1px solid #9c94d0;
+    border-bottom: 2px solid #9c94d0;
   }
 `;
 
@@ -50,7 +50,7 @@ const Button = styled.button`
 const Label = styled.label`
   display: block;
   margin-bottom: 5px;
-  font-size: 13px;
+  font-size: 14px;
 `;
 
 export { Container, Header, Wrapper, Input, Label, Button };

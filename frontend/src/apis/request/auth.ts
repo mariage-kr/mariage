@@ -3,7 +3,7 @@ import { SignupUser } from '../../types/user';
 import { axios } from '../axios';
 
 const requestSignup = (userData: SignupUser) => {
-  axios.post(API_PATH.AUTH.SIGNUP, userData);
+  return axios.post(API_PATH.AUTH.SIGNUP, userData);
 };
 
 export { requestSignup };

@@ -3,8 +3,9 @@ spring:
     import:
       - security/application-database.yml
       - security/application-openWeatherMap.yml
+      - security/application-url.yml
       - application-logging.yml
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
