@@ -1,5 +1,5 @@
 ./dist
 node_modules
 .DS_Store
-src/pages/Test
 .env
+**/Test

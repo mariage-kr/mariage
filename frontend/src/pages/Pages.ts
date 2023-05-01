@@ -7,5 +7,6 @@ const MyInformation = lazy(() => import('./MyInformation/MyInformation'));
 const NotFound = lazy(() => import('./NotFound/NotFound'));
 const Product = lazy(() => import('./Product/Product'));
 const SignUp = lazy(() => import('./SignUp/SignUp'));
+const Test = lazy(() => import('./Test/Test')); /* */
 
-export { Detail, Login, Main, MyInformation, NotFound, Product, SignUp };
+export { Detail, Login, Main, MyInformation, NotFound, Product, SignUp, Test };

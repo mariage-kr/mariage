@@ -6,6 +6,7 @@ import {
   NotFound,
   Product,
   SignUp,
+  Test /* prod 때는 삭제 */,
 } from '../pages/Pages';
 
 import { Route, Routes as BrowserRoutes } from 'react-router-dom';
@@ -21,6 +22,8 @@ function Routes() {
       <Route path={BROWSER_PATH.PRODUCT} element={<Product />} />
       <Route path={BROWSER_PATH.LOGIN} element={<Login />} />
       <Route path={BROWSER_PATH.SIGN_UP} element={<SignUp />} />
+      <Route path={BROWSER_PATH.TEST} element={<Test />} />
+      {/* prod 때는 삭제 */}
       <Route path={'*'} element={<NotFound />} />
     </BrowserRoutes>
   );

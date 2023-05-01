@@ -9,20 +9,21 @@ interface TextProps {
   children: React.ReactNode;
 }
 
+// TODO: 페이지 내에서 사용 시 스타일 수정
 const Button = styled.button<Props>`
   background: ${(props) => (props.liked ? '#bb2649' : 'white')};
   text-align: center;
-  padding: 12px 30px;
+  padding: 6px 15px;
   border-radius: 10px;
   border-style: none;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-  margin: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  margin: 5px;
 `;
 
 const Number = styled.span<TextProps>`
 color: ${(props) => (props.liked ? 'white' : 'black')};
-margin: 0 5px;
-font-size: 17px;
+margin-left: 5px;
+font-size: 14px;
 `;
 
 const Container = styled.div`
