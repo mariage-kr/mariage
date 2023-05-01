@@ -2,6 +2,7 @@ import {
   checkValidName,
   checkValidEmail,
   checkValidPassword,
+  checkValidNickname,
 } from './Validate';
 
 describe('회원가입 창의 입력값을 검증할 수 있다.', () => {
@@ -53,5 +54,21 @@ describe('회원가입 창의 입력값을 검증할 수 있다.', () => {
     expect(checkValidPassword(숫자_없음)).toBe(false);
     expect(checkValidPassword(영어_없음)).toBe(false);
     expect(checkValidPassword(특수문자_없음)).toBe(false);
+  });
+
+  it('입력한 닉네임이 적절하면 true를 반환한다.', () => {
+    const 닉네임 = '마리';
+
+    expect(checkValidNickname(닉네임)).toBe(true);
+  });
+
+  it('입력한 이메일이 적절하지 않으면 false를 반환한다.', () => {
+    const 특수문자_있음 = '마리!';
+    const 자음_있음 = 'ㅁ리';
+    const 모음_있음 = 'ㅏ리';
+
+    expect(checkValidNickname(특수문자_있음)).toBe(false);
+    expect(checkValidNickname(자음_있음)).toBe(false);
+    expect(checkValidNickname(모음_있음)).toBe(false);
   });
 });

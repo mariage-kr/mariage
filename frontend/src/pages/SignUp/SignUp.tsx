@@ -10,6 +10,7 @@ import { MEMBER_RULE } from '../../constants/rule';
 import {
   checkValidEmail,
   checkValidName,
+  checkValidNickname,
   checkValidPassword,
 } from './Validate';
 
@@ -42,6 +43,10 @@ function SignUp() {
   useEffect(() => {
     setIsValidEmail(!checkValidEmail(email));
   }, [email]);
+
+  useEffect(() => {
+    setIsValidNickname(!checkValidNickname(nickname));
+  }, [nickname]);
 
   useEffect(() => {
     setIsValidBirth(birth.length === 0);
@@ -114,7 +119,7 @@ function SignUp() {
         />
         <S.InfoMessage isValid={isValidNickname}>
           {MEMBER_RULE.NICKNAME.MIN_LENGTH} ~ {MEMBER_RULE.NICKNAME.MAX_LENGTH}
-          자 사이여야 합니다.
+          자 사이이며 영어, 한글, 숫자로 구성됩니다.
         </S.InfoMessage>
         <S.Label>생년월일</S.Label>
         <S.Input type={'date'} value={birth} onChange={setBirth} required />

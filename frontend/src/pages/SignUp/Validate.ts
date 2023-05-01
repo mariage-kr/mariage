@@ -11,6 +11,7 @@ const nameRegExp = `^[가-힣]{${MEMBER_RULE.NAME.MIN_LENGTH},${MEMBER_RULE.NAME
 const emailRegExp =
   "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])";
 const passwordRegExp = `^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{${MEMBER_RULE.PASSWORD.MIN_LENGTH},${MEMBER_RULE.PASSWORD.MAX_LENGTH}}$`;
+const nicknameRegExp = `^[a-zA-Z가-힣0-9]{${MEMBER_RULE.NICKNAME.MIN_LENGTH},${MEMBER_RULE.NICKNAME.MAX_LENGTH}}$`;
 
 const checkValidName = (name: string) => {
   const regex = new RegExp(nameRegExp);
@@ -30,4 +31,15 @@ const checkValidPassword = (password: string) => {
   return regex.test(password);
 };
 
-export { checkValidName, checkValidEmail, checkValidPassword };
+const checkValidNickname = (nickname: string) => {
+  const regex = new RegExp(nicknameRegExp);
+
+  return regex.test(nickname);
+};
+
+export {
+  checkValidName,
+  checkValidEmail,
+  checkValidPassword,
+  checkValidNickname,
+};
