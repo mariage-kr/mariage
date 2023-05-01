@@ -38,16 +38,13 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+  font-size: 20px;
+
   width: 460px;
   height: 52px;
 
-  border-radius: 5px;
-
   background-color: #9c94d0;
-  font-size: 20px;
   color: #f8f8f8;
-  outline: none;
-  border: 0;
 `;
 
 const Label = styled.label`

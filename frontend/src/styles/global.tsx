@@ -20,6 +20,11 @@ const style = () => css`
   }
 
   button {
+    border: none;
+    border-radius: 5px;
+
+    outline: none;
+
     cursor: pointer;
   }
 `;
