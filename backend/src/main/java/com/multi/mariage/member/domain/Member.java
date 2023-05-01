@@ -68,6 +68,11 @@ public class Member {
         this.image = image;
     }
 
+    /* 비즈니스 로직 */
+    public void changeDelete() {
+        this.deleted = !this.deleted;
+    }
+
     /* Embedded Getter */
     public String getEmail() {
         return email.getValue();
@@ -75,5 +80,9 @@ public class Member {
 
     public String getName() {
         return name.getValue();
+    }
+
+    public boolean getDeleted() {
+        return this.deleted;
     }
 }
