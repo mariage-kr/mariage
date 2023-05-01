@@ -19,7 +19,7 @@ class MemberControllerTest extends ControllerTest {
     void 사용자가_회원_가입한다() throws Exception {
         String content = objectMapper.writeValueAsString(MemberFixture.MARI.toSignupRequest());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/signup")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/members/signup")
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(MockMvcResultHandlers.print())

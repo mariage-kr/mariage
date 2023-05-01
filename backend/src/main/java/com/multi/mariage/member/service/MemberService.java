@@ -47,19 +47,6 @@ public class MemberService {
 
     @Transactional
     public void withdrawal(Member member) {
-        validateDeletedIsTure(member);
-
-        member.changeDelete();
-    }
-
-    private void validateDeletedIsTure(Member member) {
-        if (findById(member.getId()).getDeleted()) {
-            throw new MemberException(MemberErrorCode.MEMBER_IS_ALREADY_WITHDRAWAL);
-        }
-    }
-
-    private Member findById(Long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
+        memberRepository.delete(member);
     }
 }

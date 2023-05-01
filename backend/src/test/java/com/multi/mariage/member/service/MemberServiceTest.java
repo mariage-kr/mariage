@@ -3,6 +3,7 @@ package com.multi.mariage.member.service;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -18,6 +21,9 @@ class MemberServiceTest extends ServiceTest {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     private Member member;
 
@@ -51,16 +57,8 @@ class MemberServiceTest extends ServiceTest {
     void 회원_탈퇴한다() {
         memberService.withdrawal(member);
 
-        assertThat(member.getDeleted()).isTrue();
-    }
+        Optional<Member> actual = memberRepository.findById(member.getId());
 
-    @DisplayName("이미 탈퇴한 회원이면 예외를 던진다.")
-    @Test
-    void 이미_탈퇴한_회원이면_예외를_던진다() {
-        memberService.withdrawal(member);
-
-        assertThatThrownBy(() -> memberService.withdrawal(member))
-                .isInstanceOf(MemberException.class)
-                .hasMessageContaining(MemberErrorCode.MEMBER_IS_ALREADY_WITHDRAWAL.getMessage());
+        assertThat(actual).isEmpty();
     }
 }
