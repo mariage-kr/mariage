@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ReactComponent as EmptyStar } from '../../../assets/svg/star/rating0.svg';
-import { ReactComponent as HalfStar } from '../../../assets/svg/star/rating5.svg';
-import { ReactComponent as FullStar } from '../../../assets/svg/star/rating10.svg';
+import { ReactComponent as EmptyStar } from '../../../assets/svg/star/emptystar.svg';
+import { ReactComponent as FullStar } from '../../../assets/svg/star/fullstar.svg';
 import * as S from './StarRating.styled';
 
 interface RatingProps {
@@ -14,10 +13,8 @@ interface RatingProps {
     width?: number;
     height?: number;
     edit?: boolean;
-    isHalf?: boolean;
     onChange?: (value: number) => void;
     emptyIcon?: React.ReactElement;
-    halfIcon?: React.ReactElement;
     fullIcon?: React.ReactElement;
   }
   
@@ -31,10 +28,8 @@ interface RatingProps {
     width,
     height,
     edit = false,
-    isHalf = true,
     onChange,
     emptyIcon = <EmptyStar />,
-    halfIcon = <HalfStar />,
     fullIcon = <FullStar />
   }) => {
     const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
@@ -74,13 +69,11 @@ interface RatingProps {
     return color;
   };
 
-  const stars = [];
+  const starList = [];
 
   for (let i = 0; i < count; i++) {
     let star: React.ReactElement;
-    if (isHalf && value - i > 0 && value - i < 1) {
-      star = halfIcon;
-    } else if (i < value) {
+    if (i < value) {
       star = fullIcon;
     } else {
       star = emptyIcon;
@@ -92,7 +85,7 @@ interface RatingProps {
       }
     }
 
-    stars.push(
+    starList.push(
       <S.StarStyle
         key={i}
         onMouseMove={() => handleMouseMove(i)}
@@ -106,6 +99,6 @@ interface RatingProps {
     );
   }
 
-  return <S.Container className={`rating ${className}`}>{stars}</S.Container>;
+  return <S.Container className={`rating ${className}`}>{starList}</S.Container>;
 };
   export default StarRate;

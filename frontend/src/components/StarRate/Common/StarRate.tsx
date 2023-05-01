@@ -12,11 +12,9 @@ const StarRate=() => {
           edit={true}
           onChange={(value) => setRating(value)}
         />
-        <p>
             {/* TODO: 페이지에 맞게 스타일 변경 */}
           <b>별점: </b>
           <span>{rating}</span>점
-        </p>
         </div>
     );
   };
