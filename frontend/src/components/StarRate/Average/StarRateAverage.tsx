@@ -3,21 +3,21 @@ import * as S from './StarRateAverage.styled';
 
   function StarRateAverage() {
     // TODO: 더미데이터
-    const averageRate = 3.3;  
+    const averageRate = 3.6;  
     const starIdList = ['1', '2', '3', '4', '5'];
     const [starRateList, setStarRateList] = useState([0, 0, 0, 0, 0]);
 
     const calculateStarRate = () => {
-        let starIdInitList = [0, 0, 0, 0, 0];
+        let ratioStarList = [0, 0, 0, 0, 0];
         let scoreSet = averageRate*20;
         let index = 0;
         while (scoreSet > 20) {
-            starIdInitList[index] = 20;
+            ratioStarList[index] = 20;
             index += 1;
             scoreSet -= 20;
         }
-        starIdInitList[index] = scoreSet;
-        return starIdInitList;
+        ratioStarList[index] = scoreSet;
+        return ratioStarList;
     };
 
     useEffect(() => {
