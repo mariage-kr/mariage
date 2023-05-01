@@ -19,9 +19,11 @@ class MemberServiceTest extends ServiceTest {
     @Autowired
     private MemberService memberService;
 
+    private Member member;
+
     @BeforeEach
     void setUp() {
-        memberService.signup(MemberFixture.MARI.toSignupRequest());
+        member = memberService.signup(MemberFixture.MARI.toSignupRequest());
     }
 
     @DisplayName("회원 가입한다.")
@@ -42,5 +44,23 @@ class MemberServiceTest extends ServiceTest {
         assertThatThrownBy(() -> memberService.signup(request))
                 .isInstanceOf(MemberException.class)
                 .hasMessageContaining(MemberErrorCode.SIGNUP_INVALID_EMAIL.getMessage());
+    }
+
+    @DisplayName("회원 탈퇴한다.")
+    @Test
+    void 회원_탈퇴한다() {
+        memberService.withdrawal(member);
+
+        assertThat(member.getDeleted()).isTrue();
+    }
+
+    @DisplayName("이미 탈퇴한 회원이면 예외를 던진다.")
+    @Test
+    void 이미_탈퇴한_회원이면_예외를_던진다() {
+        memberService.withdrawal(member);
+
+        assertThatThrownBy(() -> memberService.withdrawal(member))
+                .isInstanceOf(MemberException.class)
+                .hasMessageContaining(MemberErrorCode.MEMBER_IS_ALREADY_WITHDRAWAL.getMessage());
     }
 }
