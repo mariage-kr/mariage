@@ -34,7 +34,6 @@ public class MemberService {
                 .password(Password.encrypt(request.getPassword(), passwordEncoder))
                 .nickname(Nickname.of(request.getNickname()))
                 .birth(request.getBirth())
-                .gender(request.getGender())
                 .build();
 
         return memberRepository.save(member);

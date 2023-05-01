@@ -1,3 +1,9 @@
+const API_PATH = {
+  AUTH: {
+    SIGNUP: '/api/signup',
+  },
+};
+
 const BROWSER_PATH = {
   BASE: '/',
   DETAIL: '/detail',
@@ -8,4 +14,4 @@ const BROWSER_PATH = {
   TEST: '/test' /* prod 때는 삭제 */,
 };
 
-export { BROWSER_PATH };
+export { API_PATH, BROWSER_PATH };
