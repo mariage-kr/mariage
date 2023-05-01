@@ -7,7 +7,11 @@ import * as S from './SignUp.styled';
 import { BROWSER_PATH } from '../../constants/path';
 import { useEffect, useState } from 'react';
 import { MEMBER_RULE } from '../../constants/rule';
-import { checkValidName, checkValidPassword } from './Validate';
+import {
+  checkValidEmail,
+  checkValidName,
+  checkValidPassword,
+} from './Validate';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -34,6 +38,10 @@ function SignUp() {
     setIsValidPassword(!checkValidPassword(password));
     setIsValidConfirmPassword(password !== confirmPassword);
   }, [password, confirmPassword]);
+
+  useEffect(() => {
+    setIsValidEmail(!checkValidEmail(email));
+  }, [email]);
 
   useEffect(() => {
     setIsValidBirth(birth.length === 0);

@@ -1,4 +1,8 @@
-import { checkValidName, checkValidPassword } from './Validate';
+import {
+  checkValidName,
+  checkValidEmail,
+  checkValidPassword,
+} from './Validate';
 
 describe('회원가입 창의 입력값을 검증할 수 있다.', () => {
   it('입력한 이름이 적절하면 true를 반환한다.', () => {
@@ -15,6 +19,20 @@ describe('회원가입 창의 입력값을 검증할 수 있다.', () => {
     expect(checkValidName(짧은_이름)).toBe(false);
     expect(checkValidName(긴_이름)).toBe(false);
     expect(checkValidName(한글이_아님)).toBe(false);
+  });
+
+  it('입력한 이메일이 적절하면 true를 반환한다.', () => {
+    const 이메일 = 'mari1234@gmail.com';
+
+    expect(checkValidEmail(이메일)).toBe(true);
+  });
+
+  it('입력한 이메일이 적절하지 않으면 false를 반환한다.', () => {
+    const 아이디_없음 = '@gmail.com';
+    const 도메인주소_없음 = 'mari1234@';
+
+    expect(checkValidEmail(아이디_없음)).toBe(false);
+    expect(checkValidEmail(도메인주소_없음)).toBe(false);
   });
 
   it('입력한 패스워드가 적절하면 true를 반환한다.', () => {
