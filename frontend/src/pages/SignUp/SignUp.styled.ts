@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type InfoMessageProps = {
+  isValid?: boolean;
+};
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -24,7 +28,7 @@ const Input = styled.input`
   width: 460px;
   height: 42px;
 
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 
   border: 0;
   border-bottom: 1px solid;
@@ -33,7 +37,8 @@ const Input = styled.input`
   outline: none;
 
   &:focus {
-    border-bottom: 2px solid #9c94d0;
+    border: 2px solid #9c94d0;
+    border-radius: 5px;
   }
 `;
 
@@ -53,4 +58,37 @@ const Label = styled.label`
   font-size: 14px;
 `;
 
-export { Container, Header, Wrapper, Input, Label, Button };
+const InfoMessage = styled.span<InfoMessageProps>`
+  color: #bb2649;
+  visibility: ${({ isValid }) => (isValid ? 'none' : 'hidden')};
+  font-size: 0.7rem;
+  margin-bottom: 15px;
+`;
+
+const ErrorMessage = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 460px;
+
+  border-radius: 3px;
+  background-color: #9c94d050;
+
+  color: #bb2649;
+  font-size: 1.1rem;
+
+  margin-bottom: 30px;
+`;
+
+export {
+  Container,
+  Header,
+  Wrapper,
+  Input,
+  Label,
+  Button,
+  InfoMessage,
+  ErrorMessage,
+};
