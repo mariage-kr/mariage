@@ -7,7 +7,7 @@ import * as S from './SignUp.styled';
 import { BROWSER_PATH } from '../../constants/path';
 import { useEffect, useState } from 'react';
 import { MEMBER_RULE } from '../../constants/rule';
-import { checkValidPassword } from './Validate';
+import { checkValidName, checkValidPassword } from './Validate';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -27,14 +27,11 @@ function SignUp() {
   const [isValidBirth, setIsValidBirth] = useState(true);
 
   useEffect(() => {
-    setIsValidName(name.length < MEMBER_RULE.NAME.MIN_LENGTH);
+    setIsValidName(!checkValidName(name));
   }, [name]);
 
   useEffect(() => {
-    setIsValidPassword(
-      password.length < MEMBER_RULE.PASSWORD.MIN_LENGTH ||
-        checkValidPassword(password),
-    );
+    setIsValidPassword(!checkValidPassword(password));
     setIsValidConfirmPassword(password !== confirmPassword);
   }, [password, confirmPassword]);
 
@@ -68,8 +65,8 @@ function SignUp() {
           required
         />
         <S.InfoMessage isValid={isValidName}>
-          {MEMBER_RULE.NAME.MIN_LENGTH} ~ {MEMBER_RULE.NAME.MAX_LENGTH}자
-          사이여야 합니다.
+          {MEMBER_RULE.NAME.MIN_LENGTH} ~ {MEMBER_RULE.NAME.MAX_LENGTH}자의
+          한글로 이루어져야 합니다.
         </S.InfoMessage>
         <S.Label>이메일</S.Label>
         <S.Input type={'text'} value={email} onChange={setEmail} required />
