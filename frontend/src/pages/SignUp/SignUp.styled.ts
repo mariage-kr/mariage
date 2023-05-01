@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type InfoMessageProps = {
+  isValid?: boolean;
+};
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -24,7 +28,7 @@ const Input = styled.input`
   width: 460px;
   height: 42px;
 
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 
   border: 0;
   border-bottom: 1px solid;
@@ -53,4 +57,11 @@ const Label = styled.label`
   font-size: 14px;
 `;
 
-export { Container, Header, Wrapper, Input, Label, Button };
+const InfoMessage = styled.span<InfoMessageProps>`
+  color: red;
+  visibility: ${({ isValid }) => (isValid ? 'none' : 'hidden')};
+  font-size: 0.7rem;
+  margin-bottom: 15px;
+`;
+
+export { Container, Header, Wrapper, Input, Label, Button, InfoMessage };
