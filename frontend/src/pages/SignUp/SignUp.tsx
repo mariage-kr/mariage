@@ -7,6 +7,7 @@ import * as S from './SignUp.styled';
 import { BROWSER_PATH } from '../../constants/path';
 import { useEffect, useState } from 'react';
 import { MEMBER_RULE } from '../../constants/rule';
+import { checkValidPassword } from './Validate';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -30,10 +31,10 @@ function SignUp() {
   }, [name]);
 
   useEffect(() => {
-    setIsValidPassword(password.length < MEMBER_RULE.PASSWORD.MIN_LENGTH);
-  }, [password]);
-
-  useEffect(() => {
+    setIsValidPassword(
+      password.length < MEMBER_RULE.PASSWORD.MIN_LENGTH ||
+        checkValidPassword(password),
+    );
     setIsValidConfirmPassword(password !== confirmPassword);
   }, [password, confirmPassword]);
 
