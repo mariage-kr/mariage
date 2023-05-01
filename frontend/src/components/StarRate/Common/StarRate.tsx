@@ -1,12 +1,12 @@
 import React from "react";
-import StarRateMethod from "./StarRateMethod";
+import StarRating from "./StarRating";
 
 const StarRate=() => {
     const [rating, setRating] = React.useState(0);
   
     return (
         <div> 
-    <StarRateMethod
+    <StarRating
           count={5}
           value={rating}
           edit={true}
