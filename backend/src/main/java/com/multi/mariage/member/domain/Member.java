@@ -44,7 +44,6 @@ public class Member {
     @Column(nullable = false)
     private Role role;
 
-    private boolean deleted;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Like> likes = new ArrayList<>();

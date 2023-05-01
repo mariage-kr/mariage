@@ -44,4 +44,9 @@ public class MemberService {
             throw new MemberException(MemberErrorCode.SIGNUP_INVALID_EMAIL);
         }
     }
+
+    @Transactional
+    public void withdrawal(Member member) {
+        memberRepository.delete(member);
+    }
 }

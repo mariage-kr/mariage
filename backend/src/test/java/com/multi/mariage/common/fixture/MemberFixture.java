@@ -6,23 +6,23 @@ import com.multi.mariage.member.domain.embedded.Name;
 import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
-import groovy.transform.builder.Builder;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public enum MemberFixture {
     MARI("마리", "mari2023@gmail.com", "mari23!@", "마리", LocalDate.of(1990, 1, 1)),
     SURI("수리", "suri2023@gmail.com", "suri23!@", "수리", LocalDate.of(1991, 12, 31));
 
-    private final String name;
-    private final String email;
-    private final String password;
-    private final String nickname;
-    private final LocalDate birth;
+    private String name;
+    private String email;
+    private String password;
+    private String nickname;
+    private LocalDate birth;
 
-
-    @Builder
     MemberFixture(String name, String email, String password, String nickname, LocalDate birth) {
         this.name = name;
         this.email = email;
