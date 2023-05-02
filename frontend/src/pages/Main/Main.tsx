@@ -1,7 +1,12 @@
+import Visual from './Visual/Visual';
+import * as S from './Main.styled';
+
 function Main() {
   return (
     <>
-      <h1>메인 페이지</h1>
+      <S.Header>header</S.Header>
+      <Visual/>
+      <S.Recommend></S.Recommend>
     </>
   );
 }
