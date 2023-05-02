@@ -27,7 +27,7 @@ const Thumb = styled.input`
   }
 
   &::-webkit-slider-thumb {
-    background-color: #BB2649;
+    background-color: #bb2649;
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
@@ -40,7 +40,7 @@ const Thumb = styled.input`
   }
 
   &::-moz-range-thumb {
-    background-color: #BB2649;
+    background-color: #bb2649;
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
@@ -67,19 +67,19 @@ const Slider = styled.div`
   // border: 1px solid blue;
   position: relative;
   width: 21vw;
-  height: 100%
+  height: 100%;
 `;
 
 const Slider_sub = styled.div`
   position: absolute;
 
   &:nth-of-type(1) {
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     width: 100%;
     z-index: 1;
   }
   &:nth-of-type(2) {
-    background-color: #BB2649;
+    background-color: #bb2649;
     z-index: 2;
   }
   &:nth-of-type(3) {
@@ -99,9 +99,8 @@ const slider_sub12 = css`
 const slider_sub34 = css`
   color: #000000;
   font-size: 1.1rem;
-  margin-top:2.2vh;
+  margin-top: 2.2vh;
 `;
-
 
 export {
   Container,
@@ -112,5 +111,5 @@ export {
   Slider,
   Slider_sub,
   slider_sub12,
-  slider_sub34
-}
+  slider_sub34,
+};

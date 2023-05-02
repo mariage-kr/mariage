@@ -7,6 +7,6 @@ const MyInformation = lazy(() => import('./MyInformation/MyInformation'));
 const NotFound = lazy(() => import('./NotFound/NotFound'));
 const Product = lazy(() => import('./Product/Product'));
 const SignUp = lazy(() => import('./SignUp/SignUp'));
-const Test = lazy(() => import('./Test/Test')); /* */
+const Test = lazy(() => import('./Test/Test')); /* TODO: 개발때만 사용 */
 
 export { Detail, Login, Main, MyInformation, NotFound, Product, SignUp, Test };

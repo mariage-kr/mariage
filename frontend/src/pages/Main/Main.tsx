@@ -1,5 +1,3 @@
-import LikeButton from '../../components/Button/Like/Like';
-
 function Main() {
   return (
     <>

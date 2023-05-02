@@ -1,18 +1,18 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { requestSignup } from '../../apis/request/auth';
-import useInput from '../../hooks/useInput';
-
-import * as S from './SignUp.styled';
-import { BROWSER_PATH } from '../../constants/path';
-import { useEffect, useState } from 'react';
-import { MEMBER_RULE } from '../../constants/rule';
+import { requestSignup } from '@/apis/request/auth';
+import useInput from '@/hooks/useInput';
+import { BROWSER_PATH } from '@/constants/path';
+import { MEMBER_RULE } from '@/constants/rule';
 import {
   checkValidEmail,
   checkValidName,
   checkValidNickname,
   checkValidPassword,
 } from './Validate';
+
+import * as S from './SignUp.styled';
 
 function SignUp() {
   const navigate = useNavigate();

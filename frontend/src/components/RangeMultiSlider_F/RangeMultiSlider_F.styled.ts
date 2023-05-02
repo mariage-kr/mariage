@@ -28,7 +28,7 @@ const Thumb = styled.input`
   }
 
   &::-webkit-slider-thumb {
-    background-color: #BB2649;
+    background-color: #bb2649;
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
@@ -41,7 +41,7 @@ const Thumb = styled.input`
   }
 
   &::-moz-range-thumb {
-    background-color: #BB2649;
+    background-color: #bb2649;
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
@@ -73,14 +73,14 @@ const Slider_sub = styled.div`
   position: absolute;
 
   &:nth-of-type(1) {
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     // border: 1px solid #000000;
     width: 100%;
     height: 1.5vh;
     z-index: 1;
   }
   &:nth-of-type(2) {
-    background-color: #BB2649;
+    background-color: #bb2649;
     width: 100%;
     height: 1.5vh;
     z-index: 2;
@@ -104,7 +104,6 @@ const slider_sub34 = css`
   margin-top: 15px;
 `;
 
-
 export {
   Container,
   Thumb,
@@ -114,5 +113,5 @@ export {
   Slider,
   Slider_sub,
   slider_sub12,
-  slider_sub34
-}
+  slider_sub34,
+};
