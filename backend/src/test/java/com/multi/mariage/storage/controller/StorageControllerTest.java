@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.operation.preprocess.Preprocessors;
+import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -24,7 +26,13 @@ class StorageControllerTest extends ControllerTest {
                 .andDo(
                         MockMvcRestDocumentation.document("ImageUpload",
                                 Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
-                                Preprocessors.preprocessResponse(Preprocessors.prettyPrint()))
+                                Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                                RequestDocumentation.requestParts(
+                                        RequestDocumentation.partWithName("file").description("업로드를 원하는 이미지")),
+                                PayloadDocumentation.responseFields(
+                                        PayloadDocumentation.fieldWithPath("imageId").description("이미지 식별자")
+                                )
+                        )
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
