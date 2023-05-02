@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react';
 
-import wine from '../../assets/lottie/wine.json';
+import wine from '@/assets/lottie/wine.json';
 
 const style = {
   width: '50%',

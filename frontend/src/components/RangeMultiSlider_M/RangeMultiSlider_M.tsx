@@ -9,14 +9,17 @@ import {
 
 import * as S from './RangeMultiSlider_M.styled';
 
-
 interface rangeMultiSliderProps {
   min: number;
   max: number;
   onChange: Function;
 }
 
-const RangeMultiSlider_M: FC<rangeMultiSliderProps> = ({ min, max, onChange }) => {
+const RangeMultiSlider_M: FC<rangeMultiSliderProps> = ({
+  min,
+  max,
+  onChange,
+}) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);

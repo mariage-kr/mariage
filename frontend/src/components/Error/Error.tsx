@@ -1,4 +1,4 @@
-import { Soju } from '../Animation';
+import { Soju } from '@/components/Animation';
 import * as S from './Error.styled';
 
 function Error() {

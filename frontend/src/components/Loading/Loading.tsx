@@ -1,4 +1,4 @@
-import { Wine } from '../Animation';
+import { Wine } from '@/components/Animation';
 
 import * as S from './Loading.styled';
 

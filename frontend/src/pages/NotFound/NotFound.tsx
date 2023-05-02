@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import Error from '../../components/Error/Error';
-import { BROWSER_PATH } from '../../constants/path';
-import { ERROR_MESSAGE } from '../../constants/message';
+
+import Error from '@/components/Error/Error';
+
+import { ReactComponent as Back } from '@/assets/svg/back.svg';
+import { ReactComponent as Home } from '@/assets/svg/home.svg';
+import { BROWSER_PATH } from '@/constants/path';
+import { ERROR_MESSAGE } from '@/constants/message';
+
 import * as S from './NotFound.styled';
-import { ReactComponent as Back } from '../../assets/svg/back.svg';
-import { ReactComponent as Home } from '../../assets/svg/home.svg';
 
 function NotFound() {
   const navigate = useNavigate();
