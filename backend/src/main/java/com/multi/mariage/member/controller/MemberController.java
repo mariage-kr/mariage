@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/api/members")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/signup")
+    @PostMapping("/members/signup")
     public ResponseEntity<Void> signup(@RequestBody MemberSignupRequest request) {
         memberService.signup(request);
         return ResponseEntity.ok().build();
