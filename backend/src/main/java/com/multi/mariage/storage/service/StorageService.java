@@ -1,6 +1,7 @@
 package com.multi.mariage.storage.service;
 
 import com.multi.mariage.storage.domain.Image;
+import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.exception.StorageErrorCode;
 import com.multi.mariage.storage.exception.StorageException;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -26,11 +27,11 @@ public class StorageService {
     private String fileDir;
 
     @Transactional
-    public Image save(MultipartFile file) {
+    public ImageSavedResponse save(MultipartFile file) {
         String saveFileName = convertFileName(file.getOriginalFilename());
         upload(file, saveFileName);
-        Image image = new Image(saveFileName);
-        return storageRepository.save(image);
+        Image image = storageRepository.save(new Image(saveFileName));
+        return ImageSavedResponse.from(image);
     }
 
     private String convertFileName(String originFileName) {

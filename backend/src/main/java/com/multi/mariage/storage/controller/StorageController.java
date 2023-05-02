@@ -1,9 +1,9 @@
 package com.multi.mariage.storage.controller;
 
-import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,9 @@ public class StorageController {
 
     private final StorageService storageService;
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<ImageSavedResponse> save(@RequestParam MultipartFile file) {
-        Image savedImage = storageService.save(file);
-        ImageSavedResponse response = ImageSavedResponse.from(savedImage);
-        return ResponseEntity.ok(response);
+        ImageSavedResponse response = storageService.save(file);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
