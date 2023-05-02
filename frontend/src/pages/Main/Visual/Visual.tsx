@@ -6,17 +6,17 @@ function Visual() {
     {
       id: "1",
       name: "MainVisual01",
-      image: "https://i.postimg.cc/V6fN2RTT/mainvisual01.png"
+      image: "https://i.esdrop.com/d/f/CeyD9bnnT5/PItXU6Nn1X.png"
     },
     {
       id: "2",
       name: "MainVisual02",
-      image: "https://i.postimg.cc/3RZ52Fb8/mainvisual02.png"
+      image: "https://i.esdrop.com/d/f/CeyD9bnnT5/8rCLNMz12n.png"
     },
     {
       id: "3",
       name: "MainVisual03",
-      image: "https://i.postimg.cc/J02pVs2V/mainvisual03.jpg"
+      image: "https://i.esdrop.com/d/f/CeyD9bnnT5/jQZt5G2dpE.jpg"
     }
   ];
  

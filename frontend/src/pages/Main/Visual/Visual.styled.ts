@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 
 const Visual = styled.div`
   /* border: 1px solid red; */
