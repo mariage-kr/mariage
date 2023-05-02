@@ -6,7 +6,6 @@ import com.multi.mariage.auth.exception.AuthException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Component
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
@@ -38,14 +36,12 @@ public class TokenProvider {
     }
 
     public TokenResponse generateTokenResponse(Authentication auth) {
-        log.trace("generateTokenResponse Start");
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = (new Date().getTime());
 
-        log.trace("AccessToken Builder Start");
         String accessToken = Jwts.builder()
                 .setSubject(auth.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -53,13 +49,11 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
-        log.trace("RefreshToken Builder Start");
         String refreshToken = Jwts.builder()
                 .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
-        log.trace("generateTokenResponse End");
         return TokenResponse.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)

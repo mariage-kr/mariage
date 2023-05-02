@@ -3,6 +3,7 @@ package com.multi.mariage.auth.controller;
 import com.multi.mariage.auth.annotation.Authenticated;
 import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.auth.dto.request.LoginRequest;
+import com.multi.mariage.auth.dto.request.ReissueRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
 import com.multi.mariage.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,11 @@ public class AuthController {
     public ResponseEntity<Void> logout(@Authenticated AuthMember authMember) {
         authService.logout(authMember);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/auth/reissue")
+    public ResponseEntity<TokenResponse> reissue(@RequestBody ReissueRequest request) {
+        TokenResponse response = authService.reissue(request);
+        return ResponseEntity.ok(response);
     }
 }
