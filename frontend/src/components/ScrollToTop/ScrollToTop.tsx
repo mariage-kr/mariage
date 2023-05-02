@@ -21,10 +21,17 @@ function ScrollToTop() {
     };
   });
 
+  const toTop = () => {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <S.Container>
       {isShow && (
-        <S.Button>
+        <S.Button onClick={toTop}>
           <ScrollTop />
         </S.Button>
       )}
