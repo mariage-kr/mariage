@@ -8,6 +8,7 @@ import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
