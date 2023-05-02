@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-text-align: center;
-display: flex;
-align-items: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
 `;
 
 const StarStyle = styled.div`
-cursor: pointer; 
+  cursor: pointer;
 `;
 
 export { Container, StarStyle };
