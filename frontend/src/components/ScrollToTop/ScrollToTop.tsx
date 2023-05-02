@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import * as S from './ScrollToTop.styled';
+import { ScrollTop } from '../Animation';
 
 function ScrollToTop() {
   const [isShow, setIsShow] = useState(false);
@@ -15,9 +16,20 @@ function ScrollToTop() {
     };
 
     window.addEventListener('scroll', handleShowButton);
+    return () => {
+      window.removeEventListener('scroll', handleShowButton);
+    };
   });
 
-  return <S.Container>{isShow && <S.Button />}</S.Container>;
+  return (
+    <S.Container>
+      {isShow && (
+        <S.Button>
+          <ScrollTop />
+        </S.Button>
+      )}
+    </S.Container>
+  );
 }
 
 export default ScrollToTop;
