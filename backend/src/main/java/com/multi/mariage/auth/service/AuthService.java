@@ -2,8 +2,12 @@ package com.multi.mariage.auth.service;
 
 import com.multi.mariage.auth.domain.AuthRepository;
 import com.multi.mariage.auth.domain.RefreshToken;
+import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.auth.dto.request.LoginRequest;
+import com.multi.mariage.auth.dto.request.ReissueRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
+import com.multi.mariage.auth.exception.AuthErrorCode;
+import com.multi.mariage.auth.exception.AuthException;
 import com.multi.mariage.auth.support.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,6 +41,37 @@ public class AuthService {
                 .build();
 
         authRepository.save(token);
+
+        return response;
+    }
+
+    public void logout(AuthMember authMember) {
+        authRepository.deleteById(authMember.getId());
+    }
+
+    public TokenResponse reissue(ReissueRequest request) {
+        if (!tokenProvider.validateToken(request.getRefreshToken())) {
+            throw new AuthException(AuthErrorCode.REFRESH_TOKEN_MUST_BE_VALID);
+        }
+
+        Authentication authentication = tokenProvider.getAuthentication(request.getAccessToken());
+
+        Long id = Long.valueOf(authentication.getName());
+        RefreshToken refreshToken = authRepository.findById(id)
+                .orElseThrow(() -> new AuthException(AuthErrorCode.MEMBER_IS_ALREADY_LOGOUT));
+
+        if (!refreshToken.getValue().equals(request.getRefreshToken())) {
+            throw new AuthException(AuthErrorCode.TOKEN_MEMBER_INFORMATION_IS_NOT_SAME);
+        }
+
+        TokenResponse response = tokenProvider.generateTokenResponse(authentication);
+
+        RefreshToken newRefreshToken = RefreshToken.builder()
+                .id(id)
+                .value(response.getRefreshToken())
+                .build();
+
+        authRepository.save(newRefreshToken);
 
         return response;
     }
