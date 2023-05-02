@@ -1,9 +1,12 @@
 package com.multi.mariage.auth.support;
 
 import com.multi.mariage.auth.dto.response.TokenResponse;
+import com.multi.mariage.auth.exception.AuthErrorCode;
+import com.multi.mariage.auth.exception.AuthException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,9 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * JWT 토큰에 관련된 암호화, 복호화, 검증 로직이 이루어지는 곳
- */
+@Slf4j
 @Component
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
@@ -37,12 +38,14 @@ public class TokenProvider {
     }
 
     public TokenResponse generateTokenResponse(Authentication auth) {
+        log.trace("generateTokenResponse Start");
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = (new Date().getTime());
 
+        log.trace("AccessToken Builder Start");
         String accessToken = Jwts.builder()
                 .setSubject(auth.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -50,11 +53,13 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
+        log.trace("RefreshToken Builder Start");
         String refreshToken = Jwts.builder()
                 .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
+        log.trace("generateTokenResponse End");
         return TokenResponse.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
@@ -67,7 +72,7 @@ public class TokenProvider {
         Claims claims = paresClaims(accessToken);
 
         if (claims.get(AUTHORITIES_KEY) == null) {
-            throw new RuntimeException("");
+            throw new AuthException(AuthErrorCode.TOKEN_WITHOUT_AUTHORIZATION_INFORMATION);
         }
 
         List<SimpleGrantedAuthority> authorities = Arrays.stream(
@@ -87,13 +92,13 @@ public class TokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            throw new RuntimeException();
+            throw new AuthException(AuthErrorCode.JWT_SIGNATURE_MUST_BE_VALID);
         } catch (ExpiredJwtException e) {
-            throw new RuntimeException();
+            throw new AuthException(AuthErrorCode.JWT_MUST_BE_NOT_EXPIRED);
         } catch (UnsupportedJwtException e) {
-            throw new RuntimeException();
+            throw new AuthException(AuthErrorCode.JWT_NOT_SUPPORT);
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException();
+            throw new AuthException(AuthErrorCode.JWT_BE_MUST_VALID);
         }
     }
 

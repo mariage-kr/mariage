@@ -4,6 +4,7 @@ import com.multi.mariage.auth.support.JwtAccessDeniedHandler;
 import com.multi.mariage.auth.support.JwtAuthenticationEntryPoint;
 import com.multi.mariage.auth.support.JwtSecurityConfig;
 import com.multi.mariage.auth.support.TokenProvider;
+import com.multi.mariage.member.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +33,8 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)  // 401
-                .accessDeniedHandler(jwtAccessDeniedHandler)            // 403
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 .and()
                 .headers()
@@ -46,6 +47,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
+                .requestMatchers("/api/user/**").authenticated()
                 .anyRequest().permitAll()
 
                 .and()

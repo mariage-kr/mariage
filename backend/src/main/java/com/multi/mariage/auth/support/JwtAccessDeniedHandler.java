@@ -1,5 +1,7 @@
 package com.multi.mariage.auth.support;
 
+import com.multi.mariage.auth.exception.AuthErrorCode;
+import com.multi.mariage.auth.exception.AuthException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,6 +15,6 @@ import java.io.IOException;
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        throw new RuntimeException();
+        throw new AuthException(AuthErrorCode.AUTH_PERMISSION_TO_ACCESS_THE_REQUEST_ROLE);
     }
 }

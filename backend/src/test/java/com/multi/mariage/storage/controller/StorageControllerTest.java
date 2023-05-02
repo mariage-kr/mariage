@@ -20,7 +20,7 @@ class StorageControllerTest extends ControllerTest {
     @DisplayName("이미지를 저장한다.")
     @Test
     void 이미지를_저장한다() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.multipart("/api/images/auth")
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/image")
                         .file(IMAGE))
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(

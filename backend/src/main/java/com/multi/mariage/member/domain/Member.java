@@ -59,7 +59,7 @@ public class Member {
         this.name = name;
         this.nickname = nickname;
         this.password = password;
-        this.role = Role.ROLE_USER;
+        this.role = Role.USER;
     }
 
     /* 연관관계 편의 메서드 */
@@ -74,5 +74,9 @@ public class Member {
 
     public String getName() {
         return name.getValue();
+    }
+
+    public String getPassword() {
+        return password.getValue();
     }
 }
