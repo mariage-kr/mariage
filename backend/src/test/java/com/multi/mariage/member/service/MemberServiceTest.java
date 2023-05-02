@@ -1,5 +1,6 @@
 package com.multi.mariage.member.service;
 
+import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
@@ -55,7 +56,7 @@ class MemberServiceTest extends ServiceTest {
     @DisplayName("회원 탈퇴한다.")
     @Test
     void 회원_탈퇴한다() {
-        memberService.withdrawal(member);
+        memberService.withdrawal(new AuthMember(member.getId()));
 
         Optional<Member> actual = memberRepository.findById(member.getId());
 
