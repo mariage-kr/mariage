@@ -8,13 +8,17 @@ import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
-import org.springframework.restdocs.operation.preprocess.Preprocessors;
-import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.restdocs.request.RequestDocumentation;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class StorageControllerTest extends ControllerTest {
 
@@ -26,23 +30,22 @@ class StorageControllerTest extends ControllerTest {
         saveMember();
         String accessToken = accessToken();
 
-        mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/image")
+        mockMvc.perform(multipart("/api/user/image")
                         .file(IMAGE)
                         .header("Authorization", "Bearer " + accessToken)
                 )
-                .andDo(MockMvcResultHandlers.print())
+                .andDo(print())
                 .andDo(
-                        MockMvcRestDocumentation.document("ImageUpload",
-                                Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
-                                Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
-                                RequestDocumentation.requestParts(
-                                        RequestDocumentation.partWithName("file").description("업로드를 원하는 이미지")),
-                                PayloadDocumentation.responseFields(
-                                        PayloadDocumentation.fieldWithPath("imageId").description("이미지 식별자")
+                        document("ImageUpload",
+                                preprocessResponse(prettyPrint()),
+                                requestParts(
+                                        partWithName("file").description("업로드를 원하는 이미지")),
+                                responseFields(
+                                        fieldWithPath("imageId").description("이미지 식별자")
                                 )
                         )
                 )
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                .andExpect(status().isCreated());
     }
 
     void saveMember() {

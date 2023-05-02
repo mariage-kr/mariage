@@ -1,5 +1,6 @@
 package com.multi.mariage.member.service;
 
+import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.domain.embedded.Email;
@@ -46,7 +47,13 @@ public class MemberService {
     }
 
     @Transactional
-    public void withdrawal(Member member) {
+    public void withdrawal(AuthMember authMember) {
+        Member member = findById(authMember.getId());
         memberRepository.delete(member);
+    }
+
+    private Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
     }
 }

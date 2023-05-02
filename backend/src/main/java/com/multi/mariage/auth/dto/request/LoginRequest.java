@@ -1,6 +1,5 @@
 package com.multi.mariage.auth.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
