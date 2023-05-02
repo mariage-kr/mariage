@@ -2,6 +2,7 @@ package com.multi.mariage.auth.service;
 
 import com.multi.mariage.auth.domain.AuthRepository;
 import com.multi.mariage.auth.domain.RefreshToken;
+import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
 import com.multi.mariage.auth.support.TokenProvider;
@@ -39,5 +40,9 @@ public class AuthService {
         authRepository.save(token);
 
         return response;
+    }
+
+    public void logout(AuthMember authMember) {
+        authRepository.deleteById(authMember.getId());
     }
 }

@@ -112,4 +112,13 @@ public class TokenProvider {
             return e.getClaims();
         }
     }
+
+    public String getPayload(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 }
