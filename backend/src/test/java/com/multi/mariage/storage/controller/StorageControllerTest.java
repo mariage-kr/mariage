@@ -1,7 +1,10 @@
 package com.multi.mariage.storage.controller;
 
+import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.common.annotation.ControllerTest;
 import com.multi.mariage.common.fixture.ImageFixture;
+import com.multi.mariage.common.fixture.MemberFixture;
+import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -20,8 +23,13 @@ class StorageControllerTest extends ControllerTest {
     @DisplayName("이미지를 저장한다.")
     @Test
     void 이미지를_저장한다() throws Exception {
+        saveMember();
+        String accessToken = accessToken();
+
         mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/image")
-                        .file(IMAGE))
+                        .file(IMAGE)
+                        .header("Authorization", "Bearer " + accessToken)
+                )
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                         MockMvcRestDocumentation.document("ImageUpload",
@@ -35,5 +43,15 @@ class StorageControllerTest extends ControllerTest {
                         )
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    void saveMember() {
+        MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
+        memberService.signup(request);
+    }
+
+    String accessToken() {
+        LoginRequest request = MemberFixture.MARI.toLoginRequest();
+        return authService.login(request).getAccessToken();
     }
 }

@@ -1,5 +1,6 @@
 package com.multi.mariage.common.fixture;
 
+import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.embedded.Email;
 import com.multi.mariage.member.domain.embedded.Name;
@@ -48,6 +49,13 @@ public enum MemberFixture {
                 .password(password)
                 .nickname(nickname)
                 .birth(birth)
+                .build();
+    }
+
+    public LoginRequest toLoginRequest() {
+        return LoginRequest.builder()
+                .email(email)
+                .password(password)
                 .build();
     }
 }
