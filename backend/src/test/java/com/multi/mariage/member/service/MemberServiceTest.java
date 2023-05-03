@@ -7,12 +7,16 @@ import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
+import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -83,6 +87,21 @@ class MemberServiceTest extends ServiceTest {
                 () -> assertThatCode(() -> memberService.removeImage(convertMember(member)))
                         .doesNotThrowAnyException(),
                 () -> assertThat(member.getImage()).isNull()
+        );
+    }
+
+    @DisplayName("별칭을 수정한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"마리아주", "mariage"})
+    void 별칭을_수정한다(String nickname) {
+        AuthMember authMember = convertMember(member);
+        UpdateNicknameRequest request = new UpdateNicknameRequest(nickname);
+
+        UpdateNicknameResponse actual = memberService.updateNickname(authMember, request);
+
+        assertAll(
+                () -> assertThat(actual).isNotNull(),
+                () -> assertThat(actual.getNickname()).isEqualTo(nickname)
         );
     }
 

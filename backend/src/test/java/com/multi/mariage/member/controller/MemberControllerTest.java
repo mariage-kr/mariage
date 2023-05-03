@@ -5,6 +5,7 @@ import com.multi.mariage.common.annotation.ControllerTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -91,6 +92,32 @@ class MemberControllerTest extends ControllerTest {
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
                 .andDo(document("Member: RemoveImage"))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("사용자의 별칭을 수정한다.")
+    @Test
+    void 사용자의_별칭을_수정한다() throws Exception {
+        UpdateNicknameRequest request = new UpdateNicknameRequest("마리아주");
+        String content = objectMapper.writeValueAsString(request);
+
+        mockMvc.perform(patch("/api/user/members/update/nickname")
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
+                .andDo(print())
+                .andDo(
+                        document("Member: UpdateNickname",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestFields(
+                                        fieldWithPath("nickname").description("변경할 별칭")
+                                ),
+                                responseFields(
+                                        fieldWithPath("nickname").description("변경된 별칭")
+                                )
+                        )
+                )
                 .andExpect(status().isOk());
     }
 

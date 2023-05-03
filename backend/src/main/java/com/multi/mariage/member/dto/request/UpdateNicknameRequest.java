@@ -8,4 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class UpdateNicknameRequest {
     private String nickname;
+
+    public UpdateNicknameRequest(String nickname) {
+        this.nickname = nickname;
+    }
 }
