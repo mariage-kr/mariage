@@ -30,7 +30,7 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/user/members/update/image")
+    @PostMapping("/user/members/update/image")
     public ResponseEntity<UpdateImageResponse> updateImage(@Authenticated AuthMember authMember,
                                                            MultipartFile file) {
         UpdateImageResponse response = memberService.updateImage(authMember, file);
