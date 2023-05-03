@@ -45,10 +45,12 @@ public class AuthService {
         return response;
     }
 
+    @Transactional
     public void logout(AuthMember authMember) {
         authRepository.deleteById(authMember.getId());
     }
 
+    @Transactional
     public TokenResponse reissue(ReissueRequest request) {
         if (!tokenProvider.validateToken(request.getRefreshToken())) {
             throw new AuthException(AuthErrorCode.REFRESH_TOKEN_MUST_BE_VALID);

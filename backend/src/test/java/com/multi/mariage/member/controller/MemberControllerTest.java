@@ -30,7 +30,7 @@ class MemberControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andDo(
-                        document("Signup",
+                        document("Member: Signup",
                                 preprocessRequest(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("name").description("회원 이름"),
@@ -53,7 +53,7 @@ class MemberControllerTest extends ControllerTest {
         mockMvc.perform(delete("/api/user/members/withdraw")
                         .header("Authorization", "Bearer " + accessToken))
                 .andDo(print())
-                .andDo(document("Withdraw"))
+                .andDo(document("Member: Withdraw"))
                 .andExpect(status().isOk());
     }
 
