@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
-
-type InfoMessageProps = {
-  isValid?: boolean;
-};
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -11,11 +8,21 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const Header = styled.h1`
   color: black;
 `;
 
 const Form = styled.form`
+  border: 1px solid #0f0f0f50;
+
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #0f0f0f25;
+
   display: flex;
   align-items: start;
   justify-content: center;
@@ -59,13 +66,6 @@ const Label = styled.label`
   font-size: 14px;
 `;
 
-const InfoMessage = styled.span<InfoMessageProps>`
-  color: #bb2649;
-  visibility: ${({ isValid }) => (isValid ? 'none' : 'hidden')};
-  font-size: 0.7rem;
-  margin-bottom: 15px;
-`;
-
 const ErrorMessage = styled.span`
   display: flex;
   align-items: center;
@@ -85,11 +85,11 @@ const ErrorMessage = styled.span`
 
 export {
   Container,
+  StyledLink,
   Header,
   Form,
   Input,
   Label,
   Button,
-  InfoMessage,
   ErrorMessage,
 };
