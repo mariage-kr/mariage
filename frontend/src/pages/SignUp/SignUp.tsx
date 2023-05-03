@@ -55,8 +55,6 @@ function SignUp() {
   }, [birth]);
 
   const signup = () => {
-    const baseURL = process.env.BASE_URL;
-    console.log(baseURL);
     requestSignup({ name, email, password, nickname, birth })
       .then(() => {
         navigate(BROWSER_PATH.LOGIN);
