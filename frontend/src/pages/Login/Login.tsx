@@ -86,6 +86,10 @@ function Login() {
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Button type={'submit'}>로그인</S.Button>
       </S.Form>
+      <S.Line />
+      <S.StyledLink to={BROWSER_PATH.SIGN_UP}>
+        <S.LinkButton type={'button'}>회원가입</S.LinkButton>
+      </S.StyledLink>
     </S.Container>
   );
 }

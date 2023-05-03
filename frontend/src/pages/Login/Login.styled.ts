@@ -10,6 +10,8 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  color: gray;
+  font-size: 0.9rem;
 `;
 
 const Header = styled.h1`
@@ -17,18 +19,17 @@ const Header = styled.h1`
 `;
 
 const Form = styled.form`
-  border: 1px solid #0f0f0f50;
-
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px #0f0f0f25;
-
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
 
   width: 460px;
+
+  padding: 30px;
+  border: 1px solid #0f0f0f50;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #0f0f0f25;
 `;
 
 const Input = styled.input`
@@ -38,7 +39,7 @@ const Input = styled.input`
   margin-bottom: 20px;
 
   border: 0;
-  border-bottom: 2px solid;
+  border-bottom: 2px solid #00000050;
 
   font-size: 16px;
 
@@ -58,6 +59,17 @@ const Button = styled.button`
 
   background-color: #9c94d0;
   color: #f8f8f8;
+`;
+
+const LinkButton = styled.button`
+  font-size: 20px;
+
+  width: 460px;
+  height: 52px;
+
+  color: #9c94d0;
+  border: 1px solid #9c94d0;
+  background-color: #ffffff;
 `;
 
 const Label = styled.label`
@@ -83,6 +95,13 @@ const ErrorMessage = styled.span`
   margin-bottom: 30px;
 `;
 
+const Line = styled.div`
+  margin: 20px;
+  height: 1px;
+  width: 460px;
+  background-color: #00000050;
+`;
+
 export {
   Container,
   StyledLink,
@@ -91,5 +110,7 @@ export {
   Input,
   Label,
   Button,
+  LinkButton,
   ErrorMessage,
+  Line,
 };

@@ -32,6 +32,21 @@ function SignUp() {
   const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
   const [isValidNickname, setIsValidNickname] = useState(true);
   const [isValidBirth, setIsValidBirth] = useState(true);
+  const [isValidNull, setIsValidNull] = useState(true);
+
+  const isNull = () => {
+    if (
+      isValidName ||
+      isValidEmail ||
+      isValidPassword ||
+      isValidConfirmPassword ||
+      isValidNickname ||
+      isValidBirth
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   useEffect(() => {
     setIsValidName(!checkValidName(name));
@@ -54,13 +69,16 @@ function SignUp() {
     setIsValidBirth(birth.length === 0);
   }, [birth]);
 
+  useEffect(() => {
+    setIsValidNull(isNull());
+  }, [isNull]);
+
   const signup = () => {
     requestSignup({ name, email, password, nickname, birth })
       .then(() => {
         navigate(BROWSER_PATH.LOGIN);
       })
       .catch(error => {
-        console.error(error);
         setErrorMessage(error.response.data.message);
         setIsValid(true);
       });
@@ -69,7 +87,7 @@ function SignUp() {
   return (
     <S.Container>
       <S.Header>회원가입</S.Header>
-      <S.Wrapper>
+      <S.Form onSubmit={signup}>
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>이름</S.Label>
         <S.Input
@@ -128,10 +146,14 @@ function SignUp() {
         <S.InfoMessage isValid={isValidBirth}>
           생년월일은 공백일 수 없습니다.
         </S.InfoMessage>
-        <S.Button type={'submit'} onClick={signup}>
-          가입하기
-        </S.Button>
-      </S.Wrapper>
+        {isValidNull ? (
+          <S.DisableButton type={'submit'} disabled>
+            가입하기
+          </S.DisableButton>
+        ) : (
+          <S.Button type={'submit'}>가입하기</S.Button>
+        )}
+      </S.Form>
     </S.Container>
   );
 }
