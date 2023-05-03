@@ -16,7 +16,8 @@ public enum MemberErrorCode implements ErrorCode {
     PASSWORD_CANNOT_BE_OUT_OF_RANGE(400, "PASSWORD_01", "비밀번호는 8자 이상 16자 이하여야 합니다."),
     SIGNUP_INVALID_EMAIL(400, "SIGNUP_01", "이미 가입된 이메일입니다."),
     MEMBER_IS_NOT_EXISTED(400, "MEMBER_01", "존재하지 않는 회원입니다."),
-    MEMBER_IS_ALREADY_WITHDRAWAL(400, "MEMBER_02", "이미 탈퇴한 회원입니다.");
+    MEMBER_IS_ALREADY_WITHDRAWAL(400, "MEMBER_02", "이미 탈퇴한 회원입니다."),
+    MEMBER_HAS_NOT_PROFILE_IMAGE(400, "MEMBER_03", "회원의 프로필 이미지가 존재하지 않습니다.");
     private final int statusCode;
     private final String errorCode;
     private final String message;

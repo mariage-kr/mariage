@@ -67,8 +67,9 @@ public class MemberService {
     @Transactional
     public UpdateImageResponse updateImage(AuthMember authMember, MultipartFile file) {
         Member member = findById(authMember.getId());
+
         if (hasImage(member)) {
-            removeImage(member);
+            remove(member);
         }
 
         Image image = storageService.save(file);
@@ -78,7 +79,18 @@ public class MemberService {
         return new UpdateImageResponse(filePath);
     }
 
-    public void removeImage(Member member) {
+    public void removeImage(AuthMember authMember) {
+        Member member = findById(authMember.getId());
+
+        if (hasImage(member)) {
+            remove(member);
+            return;
+        }
+
+        throw new MemberException(MemberErrorCode.MEMBER_HAS_NOT_PROFILE_IMAGE);
+    }
+
+    private void remove(Member member) {
         storageService.remove(member.getImage());
         member.changeImage(null);
     }

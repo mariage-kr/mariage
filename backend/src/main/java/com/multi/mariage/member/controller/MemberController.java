@@ -39,6 +39,7 @@ public class MemberController {
 
     @PatchMapping("/user/members/remove/image")
     public ResponseEntity<Void> removeImage(@Authenticated AuthMember authMember) {
+        memberService.removeImage(authMember);
         return ResponseEntity.ok().build();
     }
 }
