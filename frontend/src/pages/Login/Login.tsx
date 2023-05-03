@@ -5,9 +5,9 @@ import { requestLogin } from '@/apis/request/auth';
 import { Token } from '@/types/user';
 import useAuth from '@/hooks/useAuth';
 import useInput from '@/hooks/useInput';
+import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Login.styled';
-import { BROWSER_PATH } from '@/constants/path';
 
 function Login() {
   const navigate = useNavigate();
@@ -20,8 +20,26 @@ function Login() {
   const { value: email, setValue: setEmail } = useInput('');
   const { value: password, setValue: setPassword } = useInput('');
 
+  const validateInput = () => {
+    if (email.length === 0) {
+      setIsValid(true);
+      setErrorMessage('이메일을 입력해주세요.');
+      return true;
+    }
+    if (password.length === 0) {
+      setIsValid(true);
+      setErrorMessage('비밀번호를 입력해주세요.');
+      return true;
+    }
+    return false;
+  };
+
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (validateInput()) {
+      return;
+    }
 
     requestLogin({ email, password })
       .then(response => {
@@ -31,7 +49,7 @@ function Login() {
         };
         setLogin(true);
         setAuth(token);
-        // navigate(-1);
+        navigate(-1);
       })
       .catch(error => {
         setIsValid(true);
@@ -46,14 +64,9 @@ function Login() {
       </S.StyledLink>
       <S.Form onSubmit={login}>
         <S.Label>이름</S.Label>
-        <S.Input type={'text'} value={email} onChange={setEmail} required />
+        <S.Input type={'text'} value={email} onChange={setEmail} />
         <S.Label>비밀번호</S.Label>
-        <S.Input
-          type={'password'}
-          value={password}
-          onChange={setPassword}
-          required
-        />
+        <S.Input type={'password'} value={password} onChange={setPassword} />
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Button type={'submit'}>로그인</S.Button>
       </S.Form>
