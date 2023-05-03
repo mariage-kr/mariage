@@ -5,3 +5,8 @@ export interface SignupUser {
   nickname: string;
   birth: string;
 }
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
