@@ -1,9 +1,17 @@
+import { useLocation } from 'react-router-dom';
+
+import { requestLogin } from '@/apis/request/auth';
+import { Token } from '@/types/user';
+import useAuth from '@/hooks/useAuth';
 import useInput from '@/hooks/useInput';
 
 import * as S from './Login.styled';
-import { requestLogin } from '@/apis/request/auth';
 
 function Login() {
+  const location = useLocation();
+
+  const { setLogin, setAuth } = useAuth();
+
   const { value: email, setValue: setEmail } = useInput('');
   const { value: password, setValue: setPassword } = useInput('');
 
@@ -12,7 +20,12 @@ function Login() {
 
     requestLogin({ email, password })
       .then(response => {
-        console.log(response);
+        const token: Token = {
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        };
+        setLogin(true);
+        setAuth(token);
       })
       .catch(error => {
         console.error(error);
