@@ -17,7 +17,8 @@ public enum MemberErrorCode implements ErrorCode {
     SIGNUP_INVALID_EMAIL(400, "SIGNUP_01", "이미 가입된 이메일입니다."),
     MEMBER_IS_NOT_EXISTED(400, "MEMBER_01", "존재하지 않는 회원입니다."),
     MEMBER_IS_ALREADY_WITHDRAWAL(400, "MEMBER_02", "이미 탈퇴한 회원입니다."),
-    MEMBER_HAS_NOT_PROFILE_IMAGE(400, "MEMBER_03", "회원의 프로필 이미지가 존재하지 않습니다.");
+    MEMBER_HAS_NOT_PROFILE_IMAGE(400, "MEMBER_03", "회원의 프로필 이미지가 존재하지 않습니다."),
+    MEMBER_WRONG_PASSWORD(400, "MEMBER_04", "잘못된 비밀번호 입니다.");
     private final int statusCode;
     private final String errorCode;
     private final String message;

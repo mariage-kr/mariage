@@ -4,6 +4,7 @@ import com.multi.mariage.auth.annotation.Authenticated;
 import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
+import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.service.MemberService;
@@ -50,5 +51,12 @@ public class MemberController {
                                                                  @RequestBody UpdateNicknameRequest request) {
         UpdateNicknameResponse response = memberService.updateNickname(authMember, request);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/user/members/update/password")
+    public ResponseEntity<Void> updatePassword(@Authenticated AuthMember authMember,
+                                               @RequestBody UpdatePasswordRequest request) {
+        memberService.updatePassword(authMember, request);
+        return ResponseEntity.ok().build();
     }
 }

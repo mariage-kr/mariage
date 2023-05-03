@@ -9,6 +9,7 @@ import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
+import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
@@ -16,13 +17,11 @@ import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -109,5 +108,20 @@ public class MemberService {
         member.updateNickname(nickname);
 
         return UpdateNicknameResponse.from(member);
+    }
+
+    @Transactional
+    public void updatePassword(AuthMember authMember, UpdatePasswordRequest request) {
+        Member member = findById(authMember.getId());
+        confirmPassword(member, request.getPassword());
+
+        member.updatePassword(Password.encrypt(request.getNewPassword(), passwordEncoder));
+    }
+
+    private void confirmPassword(Member member, String password) {
+        if (passwordEncoder.matches(password, member.getPassword())) {
+            return;
+        }
+        throw new MemberException(MemberErrorCode.MEMBER_WRONG_PASSWORD);
     }
 }

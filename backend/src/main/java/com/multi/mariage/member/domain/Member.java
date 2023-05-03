@@ -70,6 +70,10 @@ public class Member {
         this.nickname = nickname;
     }
 
+    public void updatePassword(Password password) {
+        this.password = password;
+    }
+
     /* Embedded Getter */
     public String getEmail() {
         return email.getValue();
