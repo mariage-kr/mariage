@@ -6,17 +6,20 @@ import Routes from '@/routes/Routes';
 
 import Loading from '@/components/Loading/Loading';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Router>
-        <ScrollToTop />
-        <Suspense fallback={<Loading />}>
-          <Routes />
-        </Suspense>
-      </Router>
+      <RecoilRoot>
+        <Router>
+          <ScrollToTop />
+          <Suspense fallback={<Loading />}>
+            <Routes />
+          </Suspense>
+        </Router>
+      </RecoilRoot>
     </>
   );
 }
