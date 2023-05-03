@@ -2,21 +2,24 @@ package com.multi.mariage.member.service;
 
 import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
+import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MemberServiceTest extends ServiceTest {
 
@@ -66,11 +69,31 @@ class MemberServiceTest extends ServiceTest {
     @DisplayName("프로필 이미지를 수정한다.")
     @Test
     void 프로필_이미지를_수정한다() {
-        AuthMember authMember = convertMember(member);
-        memberService.updateImage(authMember, null);
+        UpdateImageResponse actual = updateImage();
+
+        assertThat(actual).isNotNull();
+    }
+
+    @DisplayName("프로필 이미지를 삭제한다.")
+    @Test
+    void 프로필_이미지를_삭제한다() {
+        updateImage();
+
+        assertAll(
+                () -> assertThatCode(() -> memberService.removeImage(convertMember(member)))
+                        .doesNotThrowAnyException(),
+                () -> assertThat(member.getImage()).isNull()
+        );
     }
 
     AuthMember convertMember(Member member) {
         return new AuthMember(member.getId());
+    }
+
+    UpdateImageResponse updateImage() {
+        MockMultipartFile file = ImageFixture.JPEG_IMAGE.toMultipartFile();
+        AuthMember authMember = convertMember(member);
+
+        return memberService.updateImage(authMember, file);
     }
 }
