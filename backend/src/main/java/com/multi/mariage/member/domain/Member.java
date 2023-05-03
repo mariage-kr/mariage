@@ -62,8 +62,8 @@ public class Member {
         this.role = Role.USER;
     }
 
-    /* 연관관계 편의 메서드 */
-    public void setImage(Image image) {
+    /* 비즈니스 로직 */
+    public void changeImage(Image image) {
         this.image = image;
     }
 

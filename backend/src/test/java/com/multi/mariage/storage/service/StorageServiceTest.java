@@ -19,7 +19,7 @@ class StorageServiceTest extends ServiceTest {
     void 파일을_저장한다() {
         MockMultipartFile file = ImageFixture.JPEG_IMAGE.toMultipartFile();
 
-        ImageSavedResponse imageId = storageService.save(file);
+        ImageSavedResponse imageId = storageService.upload(file);
 
         assertThat(imageId).isNotNull();
     }

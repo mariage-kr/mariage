@@ -8,13 +8,19 @@ import com.multi.mariage.member.domain.embedded.Name;
 import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
+import com.multi.mariage.storage.domain.Image;
+import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -22,6 +28,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final StorageService storageService;
 
     @Transactional
     public Member signup(MemberSignupRequest request) {
@@ -47,7 +54,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void withdrawal(AuthMember authMember) {
+    public void withdrawalByMember(AuthMember authMember) {
         Member member = findById(authMember.getId());
         memberRepository.delete(member);
     }
@@ -55,5 +62,28 @@ public class MemberService {
     private Member findById(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
+    }
+
+    @Transactional
+    public UpdateImageResponse updateImage(AuthMember authMember, MultipartFile file) {
+        Member member = findById(authMember.getId());
+        if (hasImage(member)) {
+            removeImage(member);
+        }
+
+        Image image = storageService.save(file);
+        member.changeImage(image);
+
+        String filePath = storageService.getFilePath(image.getName());
+        return new UpdateImageResponse(filePath);
+    }
+
+    public void removeImage(Member member) {
+        storageService.remove(member.getImage());
+        member.changeImage(null);
+    }
+
+    private boolean hasImage(Member member) {
+        return member.getImage() != null;
     }
 }

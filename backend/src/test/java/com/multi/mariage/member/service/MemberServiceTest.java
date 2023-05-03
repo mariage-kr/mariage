@@ -56,10 +56,21 @@ class MemberServiceTest extends ServiceTest {
     @DisplayName("회원 탈퇴한다.")
     @Test
     void 회원_탈퇴한다() {
-        memberService.withdrawal(new AuthMember(member.getId()));
+        memberService.withdrawalByMember(new AuthMember(member.getId()));
 
         Optional<Member> actual = memberRepository.findById(member.getId());
 
         assertThat(actual).isEmpty();
+    }
+
+    @DisplayName("프로필 이미지를 수정한다.")
+    @Test
+    void 프로필_이미지를_수정한다() {
+        AuthMember authMember = convertMember(member);
+        memberService.updateImage(authMember, null);
+    }
+
+    AuthMember convertMember(Member member) {
+        return new AuthMember(member.getId());
     }
 }
