@@ -63,8 +63,12 @@ public class Member {
     }
 
     /* 비즈니스 로직 */
-    public void changeImage(Image image) {
+    public void updateImage(Image image) {
         this.image = image;
+    }
+
+    public void updateNickname(Nickname nickname) {
+        this.nickname = nickname;
     }
 
     /* Embedded Getter */
@@ -74,6 +78,10 @@ public class Member {
 
     public String getName() {
         return name.getValue();
+    }
+
+    public String getNickname() {
+        return nickname.getValue();
     }
 
     public String getPassword() {

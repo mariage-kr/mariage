@@ -3,7 +3,9 @@ package com.multi.mariage.member.controller;
 import com.multi.mariage.auth.annotation.Authenticated;
 import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
+import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,5 +43,12 @@ public class MemberController {
     public ResponseEntity<Void> removeImage(@Authenticated AuthMember authMember) {
         memberService.removeImage(authMember);
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/user/members/update/nickname")
+    public ResponseEntity<UpdateNicknameResponse> updateNickname(@Authenticated AuthMember authMember,
+                                                                 @RequestBody UpdateNicknameRequest request) {
+        UpdateNicknameResponse response = memberService.updateNickname(authMember, request);
+        return ResponseEntity.ok(response);
     }
 }

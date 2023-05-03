@@ -8,7 +8,9 @@ import com.multi.mariage.member.domain.embedded.Name;
 import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
+import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.storage.domain.Image;
@@ -73,7 +75,7 @@ public class MemberService {
         }
 
         Image image = storageService.save(file);
-        member.changeImage(image);
+        member.updateImage(image);
 
         String filePath = storageService.getFilePath(image.getName());
         return new UpdateImageResponse(filePath);
@@ -92,10 +94,20 @@ public class MemberService {
 
     private void remove(Member member) {
         storageService.remove(member.getImage());
-        member.changeImage(null);
+        member.updateImage(null);
     }
 
     private boolean hasImage(Member member) {
         return member.getImage() != null;
+    }
+
+    @Transactional
+    public UpdateNicknameResponse updateNickname(AuthMember authMember, UpdateNicknameRequest request) {
+        Member member = findById(authMember.getId());
+        Nickname nickname = Nickname.of(request.getNickname());
+
+        member.updateNickname(nickname);
+
+        return UpdateNicknameResponse.from(member);
     }
 }
