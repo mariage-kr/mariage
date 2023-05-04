@@ -10,6 +10,7 @@ import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
+import com.multi.mariage.member.dto.response.MyInfoResponse;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
@@ -131,5 +132,17 @@ public class MemberService {
         if (request.getPassword().equals(request.getNewPassword())) {
             throw new MemberException(MemberErrorCode.MEMBER_PASSWORD_IS_SAME);
         }
+    }
+
+    public MyInfoResponse findMemberInfo(AuthMember authMember) {
+        Member member = findById(authMember.getId());
+        String imageName = getImageName(member.getImage().getName());
+
+        String filePath = storageService.getFilePath(imageName);
+        return MyInfoResponse.from(member, filePath);
+    }
+
+    private String getImageName(String imageName) {
+        return imageName != null ? imageName : "profile.png";
     }
 }
