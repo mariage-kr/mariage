@@ -4,15 +4,15 @@ import lombok.Getter;
 
 @Getter
 public enum DrinkUpperCategory {
-    LOCAL_SOJU(1, "소주", "Local"),
-    LOCAL_BEER(2, "맥주", "Local"),
-    LOCAL_TRADITIONAL(3, "전통주", "Local"),
-    LOCAL_ETC(4, "기타", "Local"),
-    FOREIGN_SPIRITS(5, "증류주", "Foreign"),
-    FOREIGN_BEER(6, "맥주", "Foreign"),
-    FOREIGN_WINE(7, "와인", "Foreign"),
-    FOREIGN_WHISKEY(8, "위스키", "Foreign"),
-    FOREIGN_ETC(9, "기타", "Foreign");
+    LOCAL_SOJU(1, "소주", "local"),
+    LOCAL_BEER(2, "맥주", "local"),
+    LOCAL_TRADITIONAL(3, "전통주", "local"),
+    LOCAL_ETC(4, "기타", "local"),
+    FOREIGN_SPIRITS(5, "증류주", "foreign"),
+    FOREIGN_BEER(6, "맥주", "foreign"),
+    FOREIGN_WINE(7, "와인", "foreign"),
+    FOREIGN_WHISKEY(8, "위스키", "foreign"),
+    FOREIGN_ETC(9, "기타", "foreign");
     private final int id;
     private final String name;
     private final String origin;

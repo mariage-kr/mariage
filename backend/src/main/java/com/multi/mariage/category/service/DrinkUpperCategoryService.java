@@ -19,7 +19,7 @@ public class DrinkUpperCategoryService {
         return Arrays.asList(DrinkUpperCategory.values());
     }
     @Transactional
-    public List<DrinkUpperCategoryResponse> findDrinkCategoriesByOrigin(String origin) {
+    public List<DrinkUpperCategoryResponse> findCategoriesByOrigin(String origin) {
         List<DrinkUpperCategory> categories = findAll();
         List<DrinkUpperCategoryResponse> responseList = new ArrayList<>();
 

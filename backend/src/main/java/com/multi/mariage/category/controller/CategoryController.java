@@ -18,8 +18,8 @@ public class CategoryController {
     private final DrinkUpperCategoryService drinkUpperCategoryService;
 
     @GetMapping("/categories/{origin}")
-    public ResponseEntity<List<DrinkUpperCategoryResponse>> findDrinkCategoriesByOrigin(@PathVariable String origin) {
-        List<DrinkUpperCategoryResponse> categories = drinkUpperCategoryService.findDrinkCategoriesByOrigin(origin);
+    public ResponseEntity<List<DrinkUpperCategoryResponse>> findCategoriesByOrigin(@PathVariable String origin) {
+        List<DrinkUpperCategoryResponse> categories = drinkUpperCategoryService.findCategoriesByOrigin(origin);
         return ResponseEntity.ok(categories);
     }
 }
