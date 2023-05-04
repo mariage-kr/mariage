@@ -1,12 +1,5 @@
-import { css } from '@emotion/react';
 import { useState } from 'react';
-import {
-    Wrapper as wrapperStyles,
-    SelectedOption as selectedOptionStyles,
-    Arrow as arrowStyles,
-    OptionsContainer as optionsContainerStyles,
-    OptionItem as optionItemStyles
-  } from './SelectButton.styled';
+import * as S  from './SelectButton.styled';
 
 const SelectButtonDrinktype = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,25 +30,24 @@ const SelectButtonDrinktype = () => {
   };
 
   return (
-    <div css={wrapperStyles}>
-      <div css={selectedOptionStyles(isOpen)} onClick={() => setIsOpen(!isOpen)}>
+    <S.Wrapper>
+      <S.SelectedOption isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
         {selectedOption}
-        <div css={arrowStyles}></div>
-      </div>
+        <S.Arrow />
+      </S.SelectedOption>
       {isOpen && (
-        <div css={optionsContainerStyles}>
+        <S.OptionsContainer>
           {options.map((option) => (
-            <div
-              css={optionItemStyles}
+            <S.OptionItem
               key={option.id}
               onClick={() => handleOptionClick(option.value)}
             >
               {option.value}
-            </div>
+            </S.OptionItem>
           ))}
-        </div>
+        </S.OptionsContainer>
       )}
-    </div>
+    </S.Wrapper>
   );
 };
 

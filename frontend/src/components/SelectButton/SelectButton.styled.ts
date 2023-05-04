@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   position: relative;
   width: 150px;
   height: 50px;
 `;
 
-export const SelectedOption = styled.div<{ isOpen: boolean }>`
+const SelectedOption = styled.div<{ isOpen: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -32,18 +32,18 @@ export const SelectedOption = styled.div<{ isOpen: boolean }>`
   `}
 `;
 
-export const Arrow = styled.div`
-  width: 0,
-  height: 0,
-  borderLeft: '5px solid transparent',
-  borderRight: '5px solid transparent',
-  borderTop: '5px solid #fff',
-  right: '10px',
-  top: 'calc(50% - 2.5px)',
-  pointerEvents: 'none',
+const Arrow = styled.div`
+  width: 0;
+  height: 0;
+  borderLeft: '5px solid transparent';
+  borderRight: '5px solid transparent';
+  borderTop: '5px solid #fff';
+  right: '10px';
+  top: 'calc(50% - 2.5px)';
+  pointerEvents: 'none';
 `;
 
-export const OptionsContainer = styled.div`
+const OptionsContainer = styled.div`
   position: absolute;
   top: calc(100% + 5px);
   left: 0;
@@ -56,7 +56,7 @@ export const OptionsContainer = styled.div`
   z-index: 999;
 `;
 
-export const OptionItem = styled.div`
+const OptionItem = styled.div`
   padding: 10px;
   font-size: 14px;
   color: #000000;
@@ -67,3 +67,5 @@ export const OptionItem = styled.div`
     background-color: #f2f2f2;
   }
 `;
+
+export {Wrapper, SelectedOption, Arrow, OptionItem, OptionsContainer};
