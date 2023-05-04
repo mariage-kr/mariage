@@ -7,6 +7,7 @@ import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -67,6 +68,17 @@ public class Product {
     }
 
     public void setImage(Image image) {
+        this.image = image;
+    }
+    @Builder
+    public Product(String name, double level, String info, UpperCategory upperCategory,
+                   LowerCategory lowerCategory, Country country, Image image) {
+        this.name = name;
+        this.level = level;
+        this.info = info;
+        this.upperCategory = upperCategory;
+        this.lowerCategory = lowerCategory;
+        this.country = country;
         this.image = image;
     }
 }

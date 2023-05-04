@@ -8,7 +8,7 @@ public enum UpperValue {
     LOCAL_BEER(2, "국내 맥주"),
     LOCAL_TRADITIONAL(3, "국내 전통주"),
     LOCAL_ETC(4, "국내 기타"),
-    FOREIGN_SPIRITS(6, "해외 증류주"),
+    FOREIGN_SPIRITS(5, "해외 증류주"),
     FOREIGN_BEER(6, "해외 맥주"),
     FOREIGN_WINE(7, "해외 와인"),
     FOREIGN_WHISKEY(8, "해외 위스키"),
