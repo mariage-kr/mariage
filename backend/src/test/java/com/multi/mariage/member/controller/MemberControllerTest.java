@@ -146,6 +146,26 @@ class MemberControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @DisplayName("회원 정보를 조회한다.")
+    @Test
+    void 회원_정보를_조회한다() throws Exception {
+        mockMvc.perform(get("/api/user/members/find")
+                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
+                .andDo(print())
+                .andDo(
+                        document("Member: FindMemberInfo",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("birth").description("회원 생년월일"),
+                                        fieldWithPath("email").description("회원 이메일"),
+                                        fieldWithPath("imagePath").description("프로필 이미지 경로"),
+                                        fieldWithPath("nickname").description("회원 별칭")
+                                )
+                        )
+                )
+                .andExpect(status().isOk());
+    }
+
     void saveMember() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
         memberService.signup(request);
