@@ -1,7 +1,6 @@
 package com.multi.mariage.category.domain;
 
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

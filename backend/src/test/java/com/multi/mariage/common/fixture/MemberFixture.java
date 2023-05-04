@@ -1,5 +1,6 @@
 package com.multi.mariage.common.fixture;
 
+import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.embedded.Email;
 import com.multi.mariage.member.domain.embedded.Name;
@@ -7,6 +8,7 @@ import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -48,6 +50,13 @@ public enum MemberFixture {
                 .password(password)
                 .nickname(nickname)
                 .birth(birth)
+                .build();
+    }
+
+    public LoginRequest toLoginRequest() {
+        return LoginRequest.builder()
+                .email(email)
+                .password(password)
                 .build();
     }
 }
