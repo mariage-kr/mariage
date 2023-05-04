@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import * as S from './StarRateAverage.styled';
 
-interface AverageReviewRateprops {
+interface AverageReviewRateProps {
   averageReviewRate: number;
 }
 
-function StarRateAverage({ averageReviewRate }: AverageReviewRateprops) {
+function StarRateAverage({ averageReviewRate }: AverageReviewRateProps) {
   // TODO: 더미데이터
   // averageRate = 3.6;
   const starIdList = ['1', '2', '3', '4', '5'];
