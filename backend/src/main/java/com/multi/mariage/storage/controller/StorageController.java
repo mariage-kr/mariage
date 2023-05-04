@@ -19,8 +19,8 @@ public class StorageController {
     private final StorageService storageService;
 
     @PostMapping("/image")
-    public ResponseEntity<ImageSavedResponse> save(@RequestParam MultipartFile file) {
-        ImageSavedResponse response = storageService.save(file);
+    public ResponseEntity<ImageSavedResponse> upload(@RequestParam MultipartFile file) {
+        ImageSavedResponse response = storageService.upload(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
