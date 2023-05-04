@@ -7,17 +7,27 @@ function Header() {
   return (
     <>
       <S.Container>
-        <S.Logo>Mariage</S.Logo>
+        <S.Block></S.Block>
+        <S.Logo>
+          <Link to="/" css={S.styledLink}>
+            Mariage
+          </Link>
+        </S.Logo>
         <S.SearchBox>
           <S.Search type="text" />
           <S.SearchImg />
         </S.SearchBox>
         <S.Member>
-          <a>로그인</a>
-          <a>회원가입</a>
+          <Link to="/" css={S.styledLink}>
+            로그인
+          </Link>
+          <Link to="/" css={S.styledLink}>
+            회원가입
+          </Link>
         </S.Member>
-      </S.Container>
+        <S.Block></S.Block>
         <Nav />
+      </S.Container>
     </>
   );
 }

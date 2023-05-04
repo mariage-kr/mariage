@@ -1,4 +1,3 @@
-import { Inner } from '../../ProductCard/ProductCard.styled';
 import * as S from './Nav.styled';
 import { Link } from 'react-router-dom';
 
@@ -25,23 +24,28 @@ const gAlcohol: AlcoholCategory[] = [
 const Nav = () => {
   return (
     <>
-      <S.NavBlock css={Inner}>
+      <S.NavBlock>
         <S.Category>
-          <S.InOut>국내</S.InOut>
-          <S.InOut>해외</S.InOut>
+          <S.Block> </S.Block>
+          <S.InOut css={S.UnderBar}>국내</S.InOut>
+          <S.InOut css={S.UnderBar}>해외</S.InOut>
         </S.Category>
       </S.NavBlock>
       <S.AlcoholBlock>
         {kAlcohol.map(category => (
           <S.Alcohol key={category.name}>
-            <Link to={category.link}>{category.name}</Link>
+            <Link to={category.link} css={[S.styledLink, S.UnderBar]}>
+              {category.name}
+            </Link>
           </S.Alcohol>
         ))}
       </S.AlcoholBlock>
       <S.AlcoholBlock>
         {gAlcohol.map(category => (
           <S.Alcohol key={category.name}>
-            <Link to={category.link}>{category.name}</Link>
+            <Link to={category.link} css={[S.styledLink, S.UnderBar]}>
+              {category.name}
+            </Link>
           </S.Alcohol>
         ))}
       </S.AlcoholBlock>

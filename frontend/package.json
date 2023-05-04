@@ -24,7 +24,6 @@
     "recoil-persist": "^4.2.0"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.10.8",
     "@svgr/webpack": "^7.0.0",
     "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.11",

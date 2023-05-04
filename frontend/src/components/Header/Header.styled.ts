@@ -1,12 +1,23 @@
 import styled from '@emotion/styled';
-/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
+const styledLink = css`
+  width: 30px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: inherit;
+`;
+
+const Block = styled.div`
+  width: 10vw;
+`;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  width: 80vw;
-  height: 100px;
+  width: 100%;
+  height: 120px;
   margin: 0 auto;
   text-align: center;
 `;
@@ -54,4 +65,13 @@ const Member = styled.div`
 //   border-bottom: 2px solid #ddd;
 // `;
 
-export { Container, Logo, SearchBox, Search, SearchImg, Member /* NavBlock */ };
+export {
+  styledLink,
+  Container,
+  Block,
+  Logo,
+  SearchBox,
+  Search,
+  SearchImg,
+  Member /* NavBlock */,
+};

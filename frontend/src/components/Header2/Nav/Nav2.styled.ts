@@ -34,43 +34,22 @@ const UnderBar = css`
 `;
 
 const NavBlock = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  border-bottom: 1px solid #ddd;
-`;
-
-const Block = styled.div`
-  width: 10vw;
+  width: 10%;
+  /* margin: 0 auto; */
 `;
 
 const Category = styled.ul`
   position: relative;
   display: flex;
-  width: 20%;
+  width: 100%;
   margin: 5px 0;
   padding: 0;
   text-align: center;
   transition: all 0.2s;
   list-style: none;
-
-  /* &::before:hover,::before:focus{
-    position: absolute;
-    content: "";
-    bottom: -2px;
-    left: 0
-    width: 150px;
-    height: 5px;
-    background-color: #9c94d0;
-  } */
-
-  /* & :hover,
-  :focus {
-    font-weight: bold;
-    border-bottom: 3px solid #9c94d0;
-  } */
 `;
 
-const InOut = styled.li`
+const Inout = styled.li`
   width: 30%;
   cursor: pointer;
 
@@ -96,18 +75,12 @@ const Alcohol = styled.li`
   text-align: center;
 `;
 
-const Link = styled.a`
-  list-style: none;
-  text-decoration: none;
-`;
-
 export {
   styledLink,
   UnderBar,
-  Block,
   NavBlock,
   Category,
-  InOut,
+  Inout,
   AlcoholBlock,
   Alcohol,
 };
