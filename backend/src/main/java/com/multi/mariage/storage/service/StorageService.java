@@ -71,9 +71,6 @@ public class StorageService {
     }
 
     public String getFilePath(String fileName) {
-        if (fileName == null) {
-            return null;
-        }
         return fileDir + fileName;
     }
 }

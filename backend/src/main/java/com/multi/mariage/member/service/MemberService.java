@@ -136,13 +136,13 @@ public class MemberService {
 
     public MyInfoResponse findMemberInfo(AuthMember authMember) {
         Member member = findById(authMember.getId());
-        String imageName = getImageName(member.getImage().getName());
+        String imageName = getImageName(member.getImage());
 
         String filePath = storageService.getFilePath(imageName);
         return MyInfoResponse.from(member, filePath);
     }
 
-    private String getImageName(String imageName) {
-        return imageName != null ? imageName : "profile.png";
+    private String getImageName(Image image) {
+        return image != null ? image.getName() : "profile.png";
     }
 }

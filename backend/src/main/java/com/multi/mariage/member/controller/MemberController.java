@@ -35,6 +35,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @GetMapping("/user/members/find")
     public ResponseEntity<MyInfoResponse> findMemberInfo(@Authenticated AuthMember authMember) {
         MyInfoResponse response = memberService.findMemberInfo(authMember);
         return ResponseEntity.ok(response);

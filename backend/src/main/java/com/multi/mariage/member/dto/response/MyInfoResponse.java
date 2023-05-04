@@ -15,14 +15,14 @@ public class MyInfoResponse {
     private String imagePath;
     private String nickname;
 
-    public MyInfoResponse(LocalDate birth, String email, String imagePath, String nickname) {
+    public MyInfoResponse(LocalDate birth, String email, String filePath, String nickname) {
         this.birth = birth;
         this.email = email;
-        this.imagePath = imagePath;
+        this.imagePath = filePath;
         this.nickname = nickname;
     }
 
-    public static MyInfoResponse from(Member member, String imagePath) {
-        return new MyInfoResponse(member.getBirth(), member.getEmail(), imagePath, member.getNickname());
+    public static MyInfoResponse from(Member member, String filePath) {
+        return new MyInfoResponse(member.getBirth(), member.getEmail(), filePath, member.getNickname());
     }
 }
