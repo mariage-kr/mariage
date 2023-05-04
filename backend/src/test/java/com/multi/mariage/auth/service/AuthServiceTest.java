@@ -69,7 +69,7 @@ class AuthServiceTest extends ServiceTest {
     }
 
     AuthMember convertAuthMemberFromToken(String accessToken) {
-        Long memberId = Long.valueOf(tokenProvider.getPayload(accessToken));
+        Long memberId = tokenProvider.getPayload(accessToken);
         return new AuthMember(memberId);
     }
 }

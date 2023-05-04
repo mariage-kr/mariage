@@ -35,7 +35,7 @@ public class AuthenticatedArgumentResolver implements HandlerMethodArgumentResol
         String authorization = Objects.requireNonNull(request)
                 .getHeader(HEADER_AUTHORIZATION);
         String token = authorization.substring(BEARER_TYPE.length()).trim();
-        Long memberId = Long.valueOf(tokenProvider.getPayload(token));
+        Long memberId = tokenProvider.getPayload(token);
         return new AuthMember(memberId);
     }
 }

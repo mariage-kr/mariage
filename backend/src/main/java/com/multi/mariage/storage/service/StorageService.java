@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,11 +30,14 @@ public class StorageService {
     private String fileDir;
 
     @Transactional
-    public ImageSavedResponse save(MultipartFile file) {
+    public Image save(MultipartFile file) {
         String saveFileName = convertFileName(file.getOriginalFilename());
         upload(file, saveFileName);
-        Image image = storageRepository.save(new Image(saveFileName));
-        return ImageSavedResponse.from(image);
+        return storageRepository.save(new Image(saveFileName));
+    }
+
+    public ImageSavedResponse upload(MultipartFile file) {
+        return ImageSavedResponse.from(save(file));
     }
 
     private String convertFileName(String originFileName) {
@@ -52,5 +58,19 @@ public class StorageService {
         } catch (IOException e) {
             throw new StorageException(StorageErrorCode.FILE_UPLOAD_FAILED);
         }
+    }
+
+    public void remove(Image image) {
+        try {
+            Path path = Paths.get(fileDir + image.getName());
+            Files.delete(path);
+            storageRepository.delete(image);
+        } catch (Exception e) {
+            throw new StorageException(StorageErrorCode.FAILED_TO_REMOVE_FILE);
+        }
+    }
+
+    public String getFilePath(String fileName) {
+        return fileDir + fileName;
     }
 }

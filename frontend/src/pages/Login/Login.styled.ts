@@ -1,14 +1,17 @@
 import styled from '@emotion/styled';
-
-type InfoMessageProps = {
-  isValid?: boolean;
-};
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: gray;
+  font-size: 0.9rem;
 `;
 
 const Header = styled.h1`
@@ -58,28 +61,21 @@ const Button = styled.button`
   color: #f8f8f8;
 `;
 
-const DisableButton = styled.button`
+const LinkButton = styled.button`
   font-size: 20px;
 
   width: 460px;
   height: 52px;
 
-  background-color: #ffffff;
-  border: 1px solid #9c94d0;
   color: #9c94d0;
+  border: 1px solid #9c94d0;
+  background-color: #ffffff;
 `;
 
 const Label = styled.label`
   display: block;
   margin-bottom: 5px;
   font-size: 14px;
-`;
-
-const InfoMessage = styled.span<InfoMessageProps>`
-  color: #bb2649;
-  visibility: ${({ isValid }) => (isValid ? 'none' : 'hidden')};
-  font-size: 0.7rem;
-  margin-bottom: 15px;
 `;
 
 const ErrorMessage = styled.span`
@@ -99,14 +95,22 @@ const ErrorMessage = styled.span`
   margin-bottom: 30px;
 `;
 
+const Line = styled.div`
+  margin: 20px;
+  height: 1px;
+  width: 460px;
+  background-color: #00000050;
+`;
+
 export {
   Container,
+  StyledLink,
   Header,
   Form,
   Input,
   Label,
   Button,
-  DisableButton,
-  InfoMessage,
+  LinkButton,
   ErrorMessage,
+  Line,
 };

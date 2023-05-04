@@ -18,13 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("test")
 public abstract class ControllerTest {
+    protected final String BEARER_PREFIX = "Bearer ";
+    protected final String AUTHORIZATION = "Authorization";
     @Autowired
     protected MockMvc mockMvc;
     @Autowired
     protected ObjectMapper objectMapper;
     @Autowired
     protected MemberService memberService;
-
     @Autowired
     protected AuthService authService;
 }
