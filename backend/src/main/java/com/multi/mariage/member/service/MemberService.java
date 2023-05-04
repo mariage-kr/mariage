@@ -112,6 +112,8 @@ public class MemberService {
 
     @Transactional
     public void updatePassword(AuthMember authMember, UpdatePasswordRequest request) {
+        validateSamePassword(request);
+
         Member member = findById(authMember.getId());
         confirmPassword(member, request.getPassword());
 
@@ -123,5 +125,11 @@ public class MemberService {
             return;
         }
         throw new MemberException(MemberErrorCode.MEMBER_WRONG_PASSWORD);
+    }
+
+    private void validateSamePassword(UpdatePasswordRequest request) {
+        if (request.getPassword().equals(request.getNewPassword())) {
+            throw new MemberException(MemberErrorCode.MEMBER_PASSWORD_IS_SAME);
+        }
     }
 }
