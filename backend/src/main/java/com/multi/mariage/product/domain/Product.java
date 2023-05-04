@@ -1,7 +1,7 @@
 package com.multi.mariage.product.domain;
 
-import com.multi.mariage.category.domain.LowerCategory;
-import com.multi.mariage.category.domain.UpperCategory;
+import com.multi.mariage.category.domain.DrinkLowerCategory;
+import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.domain.Image;
@@ -35,13 +35,13 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
     @JoinColumn(name = "upper_category_id", nullable = false)
-    private UpperCategory upperCategory;
+    private DrinkUpperCategory upperCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
     @JoinColumn(name = "lower_category_id")
-    private LowerCategory lowerCategory;
+    private DrinkLowerCategory lowerCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
@@ -52,15 +52,15 @@ public class Product {
     private Image image;
 
     /* 연관관계 편의 메서드 */
-    public void setUpperCategory(UpperCategory upperCategory) {
-        upperCategory.getProducts().add(this);
-        this.upperCategory = upperCategory;
-    }
-
-    public void setLowerCategory(LowerCategory lowerCategory) {
-        lowerCategory.getProducts().add(this);
-        this.lowerCategory = lowerCategory;
-    }
+//    public void setUpperCategory(DrinkUpperCategory upperCategory) {
+//        upperCategory.getProducts().add(this);
+//        this.upperCategory = upperCategory;
+//    }
+//
+//    public void setLowerCategory(DrinkLowerCategory lowerCategory) {
+//        lowerCategory.getProducts().add(this);
+//        this.lowerCategory = lowerCategory;
+//    }
 
     public void setCountry(Country country) {
         this.country = country;
@@ -70,9 +70,19 @@ public class Product {
     public void setImage(Image image) {
         this.image = image;
     }
+
+//    @Builder
+//    public Product(String name, double level, String info, Country country, Image image) {
+//        this.name = name;
+//        this.level = level;
+//        this.info = info;
+//        this.country = country;
+//        this.image = image;
+//    }
+
     @Builder
-    public Product(String name, double level, String info, UpperCategory upperCategory,
-                   LowerCategory lowerCategory, Country country, Image image) {
+    public Product(String name, double level, String info, DrinkUpperCategory upperCategory,
+                   DrinkLowerCategory lowerCategory, Country country, Image image) {
         this.name = name;
         this.level = level;
         this.info = info;

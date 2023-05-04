@@ -29,8 +29,6 @@ public class ProductService {
                 .name(request.getName())
                 .level(request.getLevel())
                 .info(request.getInfo())
-                .lowerCategory(request.getLowerCategory())
-                .upperCategory(request.getUpperCategory())
                 .country(request.getCountry())
                 .image(image)
                 .build();

@@ -44,7 +44,7 @@ public class Review {
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_category_id")
     private FoodCategory foodCategory;
 
@@ -68,10 +68,10 @@ public class Review {
         this.hashtag = hashtag;
     }
 
-    public void setFoodCategory(FoodCategory foodCategory) {
-        foodCategory.getReviews().add(this);
-        this.foodCategory = foodCategory;
-    }
+//    public void setFoodCategory(FoodCategory foodCategory) {
+//        foodCategory.getReviews().add(this);
+//        this.foodCategory = foodCategory;
+//    }
 
     public void setImage(Image image) {
         this.image = image;
