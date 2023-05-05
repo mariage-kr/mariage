@@ -28,11 +28,11 @@ public class DrinkUpperCategoryService {
                 .map(DrinkUpperCategory::getName)
                 .collect(Collectors.toList());
 
-        DrinkUpperCategoryResponse response = new DrinkUpperCategoryResponse();
-        response.setCategory(categoryList);
+        DrinkUpperCategoryResponse response = DrinkUpperCategoryResponse.builder()
+                .category(categoryList)
+                .build();
         responseList.add(response);
 
         return responseList;
     }
-
 }

@@ -1,5 +1,6 @@
 package com.multi.mariage.category.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
