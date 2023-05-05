@@ -1,18 +1,23 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
+
+  top: 0px;
+  left: 0px;
 
   display: flex;
   justify-content: center;
 
   width: 100%;
-  height: 100px;
+  height: 72px;
   min-width: 1000px;
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const Logo = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
   display: flex;
   align-items: center;
@@ -21,7 +26,7 @@ const Logo = styled.div`
 `;
 
 const Nav = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 
   display: flex;
   align-items: center;
@@ -31,7 +36,7 @@ const Nav = styled.div`
 `;
 
 const Search = styled.div`
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
 
   display: flex;
   align-items: center;
@@ -40,8 +45,10 @@ const Search = styled.div`
   width: 30%;
 `;
 
+const Input = styled.input``;
+
 const Profile = styled.div`
-  border: 1px solid sandybrown;
+  /* border: 1px solid sandybrown; */
 
   display: flex;
   align-items: center;
@@ -50,4 +57,4 @@ const Profile = styled.div`
   width: 20%;
 `;
 
-export { Container, Logo, Nav, Search, Profile };
+export { Container, Logo, Nav, Search, Input, Profile };
