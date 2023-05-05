@@ -1,4 +1,6 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   /* border: 1px solid black; */
@@ -25,12 +27,15 @@ const Logo = styled.div`
   width: 15%;
 `;
 
+const Header = styled.h1`
+  color: black;
+`;
+
 const Nav = styled.div`
   /* border: 1px solid blue; */
 
   display: flex;
   align-items: center;
-  justify-content: space-around;
 
   width: 15%;
 `;
@@ -40,12 +45,26 @@ const Search = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
 
   width: 30%;
 `;
 
-const Input = styled.input``;
+const Input = styled.input`
+  width: 70%;
+  height: 42px;
+
+  border: 0;
+  border-bottom: 2px solid #00000050;
+
+  font-size: 16px;
+
+  transition: 100ms;
+
+  &:focus {
+    outline: none;
+    border-bottom: 3px solid #bb2649;
+  }
+`;
 
 const Profile = styled.div`
   /* border: 1px solid sandybrown; */
@@ -57,4 +76,9 @@ const Profile = styled.div`
   width: 20%;
 `;
 
-export { Container, Logo, Nav, Search, Input, Profile };
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
+export { Container, Logo, Header, Nav, Search, Input, Profile, StyledLink };
