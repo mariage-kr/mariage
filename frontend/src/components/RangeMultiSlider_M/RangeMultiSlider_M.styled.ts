@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 const Container = styled.div`
-  border: 1px solid olive;
+  /* border: 1px solid olive; */
   width: 25vw;
-  height: 8vh;
+  height: 7vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +34,7 @@ const Thumb = styled.input`
     cursor: pointer;
     height: 5px;
     width: 5px;
-    margin-top: 2.6vh;
+    margin-top: 3.6vh;
     pointer-events: all;
     position: relative;
   }
@@ -47,7 +47,7 @@ const Thumb = styled.input`
     cursor: pointer;
     height: 5px;
     width: 5px;
-    margin-top: 5px;
+    margin-top: 3.6vh;
     pointer-events: all;
     position: relative;
   }
@@ -98,8 +98,8 @@ const slider_sub12 = css`
 
 const slider_sub34 = css`
   color: #000000;
-  font-size: 1.1rem;
-  margin-top: 2.2vh;
+  font-size: 1vw;
+  margin-top: 1.5vh;
 `;
 
 export {

@@ -8,12 +8,14 @@ const Header = styled.div`
   text-align: center;
 `;
 
-const Recommend = styled.div`
+const Footer = styled.div`
+  border: 1px solid #b9b9b9;
   width: 100%;
-  height: auto;
+  height: 12vh;
+  text-align: center;
 `;
 
 export {
   Header,
-  Recommend
+  Footer
 };
