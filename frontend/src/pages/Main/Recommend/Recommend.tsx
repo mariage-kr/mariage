@@ -53,7 +53,9 @@ const Recommend = () => {
         </S.TopLeft>
         <S.TopRight>날씨 Lottie</S.TopRight>
       </S.Top>
-      <ProductCardCarousel />
+      <S.Wrapper>
+        <ProductCardCarousel />
+      </S.Wrapper>
     </S.Container>
   );
 };

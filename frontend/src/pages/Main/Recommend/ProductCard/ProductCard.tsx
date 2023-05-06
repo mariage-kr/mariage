@@ -1,4 +1,5 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+
 import * as S from './ProductCard.styled';
 
 function ProductCard({ card }: any) {
@@ -18,7 +19,7 @@ function ProductCard({ card }: any) {
               <S.ReviewCount>{card.review}</S.ReviewCount> reviews
             </S.Review>
             <S.Country css={S.country_left}>
-              <S.Flagimg alt="" src={card.flagimg} />
+              <S.FlagImg alt="" src={card.flagImg} />
             </S.Country>
             <S.Country css={S.country_right}>{card.country}</S.Country>
           </S.Inner>

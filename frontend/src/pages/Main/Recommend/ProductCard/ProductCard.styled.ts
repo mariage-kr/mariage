@@ -2,21 +2,35 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 const CarouselCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 16vw;
 `;
 
 const CardContainer = styled.div`
-  border: 2px solid #9c94d0;
-  border-radius: 1.5vw;
-  box-shadow: 0px 0px 5px #b9b9b9;
+  margin: 0 10px 20px 10px;
+
   width: 13vw;
   height: 34vh;
-  margin: 0 auto;
+
+  border: 2px solid #9c94d0;
+  border-radius: 1.5vw;
+  box-shadow: 3px 3px 3px 3px #00000033;
+
+  /* box-shadow: 1px 1px 5px #b9b9b9; */
+  /* margin: 0 auto; */
+
+  transition: 250ms;
+
+  &:hover {
+    box-shadow: 4px 4px 3px 3px #9c94d090;
+  }
 `;
 
 const Wrapper = styled.div`
   height: 26vh;
-  margin-left: 1vh;
+  margin-left: 1vw;
 `;
 
 const Inner = styled.div`
@@ -85,7 +99,7 @@ const country_left = css`
   height: auto;
   text-align: right;
 `;
-const Flagimg = styled.img`
+const FlagImg = styled.img`
   width: 80%;
   height: 80%;
 `;
@@ -122,7 +136,7 @@ export {
   ReviewCount,
   Country,
   country_left,
-  Flagimg,
+  FlagImg,
   country_right,
   Bottom,
 };

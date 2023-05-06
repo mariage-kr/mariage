@@ -7,7 +7,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  padding: 10vh 10vw 0 10vw;
+  margin: 10vh 0;
 `;
 
 const StyledLink = styled(Link)`

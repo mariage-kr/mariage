@@ -6,6 +6,8 @@ import ProductCard from '../ProductCard/ProductCard';
 import * as S from './ProductCardCarousel.styled';
 
 import dummy from './ProductCardDummyData.json';
+import ChevronRight from '@/components/Button/Chevron/ChevronRight';
+import ChevronLeft from '@/components/Button/Chevron/ChevronLeft';
 
 const ProductCardCarousel = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -18,38 +20,54 @@ const ProductCardCarousel = () => {
         itemsToShow={4}
         itemsToScroll={1}
         autoplay={true}
-        autoplayDelay={2000}
+        autoplayDelay={5000}
         forwardBtnProps={{
           style: {
             alignSelf: 'center',
-            background: 'none',
-            border: 'none',
-            borderRadius: '50%',
-            color: '#9C94D0',
-            cursor: 'pointer',
-            fontSize: '2vw',
             width: 50,
             height: 50,
-            lineHeight: 1,
-            textAlign: 'center',
+            background: 'none',
+            marginLeft: 15,
           },
-          children: <span>{`>`}</span>,
+          children: <ChevronRight />,
+          // style: {
+          //   alignSelf: 'center',
+          //   background: 'none',
+          //   border: 'none',
+          //   borderRadius: '50%',
+          //   color: '#9C94D0',
+          //   cursor: 'pointer',
+          //   fontSize: '2rem',
+          //   width: 50,
+          //   height: 50,
+          //   lineHeight: 1,
+          //   textAlign: 'center',
+          // },
+          // children: <span>{`>`}</span>,
         }}
         backwardBtnProps={{
           style: {
             alignSelf: 'center',
-            background: 'none',
-            border: 'none',
-            borderRadius: '50%',
-            color: '#9C94D0',
-            cursor: 'pointer',
-            fontSize: '2vw',
             width: 50,
             height: 50,
-            lineHeight: 1,
-            textAlign: 'center',
+            background: 'none',
+            marginRight: 30,
           },
-          children: <span>{`<`}</span>,
+          children: <ChevronLeft />,
+          // style: {
+          //   alignSelf: 'center',
+          //   background: 'none',
+          //   border: 'none',
+          //   borderRadius: '50%',
+          //   color: '#9C94D0',
+          //   cursor: 'pointer',
+          //   fontSize: '2rem',
+          //   width: 50,
+          //   height: 50,
+          //   lineHeight: 1,
+          //   textAlign: 'center',
+          // },
+          // children: <span>{`<`}</span>,
         }}
         responsiveProps={[
           {
@@ -61,8 +79,8 @@ const ProductCardCarousel = () => {
         speed={400}
         easing="linear"
       >
-        {dummy.cards.map(card => {
-          return <ProductCard card={card} />;
+        {dummy.cards.map((card, index: number) => {
+          return <ProductCard card={card} keys={index} />;
         })}
       </Carousel>
     </S.Container>

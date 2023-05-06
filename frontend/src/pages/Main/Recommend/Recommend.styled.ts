@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   height: auto;
   margin: 0 auto;
-  padding: 7vh 0 10vh;
+  padding: 10vh 0;
 `;
 
 const Top = styled.div`
@@ -68,6 +68,12 @@ const TopRight = styled.div`
   float: right;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export {
   Container,
   Top,
@@ -79,4 +85,5 @@ export {
   InfoMessageWrapper,
   InfoMessage,
   TopRight,
+  Wrapper,
 };
