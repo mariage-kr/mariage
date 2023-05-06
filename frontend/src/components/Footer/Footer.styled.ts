@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
-/** @jsxImportSource @emotion/react */
 
 const Container = styled.div`
   display: flex;
   align-items: center;
-  width: 80vw;
   height: 100px;
   margin: 0 auto;
-  padding: 30px 0;
+  margin-top: 10vh;
   text-align: center;
-  border-top: 2px solid #ddd;
+
+  background-color: #9c94d066;
 `;
 
 const FLogo = styled.h1`

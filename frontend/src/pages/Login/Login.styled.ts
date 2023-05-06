@@ -6,6 +6,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  padding: 10vh 10vw 0 10vw;
 `;
 
 const StyledLink = styled(Link)`

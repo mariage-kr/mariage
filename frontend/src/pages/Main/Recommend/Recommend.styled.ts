@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  width: 80%;
   height: auto;
   margin: 0 auto;
   padding: 7vh 0 10vh;
@@ -14,7 +13,7 @@ const Top = styled.div`
 `;
 
 const TopLeft = styled.div`
-  width: 80%;
+  /* width: 80%; */
   overflow: hidden;
   float: left;
 `;
@@ -34,7 +33,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  border: 1px solid #9C94D0;
+  border: 1px solid #9c94d0;
   border-radius: 3vw;
   box-shadow: 0px 0px 5px #b9b9b9;
   background-color: white;
@@ -43,8 +42,8 @@ const Button = styled.button`
   font-size: 1vw;
   display: inline-block;
   margin-right: 1vw;
-  &:focus{
-    background-color: #9C94D0;
+  &:focus {
+    background-color: #9c94d0;
     color: #fff;
   }
 `;
@@ -66,7 +65,6 @@ const TopRight = styled.div`
   height: 12vh;
   float: right;
 `;
-
 
 export {
   Container,

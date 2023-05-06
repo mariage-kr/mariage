@@ -1,21 +1,12 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   /* border: 1px solid black; */
-
-  top: 0px;
-  left: 0px;
-
   display: flex;
   justify-content: center;
 
-  width: 100%;
-  height: 72px;
-  min-width: 1000px;
-
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 100px;
 `;
 
 const Logo = styled.div`
@@ -71,7 +62,7 @@ const Profile = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-end;
 
   width: 20%;
 `;
@@ -79,6 +70,11 @@ const Profile = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
+
+  width: auto;
+  min-width: 100px;
+
+  text-align: end;
 `;
 
 export { Container, Logo, Header, Nav, Search, Input, Profile, StyledLink };

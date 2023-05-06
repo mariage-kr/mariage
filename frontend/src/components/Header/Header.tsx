@@ -12,7 +12,9 @@ function Header() {
   return (
     <S.Container>
       <S.Logo>
-        <S.Header>Mariage</S.Header>
+        <S.StyledLink to={BROWSER_PATH.BASE}>
+          <S.Header>Mariage</S.Header>
+        </S.StyledLink>
       </S.Logo>
       <S.Nav>
         {data.category.map((category, index) => {
