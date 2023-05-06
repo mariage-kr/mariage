@@ -14,10 +14,10 @@ const ProductCardCarousel = () => {
 
   const getItemCount = (): number => {
     const width: number = window.innerWidth;
-    console.log(width);
-    if (width >= 1810) {
-      return 5;
-    } else if (width >= 1490) {
+
+    if (width >= 1800) {
+      return Math.floor(width / 320) - 1;
+    } else if (width >= 1500) {
       return 4;
     } else if (width >= 1180) {
       return 3;
@@ -53,20 +53,6 @@ const ProductCardCarousel = () => {
             marginLeft: 30,
           },
           children: <ChevronRight />,
-          // style: {
-          //   alignSelf: 'center',
-          //   background: 'none',
-          //   border: 'none',
-          //   borderRadius: '50%',
-          //   color: '#9C94D0',
-          //   cursor: 'pointer',
-          //   fontSize: '2rem',
-          //   width: 50,
-          //   height: 50,
-          //   lineHeight: 1,
-          //   textAlign: 'center',
-          // },
-          // children: <span>{`>`}</span>,
         }}
         backwardBtnProps={{
           style: {
@@ -75,23 +61,8 @@ const ProductCardCarousel = () => {
             height: 50,
             background: 'none',
             marginRight: 30,
-            position: 'static',
           },
           children: <ChevronLeft />,
-          // style: {
-          //   alignSelf: 'center',
-          //   background: 'none',
-          //   border: 'none',
-          //   borderRadius: '50%',
-          //   color: '#9C94D0',
-          //   cursor: 'pointer',
-          //   fontSize: '2rem',
-          //   width: 50,
-          //   height: 50,
-          //   lineHeight: 1,
-          //   textAlign: 'center',
-          // },
-          // children: <span>{`<`}</span>,
         }}
         speed={400}
         easing="linear"
