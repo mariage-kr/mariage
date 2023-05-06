@@ -5,6 +5,7 @@ import { BROWSER_PATH } from '@/constants/path';
 import * as S from './Header.styled';
 
 import categoryData from './category.json';
+import Profile from './Profile/Profile';
 
 function Header() {
   const data = categoryData;
@@ -24,10 +25,7 @@ function Header() {
       <S.Search>
         <S.Input placeholder="원하시는 주류를 검색하세요"></S.Input>
       </S.Search>
-      <S.Profile>
-        <S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink>
-        <S.StyledLink to={BROWSER_PATH.SIGN_UP}>회원가입</S.StyledLink>
-      </S.Profile>
+      <Profile />
     </S.Container>
   );
 }

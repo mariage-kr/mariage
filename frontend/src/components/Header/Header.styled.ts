@@ -16,6 +16,8 @@ const Logo = styled.div`
   align-items: center;
 
   width: 15%;
+
+  min-width: 144px;
 `;
 
 const Header = styled.h1`
@@ -28,7 +30,9 @@ const Nav = styled.div`
   display: flex;
   align-items: center;
 
-  width: 15%;
+  width: 20%;
+
+  min-width: 192px;
 `;
 
 const Search = styled.div`
@@ -37,11 +41,13 @@ const Search = styled.div`
   display: flex;
   align-items: center;
 
-  width: 30%;
+  width: 20%;
+
+  min-width: 192px;
 `;
 
 const Input = styled.input`
-  width: 70%;
+  width: 80%;
   height: 42px;
 
   border: 0;
@@ -64,7 +70,9 @@ const Profile = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  width: 20%;
+  width: 15%;
+
+  min-width: 144px;
 `;
 
 const StyledLink = styled(Link)`

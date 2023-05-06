@@ -8,9 +8,7 @@ const Nav = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-around;
-
-  width: 100%;
+  /* justify-content: space-around; */
 `;
 
 const DropBtn = styled.button`

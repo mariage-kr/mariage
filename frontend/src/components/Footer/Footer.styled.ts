@@ -4,7 +4,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   height: 100px;
-  margin: 0 auto;
+  padding: 0 10%;
   margin-top: 10vh;
   text-align: center;
 

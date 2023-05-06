@@ -10,7 +10,7 @@ const Header = styled.div`
 `;
 
 const Wrapper = styled.div`
-  margin: 0 10%;
+  margin: 0 15%;
 `;
 
 const Recommend = styled.div`

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import Carousel from 'react-simply-carousel';
+
+import ProductCard from '../ProductCard/ProductCard';
+
 import * as S from './ProductCardCarousel.styled';
+
 import dummy from './ProductCardDummyData.json';
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 
 const ProductCardCarousel = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -17,7 +20,6 @@ const ProductCardCarousel = () => {
         autoplay={true}
         autoplayDelay={2000}
         forwardBtnProps={{
-          //here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: 'none',
@@ -34,7 +36,6 @@ const ProductCardCarousel = () => {
           children: <span>{`>`}</span>,
         }}
         backwardBtnProps={{
-          //here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: 'none',
@@ -53,40 +54,19 @@ const ProductCardCarousel = () => {
         responsiveProps={[
           {
             itemsToShow: 4,
-            itemsToScroll: 1,
+            itemsToScroll: 2,
             minWidth: 768,
           },
         ]}
         speed={400}
         easing="linear"
       >
-        {dummy.cards.map(card => (
-          <S.CarouselCard>
-          <S.CardContainer>
-            <S.Wrapper>
-              <S.Inner css={S.inner_left}>
-                <S.Img alt="" src={card.img} />
-              </S.Inner>
-              <S.Inner css={S.inner_right}>
-                <S.StarRate>
-                  <S.StarRateText>3.6</S.StarRateText>
-                  <StarRateAverage averageReviewRate={3.6}/>
-                </S.StarRate>
-                <S.Review><S.ReviewCount>{card.review}</S.ReviewCount> reviews</S.Review>
-                <S.Country css={S.country_left}>
-                  <S.Flagimg alt="" src={card.flagimg} />
-                </S.Country>
-                <S.Country css={S.country_right}>{card.country}</S.Country>
-              </S.Inner>
-            </S.Wrapper>
-            <S.Bottom>{card.name}</S.Bottom>
-          </S.CardContainer>
-          </S.CarouselCard>
-        ))} 
+        {dummy.cards.map(card => {
+          return <ProductCard card={card} />;
+        })}
       </Carousel>
     </S.Container>
   );
-}
-
+};
 
 export default ProductCardCarousel;

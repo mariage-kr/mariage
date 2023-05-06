@@ -11,6 +11,7 @@ dotenv.config();
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, './src/index.tsx'),
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
