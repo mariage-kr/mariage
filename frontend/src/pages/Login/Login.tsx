@@ -65,6 +65,7 @@ function Login() {
         };
         setLogin(true);
         setAuth(token);
+        window.location.reload();
         navigate(-1);
       })
       .catch(error => {

@@ -1,11 +1,12 @@
 import Dropdown from './Dropdown/Dropdown';
+import Profile from './Profile/Profile';
 
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Header.styled';
 
 import categoryData from './category.json';
-import Profile from './Profile/Profile';
+import Search from './Search/Search';
 
 function Header() {
   const data = categoryData;
@@ -22,9 +23,7 @@ function Header() {
           return <Dropdown key={index} data={category} />;
         })}
       </S.Nav>
-      <S.Search>
-        <S.Input placeholder="원하시는 주류를 검색하세요"></S.Input>
-      </S.Search>
+      <Search />
       <Profile />
     </S.Container>
   );

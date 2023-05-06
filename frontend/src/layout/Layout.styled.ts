@@ -4,7 +4,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
 
-  min-width: 960px;
+  min-width: 959px;
 `;
 
 const Content = styled.div`
