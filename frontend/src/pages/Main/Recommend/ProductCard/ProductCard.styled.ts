@@ -5,21 +5,22 @@ const CarouselCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16vw;
 `;
 
 const CardContainer = styled.div`
-  margin: 0 10px 20px 10px;
+  margin: 0 25px 20px 25px;
 
-  width: 13vw;
-  height: 34vh;
+  /* TODO: VIVINO */
+  width: 200px;
+  height: 312px;
+
+  /* width: 13vw; */
+  /* height: 34vh; */
 
   border: 2px solid #9c94d0;
+  /* TODO: 크기에 따라서 모서리가 달라짐 */
   border-radius: 1.5vw;
   box-shadow: 3px 3px 3px 3px #00000033;
-
-  /* box-shadow: 1px 1px 5px #b9b9b9; */
-  /* margin: 0 auto; */
 
   transition: 250ms;
 
