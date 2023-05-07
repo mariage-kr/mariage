@@ -2,6 +2,7 @@ package com.multi.mariage.category.service;
 
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.category.dto.CategoriesResponse;
+import com.multi.mariage.category.dto.CategoryResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class DrinkUpperCategoryService {
     @Transactional
-    public List<DrinkUpperCategoryResponse> findCategories() {
+    public CategoryResponse findCategories() {
         List<DrinkUpperCategory> categories = Arrays.asList(DrinkUpperCategory.values());
         List<DrinkUpperCategoryResponse> responseList = new ArrayList<>();
 
@@ -42,7 +42,10 @@ public class DrinkUpperCategoryService {
                     .build();
             responseList.add(response);
         }
+        CategoryResponse categoryResponse = CategoryResponse.builder()
+                .category(responseList)
+                .build();
 
-        return responseList;
+        return categoryResponse;
     }
 }

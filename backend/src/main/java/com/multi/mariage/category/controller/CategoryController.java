@@ -1,5 +1,6 @@
 package com.multi.mariage.category.controller;
 
+import com.multi.mariage.category.dto.CategoryResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
 import com.multi.mariage.category.service.DrinkUpperCategoryService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class CategoryController {
     private final DrinkUpperCategoryService drinkUpperCategoryService;
 
     @GetMapping("/categories")
-    public ResponseEntity<List<DrinkUpperCategoryResponse>> findUpperCategories() {
-        List<DrinkUpperCategoryResponse> response = drinkUpperCategoryService.findCategories();
+    public ResponseEntity<CategoryResponse> findUpperCategories() {
+        CategoryResponse response = drinkUpperCategoryService.findCategories();
         return ResponseEntity.ok(response);
     }
 }
