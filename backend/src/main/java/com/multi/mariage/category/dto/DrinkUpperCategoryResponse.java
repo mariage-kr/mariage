@@ -10,10 +10,13 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class DrinkUpperCategoryResponse {
-    private List<String> category;
+
+    private String region;
+    private List<CategoriesResponse> categories;
 
     @Builder
-    public DrinkUpperCategoryResponse(List<String> category) {
-        this.category = category;
+    public DrinkUpperCategoryResponse(String region, List<CategoriesResponse> categories) {
+        this.region = region;
+        this.categories = categories;
     }
 }

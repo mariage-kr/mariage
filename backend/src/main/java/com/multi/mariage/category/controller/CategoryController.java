@@ -17,9 +17,9 @@ import java.util.List;
 public class CategoryController {
     private final DrinkUpperCategoryService drinkUpperCategoryService;
 
-    @GetMapping("/categories/{origin}")
-    public ResponseEntity<List<DrinkUpperCategoryResponse>> findCategoriesByOrigin(@PathVariable String origin) {
-        List<DrinkUpperCategoryResponse> categories = drinkUpperCategoryService.findCategoriesByOrigin(origin);
+    @GetMapping("/categories")
+    public ResponseEntity<List<DrinkUpperCategoryResponse>> findCategories() {
+        List<DrinkUpperCategoryResponse> categories = drinkUpperCategoryService.findCategories();
         return ResponseEntity.ok(categories);
     }
 }
