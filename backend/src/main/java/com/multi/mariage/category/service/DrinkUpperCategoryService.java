@@ -1,9 +1,9 @@
 package com.multi.mariage.category.service;
 
 import com.multi.mariage.category.domain.DrinkUpperCategory;
-import com.multi.mariage.category.dto.CategoriesResponse;
-import com.multi.mariage.category.dto.CategoryResponse;
+import com.multi.mariage.category.dto.DrinkUpperCategoriesResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
+import com.multi.mariage.category.dto.DrinkUpperCategoryValuesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class DrinkUpperCategoryService {
     @Transactional
-    public CategoryResponse findCategories() {
+    public DrinkUpperCategoryResponse findCategories() {
         List<DrinkUpperCategory> categories = Arrays.asList(DrinkUpperCategory.values());
-        List<DrinkUpperCategoryResponse> responseList = new ArrayList<>();
+        List<DrinkUpperCategoryValuesResponse> responseList = new ArrayList<>();
 
         List<String> regionList = categories.stream()
                 .map(DrinkUpperCategory::getRegion)
@@ -28,24 +28,24 @@ public class DrinkUpperCategoryService {
                 .toList();
 
         for (String region : regionList) {
-            List<CategoriesResponse> categoryList = categories.stream()
+            List<DrinkUpperCategoriesResponse> categoryList = categories.stream()
                     .filter(category -> category.getRegion().equals(region))
-                    .map(category -> CategoriesResponse.builder()
+                    .map(category -> DrinkUpperCategoriesResponse.builder()
                             .name(category.name())
                             .value(category.getName())
                             .build())
                     .collect(Collectors.toList());
 
-            DrinkUpperCategoryResponse response = DrinkUpperCategoryResponse.builder()
+            DrinkUpperCategoryValuesResponse response = DrinkUpperCategoryValuesResponse.builder()
                     .region(region)
                     .categories(categoryList)
                     .build();
             responseList.add(response);
         }
-        CategoryResponse categoryResponse = CategoryResponse.builder()
+        DrinkUpperCategoryResponse drinkUpperCategoryResponse = DrinkUpperCategoryResponse.builder()
                 .category(responseList)
                 .build();
 
-        return categoryResponse;
+        return drinkUpperCategoryResponse;
     }
 }

@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class CategoriesResponse {
+public class DrinkUpperCategoriesResponse {
 
     private String name;
     private String value;
 
     @Builder
-    public CategoriesResponse(String name, String value) {
+    public DrinkUpperCategoriesResponse(String name, String value) {
         this.name = name;
         this.value = value;
     }
