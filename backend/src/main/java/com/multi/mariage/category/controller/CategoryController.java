@@ -18,7 +18,7 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public ResponseEntity<List<DrinkUpperCategoryResponse>> findUpperCategories() {
-        List<DrinkUpperCategoryResponse> categories = drinkUpperCategoryService.findCategories();
-        return ResponseEntity.ok(categories);
+        List<DrinkUpperCategoryResponse> response = drinkUpperCategoryService.findCategories();
+        return ResponseEntity.ok(response);
     }
 }
