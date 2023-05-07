@@ -5,7 +5,6 @@ import com.multi.mariage.category.service.DrinkUpperCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,7 @@ public class CategoryController {
     private final DrinkUpperCategoryService drinkUpperCategoryService;
 
     @GetMapping("/categories")
-    public ResponseEntity<List<DrinkUpperCategoryResponse>> findCategories() {
+    public ResponseEntity<List<DrinkUpperCategoryResponse>> findUpperCategories() {
         List<DrinkUpperCategoryResponse> categories = drinkUpperCategoryService.findCategories();
         return ResponseEntity.ok(categories);
     }
