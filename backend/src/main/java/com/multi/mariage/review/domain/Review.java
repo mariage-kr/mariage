@@ -44,8 +44,8 @@ public class Review {
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_category_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "food_category_id")
     private FoodCategory foodCategory;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -67,11 +67,6 @@ public class Review {
         hashtag.getReviews().add(this);
         this.hashtag = hashtag;
     }
-
-//    public void setFoodCategory(FoodCategory foodCategory) {
-//        foodCategory.getReviews().add(this);
-//        this.foodCategory = foodCategory;
-//    }
 
     public void setImage(Image image) {
         this.image = image;
