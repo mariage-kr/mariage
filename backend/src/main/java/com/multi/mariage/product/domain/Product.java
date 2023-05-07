@@ -36,13 +36,14 @@ public class Product {
     private List<Review> reviews = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "upper_category_id", nullable = false)
+    @Column(name = "upper_category_id", nullable = false)
     private DrinkUpperCategory upperCategory;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "lower_category_id")
+    @Column(name = "lower_category_id")
     private DrinkLowerCategory lowerCategory;
 
+    // TODO: Country 또한 Enum으로 할지 엔티티로 할지 고려해볼 것
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
@@ -52,16 +53,6 @@ public class Product {
     private Image image;
 
     /* 연관관계 편의 메서드 */
-//    public void setUpperCategory(DrinkUpperCategory upperCategory) {
-//        upperCategory.getProducts().add(this);
-//        this.upperCategory = upperCategory;
-//    }
-//
-//    public void setLowerCategory(DrinkLowerCategory lowerCategory) {
-//        lowerCategory.getProducts().add(this);
-//        this.lowerCategory = lowerCategory;
-//    }
-
     public void setCountry(Country country) {
         this.country = country;
         country.getProducts().add(this);
@@ -70,15 +61,6 @@ public class Product {
     public void setImage(Image image) {
         this.image = image;
     }
-
-//    @Builder
-//    public Product(String name, double level, String info, Country country, Image image) {
-//        this.name = name;
-//        this.level = level;
-//        this.info = info;
-//        this.country = country;
-//        this.image = image;
-//    }
 
     @Builder
     public Product(String name, double level, String info, DrinkUpperCategory upperCategory,
