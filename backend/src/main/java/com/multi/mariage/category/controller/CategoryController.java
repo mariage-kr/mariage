@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     private final DrinkUpperCategoryService drinkUpperCategoryService;
 
-    @GetMapping("/categories")
+    @GetMapping("/categories/upper")
     public ResponseEntity<DrinkUpperCategoryResponse> findUpperCategories() {
         DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
         return ResponseEntity.ok(response);
