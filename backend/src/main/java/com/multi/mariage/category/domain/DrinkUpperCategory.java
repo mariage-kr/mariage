@@ -16,11 +16,11 @@ public enum DrinkUpperCategory {
     FOREIGN_ETC(9, "기타", "foreign");
     private final int id;
     private final String name;
-    private final String origin;
+    private final String region;
 
-    DrinkUpperCategory(int id, String name, String origin) {
+    DrinkUpperCategory(int id, String name, String region) {
         this.id = id;
         this.name = name;
-        this.origin = origin;
+        this.region = region;
     }
 }
