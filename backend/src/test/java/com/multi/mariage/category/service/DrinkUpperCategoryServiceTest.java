@@ -29,7 +29,7 @@ class DrinkUpperCategoryServiceTest {
         List<DrinkUpperCategoryValuesResponse> actual = response.getCategory();
 
         assertNotNull(actual);
-//        assertEquals(Region.values().length, actual.size());
+        assertEquals(Region.values().length, actual.size());
 
         for (DrinkUpperCategoryValuesResponse categoryValue : actual) {
             assertNotNull(categoryValue.getRegion());
