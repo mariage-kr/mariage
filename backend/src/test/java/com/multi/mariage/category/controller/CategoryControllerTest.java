@@ -22,7 +22,7 @@ class CategoryControllerTest extends ControllerTest {
 
         mockMvc.perform(get("/api/categories/upper"))
                 .andDo(print())
-                .andDo(document("Category: FindUpperCategory",
+                .andDo(document("Category/FindUpperCategory",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
                                         fieldWithPath("category").description("주류 상위 카테고리"),
