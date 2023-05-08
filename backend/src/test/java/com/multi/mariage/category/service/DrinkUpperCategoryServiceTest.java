@@ -15,10 +15,6 @@ class DrinkUpperCategoryServiceTest {
 
     DrinkUpperCategoryService drinkUpperCategoryService = new DrinkUpperCategoryService();
 
-    @BeforeEach
-    void setUp() {
-    }
-
     @DisplayName("모든 지역에 대한 상위 카테고리 조회 테스트")
     @Test
     void 상위카테고리_조회() {
