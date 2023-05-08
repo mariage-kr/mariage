@@ -15,7 +15,7 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
-const RangeMultiSlider_M: FC<rangeMultiSliderProps> = ({
+const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
   min,
   max,
   onChange,
@@ -104,4 +104,4 @@ const RangeMultiSlider_M: FC<rangeMultiSliderProps> = ({
   );
 };
 
-export default RangeMultiSlider_M;
+export default RangeMultiSlider_M_Star;

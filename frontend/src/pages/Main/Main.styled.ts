@@ -15,7 +15,8 @@ const Wrapper = styled.div`
 
 const Recommend = styled.div`
   width: 100%;
-  height: auto;
+  height: 12vh;
+  text-align: center;
 `;
 
 export { Container, Header, Wrapper, Recommend };
