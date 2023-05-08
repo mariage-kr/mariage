@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { requestLogout } from '@/apis/request/auth';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Profile.styled';
-import { requestAxiosLogout, requestLogout } from '@/apis/request/auth';
-import { accessTokenProvider } from '@/utils/token';
 
 function Profile() {
   const { key } = useLocation();
@@ -27,11 +26,11 @@ function Profile() {
   }, [key]);
 
   const logout = () => {
-    // requestLogout()
-    requestAxiosLogout(accessTokenProvider.get())
+    requestLogout()
       .then(() => {
         removeIsLogin();
         navigate(BROWSER_PATH.BASE);
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);

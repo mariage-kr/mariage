@@ -19,7 +19,6 @@ axiosWithAccessToken.interceptors.request.use(
 
     if (config.headers && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
-      console.log('After Header : ' + config.headers);
     }
 
     return config;
