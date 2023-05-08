@@ -46,7 +46,7 @@ class CategoryControllerTest extends ControllerTest {
         Mockito.when(drinkUpperCategoryService.findCategories()).thenReturn(response);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/categories/upper"))
-                .contentType(MediaType.APPLICATION_JSON) //보내는 데이터의 타입을 명시
+//                .contentType(MediaType.APPLICATION_JSON) //보내는 데이터의 타입을 명시
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(document("categoryList",
                                 preprocessResponse(prettyPrint())
