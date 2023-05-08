@@ -44,7 +44,6 @@ public class Member {
     @Column(nullable = false)
     private Role role;
 
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Like> likes = new ArrayList<>();
 
@@ -62,9 +61,17 @@ public class Member {
         this.role = Role.USER;
     }
 
-    /* 연관관계 편의 메서드 */
-    public void setImage(Image image) {
+    /* 비즈니스 로직 */
+    public void updateImage(Image image) {
         this.image = image;
+    }
+
+    public void updateNickname(Nickname nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updatePassword(Password password) {
+        this.password = password;
     }
 
     /* Embedded Getter */
@@ -74,6 +81,10 @@ public class Member {
 
     public String getName() {
         return name.getValue();
+    }
+
+    public String getNickname() {
+        return nickname.getValue();
     }
 
     public String getPassword() {

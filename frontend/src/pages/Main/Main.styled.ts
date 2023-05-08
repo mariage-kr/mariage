@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+
+const Container = styled.div``;
 
 const Header = styled.div`
   border: 1px solid #b9b9b9;
@@ -8,13 +9,14 @@ const Header = styled.div`
   text-align: center;
 `;
 
-const Recommend = styled.div`
-  border: 1px solid green;
-  width: 100%;
-  height: 400px;
+const Wrapper = styled.div`
+  margin: 0 10%;
 `;
 
-export {
-  Header,
-  Recommend
-};
+const Recommend = styled.div`
+  width: 100%;
+  height: 12vh;
+  text-align: center;
+`;
+
+export { Container, Header, Wrapper, Recommend };

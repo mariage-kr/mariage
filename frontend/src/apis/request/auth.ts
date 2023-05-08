@@ -1,9 +1,9 @@
 import { axios } from '../axios';
 import { API_PATH } from '@/constants/path';
-import { SignupUser } from '@/types/user';
+import { LoginUser } from '@/types/user';
 
-const requestSignup = (userData: SignupUser) => {
-  return axios.post(API_PATH.AUTH.SIGNUP, userData);
+const requestLogin = (userData: LoginUser) => {
+  return axios.post(API_PATH.AUTH.LOGIN, userData);
 };
 
-export { requestSignup };
+export { requestLogin };

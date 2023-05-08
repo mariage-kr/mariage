@@ -9,36 +9,44 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  margin: 0 10%;
 `;
 
 const Header = styled.h1`
   color: black;
 `;
 
-const Wrapper = styled.div`
+const Form = styled.form`
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
 
   width: 460px;
+
+  padding: 30px;
+  border: 1px solid #0f0f0f50;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #0f0f0f25;
 `;
 
 const Input = styled.input`
   width: 460px;
   height: 42px;
 
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 
   border: 0;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid #00000050;
 
   font-size: 16px;
-  outline: none;
+
+  transition: 100ms;
 
   &:focus {
-    border: 2px solid #9c94d0;
-    border-radius: 5px;
+    outline: none;
+    border-bottom: 3px solid #bb2649;
   }
 `;
 
@@ -50,6 +58,17 @@ const Button = styled.button`
 
   background-color: #9c94d0;
   color: #f8f8f8;
+`;
+
+const DisableButton = styled.button`
+  font-size: 20px;
+
+  width: 460px;
+  height: 52px;
+
+  background-color: #ffffff;
+  border: 1px solid #9c94d0;
+  color: #9c94d0;
 `;
 
 const Label = styled.label`
@@ -85,10 +104,11 @@ const ErrorMessage = styled.span`
 export {
   Container,
   Header,
-  Wrapper,
+  Form,
   Input,
   Label,
   Button,
+  DisableButton,
   InfoMessage,
   ErrorMessage,
 };

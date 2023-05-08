@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
 import * as S from './StarRateAverage.styled';
 
-function StarRateAverage() {
-  // TODO: 더미데이터
-  const averageRate = 3.6;
+interface AverageReviewRateProps {
+  averageReviewRate: number;
+}
+
+function StarRateAverage({ averageReviewRate }: AverageReviewRateProps) {
   const starIdList = ['1', '2', '3', '4', '5'];
-  const [starRateList, setStarRateList] = useState([0, 0, 0, 0, 0]);
 
   const calculateStarRate = () => {
     let ratioStarList = [0, 0, 0, 0, 0];
-    let scoreSet = averageRate * 20;
+    let scoreSet = averageReviewRate * 20;
     let index = 0;
     while (scoreSet > 20) {
       ratioStarList[index] = 20;
@@ -20,9 +20,7 @@ function StarRateAverage() {
     return ratioStarList;
   };
 
-  useEffect(() => {
-    setStarRateList(calculateStarRate);
-  }, []);
+  const starRateList: number[] = calculateStarRate();
 
   return (
     <div>

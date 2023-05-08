@@ -20,7 +20,9 @@
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-material-ui-carousel": "^3.4.2",
     "react-router-dom": "^6.10.0",
+    "react-simply-carousel": "^8.5.5",
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0"
   },
