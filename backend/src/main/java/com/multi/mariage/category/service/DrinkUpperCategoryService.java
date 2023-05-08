@@ -1,6 +1,7 @@
 package com.multi.mariage.category.service;
 
 import com.multi.mariage.category.domain.DrinkUpperCategory;
+import com.multi.mariage.category.domain.Region;
 import com.multi.mariage.category.dto.DrinkUpperCategoriesResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryValuesResponse;
@@ -22,14 +23,13 @@ public class DrinkUpperCategoryService {
         List<DrinkUpperCategory> categories = Arrays.asList(DrinkUpperCategory.values());
         List<DrinkUpperCategoryValuesResponse> responseList = new ArrayList<>();
 
-        List<String> regionList = categories.stream()
-                .map(DrinkUpperCategory::getRegion)
-                .distinct()
+        List<String> regionList = Arrays.stream(Region.values())
+                .map(Region::getValue)
                 .toList();
-
+        
         for (String region : regionList) {
             List<DrinkUpperCategoriesResponse> categoryList = categories.stream()
-                    .filter(category -> category.getRegion().equals(region))
+                    .filter(category -> category.getName().contains(region))
                     .map(category -> DrinkUpperCategoriesResponse.builder()
                             .name(category.name())
                             .value(category.getName())
@@ -42,10 +42,7 @@ public class DrinkUpperCategoryService {
                     .build();
             responseList.add(response);
         }
-        DrinkUpperCategoryResponse drinkUpperCategoryResponse = DrinkUpperCategoryResponse.builder()
-                .category(responseList)
-                .build();
-
+        DrinkUpperCategoryResponse drinkUpperCategoryResponse = new DrinkUpperCategoryResponse(responseList);
         return drinkUpperCategoryResponse;
     }
 }
