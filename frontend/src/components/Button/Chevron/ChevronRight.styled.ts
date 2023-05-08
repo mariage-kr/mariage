@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-const Container = styled.div`
-  height: 400px;
-`;
+const Container = styled.div``;
 
 export { Container };

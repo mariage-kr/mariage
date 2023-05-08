@@ -6,6 +6,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  margin: 10vh 0;
 `;
 
 const StyledLink = styled(Link)`
@@ -39,15 +41,15 @@ const Input = styled.input`
   margin-bottom: 20px;
 
   border: 0;
-  border-bottom: 2px solid #00000050;
+  border-bottom: 3px solid #00000050;
 
   font-size: 16px;
 
   transition: 100ms;
 
   &:focus {
-    border-bottom: 2px solid #9c94d0;
-    border-radius: 5px;
+    outline: none;
+    border-bottom: 3px solid #bb2649;
   }
 `;
 

@@ -25,14 +25,15 @@ function SignUp() {
   const { value: nickname, setValue: setNickname } = useInput('');
   const { value: birth, setValue: setBirth } = useInput('');
 
-  const [isValid, setIsValid] = useState(false);
-  const [isValidName, setIsValidName] = useState(true);
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-  const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
-  const [isValidNickname, setIsValidNickname] = useState(true);
-  const [isValidBirth, setIsValidBirth] = useState(true);
-  const [isValidNull, setIsValidNull] = useState(true);
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isValidName, setIsValidName] = useState<boolean>(true);
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
+  const [isValidConfirmPassword, setIsValidConfirmPassword] =
+    useState<boolean>(true);
+  const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
+  const [isValidBirth, setIsValidBirth] = useState<boolean>(true);
+  const [isValidNull, setIsValidNull] = useState<boolean>(true);
 
   const isNull = () => {
     if (

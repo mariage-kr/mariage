@@ -1,23 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from 'react-simply-carousel';
+
+import ProductCard from '../ProductCard/ProductCard';
+
 import * as S from './ProductCardCarousel.styled';
+
 import dummy from './ProductCardDummyData.json';
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 
 const ProductCardCarousel = () => {
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+
+  const getItemCount = (): number => {
+    const width: number = window.innerWidth;
+
+    if (width >= 1800) {
+      return Math.floor(width / 320) - 1;
+    } else if (width >= 1500) {
+      return 4;
+    } else if (width >= 1180) {
+      return 3;
+    }
+    return 2;
+  };
+
+  const [items, setItems] = useState<number>(getItemCount());
+
+  const resizeHandler = () => {
+    setItems(getItemCount());
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', resizeHandler);
+  }, [resizeHandler]);
 
   return (
     <S.Container>
       <Carousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
-        itemsToShow={4}
-        itemsToScroll={1}
+        itemsToShow={items}
+        itemsToScroll={items / 2}
         autoplay={true}
-        autoplayDelay={2000}
+        autoplayDelay={5000}
         forwardBtnProps={{
-          //here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: 'none',
@@ -25,7 +50,7 @@ const ProductCardCarousel = () => {
             borderRadius: '50%',
             color: '#9C94D0',
             cursor: 'pointer',
-            fontSize: '2vw',
+            fontSize: '3rem',
             width: 50,
             height: 50,
             lineHeight: 1,
@@ -34,7 +59,6 @@ const ProductCardCarousel = () => {
           children: <span>{`>`}</span>,
         }}
         backwardBtnProps={{
-          //here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: 'none',
@@ -42,7 +66,7 @@ const ProductCardCarousel = () => {
             borderRadius: '50%',
             color: '#9C94D0',
             cursor: 'pointer',
-            fontSize: '2vw',
+            fontSize: '3rem',
             width: 50,
             height: 50,
             lineHeight: 1,
@@ -50,43 +74,15 @@ const ProductCardCarousel = () => {
           },
           children: <span>{`<`}</span>,
         }}
-        responsiveProps={[
-          {
-            itemsToShow: 4,
-            itemsToScroll: 1,
-            minWidth: 768,
-          },
-        ]}
         speed={400}
         easing="linear"
       >
-        {dummy.cards.map(card => (
-          <S.CarouselCard>
-          <S.CardContainer>
-            <S.Wrapper>
-              <S.Inner css={S.inner_left}>
-                <S.Img alt="" src={card.img} />
-              </S.Inner>
-              <S.Inner css={S.inner_right}>
-                <S.StarRate>
-                  <S.StarRateText>3.6</S.StarRateText>
-                  <StarRateAverage averageReviewRate={3.6}/>
-                </S.StarRate>
-                <S.Review><S.ReviewCount>{card.review}</S.ReviewCount> reviews</S.Review>
-                <S.Country css={S.country_left}>
-                  <S.Flagimg alt="" src={card.flagimg} />
-                </S.Country>
-                <S.Country css={S.country_right}>{card.country}</S.Country>
-              </S.Inner>
-            </S.Wrapper>
-            <S.Bottom>{card.name}</S.Bottom>
-          </S.CardContainer>
-          </S.CarouselCard>
-        ))} 
+        {dummy.cards.map((card, index: number) => {
+          return <ProductCard card={card} keys={index} />;
+        })}
       </Carousel>
     </S.Container>
   );
-}
-
+};
 
 export default ProductCardCarousel;
