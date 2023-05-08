@@ -5,13 +5,13 @@ import com.multi.mariage.category.dto.DrinkUpperCategoriesResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryValuesResponse;
 import com.multi.mariage.common.annotation.ServiceTest;
-import org.junit.jupiter.api.*;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class DrinkUpperCategoryServiceTest {
+class DrinkUpperCategoryServiceTest extends ServiceTest {
 
     DrinkUpperCategoryService drinkUpperCategoryService = new DrinkUpperCategoryService();
 
@@ -21,18 +21,16 @@ class DrinkUpperCategoryServiceTest {
 
         DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
 
-        assertNotNull(response);
+        Assertions.assertThat(response).isNotNull();
+        Assertions.assertThat(response.getCategory()).isNotNull().hasSize(Region.values().length);
         List<DrinkUpperCategoryValuesResponse> actual = response.getCategory();
 
-        assertNotNull(actual);
-        assertEquals(Region.values().length, actual.size());
-
         for (DrinkUpperCategoryValuesResponse categoryValue : actual) {
-            assertNotNull(categoryValue.getRegion());
-            assertNotNull(categoryValue.getCategories());
-            assertFalse(categoryValue.getCategories().isEmpty());
+            Assertions.assertThat(categoryValue.getRegion()).isNotNull();
+            Assertions.assertThat(categoryValue.getCategories()).isNotNull().isNotEmpty();
         }
     }
+
     @DisplayName("특정 지역에 대한 상위 카테고리 조회 테스트")
     @Test
     void 특정_지역_필터링_상위카테고리_조회() {
@@ -40,24 +38,24 @@ class DrinkUpperCategoryServiceTest {
         DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
         String region = "국내";
 
-        assertNotNull(response);
+        Assertions.assertThat(response).isNotNull();
         List<DrinkUpperCategoryValuesResponse> categoryValues = response.getCategory();
-        assertNotNull(categoryValues);
+        Assertions.assertThat(categoryValues).isNotNull();
 
         DrinkUpperCategoryValuesResponse categoryValue = categoryValues.stream()
                 .filter(cv -> region.equals(cv.getRegion()))
                 .findFirst()
                 .orElse(null);
 
-        assertNotNull(categoryValue);
-        assertEquals(region, categoryValue.getRegion());
+        Assertions.assertThat(categoryValue).isNotNull();
+        Assertions.assertThat(categoryValue.getRegion()).isEqualTo(region);
 
         List<DrinkUpperCategoriesResponse> actual = categoryValue.getCategories();
-        assertFalse(actual.isEmpty());
+        Assertions.assertThat(actual).isNotEmpty();
 
         for (DrinkUpperCategoriesResponse category : actual) {
-            assertNotNull(category.getValue());
-            assertTrue(category.getValue().contains(region));
+            Assertions.assertThat(category.getValue()).isNotNull();
+            Assertions.assertThat(category.getValue()).contains(region);
         }
     }
 }
