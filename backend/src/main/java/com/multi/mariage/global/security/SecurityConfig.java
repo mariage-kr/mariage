@@ -4,7 +4,6 @@ import com.multi.mariage.auth.support.JwtAccessDeniedHandler;
 import com.multi.mariage.auth.support.JwtAuthenticationEntryPoint;
 import com.multi.mariage.auth.support.JwtSecurityConfig;
 import com.multi.mariage.auth.support.TokenProvider;
-import com.multi.mariage.member.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -30,8 +35,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+        http.csrf().disable()
+                /* https://www.baeldung.com/spring-cors */
+                .cors().and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
@@ -47,8 +53,8 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/user/**").authenticated()
-                .anyRequest().permitAll()
+                .requestMatchers("/api/user/**").hasRole("USER")
+                .requestMatchers("/api/**").permitAll()
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));

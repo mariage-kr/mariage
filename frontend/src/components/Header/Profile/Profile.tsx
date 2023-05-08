@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Profile.styled';
-import { requestLogout } from '@/apis/request/auth';
+import { requestAxiosLogout, requestLogout } from '@/apis/request/auth';
+import { accessTokenProvider } from '@/utils/token';
 
 function Profile() {
   const { key } = useLocation();
@@ -26,12 +27,15 @@ function Profile() {
   }, [key]);
 
   const logout = () => {
-    requestLogout()
+    // requestLogout()
+    requestAxiosLogout(accessTokenProvider.get())
       .then(() => {
         removeIsLogin();
         navigate(BROWSER_PATH.BASE);
       })
-      .catch(() => {});
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   if (isLogin) {

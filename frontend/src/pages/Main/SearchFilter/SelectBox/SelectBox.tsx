@@ -38,7 +38,7 @@ function SelectBox() {
 
   // const { value: middleOption, setValue: setMiddleOption } = useSelect(domesticOptions[0].value, overseasOptions[0].value);
 
-  const onChangeHanlder = (option: string) => {
+  const onChangeHandler = (option: string) => {
     if (option === 'domestic') {
       setMiddle(domesticOptions);
     } else {
@@ -47,8 +47,8 @@ function SelectBox() {
   };
 
   useEffect(() => {
-    onChangeHanlder(option);
-  }, [onChangeHanlder, option]);
+    onChangeHandler(option);
+  }, [option]);
 
   const [currentValue, setCurrentValue] = useState(mainOptions[0].name);
   const [showOptions, setShowOptions] = useState(false);

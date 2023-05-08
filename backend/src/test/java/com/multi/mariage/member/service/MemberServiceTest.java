@@ -159,7 +159,7 @@ class MemberServiceTest extends ServiceTest {
     class PasswordTest {
         static Stream<Arguments> Data() {
             String password = MemberFixture.MARI.toSignupRequest().getPassword();
-            return Stream.of(
+             return Stream.of(
                     Arguments.of(new UpdatePasswordRequest(password + "?", "mari12!@"),
                             MemberErrorCode.MEMBER_WRONG_PASSWORD.getMessage()),
                     Arguments.of(new UpdatePasswordRequest(password, password),

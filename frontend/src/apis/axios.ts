@@ -14,18 +14,17 @@ const axiosWithAccessToken = Axios.create({
 
 axiosWithAccessToken.interceptors.request.use(
   /* https://yamoo9.github.io/axios/guide/interceptors.html */
-  config => {
-    console.log('RUN AXIOS INTERCEPTORS');
-
+  function (config) {
     const accessToken = accessTokenProvider.get();
 
     if (config.headers && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+      console.log('After Header : ' + config.headers);
     }
 
     return config;
   },
-  error => {
+  function (error) {
     return Promise.reject(error);
   },
 );

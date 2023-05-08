@@ -6,9 +6,16 @@ const requestLogin = (userData: LoginUser) => {
   return axios.post(API_PATH.AUTH.LOGIN, userData);
 };
 
+const requestAxiosLogout = (accessToken: string) => {
+  return axios.delete(API_PATH.AUTH.LOGOUT, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
 const requestLogout = () => {
-  console.log('RUN REQUEST_LOGOUT');
   return axiosWithAccessToken.delete(API_PATH.AUTH.LOGOUT);
 };
 
-export { requestLogin, requestLogout };
+export { requestLogin, requestAxiosLogout, requestLogout };
