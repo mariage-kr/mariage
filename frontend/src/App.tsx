@@ -7,6 +7,7 @@ import Routes from '@/routes/Routes';
 import Loading from '@/components/Loading/Loading';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
 import { RecoilRoot } from 'recoil';
+import Layout from './layout/Layout';
 
 function App() {
   return (
@@ -15,9 +16,11 @@ function App() {
       <RecoilRoot>
         <Router>
           <ScrollToTop />
-          <Suspense fallback={<Loading />}>
-            <Routes />
-          </Suspense>
+          <Layout>
+            <Suspense fallback={<Loading />}>
+              <Routes />
+            </Suspense>
+          </Layout>
         </Router>
       </RecoilRoot>
     </>

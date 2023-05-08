@@ -1,4 +1,5 @@
 import Carousel from 'react-material-ui-carousel';
+
 import * as S from './Visual.styled';
 
 function Visual() {
@@ -28,9 +29,9 @@ function Visual() {
       animation="fade"
       navButtonsAlwaysInvisible={true}
     >
-      {VisualItems.map((item: any) => (
+      {VisualItems.map((item: any, index: number) => (
         <S.Visual>
-          <S.Image key={item.id} src={item.image} alt={item.name} />
+          <S.Image key={index} src={item.image} alt={item.name} />
         </S.Visual>
       ))}
     </Carousel>

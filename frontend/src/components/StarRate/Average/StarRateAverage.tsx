@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import * as S from './StarRateAverage.styled';
 
 interface AverageReviewRateProps {
@@ -6,10 +5,7 @@ interface AverageReviewRateProps {
 }
 
 function StarRateAverage({ averageReviewRate }: AverageReviewRateProps) {
-  // TODO: 더미데이터
-  // averageRate = 3.6;
   const starIdList = ['1', '2', '3', '4', '5'];
-  const [starRateList, setStarRateList] = useState([0, 0, 0, 0, 0]);
 
   const calculateStarRate = () => {
     let ratioStarList = [0, 0, 0, 0, 0];
@@ -24,9 +20,7 @@ function StarRateAverage({ averageReviewRate }: AverageReviewRateProps) {
     return ratioStarList;
   };
 
-  useEffect(() => {
-    setStarRateList(calculateStarRate);
-  }, []);
+  const starRateList: number[] = calculateStarRate();
 
   return (
     <div>

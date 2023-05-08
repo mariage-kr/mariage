@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import * as S from './ScrollToTop.styled';
 import { ScrollTop } from '@/components/Animation';
+
+import * as S from './ScrollToTop.styled';
 
 function ScrollToTop() {
   const [isShow, setIsShow] = useState(false);
