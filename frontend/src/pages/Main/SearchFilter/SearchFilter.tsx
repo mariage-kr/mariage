@@ -11,7 +11,7 @@ function SearchFilter() {
           <S.Left>
             <S.Drinks>
               <S.FilterTitle>주종</S.FilterTitle>
-              <SelectBox/>
+              {/* <SelectBox /> */}
             </S.Drinks>
           </S.Left>
           <S.Right>

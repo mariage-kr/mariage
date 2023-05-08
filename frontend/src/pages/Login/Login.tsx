@@ -69,6 +69,7 @@ function Login() {
         navigate(-1);
       })
       .catch(error => {
+        console.log(error);
         setIsValid(true);
         setErrorMessage(error.response.data.message);
       });
