@@ -8,16 +8,19 @@ const Container = styled.div`
 `;
 
 const Button = styled.div`
-  border: 1.5px solid #9c94d0;
+  border: 1px solid #9c94d000;
   border-radius: 100%;
   width: 75px;
   height: 75px;
 
   cursor: pointer;
 
+  background-color: #bb2649;
+
   transition: 250ms;
+
   &:hover {
-    background-color: #9c94d066;
+    background-color: #9c94d0;
   }
 `;
 

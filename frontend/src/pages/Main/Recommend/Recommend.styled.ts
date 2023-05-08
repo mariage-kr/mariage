@@ -1,27 +1,23 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  width: 80%;
   height: auto;
   margin: 0 auto;
-  padding: 7vh 0 10vh;
 `;
 
 const Top = styled.div`
-  width: 78%;
   height: 20vh;
   margin: 0 auto;
 `;
 
 const TopLeft = styled.div`
-  width: 80%;
   overflow: hidden;
   float: left;
 `;
 
 const Title = styled.h3`
   margin: 0 0 1.5vh;
-  padding-left: 0.2vw;
+
   font-size: 1.5vw;
 `;
 
@@ -34,17 +30,19 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  border: 1px solid #9C94D0;
+  border: 1px solid #9c94d0;
   border-radius: 3vw;
   box-shadow: 0px 0px 5px #b9b9b9;
   background-color: white;
-  width: 4.5vw;
-  height: 2vw;
+  height: 35px;
+
+  width: 72px;
+
   font-size: 1vw;
   display: inline-block;
   margin-right: 1vw;
-  &:focus{
-    background-color: #9C94D0;
+  &:focus {
+    background-color: #9c94d0;
     color: #fff;
   }
 `;
@@ -67,6 +65,11 @@ const TopRight = styled.div`
   float: right;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export {
   Container,
@@ -79,4 +82,5 @@ export {
   InfoMessageWrapper,
   InfoMessage,
   TopRight,
+  Wrapper,
 };
