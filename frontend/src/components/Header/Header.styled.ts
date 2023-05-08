@@ -2,16 +2,15 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  /* border: 1px solid black; */
   display: flex;
   justify-content: center;
 
   height: 100px;
+
+  border-bottom: 1px solid #00000033;
 `;
 
 const Logo = styled.div`
-  /* border: 1px solid red; */
-
   display: flex;
   align-items: center;
 
@@ -25,8 +24,6 @@ const Header = styled.h1`
 `;
 
 const Nav = styled.div`
-  /* border: 1px solid blue; */
-
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -37,8 +34,6 @@ const Nav = styled.div`
 `;
 
 const Profile = styled.div`
-  /* border: 1px solid sandybrown; */
-
   display: flex;
   align-items: center;
   justify-content: flex-end;

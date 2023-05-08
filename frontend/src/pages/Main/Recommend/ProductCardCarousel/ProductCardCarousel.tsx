@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import Carousel from 'react-simply-carousel';
 
 import ProductCard from '../ProductCard/ProductCard';
-import ChevronRight from '@/components/Button/Chevron/ChevronRight';
-import ChevronLeft from '@/components/Button/Chevron/ChevronLeft';
 
 import * as S from './ProductCardCarousel.styled';
 
@@ -47,22 +45,34 @@ const ProductCardCarousel = () => {
         forwardBtnProps={{
           style: {
             alignSelf: 'center',
+            background: 'none',
+            border: 'none',
+            borderRadius: '50%',
+            color: '#9C94D0',
+            cursor: 'pointer',
+            fontSize: '3rem',
             width: 50,
             height: 50,
-            background: 'none',
-            marginLeft: 30,
+            lineHeight: 1,
+            textAlign: 'center',
           },
-          children: <ChevronRight />,
+          children: <span>{`>`}</span>,
         }}
         backwardBtnProps={{
           style: {
             alignSelf: 'center',
+            background: 'none',
+            border: 'none',
+            borderRadius: '50%',
+            color: '#9C94D0',
+            cursor: 'pointer',
+            fontSize: '3rem',
             width: 50,
             height: 50,
-            background: 'none',
-            marginRight: 30,
+            lineHeight: 1,
+            textAlign: 'center',
           },
-          children: <ChevronLeft />,
+          children: <span>{`<`}</span>,
         }}
         speed={400}
         easing="linear"

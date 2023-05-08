@@ -1,31 +1,23 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
   height: auto;
   margin: 0 auto;
-  padding: 10vh 0;
 `;
 
 const Top = styled.div`
-  /* width: 78%; */
   height: 20vh;
   margin: 0 auto;
 `;
 
 const TopLeft = styled.div`
-  /* width: 80%; */
   overflow: hidden;
   float: left;
 `;
 
 const Title = styled.h3`
   margin: 0 0 1.5vh;
-  /* padding-left: 0.2vw; */
+
   font-size: 1.5vw;
 `;
 
@@ -43,9 +35,9 @@ const Button = styled.button`
   box-shadow: 0px 0px 5px #b9b9b9;
   background-color: white;
   height: 35px;
-  /* height: 2vw; */
+
   width: 72px;
-  /* width: 4.5vw; */
+
   font-size: 1vw;
   display: inline-block;
   margin-right: 1vw;

@@ -5,7 +5,7 @@ type Select = {
 };
 
 const Container = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 `;
 
 const Header = styled.h2`

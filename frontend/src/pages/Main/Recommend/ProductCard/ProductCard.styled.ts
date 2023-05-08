@@ -10,22 +10,18 @@ const CarouselCard = styled.div`
 const CardContainer = styled.div`
   margin: 0 25px 20px 25px;
 
-  /* TODO: VIVINO */
-  width: 200px;
-  height: 312px;
+  width: 220px;
+  height: 343.2px;
 
-  /* width: 13vw; */
-  /* height: 34vh; */
+  border: 1px solid #9c94d066;
+  border-radius: 10px;
 
-  border: 2px solid #9c94d0;
-  /* TODO: 크기에 따라서 모서리가 달라짐 */
-  border-radius: 1.5vw;
-  box-shadow: 3px 3px 3px 3px #00000033;
+  box-shadow: 3px 3px 3px #00000033;
 
   transition: 250ms;
 
   &:hover {
-    box-shadow: 4px 4px 3px 3px #9c94d090;
+    box-shadow: 3px 3px 3px #9c94d0;
   }
 `;
 
@@ -63,7 +59,6 @@ const inner_right = css`
 `;
 
 const StarRate = styled.div`
-  /* border: 1px solid #b9b9b9; */
   box-sizing: border-box;
   width: 100%;
   height: 6vh;
