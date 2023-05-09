@@ -15,10 +15,10 @@ const Wrapper = styled.div`
 `;
 
 const SelectBox = styled.select`
-  border: 1px solid #9C94D0;
+  border: 1px solid #9C94D055;
   border-radius: 0.3vw;
   box-sizing: border-box;
-  box-shadow: 0px 0px 5px #b9b9b9;
+  box-shadow: 0px 0px 5px #9c94d0;
   background: url('https://i.esdrop.com/d/f/CeyD9bnnT5/1Kum5nNwU4.png') no-repeat 97% 50%; 
   background-size: 13% auto;
   width: 210px;

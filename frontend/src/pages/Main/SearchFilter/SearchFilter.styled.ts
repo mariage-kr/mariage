@@ -154,35 +154,27 @@ const Bottom = styled.div`
 `;
 
 const FindButton = styled.button`
+  border: 1px solid #9C94D055;
   border-radius: 0.3vw;
   box-sizing: border-box;
-  box-shadow: 0px 0px 5px #b9b9b9;
-  background-color: #9C94D0;
-  width: 150px;
+  box-shadow: 0px 0px 5px #9C94D0;
+  background-color: #fff;
+  width: 120px;
   height: 45px;
   font-size: 1.2rem;
-  color: #fff;
+  color: #000;
+  transition: 250ms;
 
-  @media (min-width:1920px) { 
-    width: 120px;
-    height: 70px;
-    box-shadow: 0px 0px 5px #9C94D088;
-    background-color: #fff;
-    color: #000;
-    transition: 250ms;
-    &:hover {
-      box-shadow: 0px 0px 5px #b9b9b9;
-      background-color: #9C94D0;
-      color: #fff;
-    }
+  &:hover {
+    box-shadow: 0px 0px 5px #b9b9b9;
+    background-color: #9C94D0;
+    color: #fff;
   }
-  @media (max-width:1919px) { width: 140px; }
+
+  @media (min-width:1920px) { height: 70px; }
+  @media (max-width:1919px) { width: 360px; }
   @media (max-width:1600px) { font-size: 1rem; }
-  @media (max-width:1550px) { width: 130px; }
-  @media (max-width:1200px) { 
-    width: 360px;
-    margin: 30px 0 15px;
-  }
+  @media (max-width:1200px) { margin: 30px 0 15px; }
 `;
 
 
