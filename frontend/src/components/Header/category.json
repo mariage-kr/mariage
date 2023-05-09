@@ -1,50 +1,50 @@
 {
-  "category": [
-      {
-          "region": "국내",
-          "categories": [
-              {
-                  "name": "LOCAL_SOJU",
-                  "value": "소주"
-              },
-              {
-                  "name": "LOCAL_BEER",
-                  "value": "맥주"
-              },
-              {
-                  "name": "LOCAL_TRADITIONAL",
-                  "value": "전통주"
-              },
-              {
-                  "name": "LOCAL_ETC",
-                  "value": "기타"
-              }
-          ]
-      },
-      {
-          "region": "해외",
-          "categories": [
-              {
-                  "name": "FOREIGN_SPIRITS",
-                  "value": "증류주"
-              },
-              {
-                  "name": "FOREIGN_BEER",
-                  "value": "맥주"
-              },
-              {
-                  "name": "FOREIGN_WINE",
-                  "value": "와인"
-              },
-              {
-                  "name": "FOREIGN_WHISKEY",
-                  "value": "위스키"
-              },
-              {
-                  "name": "FOREIGN_ETC",
-                  "value": "기타"
-              }
-          ]
-      }
-  ]
+    "category": [
+        {
+            "region": "국내",
+            "categories": [
+                {
+                    "name": "LOCAL_SOJU",
+                    "value": "소주"
+                },
+                {
+                    "name": "LOCAL_BEER",
+                    "value": "맥주"
+                },
+                {
+                    "name": "LOCAL_TRADITIONAL",
+                    "value": "전통주"
+                },
+                {
+                    "name": "LOCAL_ETC",
+                    "value": "기타"
+                }
+            ]
+        },
+        {
+            "region": "해외",
+            "categories": [
+                {
+                    "name": "FOREIGN_SPIRITS",
+                    "value": "증류주"
+                },
+                {
+                    "name": "FOREIGN_BEER",
+                    "value": "맥주"
+                },
+                {
+                    "name": "FOREIGN_WINE",
+                    "value": "와인"
+                },
+                {
+                    "name": "FOREIGN_WHISKEY",
+                    "value": "위스키"
+                },
+                {
+                    "name": "FOREIGN_ETC",
+                    "value": "기타"
+                }
+            ]
+        }
+    ]
 }

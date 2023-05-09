@@ -1,4 +1,5 @@
 import * as S from './SearchFilter.styled';
+
 import SelectBox from './SelectBox/SelectBox';
 import RangeMultiSlider_M_Star from '@/components/RangeMultiSlider_M/RangeMultiSlider_M_Star';
 import RangeMultiSlider_M_ABV from '@/components/RangeMultiSlider_M/RangeMultiSlider_M_ABV';
@@ -11,7 +12,7 @@ function SearchFilter() {
           <S.Left>
             <S.Drinks>
               <S.FilterTitle>주종</S.FilterTitle>
-              <SelectBox/>
+              <SelectBox />
             </S.Drinks>
           </S.Left>
           <S.Right>

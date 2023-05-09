@@ -19,14 +19,15 @@ const Button = styled.button<Select>`
 
   margin-right: 15px;
   padding: 0 10px;
-
   font-size: 1.1rem;
 
   background-color: ${prop => (prop.select ? '#9c94d0' : '#fff')};
   color: ${prop => (prop.select ? '#f8f8f8' : '#000')};
 
   box-shadow: 1px 1px 3px ${prop => (prop.select ? '#00000030' : '#00000030')};
+
   transition: 250ms;
+
   &:hover {
     box-shadow: 1.5px 1.5px 3px #00000090;
   }

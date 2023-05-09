@@ -13,8 +13,8 @@ function Login() {
 
   const { setLogin, setAuth } = useAuth();
 
-  const [isValid, setIsValid] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -65,9 +65,11 @@ function Login() {
         };
         setLogin(true);
         setAuth(token);
+        window.location.reload();
         navigate(-1);
       })
       .catch(error => {
+        console.log(error);
         setIsValid(true);
         setErrorMessage(error.response.data.message);
       });

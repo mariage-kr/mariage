@@ -9,3 +9,6 @@ logging:
       springframework:
         core:
           LocalVariableTableParameterNameDiscoverer: error
+      apache:
+        coyote:
+          http11: debug

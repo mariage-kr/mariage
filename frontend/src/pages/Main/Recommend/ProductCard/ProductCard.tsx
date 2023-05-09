@@ -17,8 +17,7 @@ function ProductCard({ card }: any) {
             </S.StarRate>
             <S.Review>
               <S.ReviewCount>{card.review}</S.ReviewCount> reviews
-            </S.Review>
-            
+            </S.Review>   
           </S.Inner>
         </S.Wrapper>
         <S.Bottom>

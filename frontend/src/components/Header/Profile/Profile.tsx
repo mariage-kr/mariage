@@ -1,18 +1,22 @@
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { requestLogout } from '@/apis/request/auth';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Profile.styled';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 function Profile() {
   const { key } = useLocation();
+  const navigate = useNavigate();
+
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const handlerIsLogin = () => {
     setIsLogin(window.sessionStorage.getItem('isLogin') === 'true');
   };
 
-  const onClickLogout = () => {
+  const removeIsLogin = () => {
     window.sessionStorage.removeItem('isLogin');
     handlerIsLogin();
   };
@@ -21,11 +25,23 @@ function Profile() {
     handlerIsLogin();
   }, [key]);
 
+  const logout = () => {
+    requestLogout()
+      .then(() => {
+        removeIsLogin();
+        navigate(BROWSER_PATH.BASE);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   if (isLogin) {
     return (
       <S.Container>
         <S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink>
-        <S.TextButton onClick={onClickLogout}>로그아웃</S.TextButton>
+        <S.TextButton onClick={logout}>로그아웃</S.TextButton>
       </S.Container>
     );
   }

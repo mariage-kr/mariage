@@ -36,7 +36,7 @@ class StorageControllerTest extends ControllerTest {
                 )
                 .andDo(print())
                 .andDo(
-                        document("Storage: Save",
+                        document("Storage/Save",
                                 preprocessResponse(prettyPrint()),
                                 requestParts(
                                         partWithName("file").description("업로드를 원하는 이미지")),

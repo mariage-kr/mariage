@@ -31,12 +31,14 @@ function SelectBox() {
     { value: 'etc', name: 'etc' },
   ];
 
-  const { value: option, setValue: setOption } = useSelect(mainOptions[0].value);
+  const { value: option, setValue: setOption } = useSelect(
+    mainOptions[0].value,
+  );
   const [middle, setMiddle] = useState<Options[]>([]);
 
   // const { value: middleOption, setValue: setMiddleOption } = useSelect(domesticOptions[0].value, overseasOptions[0].value);
 
-  const onChangeHanlder = (option: string) => {
+  const onChangeHandler = (option: string) => {
     if (option === 'domestic') {
       setMiddle(domesticOptions);
     } else {
@@ -45,14 +47,14 @@ function SelectBox() {
   };
 
   useEffect(() => {
-    onChangeHanlder(option);
-  }, [onChangeHanlder, option]);
+    onChangeHandler(option);
+  }, [option]);
 
   const [currentValue, setCurrentValue] = useState(mainOptions[0].name);
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleSelectValue = (e : any) => {
-	  setCurrentValue(e.target.getAttribute("value"));
+  const handleSelectValue = (e: any) => {
+    setCurrentValue(e.target.getAttribute('value'));
   };
 
   return (
@@ -61,7 +63,7 @@ function SelectBox() {
         <S.SelectBox onChange={setOption}>
           {mainOptions.map(mainOption => (
             <S.Option key={mainOption.value} value={mainOption.value}>
-            {mainOption.name}
+              {mainOption.name}
             </S.Option>
           ))}
         </S.SelectBox>

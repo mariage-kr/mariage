@@ -39,7 +39,7 @@ const ProductCardCarousel = () => {
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
         itemsToShow={items}
-        itemsToScroll={items / 1}
+        itemsToScroll={items / 2}
         autoplay={true}
         autoplayDelay={5000}
         forwardBtnProps={{

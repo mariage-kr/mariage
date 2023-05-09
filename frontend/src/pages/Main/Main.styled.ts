@@ -7,4 +7,10 @@ const Wrapper = styled.div`
   margin: 0 10%;
 `;
 
-export { Container, Wrapper };
+const Recommend = styled.div`
+  width: 100%;
+  height: 12vh;
+  text-align: center;
+`;
+
+export { Container, Header, Wrapper, Recommend };
