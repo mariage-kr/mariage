@@ -18,7 +18,9 @@ function Header() {
       .then(response => {
         setCategory(response.data.category);
       })
-      .catch(error => {});
+      .catch(error => {
+        // TODO: 서버 오류 처리
+      });
   }, [category]);
 
   useEffect(() => {
