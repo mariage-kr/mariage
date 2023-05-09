@@ -2,6 +2,7 @@ package com.multi.mariage.common.annotation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multi.mariage.auth.service.AuthService;
+import com.multi.mariage.category.service.DrinkUpperCategoryService;
 import com.multi.mariage.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -28,4 +29,6 @@ public abstract class ControllerTest {
     protected MemberService memberService;
     @Autowired
     protected AuthService authService;
+    @Autowired
+    protected DrinkUpperCategoryService drinkUpperCategoryService;
 }
