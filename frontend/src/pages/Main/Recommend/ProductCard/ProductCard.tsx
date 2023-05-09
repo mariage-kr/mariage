@@ -17,14 +17,16 @@ function ProductCard({ card }: any) {
             </S.StarRate>
             <S.Review>
               <S.ReviewCount>{card.review}</S.ReviewCount> reviews
-            </S.Review>
-            <S.Country css={S.country_left}>
-              <S.FlagImg alt="" src={card.flagImg} />
-            </S.Country>
-            <S.Country css={S.country_right}>{card.country}</S.Country>
+            </S.Review>   
           </S.Inner>
         </S.Wrapper>
-        <S.Bottom>{card.name}</S.Bottom>
+        <S.Bottom>
+          <S.Name>{card.name}</S.Name>
+          <S.Country css={S.country_left}>
+            <S.FlagImg alt="" src={card.flagimg} />
+          </S.Country>
+          <S.Country css={S.country_right}>{card.country}</S.Country>
+        </S.Bottom>
       </S.CardContainer>
     </S.CarouselCard>
   );

@@ -3,11 +3,16 @@ import { css } from '@emotion/react';
 
 const Container = styled.div`
   /* border: 1px solid olive; */
-  width: 25vw;
-  height: 7vh;
+  box-sizing: border-box;
+  width: 520px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width:1920px) { width: 450px; }
+  @media (max-width:1550px) { width: 350px; }
+  @media (max-width:1200px) { width: 420px; }
 `;
 
 const Thumb = styled.input`
@@ -17,8 +22,12 @@ const Thumb = styled.input`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 21vw;
+    width: 450px;
     outline: none;
+
+    @media (max-width:1920px) { width: 380px; }
+    @media (max-width:1550px) { width: 280px; }
+    @media (max-width:1200px) { width: 350px; }
   }
 
   &[type='range']::-webkit-slider-thumb {
@@ -34,7 +43,7 @@ const Thumb = styled.input`
     cursor: pointer;
     height: 5px;
     width: 5px;
-    margin-top: 3.6vh;
+    margin-top: 34.5px;
     pointer-events: all;
     position: relative;
   }
@@ -47,7 +56,7 @@ const Thumb = styled.input`
     cursor: pointer;
     height: 5px;
     width: 5px;
-    margin-top: 3.6vh;
+    margin-top: 34.5px;
     pointer-events: all;
     position: relative;
   }
@@ -66,8 +75,12 @@ const thumb_zindex5 = (minVal: number, max: number) => css`
 const Slider = styled.div`
   // border: 1px solid blue;
   position: relative;
-  width: 21vw;
+  width: 450px;
   height: 100%;
+
+  @media (max-width:1920px) { width: 380px; }
+  @media (max-width:1550px) { width: 280px; }
+  @media (max-width:1200px) { width: 350px; }
 `;
 
 const Slider_sub = styled.div`
@@ -93,13 +106,16 @@ const Slider_sub = styled.div`
 const slider_sub12 = css`
   border-radius: 3px;
   height: 5px;
-  margin-top: 5vh;
+  margin-top: 45px;
 `;
 
 const slider_sub34 = css`
   color: #000000;
-  font-size: 1vw;
-  margin-top: 1.5vh;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  @media (max-width:1400px) {
+    font-size: 1rem;
+  }
 `;
 
 export {
