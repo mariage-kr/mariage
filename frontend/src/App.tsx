@@ -8,10 +8,11 @@ import Loading from '@/components/Loading/Loading';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
 import { RecoilRoot } from 'recoil';
 import Layout from './layout/Layout';
+import Mariage from './components/Mariage/Mariage';
 
 function App() {
   return (
-    <>
+    <Mariage>
       <GlobalStyle />
       <RecoilRoot>
         <Router>
@@ -23,7 +24,7 @@ function App() {
           </Layout>
         </Router>
       </RecoilRoot>
-    </>
+    </Mariage>
   );
 }
 
