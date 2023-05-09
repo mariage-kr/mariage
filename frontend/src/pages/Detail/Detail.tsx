@@ -1,5 +1,12 @@
+import ProductContent from './ProductContent/ProductContent'
+import * as S from './Detail.styled';
+
 function Detail() {
-  return <h1>제품 상세페이지</h1>;
+  return (
+    <S.Container>
+      <ProductContent/>
+    </S.Container>
+  );
 }
 
 export default Detail;
