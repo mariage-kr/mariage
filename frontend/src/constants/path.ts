@@ -3,6 +3,11 @@ const API_PATH = {
     LOGIN: '/api/auth/login',
     LOGOUT: '/api/user/auth/logout',
   },
+  CATEGORY: {
+    DRINK: {
+      UPPER: '/api/categories/upper',
+    },
+  },
   MEMBER: {
     SIGNUP: '/api/members/signup',
   },

@@ -1,11 +1,11 @@
-interface Categories {
+interface CategoryType {
   region: string;
-  categories: Category[];
+  categories: CategoriesType[];
 }
 
-interface Category {
+interface CategoriesType {
   value: string;
   name: string;
 }
 
-export { Categories, Category };
+export { CategoryType, CategoriesType };
