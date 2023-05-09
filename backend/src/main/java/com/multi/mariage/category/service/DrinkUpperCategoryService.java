@@ -14,12 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-@Transactional(readOnly = true)
 @Service
 public class DrinkUpperCategoryService {
-
-    @Transactional
     public DrinkUpperCategoryResponse findCategories() {
         List<DrinkUpperCategory> categories = Arrays.asList(DrinkUpperCategory.values());
         List<DrinkUpperCategoryValuesResponse> responseList = new ArrayList<>();

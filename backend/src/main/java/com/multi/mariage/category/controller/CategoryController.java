@@ -1,6 +1,8 @@
 package com.multi.mariage.category.controller;
 
+import com.multi.mariage.category.dto.DrinkLowerCategoryResponse;
 import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
+import com.multi.mariage.category.service.DrinkLowerCategoryService;
 import com.multi.mariage.category.service.DrinkUpperCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CategoryController {
     private final DrinkUpperCategoryService drinkUpperCategoryService;
+    private final DrinkLowerCategoryService drinkLowerCategoryService;
 
     @GetMapping("/categories/upper")
     public ResponseEntity<DrinkUpperCategoryResponse> findUpperCategories() {
         DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/categories/lower")
+    public ResponseEntity<DrinkLowerCategoryResponse> findLowerCategories() {
+        DrinkLowerCategoryResponse response = drinkLowerCategoryService.findCategories();
         return ResponseEntity.ok(response);
     }
 }
