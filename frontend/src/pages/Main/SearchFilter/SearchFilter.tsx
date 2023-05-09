@@ -24,24 +24,20 @@ function SearchFilter() {
    * https://jaddong.tistory.com/entry/useState-object-%ED%98%95%ED%83%9C-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0
    */
   const [option, setOption] = useState<Option>({
-    region: '',
-    category: '',
+    region: '국내',
+    category: 'LOCAL_SOJU',
     rate: {
-      max: 0,
+      max: 50,
       min: 0,
     },
     level: {
-      max: 0,
+      max: 70,
       min: 0,
     },
   });
 
-  const changeRegionOption = (selectRegion: string) => {
-    setOption({ ...option, region: selectRegion });
-  };
-
-  const changeCategoryOption = (selectCategory: string) => {
-    setOption({ ...option, category: selectCategory });
+  const changeOption = (selectRegion: string, selectCategory: string) => {
+    setOption({ ...option, region: selectRegion, category: selectCategory });
   };
 
   const changeRateOption = (selectRateRange: Range) => {
@@ -64,10 +60,13 @@ function SearchFilter() {
             <S.Drinks>
               <S.FilterTitle>주종</S.FilterTitle>
               <SelectBox
-                changeRegion={(region: string) => changeRegionOption(region)}
-                changeCategory={(category: string) =>
-                  changeCategoryOption(category)
-                }
+                onChange={({
+                  region,
+                  category,
+                }: {
+                  region: string;
+                  category: string;
+                }) => changeOption(region, category)}
               />
             </S.Drinks>
           </S.Left>

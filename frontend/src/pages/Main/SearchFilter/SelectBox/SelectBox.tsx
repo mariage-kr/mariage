@@ -18,12 +18,11 @@ import * as S from './SelectBox.styled';
  * https://blog.toycrane.xyz/typescript%EC%97%90%EC%84%9C-undefined-value-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0-181035b5ee47
  */
 
-type Props = {
-  changeRegion(region: string): void;
-  changeCategory(category: string): void;
-};
+interface functionProp {
+  onChange: Function;
+}
 
-function SelectBox({ changeRegion, changeCategory }: Props) {
+function SelectBox({ onChange }: functionProp) {
   const drinkUpperCategory = useRecoilValue(drinkUpperCategoryState);
   const [category, setCategory] = useState<CategoryType | undefined>(
     drinkUpperCategory[0],
@@ -41,14 +40,17 @@ function SelectBox({ changeRegion, changeCategory }: Props) {
     );
   };
 
-  /* TODO: Region 변경시 하위 카테고리도 자동으로 변경하는 로직 작성 */
   useEffect(() => {
-    changeRegion(region);
+    const defaultCategory: string = drinkUpperCategory.find(
+      category => category.region === region,
+    )!.categories[0].name;
+
     onRegionChangeHandler(region);
+    onChange({ region: region, category: defaultCategory });
   }, [region]);
 
   useEffect(() => {
-    changeCategory(selectCategory);
+    onChange({ region: region, category: selectCategory });
   }, [selectCategory]);
 
   return (
