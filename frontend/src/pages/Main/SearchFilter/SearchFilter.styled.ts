@@ -132,7 +132,7 @@ const FilterTitle2 = css`
 const RangeMultiSlider = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
-  padding-top: 10px;
+  padding-top: 5px;
   overflow: hidden;
 `;
 

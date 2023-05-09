@@ -1,0 +1,34 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/PnZK2OmqHQ.png",
+      "name": "돈까스/회/일식",
+      "rate": 4.7
+    },
+    {
+      "id": 2,
+      "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/YHPPY4d2tE.png",
+      "name": "양식",
+      "rate": 4.3
+    },
+    {
+      "id": 3,
+      "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/vps3RhDA7p.png",
+      "name": "튀김",
+      "rate": 4.1
+    },
+    {
+      "id": 4,
+      "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/88zhpIhnig.png",
+      "name": "스낵",
+      "rate": 3.8
+    },
+    {
+      "id": 5,
+      "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/JOB807JSD5.png",
+      "name": "치즈",
+      "rate": 3.5
+    }
+  ]
+}
