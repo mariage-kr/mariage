@@ -79,7 +79,10 @@ function SearchFilter() {
                   min={0}
                   max={50}
                   onChange={({ min, max }: { min: number; max: number }) =>
-                    console.log(`min = ${min}, max = ${max}`)
+                    changeRateOption({
+                      max: max,
+                      min: min,
+                    })
                   }
                 />
               </S.RangeMultiSlider>
@@ -91,7 +94,10 @@ function SearchFilter() {
                   min={0}
                   max={70}
                   onChange={({ min, max }: { min: number; max: number }) =>
-                    console.log(`min = ${min}, max = ${max}`)
+                    changeLevelOption({
+                      max: max,
+                      min: min,
+                    })
                   }
                 />
               </S.RangeMultiSlider>

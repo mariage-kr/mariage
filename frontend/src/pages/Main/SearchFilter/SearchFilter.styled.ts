@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  border: 2px solid #9C94D0;
+  border: 2px solid #9c94d0;
   border-radius: 1.5vw;
   box-shadow: 0px 0px 5px #b9b9b9;
   width: 80%;
@@ -25,7 +25,7 @@ const Inner = styled.div`
 `;
 
 const Left = styled.div`
-  border-right: 1px solid #9C94D0;
+  border-right: 1px solid #9c94d0;
   box-sizing: border-box;
   width: 50%;
   height: 23vh;
@@ -47,7 +47,7 @@ const FilterTitle = styled.p`
 `;
 
 const Right = styled.div`
-  border-left: 1px solid #9C94D0;
+  border-left: 1px solid #9c94d0;
   box-sizing: border-box;
   width: 50%;
   height: 23vh;
@@ -91,13 +91,12 @@ const FindButton = styled.button`
   border-radius: 0.3vw;
   box-sizing: border-box;
   box-shadow: 0px 0px 5px #b9b9b9;
-  background-color: #9C94D0;
+  background-color: #9c94d0;
   width: 7vw;
   height: 5vh;
   font-size: 1vw;
   color: #fff;
 `;
-
 
 export {
   Container,
@@ -112,5 +111,5 @@ export {
   ABV,
   RangeMultiSlider,
   Bottom,
-  FindButton
+  FindButton,
 };
