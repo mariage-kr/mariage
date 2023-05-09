@@ -7,11 +7,18 @@ const Container = styled.div`
   margin-top: 25px;
 `;
 
+const Wrapper = styled.div`
+  @media (min-width:1920px) {
+    width: 210px;
+    margin: 0 auto;
+  }
+`;
+
 const SelectBox = styled.select`
-  border: 1px solid #9C94D0;
+  border: 1px solid #9C94D055;
   border-radius: 0.3vw;
   box-sizing: border-box;
-  box-shadow: 0px 0px 5px #b9b9b9;
+  box-shadow: 0px 0px 5px #9c94d0;
   background: url('https://i.esdrop.com/d/f/CeyD9bnnT5/1Kum5nNwU4.png') no-repeat 97% 50%; 
   background-size: 13% auto;
   width: 210px;
@@ -34,7 +41,11 @@ const SelectBox = styled.select`
   -moz-appearance: none;
   appearance: none; 
 
-  @media (max-width:1920px) { width: 170px; }
+  @media (min-width:1920px) {
+    width: 100%;
+    margin: 10px 0 20px;
+  }
+  @media (max-width:1919px) { width: 170px; }
   @media (max-width:1550px) { width: 130px; }
   @media (max-width:1200px) { width: 164px; }
 `;
@@ -50,6 +61,7 @@ const Option = styled.option`
 
 export {
   Container,
+  Wrapper,
   SelectBox,
   Option
 };

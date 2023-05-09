@@ -10,8 +10,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width:1920px) { width: 450px; }
-  @media (max-width:1550px) { width: 350px; }
+  @media (max-width:1919px) { width: 450px; }
+  @media (max-width:1570px) { width: 350px; }
   @media (max-width:1200px) { width: 420px; }
 `;
 
@@ -25,8 +25,8 @@ const Thumb = styled.input`
     width: 450px;
     outline: none;
 
-    @media (max-width:1920px) { width: 380px; }
-    @media (max-width:1550px) { width: 280px; }
+    @media (max-width:1919px) { width: 380px; }
+    @media (max-width:1570px) { width: 280px; }
     @media (max-width:1200px) { width: 350px; }
   }
 
@@ -41,9 +41,9 @@ const Thumb = styled.input`
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
     cursor: pointer;
-    height: 5px;
-    width: 5px;
-    margin-top: 34.5px;
+    height: 10px;
+    width: 10px;
+    margin-top: 34px;
     pointer-events: all;
     position: relative;
   }
@@ -54,9 +54,9 @@ const Thumb = styled.input`
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
     cursor: pointer;
-    height: 5px;
-    width: 5px;
-    margin-top: 34.5px;
+    height: 10px;
+    width: 10px;
+    margin-top: 34px;
     pointer-events: all;
     position: relative;
   }
@@ -78,8 +78,8 @@ const Slider = styled.div`
   width: 450px;
   height: 100%;
 
-  @media (max-width:1920px) { width: 380px; }
-  @media (max-width:1550px) { width: 280px; }
+  @media (max-width:1919px) { width: 380px; }
+  @media (max-width:1570px) { width: 280px; }
   @media (max-width:1200px) { width: 350px; }
 `;
 

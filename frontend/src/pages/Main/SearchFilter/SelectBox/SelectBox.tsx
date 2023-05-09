@@ -59,24 +59,26 @@ function SelectBox() {
 
   return (
     <S.Container>
-      <label>
-        <S.SelectBox onChange={setOption}>
-          {mainOptions.map(mainOption => (
-            <S.Option key={mainOption.value} value={mainOption.value}>
-              {mainOption.name}
-            </S.Option>
-          ))}
-        </S.SelectBox>
-      </label>
-      <label>
-        <S.SelectBox>
-          {middle.map((domesticOption, index) => (
-            <S.Option key={index} value={domesticOption.value}>
-              {domesticOption.name}
-            </S.Option>
-          ))}
-        </S.SelectBox>
-      </label>
+      <S.Wrapper>
+        <label>
+          <S.SelectBox onChange={setOption}>
+            {mainOptions.map(mainOption => (
+              <S.Option key={mainOption.value} value={mainOption.value}>
+                {mainOption.name}
+              </S.Option>
+            ))}
+          </S.SelectBox>
+        </label>
+        <label>
+          <S.SelectBox>
+            {middle.map((domesticOption, index) => (
+              <S.Option key={index} value={domesticOption.value}>
+                {domesticOption.name}
+              </S.Option>
+            ))}
+          </S.SelectBox>
+        </label>
+      </S.Wrapper>
     </S.Container>
   );
 }
