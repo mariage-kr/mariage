@@ -13,9 +13,7 @@ function Filter() {
   const { value: month, setValue: setMonth } = useBoolean(false);
   const { value: total, setValue: setTotal } = useBoolean(false);
 
-  const [message, setMessage] = useState<string>(
-    '현재 날씨에 인기있는 주류의 리스트입니다.',
-  );
+  const [message, setMessage] = useState<string>('');
 
   const isLogin = isBoolean(isLoginProvider.get());
 
@@ -23,9 +21,11 @@ function Filter() {
     if (isLogin) {
       setRecommend(true);
       setWeather(false);
+      setMessage('회원님에게 추천하는 주류의 리스트입니다.');
     } else {
       setRecommend(false);
       setWeather(true);
+      setMessage('현재 날씨에 인기있는 주류의 리스트입니다.');
     }
   }, [isLogin]);
 
@@ -39,11 +39,11 @@ function Filter() {
     switch (key) {
       case 'weather':
         setWeather(true);
-        setMessage(`${weather}에 인기있는 주류의 리스트입니다.`);
+        setMessage('현재 날씨에 인기있는 주류의 리스트입니다.');
         break;
       case 'recommend':
         setRecommend(true);
-        setMessage('추천하는 주류의 리스트입니다.');
+        setMessage('회원님에게 추천하는 주류의 리스트입니다.');
         break;
       case 'week':
         setWeek(true);
