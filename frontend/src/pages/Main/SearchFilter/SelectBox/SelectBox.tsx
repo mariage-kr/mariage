@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import * as S from './SelectBox.styled';
 
 import useSelect from '@/hooks/useSelect';
+import { useRecoilValue } from 'recoil';
+import { drinkUpperCategoryState } from '@/store/status';
+import { CategoryType } from '@/types/category';
 
 interface Options {
   value: string;
@@ -9,72 +12,45 @@ interface Options {
 }
 
 function SelectBox() {
-  const mainOptions = [
-    { value: 'domestic', name: '국내' },
-    { value: 'overseas', name: '해외' },
-  ];
-
-  // 국내
-  const domesticOptions = [
-    { value: 'soju', name: '소주' },
-    { value: 'beer', name: '맥주' },
-    { value: 'traditionalLiquor', name: '전통주' },
-    { value: 'etc', name: 'etc' },
-  ];
-
-  // 해외
-  const overseasOptions = [
-    { value: 'spirits', name: '증류주' },
-    { value: 'beer', name: '맥주' },
-    { value: 'wine', name: '와인' },
-    { value: 'whisky', name: '위스키' },
-    { value: 'etc', name: 'etc' },
-  ];
+  const drinkUpperCategory = useRecoilValue(drinkUpperCategoryState);
 
   const { value: option, setValue: setOption } = useSelect(
-    mainOptions[0].value,
+    drinkUpperCategory[0].region,
   );
-  const [middle, setMiddle] = useState<Options[]>([]);
 
-  // const { value: middleOption, setValue: setMiddleOption } = useSelect(domesticOptions[0].value, overseasOptions[0].value);
+  const [category, setCategory] = useState<CategoryType | undefined>(
+    drinkUpperCategory[0],
+  );
 
-  const onChangeHandler = (option: string) => {
-    if (option === 'domestic') {
-      setMiddle(domesticOptions);
-    } else {
-      setMiddle(overseasOptions);
-    }
+  const onRegionChangeHandler = (option: string) => {
+    setCategory(
+      drinkUpperCategory.find(category => category.region === option),
+    );
   };
 
   useEffect(() => {
-    onChangeHandler(option);
+    onRegionChangeHandler(option);
   }, [option]);
-
-  const [currentValue, setCurrentValue] = useState(mainOptions[0].name);
-  const [showOptions, setShowOptions] = useState(false);
-
-  const handleSelectValue = (e: any) => {
-    setCurrentValue(e.target.getAttribute('value'));
-  };
 
   return (
     <S.Container>
       <label>
         <S.SelectBox onChange={setOption}>
-          {mainOptions.map(mainOption => (
-            <S.Option key={mainOption.value} value={mainOption.value}>
-              {mainOption.name}
+          {drinkUpperCategory.map((category: CategoryType, index: number) => (
+            <S.Option key={index} value={category.region}>
+              {category.region}
             </S.Option>
           ))}
         </S.SelectBox>
       </label>
       <label>
         <S.SelectBox>
-          {middle.map((domesticOption, index) => (
-            <S.Option key={index} value={domesticOption.value}>
-              {domesticOption.name}
-            </S.Option>
-          ))}
+          {category &&
+            category.categories.map((category, index) => (
+              <S.Option key={index} value={category.value}>
+                {category.value}
+              </S.Option>
+            ))}
         </S.SelectBox>
       </label>
     </S.Container>

@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
 import Dropdown from './Dropdown/Dropdown';
 import Profile from './Profile/Profile';
@@ -7,11 +8,12 @@ import Search from './Search/Search';
 import { requestDrinkUpperCategory } from '@/apis/request/category';
 import { BROWSER_PATH } from '@/constants/path';
 import { CategoryType } from '@/types/category';
+import { drinkUpperCategoryState } from '@/store/status';
 
 import * as S from './Header.styled';
 
 function Header() {
-  const [category, setCategory] = useState<CategoryType[]>([]);
+  const [category, setCategory] = useRecoilState(drinkUpperCategoryState);
 
   const requestCategory = useCallback(async () => {
     await requestDrinkUpperCategory()
@@ -21,13 +23,11 @@ function Header() {
       .catch(error => {
         // TODO: 서버 오류 처리
       });
-  }, [category]);
+  }, []);
 
   useEffect(() => {
     requestCategory();
   }, []);
-
-  console.log(category);
 
   return (
     <S.Container>
