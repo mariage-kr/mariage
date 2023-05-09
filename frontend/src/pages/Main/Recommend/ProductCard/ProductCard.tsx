@@ -23,7 +23,7 @@ function ProductCard({ card }: any) {
         <S.Bottom>
           <S.Name>{card.name}</S.Name>
           <S.Country css={S.country_left}>
-            <S.FlagImg alt="" src={card.flagimg} />
+            <S.FlagImg alt="" src={card.flagImg} />
           </S.Country>
           <S.Country css={S.country_right}>{card.country}</S.Country>
         </S.Bottom>
