@@ -33,14 +33,15 @@ const SelectedOption = styled.div<{ isOpen: boolean }>`
 `;
 
 const Arrow = styled.div`
-  width: 0;
-  height: 0;
-  borderLeft: '5px solid transparent';
-  borderRight: '5px solid transparent';
-  borderTop: '5px solid #fff';
-  right: '10px';
-  top: 'calc(50% - 2.5px)';
-  pointerEvents: 'none';
+  position: absolute;
+  top :16px;
+  right: 15px;
+  width :0;
+  height :0;
+  pointer-events: none;
+  border-style :solid;
+  border-width: 8px 5px 0 5px;
+  border-color: #9c94d0 transparent transparent transparent;
 `;
 
 const OptionsContainer = styled.div`
