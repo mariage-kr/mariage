@@ -12,11 +12,13 @@ import java.util.List;
 public class DrinkUpperCategoryValuesResponse {
 
     private String region;
+    private String regionValue;
     private List<DrinkUpperCategoriesResponse> categories;
 
     @Builder
-    public DrinkUpperCategoryValuesResponse(String region, List<DrinkUpperCategoriesResponse> categories) {
+    public DrinkUpperCategoryValuesResponse(String region, String regionValue, List<DrinkUpperCategoriesResponse> categories) {
         this.region = region;
+        this.regionValue = regionValue;
         this.categories = categories;
     }
 }

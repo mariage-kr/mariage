@@ -18,26 +18,26 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @Service
 public class DrinkUpperCategoryService {
+
     @Transactional
     public DrinkUpperCategoryResponse findCategories() {
         List<DrinkUpperCategory> categories = Arrays.asList(DrinkUpperCategory.values());
         List<DrinkUpperCategoryValuesResponse> responseList = new ArrayList<>();
 
-        List<String> regionList = Arrays.stream(Region.values())
-                .map(Region::getValue)
-                .toList();
-        
-        for (String region : regionList) {
+        List<Region> regionList = Arrays.asList(Region.values());
+
+        for (Region region : regionList) {
             List<DrinkUpperCategoriesResponse> categoryList = categories.stream()
-                    .filter(category -> category.getName().contains(region))
+                    .filter(category -> category.name().contains(region.name()))
                     .map(category -> DrinkUpperCategoriesResponse.builder()
                             .name(category.name())
                             .value(category.getName())
                             .build())
-                    .collect(Collectors.toList());
+                    .toList();
 
             DrinkUpperCategoryValuesResponse response = DrinkUpperCategoryValuesResponse.builder()
-                    .region(region)
+                    .region(region.getValue())
+                    .regionValue(region.name())
                     .categories(categoryList)
                     .build();
             responseList.add(response);
