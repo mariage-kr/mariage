@@ -2,11 +2,7 @@ import { DefaultValue, selector } from 'recoil';
 
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
-
-const isBoolean = (value: string): boolean => {
-  const truthy: string[] = ['true', 'True', '1'];
-  return truthy.includes(value);
-};
+import { isBoolean } from '@/utils/boolean';
 
 const isLoginState = selector<boolean>({
   key: 'isLogin',
