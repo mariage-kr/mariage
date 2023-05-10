@@ -19,20 +19,20 @@ public class DrinkUpperCategoryService {
 
         List<Region> regionList = Arrays.asList(Region.values());
 
-        generateDrinkUpperCategoryValues(categories, responseList, regionList);
+        getCategories(categories, responseList, regionList);
         DrinkUpperCategoryResponse drinkUpperCategoryResponse = new DrinkUpperCategoryResponse(responseList);
         return drinkUpperCategoryResponse;
     }
-    private static void generateDrinkUpperCategoryValues(List<DrinkUpperCategory> categories, List<DrinkUpperCategoryValuesVo> responseList, List<Region> regionList) {
+    private static void getCategories(List<DrinkUpperCategory> categories, List<DrinkUpperCategoryValuesVo> responseList, List<Region> regionList) {
 
         for (Region region : regionList) {
-            List<DrinkUpperCategoriesVo> categoryList = filterAndMapToUpperCategories(categories, region);
+            List<DrinkUpperCategoriesVo> categoryList = filterAndMapToCategories(categories, region);
 
             DrinkUpperCategoryValuesVo response = DrinkUpperCategoryValuesVo.from(region.getValue(), region.name(), categoryList);
             responseList.add(response);
         }
     }
-    private static List<DrinkUpperCategoriesVo> filterAndMapToUpperCategories(List<DrinkUpperCategory> categories, Region region) {
+    private static List<DrinkUpperCategoriesVo> filterAndMapToCategories(List<DrinkUpperCategory> categories, Region region) {
         List<DrinkUpperCategoriesVo> categoryList = categories.stream()
                 .filter(category -> category.name().contains(region.name()))
                 .map(category -> DrinkUpperCategoriesVo.from(category.name(), category.getName()))
