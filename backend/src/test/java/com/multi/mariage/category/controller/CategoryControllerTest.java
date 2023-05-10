@@ -16,9 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CategoryControllerTest extends ControllerTest {
 
-    @DisplayName("상위 카테고리 조회 테스트")
+    @DisplayName("상위 카테고리를 조회한다.")
     @Test
-    void 상위_카테고리_조회() throws Exception {
+    void 상위_카테고리를_조회한다() throws Exception {
 
         mockMvc.perform(get("/api/categories/upper"))
                 .andDo(print())
@@ -37,9 +37,9 @@ class CategoryControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("하위 카테고리 조회 테스트")
+    @DisplayName("하위 카테고리를 조회한다.")
     @Test
-    void 하위_카테고리_조회() throws Exception {
+    void 하위_카테고리를_조회한다() throws Exception {
 
         mockMvc.perform(get("/api/categories/lower"))
                 .andDo(print())
@@ -55,6 +55,25 @@ class CategoryControllerTest extends ControllerTest {
                                         fieldWithPath("category[].categories[].subCategories").description("주류 하위 카테고리"),
                                         fieldWithPath("category[].categories[].subCategories[].name").description("주류 하위 카테고리 지칭"),
                                         fieldWithPath("category[].categories[].subCategories[].value").description("주류 하위 카테고리 명칭")
+                                )
+                        )
+                )
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("음식 카테고리를 조회한다.")
+    @Test
+    void 음식_카테고리를_조회한다() throws Exception {
+
+        mockMvc.perform(get("/api/categories/food"))
+                .andDo(print())
+                .andDo(document("Category/FindFoodCategory",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("category").description("음식 카테고리"),
+                                        fieldWithPath("category[].id").description("음식 식별자"),
+                                        fieldWithPath("category[].name").description("음식 명칭"),
+                                        fieldWithPath("length").description("음식 개수")
                                 )
                         )
                 )
