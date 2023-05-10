@@ -11,4 +11,4 @@ logging:
           LocalVariableTableParameterNameDiscoverer: error
       apache:
         coyote:
-          http11: debug
+          http11: off

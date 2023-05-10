@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
 public class StorageController {
 
     private final StorageService storageService;
 
-    @PostMapping("/image")
+    @PostMapping("/user/storage/image")
     public ResponseEntity<ImageSavedResponse> upload(@RequestParam MultipartFile file) {
         ImageSavedResponse response = storageService.upload(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

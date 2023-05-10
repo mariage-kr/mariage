@@ -30,7 +30,7 @@ class StorageControllerTest extends ControllerTest {
         saveMember();
         String accessToken = accessToken();
 
-        mockMvc.perform(multipart("/api/user/image")
+        mockMvc.perform(multipart("/api/user/storage/image")
                         .file(IMAGE)
                         .header("Authorization", "Bearer " + accessToken)
                 )
