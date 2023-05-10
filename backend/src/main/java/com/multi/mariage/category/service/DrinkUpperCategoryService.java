@@ -3,11 +3,10 @@ package com.multi.mariage.category.service;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.category.domain.Region;
 import com.multi.mariage.category.dto.response.DrinkUpperCategoryResponse;
-import com.multi.mariage.category.vo.drinkupper.DrinkUpperCategoriesVO;
-import com.multi.mariage.category.vo.drinkupper.DrinkUpperCategoryValuesVO;
+import com.multi.mariage.category.vo.drinkUpper.DrinkUpperCategoriesVO;
+import com.multi.mariage.category.vo.drinkUpper.DrinkUpperCategoryValuesVO;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,26 +14,20 @@ import java.util.List;
 public class DrinkUpperCategoryService {
 
     public DrinkUpperCategoryResponse findDrinkUpperCategory() {
-        List<DrinkUpperCategoryValuesVO> response = getDrinkUpperCategory(DrinkUpperCategory.values(), Region.values());
+        List<DrinkUpperCategoryValuesVO> response = getDrinkUpperCategory();
         return new DrinkUpperCategoryResponse(response);
     }
 
-    private List<DrinkUpperCategoryValuesVO> getDrinkUpperCategory(DrinkUpperCategory[] categories,
-                                                                   Region[] regionList) {
-        List<DrinkUpperCategoryValuesVO> responseList = new ArrayList<>();
-        Arrays.stream(regionList)
-                .map(region -> DrinkUpperCategoryValuesVO.from(region.getValue(),
-                        region.name(),
-                        getDrinkUpperCategoriesVOByRegion(categories, region)))
-                .forEach(responseList::add);
-        return responseList;
+    private List<DrinkUpperCategoryValuesVO> getDrinkUpperCategory() {
+        return Arrays.stream(Region.values())
+                .map(region -> DrinkUpperCategoryValuesVO.from(region, getDrinkUpperCategoriesVOByRegion(region)))
+                .toList();
     }
 
-    private List<DrinkUpperCategoriesVO> getDrinkUpperCategoriesVOByRegion(DrinkUpperCategory[] categories,
-                                                                           Region region) {
-        return Arrays.stream(categories)
+    private List<DrinkUpperCategoriesVO> getDrinkUpperCategoriesVOByRegion(Region region) {
+        return Arrays.stream(DrinkUpperCategory.values())
                 .filter(category -> category.name().contains(region.name()))
-                .map(category -> DrinkUpperCategoriesVO.from(category.name(), category.getName()))
+                .map(DrinkUpperCategoriesVO::from)
                 .toList();
     }
 }

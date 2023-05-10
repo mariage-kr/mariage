@@ -1,5 +1,6 @@
-package com.multi.mariage.category.vo.drinkupper;
+package com.multi.mariage.category.vo.drinkUpper;
 
+import com.multi.mariage.category.domain.DrinkUpperCategory;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +19,10 @@ public class DrinkUpperCategoriesVO {
         this.value = value;
     }
 
-    public static DrinkUpperCategoriesVO from(String name, String value) {
+    public static DrinkUpperCategoriesVO from(DrinkUpperCategory category) {
         return DrinkUpperCategoriesVO.builder()
-                .name(name)
-                .value(value)
+                .name(category.name())
+                .value(category.getName())
                 .build();
     }
 }

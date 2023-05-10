@@ -1,8 +1,8 @@
 package com.multi.mariage.category.service;
 
 import com.multi.mariage.category.dto.response.DrinkLowerCategoryResponse;
-import com.multi.mariage.category.vo.drinklower.DrinkLowerCategoriesVO;
-import com.multi.mariage.category.vo.drinklower.DrinkLowerCategoryValuesVO;
+import com.multi.mariage.category.vo.drinkLower.DrinkLowerCategoriesVO;
+import com.multi.mariage.category.vo.drinkLower.DrinkLowerCategoryValuesVO;
 import com.multi.mariage.common.annotation.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
