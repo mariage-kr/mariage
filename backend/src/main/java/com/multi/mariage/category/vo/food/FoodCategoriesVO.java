@@ -1,5 +1,6 @@
 package com.multi.mariage.category.vo.food;
 
+import com.multi.mariage.category.domain.FoodCategory;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -17,10 +18,10 @@ public class FoodCategoriesVO {
         this.name = name;
     }
 
-    public static FoodCategoriesVO from(int id, String name) {
+    public static FoodCategoriesVO from(FoodCategory category) {
         return FoodCategoriesVO.builder()
-                .id(id)
-                .name(name)
+                .id(category.getId())
+                .name(category.getName())
                 .build();
     }
 }

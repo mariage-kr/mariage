@@ -15,8 +15,16 @@ public class FoodCategoryResponse {
     private int length;
 
     @Builder
-    public FoodCategoryResponse(List<FoodCategoriesVO> category, int length) {
+    private FoodCategoryResponse(List<FoodCategoriesVO> category, int length) {
         this.category = category;
         this.length = length;
     }
+
+    public static FoodCategoryResponse from(List<FoodCategoriesVO> category) {
+        return FoodCategoryResponse.builder()
+                .category(category)
+                .length(category.size())
+                .build();
+    }
+
 }
