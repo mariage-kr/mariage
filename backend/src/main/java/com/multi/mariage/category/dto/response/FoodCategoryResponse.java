@@ -1,4 +1,4 @@
-package com.multi.mariage.category.dto;
+package com.multi.mariage.category.dto.response;
 
 import lombok.AccessLevel;
 import lombok.Data;

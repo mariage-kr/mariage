@@ -1,6 +1,6 @@
 package com.multi.mariage.category.dto.response;
 
-import com.multi.mariage.category.vo.DrinkLowerCategoryValuesVo;
+import com.multi.mariage.category.vo.lowercategory.DrinkLowerCategoryValuesVO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,9 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class DrinkLowerCategoryResponse {
-    private List<DrinkLowerCategoryValuesVo> category;
+    private List<DrinkLowerCategoryValuesVO> category;
 
-    public DrinkLowerCategoryResponse(List<DrinkLowerCategoryValuesVo> category) {
+    public DrinkLowerCategoryResponse(List<DrinkLowerCategoryValuesVO> category) {
         this.category = category;
     }
 }

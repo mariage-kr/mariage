@@ -1,9 +1,9 @@
 package com.multi.mariage.category.service;
 
 import com.multi.mariage.category.domain.Region;
-import com.multi.mariage.category.vo.DrinkUpperCategoriesVo;
+import com.multi.mariage.category.vo.uppercategory.DrinkUpperCategoriesVO;
 import com.multi.mariage.category.dto.response.DrinkUpperCategoryResponse;
-import com.multi.mariage.category.vo.DrinkUpperCategoryValuesVo;
+import com.multi.mariage.category.vo.uppercategory.DrinkUpperCategoryValuesVO;
 import com.multi.mariage.common.annotation.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,9 +26,9 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getCategory()).isNotNull().hasSize(Region.values().length);
-        List<DrinkUpperCategoryValuesVo> actual = response.getCategory();
+        List<DrinkUpperCategoryValuesVO> actual = response.getCategory();
 
-        for (DrinkUpperCategoryValuesVo categoryValue : actual) {
+        for (DrinkUpperCategoryValuesVO categoryValue : actual) {
             assertThat(categoryValue.getRegion()).isNotNull();
             assertThat(categoryValue.getCategories()).isNotEmpty();
         }
@@ -41,9 +41,9 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
 
         DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
 
-        List<DrinkUpperCategoryValuesVo> categoryValues = response.getCategory();
+        List<DrinkUpperCategoryValuesVO> categoryValues = response.getCategory();
 
-        DrinkUpperCategoryValuesVo categoryValue = categoryValues.stream()
+        DrinkUpperCategoryValuesVO categoryValue = categoryValues.stream()
                 .filter(cv -> region.equals(cv.getRegionValue()))
                 .findFirst()
                 .orElse(null);
@@ -51,7 +51,7 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
         assertThat(categoryValue).isNotNull();
         assertThat(categoryValue.getRegionValue()).isEqualTo(region);
 
-        for (DrinkUpperCategoriesVo category : categoryValue.getCategories()) {
+        for (DrinkUpperCategoriesVO category : categoryValue.getCategories()) {
             assertThat(category.getName()).contains(region);
         }
     }

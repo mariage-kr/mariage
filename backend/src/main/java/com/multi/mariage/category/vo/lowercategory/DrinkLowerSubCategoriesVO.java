@@ -1,4 +1,4 @@
-package com.multi.mariage.category.vo;
+package com.multi.mariage.category.vo.lowercategory;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,18 +7,18 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class DrinkLowerCategoriesSubCategoriesVo {
+public class DrinkLowerSubCategoriesVO {
 
     private String name;
     private String value;
 
     @Builder
-    private DrinkLowerCategoriesSubCategoriesVo(String name, String value) {
+    private DrinkLowerSubCategoriesVO(String name, String value) {
         this.name = name;
         this.value = value;
     }
-    public static DrinkLowerCategoriesSubCategoriesVo from(String name, String value) {
-        return DrinkLowerCategoriesSubCategoriesVo.builder()
+    public static DrinkLowerSubCategoriesVO from(String name, String value) {
+        return DrinkLowerSubCategoriesVO.builder()
                 .name(name)
                 .value(value)
                 .build();

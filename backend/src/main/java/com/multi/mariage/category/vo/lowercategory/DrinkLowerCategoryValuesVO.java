@@ -1,4 +1,4 @@
-package com.multi.mariage.category.vo;
+package com.multi.mariage.category.vo.lowercategory;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,20 +9,20 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class DrinkLowerCategoryValuesVo {
+public class DrinkLowerCategoryValuesVO {
 
     private String region;
     private String regionValue;
-    private List<DrinkLowerCategoriesVo> categories;
+    private List<DrinkLowerCategoriesVO> categories;
 
     @Builder
-    private DrinkLowerCategoryValuesVo(String region, String regionValue, List<DrinkLowerCategoriesVo> categories) {
+    private DrinkLowerCategoryValuesVO(String region, String regionValue, List<DrinkLowerCategoriesVO> categories) {
         this.region = region;
         this.regionValue = regionValue;
         this.categories = categories;
     }
-public static DrinkLowerCategoryValuesVo from(String region, String regionValue, List<DrinkLowerCategoriesVo> categories) {
-    return DrinkLowerCategoryValuesVo.builder()
+public static DrinkLowerCategoryValuesVO from(String region, String regionValue, List<DrinkLowerCategoriesVO> categories) {
+    return DrinkLowerCategoryValuesVO.builder()
             .region(region)
             .regionValue(regionValue)
             .categories(categories)
