@@ -73,7 +73,7 @@ function RangeMultiSlider_M_ABV({ min, max, onChange }: rangeMultiSliderProps) {
             setMinVal(value);
             event.target.value = value.toString();
           }}
-          css={[S.thumb_zindex3, S.thumb_zindex5(minVal, max)]}
+          css={[S.Thumb_zIndex3, S.Thumb_zIndex5(minVal, max)]}
         />
         <S.Thumb
           type="range"
@@ -86,7 +86,7 @@ function RangeMultiSlider_M_ABV({ min, max, onChange }: rangeMultiSliderProps) {
             setMaxVal(value);
             event.target.value = value.toString();
           }}
-          css={S.thumb_zindex4}
+          css={S.Thumb_zIndex4}
         />
 
         <S.Slider>
