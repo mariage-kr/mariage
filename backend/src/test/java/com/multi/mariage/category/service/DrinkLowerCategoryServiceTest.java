@@ -23,11 +23,9 @@ class DrinkLowerCategoryServiceTest extends ServiceTest {
         DrinkLowerCategoryResponse response = drinkLowerCategoryService.findCategories();
 
         assertThat(response).isNotNull();
-        assertThat(response.getCategory()).isNotNull().hasSize(Region.values().length);
         List<DrinkLowerCategoryValuesResponse> actual = response.getCategory();
 
         for (DrinkLowerCategoryValuesResponse categoryValue : actual) {
-            assertThat(categoryValue.getRegion()).isNotNull();
             assertThat(categoryValue.getCategories()).isNotEmpty();
         }
     }

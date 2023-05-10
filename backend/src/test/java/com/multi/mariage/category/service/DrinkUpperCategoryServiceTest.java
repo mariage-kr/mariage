@@ -38,7 +38,7 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
 
     @DisplayName("특정 지역의 상위 카테고리를 조회한다.")
     @ParameterizedTest
-    @ValueSource(strings = {"국내", "해외"})
+    @ValueSource(strings = {"LOCAL", "FOREIGN"})
     void 특정_지역의_상위_카테고리를_조회한다(String region) {
 
         DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
@@ -46,15 +46,15 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
         List<DrinkUpperCategoryValuesResponse> categoryValues = response.getCategory();
 
         DrinkUpperCategoryValuesResponse categoryValue = categoryValues.stream()
-                .filter(cv -> region.equals(cv.getRegion()))
+                .filter(cv -> region.equals(cv.getRegionValue()))
                 .findFirst()
                 .orElse(null);
 
         assertThat(categoryValue).isNotNull();
-        assertThat(categoryValue.getRegion()).isEqualTo(region);
+        assertThat(categoryValue.getRegionValue()).isEqualTo(region);
 
         for (DrinkUpperCategoriesResponse category : categoryValue.getCategories()) {
-            assertThat(category.getValue()).contains(region);
+            assertThat(category.getName()).contains(region);
         }
     }
 }
