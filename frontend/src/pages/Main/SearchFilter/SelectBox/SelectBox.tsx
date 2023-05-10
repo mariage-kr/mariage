@@ -64,14 +64,14 @@ function SelectBox({ onChange }: functionProp) {
         </S.SelectBox>
       </label>
       <label>
-        <S.SelectBox id="category" onChange={setSelectCategory}>
+        <S.SelectBox
+          id="category"
+          onChange={setSelectCategory}
+          value={selectCategory}
+        >
           {category &&
             category.categories.map((category, index: number) => (
-              <S.Option
-                key={index}
-                value={category.name}
-                selected={index === 0}
-              >
+              <S.Option key={index} value={category.name}>
                 {category.value}
               </S.Option>
             ))}

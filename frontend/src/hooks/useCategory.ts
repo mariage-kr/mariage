@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
+import { useQuery } from 'react-query';
 
 import { drinkUpperCategoryState } from '@/store/status';
 import { requestDrinkUpperCategory } from '@/apis/request/category';
