@@ -12,8 +12,15 @@ public class FoodCategoriesVO {
     private String name;
 
     @Builder
-    public FoodCategoriesVO(int id, String name) {
+    private FoodCategoriesVO(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public static FoodCategoriesVO from(int id, String name) {
+        return FoodCategoriesVO.builder()
+                .id(id)
+                .name(name)
+                .build();
     }
 }

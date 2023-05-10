@@ -17,15 +17,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class FoodCategoryService {
-    public FoodCategoryResponse findCategories() {
+    public FoodCategoryResponse findFoodCategories() {
 
         List<FoodCategory> categories = Arrays.asList(FoodCategory.values());
 
         List<FoodCategoriesVO> categoryList = categories.stream()
-                .map(category -> FoodCategoriesVO.builder()
-                        .id(category.getId())
-                        .name(category.getName())
-                        .build())
+                .map(category -> FoodCategoriesVO.from(category.getId(), category.getName()))
                 .toList();
 
         FoodCategoryResponse response = FoodCategoryResponse.builder()
@@ -35,6 +32,4 @@ public class FoodCategoryService {
 
         return response;
     }
-
-
 }

@@ -34,7 +34,7 @@ public class CategoryController {
 
     @GetMapping("/categories/food")
     public ResponseEntity<FoodCategoryResponse> findFoodCategories() {
-        FoodCategoryResponse response = foodCategoryService.findCategories();
+        FoodCategoryResponse response = foodCategoryService.findFoodCategories();
         return ResponseEntity.ok(response);
     }
 }
