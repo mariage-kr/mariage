@@ -29,6 +29,9 @@ public class StorageService {
     @Value("${fileDir}")
     private String fileDir;
 
+    @Value("${storagePath}")
+    private String was;
+
     @Transactional
     public Image save(MultipartFile file) {
         String saveFileName = convertFileName(file.getOriginalFilename());
@@ -42,7 +45,7 @@ public class StorageService {
 
     private String convertFileName(String originFileName) {
         String uuid = UUID.randomUUID().toString();
-        String extension = "";
+        String extension;
         try {
             extension = Objects.requireNonNull(originFileName)
                     .substring(originFileName.lastIndexOf("."));
@@ -71,6 +74,6 @@ public class StorageService {
     }
 
     public String getFilePath(String fileName) {
-        return fileDir + fileName;
+        return was + fileName;
     }
 }

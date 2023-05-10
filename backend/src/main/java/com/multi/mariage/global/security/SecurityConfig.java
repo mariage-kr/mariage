@@ -48,8 +48,8 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/user/**").hasRole("USER")
-                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/api/user/**").authenticated()
+                .anyRequest().permitAll()
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
@@ -61,6 +61,6 @@ public class SecurityConfig {
     %80%EC%B2%98%ED%95%98%EC%A7%80 */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers("/storage/**");
+        return web -> web.ignoring().requestMatchers("/image/**");
     }
 }
