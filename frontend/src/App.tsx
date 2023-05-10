@@ -11,8 +11,13 @@ import Loading from '@/components/Loading/Loading';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
 import Layout from './layout/Layout';
 
-
-const queryClient = new QueryClient({});
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (
