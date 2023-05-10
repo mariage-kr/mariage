@@ -28,21 +28,14 @@ public class DrinkUpperCategoryService {
         for (Region region : regionList) {
             List<DrinkUpperCategoriesVo> categoryList = filterAndMapToUpperCategories(categories, region);
 
-            DrinkUpperCategoryValuesVo response = DrinkUpperCategoryValuesVo.builder()
-                    .region(region.getValue())
-                    .regionValue(region.name())
-                    .categories(categoryList)
-                    .build();
+            DrinkUpperCategoryValuesVo response = DrinkUpperCategoryValuesVo.from(region.getValue(), region.name(), categoryList);
             responseList.add(response);
         }
     }
     private static List<DrinkUpperCategoriesVo> filterAndMapToUpperCategories(List<DrinkUpperCategory> categories, Region region) {
         List<DrinkUpperCategoriesVo> categoryList = categories.stream()
                 .filter(category -> category.name().contains(region.name()))
-                .map(category -> DrinkUpperCategoriesVo.builder()
-                        .name(category.name())
-                        .value(category.getName())
-                        .build())
+                .map(category -> DrinkUpperCategoriesVo.from(category.name(), category.getName()))
                 .toList();
         return categoryList;
     }

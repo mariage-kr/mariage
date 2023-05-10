@@ -13,8 +13,15 @@ public class DrinkUpperCategoriesVo {
     private String value;
 
     @Builder
-    public DrinkUpperCategoriesVo(String name, String value) {
+    private DrinkUpperCategoriesVo(String name, String value) {
         this.name = name;
         this.value = value;
+    }
+
+    public static DrinkUpperCategoriesVo from(String name, String value) {
+        return DrinkUpperCategoriesVo.builder()
+                .name(name)
+                .value(value)
+                .build();
     }
 }

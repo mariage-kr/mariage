@@ -16,9 +16,17 @@ public class DrinkUpperCategoryValuesVo {
     private List<DrinkUpperCategoriesVo> categories;
 
     @Builder
-    public DrinkUpperCategoryValuesVo(String region, String regionValue, List<DrinkUpperCategoriesVo> categories) {
+    private DrinkUpperCategoryValuesVo(String region, String regionValue, List<DrinkUpperCategoriesVo> categories) {
         this.region = region;
         this.regionValue = regionValue;
         this.categories = categories;
+    }
+
+    public static DrinkUpperCategoryValuesVo from(String region, String regionValue, List<DrinkUpperCategoriesVo> categories) {
+        return DrinkUpperCategoryValuesVo.builder()
+                .region(region)
+                .regionValue(regionValue)
+                .categories(categories)
+                .build();
     }
 }
