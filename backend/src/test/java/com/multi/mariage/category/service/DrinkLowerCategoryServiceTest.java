@@ -1,7 +1,8 @@
 package com.multi.mariage.category.service;
 
-import com.multi.mariage.category.domain.Region;
-import com.multi.mariage.category.dto.*;
+import com.multi.mariage.category.dto.response.DrinkLowerCategoryResponse;
+import com.multi.mariage.category.vo.DrinkLowerCategoriesVo;
+import com.multi.mariage.category.vo.DrinkLowerCategoryValuesVo;
 import com.multi.mariage.common.annotation.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class DrinkLowerCategoryServiceTest extends ServiceTest {
     DrinkLowerCategoryService drinkLowerCategoryService = new DrinkLowerCategoryService();
@@ -22,9 +22,9 @@ class DrinkLowerCategoryServiceTest extends ServiceTest {
         DrinkLowerCategoryResponse response = drinkLowerCategoryService.findCategories();
 
         assertThat(response).isNotNull();
-        List<DrinkLowerCategoryValuesResponse> actual = response.getCategory();
+        List<DrinkLowerCategoryValuesVo> actual = response.getCategory();
 
-        for (DrinkLowerCategoryValuesResponse categoryValue : actual) {
+        for (DrinkLowerCategoryValuesVo categoryValue : actual) {
             assertThat(categoryValue.getCategories()).isNotEmpty();
         }
     }
@@ -39,19 +39,19 @@ class DrinkLowerCategoryServiceTest extends ServiceTest {
         DrinkLowerCategoryResponse response = drinkLowerCategoryService.findCategories();
         assertThat(response).isNotNull();
 
-        List<DrinkLowerCategoryValuesResponse> categoryValues = response.getCategory();
+        List<DrinkLowerCategoryValuesVo> categoryValues = response.getCategory();
         assertThat(categoryValues).isNotEmpty();
 
-        DrinkLowerCategoryValuesResponse categoryValue = categoryValues.stream()
+        DrinkLowerCategoryValuesVo categoryValue = categoryValues.stream()
                 .filter(cv -> region.equals(cv.getRegion()))
                 .findFirst()
                 .orElse(null);
         assertThat(categoryValue).isNotNull();
 
-        List<DrinkLowerCategoriesResponse> subCategoryValues = categoryValue.getCategories();
+        List<DrinkLowerCategoriesVo> subCategoryValues = categoryValue.getCategories();
         assertThat(subCategoryValues).isNotEmpty();
 
-        DrinkLowerCategoriesResponse subCategoryValue = subCategoryValues.stream()
+        DrinkLowerCategoriesVo subCategoryValue = subCategoryValues.stream()
                 .filter(cv -> lowerCategory.equals(cv.getValue()))
                 .findFirst()
                 .orElse(null);

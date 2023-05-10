@@ -1,4 +1,4 @@
-package com.multi.mariage.category.dto;
+package com.multi.mariage.category.vo;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class DrinkLowerCategoriesSubResponse {
+public class DrinkUpperCategoriesVo {
 
     private String name;
     private String value;
 
     @Builder
-    public DrinkLowerCategoriesSubResponse(String name, String value) {
+    public DrinkUpperCategoriesVo(String name, String value) {
         this.name = name;
         this.value = value;
     }

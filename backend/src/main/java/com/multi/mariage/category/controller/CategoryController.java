@@ -1,7 +1,7 @@
 package com.multi.mariage.category.controller;
 
-import com.multi.mariage.category.dto.DrinkLowerCategoryResponse;
-import com.multi.mariage.category.dto.DrinkUpperCategoryResponse;
+import com.multi.mariage.category.dto.response.DrinkLowerCategoryResponse;
+import com.multi.mariage.category.dto.response.DrinkUpperCategoryResponse;
 import com.multi.mariage.category.service.DrinkLowerCategoryService;
 import com.multi.mariage.category.service.DrinkUpperCategoryService;
 import lombok.RequiredArgsConstructor;
