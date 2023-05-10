@@ -1,10 +1,57 @@
-import * as S from './SearchFilter.styled';
+import { useEffect, useState } from 'react';
 
 import SelectBox from './SelectBox/SelectBox';
 import RangeMultiSlider_M_Star from '@/components/RangeMultiSlider_M/RangeMultiSlider_M_Star';
 import RangeMultiSlider_M_ABV from '@/components/RangeMultiSlider_M/RangeMultiSlider_M_ABV';
 
+import * as S from './SearchFilter.styled';
+
+type Option = {
+  region: string;
+  category: string;
+  rate: Range;
+  level: Range;
+};
+
+type Range = {
+  max: number;
+  min: number;
+};
+
 function SearchFilter() {
+  /**
+   * useState object 형태 업데이트하기
+   * https://jaddong.tistory.com/entry/useState-object-%ED%98%95%ED%83%9C-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0
+   */
+  const [option, setOption] = useState<Option>({
+    region: '국내',
+    category: 'LOCAL_SOJU',
+    rate: {
+      max: 50,
+      min: 0,
+    },
+    level: {
+      max: 70,
+      min: 0,
+    },
+  });
+
+  const changeOption = (selectRegion: string, selectCategory: string) => {
+    setOption({ ...option, region: selectRegion, category: selectCategory });
+  };
+
+  const changeRateOption = (selectRateRange: Range) => {
+    setOption({ ...option, rate: selectRateRange });
+  };
+
+  const changeLevelOption = (selectLevelRange: Range) => {
+    setOption({ ...option, level: selectLevelRange });
+  };
+
+  useEffect(() => {
+    console.log(option);
+  }, [option]);
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -12,7 +59,15 @@ function SearchFilter() {
           <S.Left>
             <S.Drinks>
               <S.FilterTitle>주종</S.FilterTitle>
-              <SelectBox />
+              <SelectBox
+                onChange={({
+                  region,
+                  category,
+                }: {
+                  region: string;
+                  category: string;
+                }) => changeOption(region, category)}
+              />
             </S.Drinks>
           </S.Left>
           <S.Right>
@@ -23,7 +78,10 @@ function SearchFilter() {
                   min={0}
                   max={50}
                   onChange={({ min, max }: { min: number; max: number }) =>
-                    console.log(`min = ${min}, max = ${max}`)
+                    changeRateOption({
+                      max: max,
+                      min: min,
+                    })
                   }
                 />
               </S.RangeMultiSlider>
@@ -35,7 +93,10 @@ function SearchFilter() {
                   min={0}
                   max={70}
                   onChange={({ min, max }: { min: number; max: number }) =>
-                    console.log(`min = ${min}, max = ${max}`)
+                    changeLevelOption({
+                      max: max,
+                      min: min,
+                    })
                   }
                 />
               </S.RangeMultiSlider>

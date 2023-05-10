@@ -177,7 +177,6 @@ const FindButton = styled.button`
   @media (max-width:1200px) { margin: 30px 0 15px; }
 `;
 
-
 export {
   Container,
   Wrapper,
@@ -191,5 +190,5 @@ export {
   ABV,
   RangeMultiSlider,
   Bottom,
-  FindButton
+  FindButton,
 };

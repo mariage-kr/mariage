@@ -1,72 +1,83 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import useBoolean from '@/hooks/useBoolean';
+import { isLoginProvider } from '@/utils/auth';
+import { isBoolean } from '@/utils/boolean';
 
 import * as S from './Filter.styled';
 
 function Filter() {
-  // TODO: 추후 데이터 받아오기
-  const [weather, setWeather] = useState('맑은날');
+  const { value: weather, setValue: setWeather } = useBoolean(false);
+  const { value: recommend, setValue: setRecommend } = useBoolean(false);
+  const { value: week, setValue: setWeek } = useBoolean(false);
+  const { value: month, setValue: setMonth } = useBoolean(false);
+  const { value: total, setValue: setTotal } = useBoolean(false);
 
-  const [select, setSelect] = useState({
-    weather: true,
-    recommend: false,
-    week: false,
-    month: false,
-    total: false,
-  });
+  const [message, setMessage] = useState<string>('');
 
-  const [message, setMessage] = useState(
-    '현재 날씨에 인기있는 주류의 리스트입니다.',
-  );
+  const isLogin = isBoolean(isLoginProvider.get());
+
+  useEffect(() => {
+    if (isLogin) {
+      setRecommend(true);
+      setWeather(false);
+      setMessage('회원님에게 추천하는 주류의 리스트입니다.');
+    } else {
+      setRecommend(false);
+      setWeather(true);
+      setMessage('현재 날씨에 인기있는 주류의 리스트입니다.');
+    }
+  }, [isLogin]);
 
   const changeSelect = (key: string) => {
-    setSelect(prev => {
-      return {
-        ...Object.fromEntries(
-          Object.entries(prev).map(([k, v]) => [k, k === key]),
-        ),
-      } as {
-        weather: boolean;
-        recommend: boolean;
-        week: boolean;
-        month: boolean;
-        total: boolean;
-      };
-    });
+    setWeather(false);
+    setRecommend(false);
+    setWeek(false);
+    setMonth(false);
+    setTotal(false);
 
-    if (key === 'weather') {
-      setMessage(`${weather}에 인기있는 주류의 리스트입니다.`);
-    } else if (key === 'recommend') {
-      setMessage('추천하는 주류의 리스트입니다.');
-    } else if (key === 'week') {
-      setMessage('지난 1주일간 가장 많이 팔린 주류의 리스트입니다.');
-    } else if (key === 'month') {
-      setMessage('지난 1달간 가장 많이 팔린 주류의 리스트입니다.');
-    } else if (key === 'total') {
-      setMessage('전체 기간 동안 가장 많이 팔린 주류의 리스트입니다.');
+    switch (key) {
+      case 'weather':
+        setWeather(true);
+        setMessage('현재 날씨에 인기있는 주류의 리스트입니다.');
+        break;
+      case 'recommend':
+        setRecommend(true);
+        setMessage('회원님에게 추천하는 주류의 리스트입니다.');
+        break;
+      case 'week':
+        setWeek(true);
+        setMessage('지난 1주일간 가장 많이 팔린 주류의 리스트입니다.');
+        break;
+      case 'month':
+        setMonth(true);
+        setMessage('지난 1달간 가장 많이 팔린 주류의 리스트입니다.');
+        break;
+      case 'total':
+        setTotal(true);
+        setMessage('전체 기간 동안 가장 많이 팔린 주류의 리스트입니다.');
+        break;
     }
   };
 
   return (
     <S.Container>
       <S.Header>인기 주류</S.Header>
-      {window.sessionStorage.getItem('isLogin') === 'true' && (
-        <S.Button
-          select={select.recommend}
-          onClick={() => changeSelect('recommend')}
-        >
+      {isLogin && (
+        <S.Button select={recommend} onClick={() => changeSelect('recommend')}>
           ✨ 추천
         </S.Button>
       )}
-      <S.Button select={select.weather} onClick={() => changeSelect('weather')}>
+      <S.Button select={weather} onClick={() => changeSelect('weather')}>
         🌈 날씨
       </S.Button>
-      <S.Button select={select.week} onClick={() => changeSelect('week')}>
+      <S.Button select={week} onClick={() => changeSelect('week')}>
         🌒 1주
       </S.Button>
-      <S.Button select={select.month} onClick={() => changeSelect('month')}>
+      <S.Button select={month} onClick={() => changeSelect('month')}>
         🌓 1달
       </S.Button>
-      <S.Button select={select.total} onClick={() => changeSelect('total')}>
+      <S.Button select={total} onClick={() => changeSelect('total')}>
         🌕 전체
       </S.Button>
       <S.Message>{message}</S.Message>

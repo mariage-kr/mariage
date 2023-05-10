@@ -15,11 +15,11 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
-const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
+function RangeMultiSlider_M_Star({
   min,
   max,
   onChange,
-}) => {
+}: rangeMultiSliderProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -60,7 +60,7 @@ const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
   // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  }, [minVal, maxVal]);
 
   return (
     <>
@@ -102,6 +102,6 @@ const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
       </S.Container>
     </>
   );
-};
+}
 
 export default RangeMultiSlider_M_Star;

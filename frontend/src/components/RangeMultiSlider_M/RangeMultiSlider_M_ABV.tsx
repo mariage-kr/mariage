@@ -15,11 +15,7 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
-const RangeMultiSlider_M_ABV: FC<rangeMultiSliderProps> = ({
-  min,
-  max,
-  onChange,
-}) => {
+function RangeMultiSlider_M_ABV({ min, max, onChange }: rangeMultiSliderProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -60,7 +56,7 @@ const RangeMultiSlider_M_ABV: FC<rangeMultiSliderProps> = ({
   // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  }, [minVal, maxVal]);
 
   return (
     <>
@@ -102,6 +98,6 @@ const RangeMultiSlider_M_ABV: FC<rangeMultiSliderProps> = ({
       </S.Container>
     </>
   );
-};
+}
 
 export default RangeMultiSlider_M_ABV;

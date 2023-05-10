@@ -1,12 +1,14 @@
-import { DefaultValue, selector } from 'recoil';
+import { DefaultValue, atom, selector } from 'recoil';
 
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
+import { isBoolean } from '@/utils/boolean';
+import { CategoryType } from '@/types/category';
 
-const isBoolean = (value: string): boolean => {
-  const truthy: string[] = ['true', 'True', '1'];
-  return truthy.includes(value);
-};
+const drinkUpperCategoryState = atom<CategoryType[]>({
+  key: 'drinkUpperCategoryState',
+  default: [],
+});
 
 const isLoginState = selector<boolean>({
   key: 'isLogin',
@@ -56,4 +58,9 @@ const refreshTokenState = selector<string>({
   },
 });
 
-export { isLoginState, accessTokenState, refreshTokenState };
+export {
+  drinkUpperCategoryState,
+  isLoginState,
+  accessTokenState,
+  refreshTokenState,
+};
