@@ -16,3 +16,5 @@ function useNickname() {
 
   return { value, setValue: saveUserNickname };
 }
+
+export default useNickname;
