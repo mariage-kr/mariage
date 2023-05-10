@@ -48,10 +48,6 @@ function SearchFilter() {
     setOption({ ...option, level: selectLevelRange });
   };
 
-  useEffect(() => {
-    console.log(option);
-  }, [option]);
-
   return (
     <S.Container>
       <S.Wrapper>
