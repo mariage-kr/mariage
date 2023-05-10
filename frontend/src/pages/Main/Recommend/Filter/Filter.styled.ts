@@ -5,7 +5,7 @@ type Select = {
 };
 
 const Container = styled.div`
-  margin-bottom: 10px;
+  margin: 50px 0 30px;
 `;
 
 const Header = styled.h2`
@@ -18,7 +18,7 @@ const Button = styled.button<Select>`
   height: 50px;
 
   margin-right: 15px;
-
+  padding: 0 10px;
   font-size: 1.1rem;
 
   background-color: ${prop => (prop.select ? '#9c94d0' : '#fff')};
