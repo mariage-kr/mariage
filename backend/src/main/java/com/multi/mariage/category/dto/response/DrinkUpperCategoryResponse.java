@@ -1,6 +1,6 @@
 package com.multi.mariage.category.dto.response;
 
-import com.multi.mariage.category.vo.uppercategory.DrinkUpperCategoryValuesVO;
+import com.multi.mariage.category.vo.drinkupper.DrinkUpperCategoryValuesVO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
