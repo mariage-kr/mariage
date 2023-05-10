@@ -153,12 +153,23 @@ class MemberServiceTest extends ServiceTest {
         return memberService.updateImage(authMember, file);
     }
 
+    @DisplayName("회원의 별칭을 조회한다.")
+    @Test
+    void 회원의_별칭을_조회한다() {
+        AuthMember authMember = convertMember(member);
+        String expected = MemberFixture.MARI.toSignupRequest().getNickname();
+
+        String actual = memberService.findMemberNickname(authMember).getNickname();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
     @DisplayName("비밀번호 수정 테스트")
     @Nested
     class PasswordTest {
         static Stream<Arguments> Data() {
             String password = MemberFixture.MARI.toSignupRequest().getPassword();
-             return Stream.of(
+            return Stream.of(
                     Arguments.of(new UpdatePasswordRequest(password + "?", "mari12!@"),
                             MemberErrorCode.MEMBER_WRONG_PASSWORD.getMessage()),
                     Arguments.of(new UpdatePasswordRequest(password, password),

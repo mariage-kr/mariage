@@ -14,6 +14,12 @@ const drinkUpperCategoryState = atom<CategoryType[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
+const userNicknameState = atom<string>({
+  key: 'userNickname',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
 const isLoginState = selector<boolean>({
   key: 'isLogin',
   get: () => {
@@ -64,6 +70,7 @@ const refreshTokenState = selector<string>({
 
 export {
   drinkUpperCategoryState,
+  userNicknameState,
   isLoginState,
   accessTokenState,
   refreshTokenState,

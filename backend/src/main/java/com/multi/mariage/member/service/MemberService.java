@@ -11,6 +11,7 @@ import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
 import com.multi.mariage.member.dto.response.MyInfoResponse;
+import com.multi.mariage.member.dto.response.NicknameResponse;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
@@ -144,5 +145,10 @@ public class MemberService {
 
     private String getImageName(Image image) {
         return image != null ? image.getName() : "profile.png";
+    }
+
+    public NicknameResponse findMemberNickname(AuthMember authMember) {
+        Member member = findById(authMember.getId());
+        return new NicknameResponse(member.getNickname());
     }
 }

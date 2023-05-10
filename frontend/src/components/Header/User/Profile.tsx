@@ -5,11 +5,13 @@ import { requestLogout } from '@/apis/request/auth';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Profile.styled';
+import useNickname from '@/hooks/useNickname';
 
-function Profile() {
+function User() {
   const { key } = useLocation();
   const navigate = useNavigate();
 
+  const { value: nickname, setValue: setNickname } = useNickname();
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const handlerIsLogin = () => {
@@ -20,10 +22,6 @@ function Profile() {
     window.sessionStorage.removeItem('isLogin');
     handlerIsLogin();
   };
-
-  useEffect(() => {
-    handlerIsLogin();
-  }, [key]);
 
   const logout = () => {
     requestLogout()
@@ -37,10 +35,21 @@ function Profile() {
       });
   };
 
+  useEffect(() => {
+    if (nickname) {
+      return;
+    }
+    setNickname();
+  }, []);
+
+  useEffect(() => {
+    handlerIsLogin();
+  }, [key]);
+
   if (isLogin) {
     return (
       <S.Container>
-        <S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink>
+        <S.StyledLink to={BROWSER_PATH.MY}>{nickname}님</S.StyledLink>
         <S.TextButton onClick={logout}>로그아웃</S.TextButton>
       </S.Container>
     );
@@ -54,4 +63,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default User;
