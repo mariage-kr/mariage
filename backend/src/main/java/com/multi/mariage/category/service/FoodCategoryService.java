@@ -19,11 +19,9 @@ import java.util.stream.Collectors;
 public class FoodCategoryService {
     public FoodCategoryResponse findFoodCategories() {
 
-        List<FoodCategory> categories = Arrays.asList(FoodCategory.values());
+        List<FoodCategoriesVO> categoryList = new ArrayList<>();
 
-        List<FoodCategoriesVO> categoryList = categories.stream()
-                .map(category -> FoodCategoriesVO.from(category.getId(), category.getName()))
-                .toList();
+        getFoodValues(categoryList);
 
         FoodCategoryResponse response = FoodCategoryResponse.builder()
                 .category(categoryList)
@@ -32,4 +30,12 @@ public class FoodCategoryService {
 
         return response;
     }
+
+    private static void getFoodValues(List<FoodCategoriesVO> categoryList) {
+        for (FoodCategory foodCategory : FoodCategory.values()) {
+            FoodCategoriesVO category = FoodCategoriesVO.from(foodCategory.getId(), foodCategory.getName());
+            categoryList.add(category);
+        }
+    }
 }
+

@@ -16,9 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CategoryControllerTest extends ControllerTest {
 
-    @DisplayName("상위 카테고리를 조회한다.")
+    @DisplayName("주류 상위 카테고리를 조회한다.")
     @Test
-    void 상위_카테고리를_조회한다() throws Exception {
+    void 주류_상위_카테고리를_조회한다() throws Exception {
 
         mockMvc.perform(get("/api/categories/upper"))
                 .andDo(print())
@@ -37,9 +37,9 @@ class CategoryControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("하위 카테고리를 조회한다.")
+    @DisplayName("주류 하위 카테고리를 조회한다.")
     @Test
-    void 하위_카테고리를_조회한다() throws Exception {
+    void 주류_하위_카테고리를_조회한다() throws Exception {
 
         mockMvc.perform(get("/api/categories/lower"))
                 .andDo(print())
