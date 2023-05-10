@@ -19,7 +19,7 @@ public class CategoryController {
 
     @GetMapping("/categories/upper")
     public ResponseEntity<DrinkUpperCategoryResponse> findUpperCategories() {
-        DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
+        DrinkUpperCategoryResponse response = drinkUpperCategoryService.findDrinkUpperCategory();
         return ResponseEntity.ok(response);
     }
 

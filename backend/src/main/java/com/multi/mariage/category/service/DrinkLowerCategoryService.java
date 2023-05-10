@@ -3,10 +3,10 @@ package com.multi.mariage.category.service;
 import com.multi.mariage.category.domain.DrinkLowerCategory;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.category.domain.Region;
-import com.multi.mariage.category.vo.drinklower.DrinkLowerCategoriesVO;
-import com.multi.mariage.category.vo.drinklower.DrinkLowerSubCategoriesVO;
 import com.multi.mariage.category.dto.response.DrinkLowerCategoryResponse;
-import com.multi.mariage.category.vo.drinklower.DrinkLowerCategoryValuesVO;
+import com.multi.mariage.category.vo.drinkLower.DrinkLowerCategoriesVO;
+import com.multi.mariage.category.vo.drinkLower.DrinkLowerCategoryValuesVO;
+import com.multi.mariage.category.vo.drinkLower.DrinkLowerSubCategoriesVO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,42 +17,44 @@ import java.util.List;
 public class DrinkLowerCategoryService {
 
     public DrinkLowerCategoryResponse findCategories() {
-        List<DrinkLowerCategory> lowerCategories = Arrays.asList(DrinkLowerCategory.values());
-
-        List<DrinkLowerCategoryValuesVO> responseList = new ArrayList<>();
-
-        List<Region> regionList = Arrays.asList(Region.values());   // 국내, 해외
-        List<DrinkUpperCategory> upperCategoryList = Arrays.asList(DrinkUpperCategory.values());    // LOCAL_SOJU, LOCAL_BEER 등
-
-        for (Region region : regionList) {
-            List<DrinkLowerCategoriesVO> categoryList = new ArrayList<>();
-
-            getCategories(lowerCategories, upperCategoryList, region, categoryList);
-            DrinkLowerCategoryValuesVO response = DrinkLowerCategoryValuesVO.from(region.getValue(), region.name(), categoryList);    // "region": "국내","regionValue": "LOCAL","categories": []
-
-            responseList.add(response);
-        }
-
+        List<DrinkLowerCategoryValuesVO> responseList = getDrinkLowerCategoryValues();
         return new DrinkLowerCategoryResponse(responseList);
     }
 
-    private static void getCategories(List<DrinkLowerCategory> lowerCategories, List<DrinkUpperCategory> upperCategoryList, Region region, List<DrinkLowerCategoriesVO> categoryList) {
-        for (DrinkUpperCategory upperCategory : upperCategoryList) {
-            List<DrinkLowerSubCategoriesVO> subCategoryList = getSubCategories(lowerCategories, region, upperCategory);
+    private List<DrinkLowerCategoryValuesVO> getDrinkLowerCategoryValues() {
+        List<DrinkLowerCategoryValuesVO> responseList = new ArrayList<>();
+        Arrays.stream(Region.values()).forEach(region -> {
+            List<DrinkLowerCategoriesVO> categories = getDrinkUpperCategory(region);
+            DrinkLowerCategoryValuesVO response = DrinkLowerCategoryValuesVO.from(region, categories);
+            responseList.add(response);
+        });
+        return responseList;
+    }
 
-            if (!subCategoryList.isEmpty()) {
-                DrinkLowerCategoriesVO category = DrinkLowerCategoriesVO.from(upperCategory.name(), upperCategory.getName(), subCategoryList);  // "name": "LOCAL_SOJU", "value": "소주", "subCategories": []...
-                categoryList.add(category);
+    private List<DrinkLowerCategoriesVO> getDrinkUpperCategory(Region region) {
+        List<DrinkLowerCategoriesVO> categoryList = new ArrayList<>();
+        Arrays.stream(DrinkUpperCategory.values()).forEach(upperCategory -> {
+            List<DrinkLowerSubCategoriesVO> subCategoryList = getDrinkLowerCategory(region, upperCategory);
+            if (subCategoryList.isEmpty()) {
+                return;
             }
-        }
+            categoryList.add(DrinkLowerCategoriesVO.from(upperCategory, subCategoryList));
+        });
+        return categoryList;
     }
 
-    private static List<DrinkLowerSubCategoriesVO> getSubCategories(List<DrinkLowerCategory> lowerCategories, Region region, DrinkUpperCategory upperCategory) {
-        List<DrinkLowerSubCategoriesVO> subCategoryList = lowerCategories.stream()
-                .filter(category -> category.getUpperType().equals(upperCategory) && category.getUpperType().name().contains(region.name()))
-                .map(category -> DrinkLowerSubCategoriesVO.from(category.name(), category.getName()))
-                .toList();      //"subCategories": [{"name": "NORMAL_SOJU","value": "희석식 소주"}...
-        return subCategoryList;
+    private List<DrinkLowerSubCategoriesVO> getDrinkLowerCategory(Region region, DrinkUpperCategory upperCategory) {
+        return Arrays.stream(DrinkLowerCategory.values())
+                .filter(category -> isEqualsUpperCategory(upperCategory, category) && hasCategoryByRegionName(region, category))
+                .map(DrinkLowerSubCategoriesVO::from)
+                .toList();
     }
 
+    private boolean hasCategoryByRegionName(Region region, DrinkLowerCategory category) {
+        return category.getUpperType().name().contains(region.name());
+    }
+
+    private boolean isEqualsUpperCategory(DrinkUpperCategory upperCategory, DrinkLowerCategory category) {
+        return category.getUpperType().equals(upperCategory);
+    }
 }
