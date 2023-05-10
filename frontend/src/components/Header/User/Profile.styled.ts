@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  /* border: 1px solid sandybrown; */
-
   display: flex;
   align-items: center;
   justify-content: flex-end;

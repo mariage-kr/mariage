@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import Dropdown from './Dropdown/Dropdown';
-import Profile from './Profile/Profile';
+import User from './User/Profile';
 import Search from './Search/Search';
 
 import { BROWSER_PATH } from '@/constants/path';
@@ -30,7 +30,7 @@ function Header() {
         })}
       </S.Nav>
       <Search />
-      <Profile />
+      <User />
     </S.Container>
   );
 }
