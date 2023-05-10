@@ -10,9 +10,15 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width:1919px) { width: 450px; }
-  @media (max-width:1570px) { width: 350px; }
-  @media (max-width:1200px) { width: 420px; }
+  @media (max-width: 1919px) {
+    width: 450px;
+  }
+  @media (max-width: 1570px) {
+    width: 350px;
+  }
+  @media (max-width: 1200px) {
+    width: 420px;
+  }
 `;
 
 const Thumb = styled.input`
@@ -25,9 +31,15 @@ const Thumb = styled.input`
     width: 450px;
     outline: none;
 
-    @media (max-width:1919px) { width: 380px; }
-    @media (max-width:1570px) { width: 280px; }
-    @media (max-width:1200px) { width: 350px; }
+    @media (max-width: 1919px) {
+      width: 380px;
+    }
+    @media (max-width: 1570px) {
+      width: 280px;
+    }
+    @media (max-width: 1200px) {
+      width: 350px;
+    }
   }
 
   &[type='range']::-webkit-slider-thumb {
@@ -62,13 +74,13 @@ const Thumb = styled.input`
   }
 `;
 
-const thumb_zindex3 = css`
+const Thumb_zIndex3 = css`
   z-index: 3;
 `;
-const thumb_zindex4 = css`
+const Thumb_zIndex4 = css`
   z-index: 4;
 `;
-const thumb_zindex5 = (minVal: number, max: number) => css`
+const Thumb_zIndex5 = (minVal: number, max: number) => css`
   z-index: (minVal > max - 100) && 5;
 `;
 
@@ -78,9 +90,15 @@ const Slider = styled.div`
   width: 450px;
   height: 100%;
 
-  @media (max-width:1919px) { width: 380px; }
-  @media (max-width:1570px) { width: 280px; }
-  @media (max-width:1200px) { width: 350px; }
+  @media (max-width: 1919px) {
+    width: 380px;
+  }
+  @media (max-width: 1570px) {
+    width: 280px;
+  }
+  @media (max-width: 1200px) {
+    width: 350px;
+  }
 `;
 
 const Slider_sub = styled.div`
@@ -113,7 +131,7 @@ const slider_sub34 = css`
   color: #000000;
   margin-top: 10px;
   font-size: 1.1rem;
-  @media (max-width:1400px) {
+  @media (max-width: 1400px) {
     font-size: 1rem;
   }
 `;
@@ -121,9 +139,9 @@ const slider_sub34 = css`
 export {
   Container,
   Thumb,
-  thumb_zindex3,
-  thumb_zindex4,
-  thumb_zindex5,
+  Thumb_zIndex3,
+  Thumb_zIndex4,
+  Thumb_zIndex5,
   Slider,
   Slider_sub,
   slider_sub12,
