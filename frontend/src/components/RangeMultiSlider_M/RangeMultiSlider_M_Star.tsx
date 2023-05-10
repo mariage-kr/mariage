@@ -77,7 +77,7 @@ function RangeMultiSlider_M_Star({
             setMinVal(value);
             event.target.value = value.toString();
           }}
-          css={[S.thumb_zindex3, S.thumb_zindex5(minVal, max)]}
+          css={[S.Thumb_zIndex3, S.Thumb_zIndex5(minVal, max)]}
         />
         <S.Thumb
           type="range"
@@ -90,14 +90,13 @@ function RangeMultiSlider_M_Star({
             setMaxVal(value);
             event.target.value = value.toString();
           }}
-          css={S.thumb_zindex4}
+          css={S.Thumb_zIndex4}
         />
-
         <S.Slider>
           <S.Slider_sub css={S.slider_sub12}></S.Slider_sub>
           <S.Slider_sub css={S.slider_sub12} ref={range}></S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{minVal}</S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{maxVal}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{minVal / 10}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{maxVal / 10}</S.Slider_sub>
         </S.Slider>
       </S.Container>
     </>

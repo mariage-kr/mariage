@@ -14,7 +14,7 @@ function Header() {
   const { value: category, setValue: setCategory } = useDrinkUpperCategory();
 
   useEffect(() => {
-    setCategory();
+    setCategory;
   }, []);
 
   return (

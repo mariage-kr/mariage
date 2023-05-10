@@ -5,14 +5,19 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 
 import GlobalStyle from '@/styles/global';
 import Routes from '@/routes/Routes';
+import Layout from '@/layout/Layout';
 
-import Mariage from './components/Mariage/Mariage';
+import Mariage from '@/components/Mariage/Mariage';
 import Loading from '@/components/Loading/Loading';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
-import Layout from './layout/Layout';
 
-
-const queryClient = new QueryClient({});
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (
