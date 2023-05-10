@@ -22,7 +22,7 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
     @Test
     void 상위_카테고리를_조회한다() {
 
-        DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
+        DrinkUpperCategoryResponse response = drinkUpperCategoryService.findDrinkUpperCategory();
 
         assertThat(response).isNotNull();
         assertThat(response.getCategory()).isNotNull().hasSize(Region.values().length);
@@ -39,7 +39,7 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
     @ValueSource(strings = {"LOCAL", "FOREIGN"})
     void 특정_지역의_상위_카테고리를_조회한다(String region) {
 
-        DrinkUpperCategoryResponse response = drinkUpperCategoryService.findCategories();
+        DrinkUpperCategoryResponse response = drinkUpperCategoryService.findDrinkUpperCategory();
 
         List<DrinkUpperCategoryValuesVO> categoryValues = response.getCategory();
 
