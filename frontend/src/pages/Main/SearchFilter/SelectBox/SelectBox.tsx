@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 
 import useSelect from '@/hooks/useSelect';
+import { useDrinkUpperCategory } from '@/hooks/useCategory';
 import { CategoryType } from '@/types/category';
-import { drinkUpperCategoryState } from '@/store/status';
 
 import * as S from './SelectBox.styled';
 
@@ -23,7 +22,7 @@ interface functionProp {
 }
 
 function SelectBox({ onChange }: functionProp) {
-  const drinkUpperCategory = useRecoilValue(drinkUpperCategoryState);
+  const drinkUpperCategory = useDrinkUpperCategory().value;
   const [category, setCategory] = useState<CategoryType | undefined>(
     drinkUpperCategory[0],
   );
@@ -65,10 +64,14 @@ function SelectBox({ onChange }: functionProp) {
         </S.SelectBox>
       </label>
       <label>
-        <S.SelectBox onChange={setSelectCategory}>
+        <S.SelectBox id="category" onChange={setSelectCategory}>
           {category &&
-            category.categories.map((category, index) => (
-              <S.Option key={index} value={category.name}>
+            category.categories.map((category, index: number) => (
+              <S.Option
+                key={index}
+                value={category.name}
+                selected={index === 0}
+              >
                 {category.value}
               </S.Option>
             ))}
