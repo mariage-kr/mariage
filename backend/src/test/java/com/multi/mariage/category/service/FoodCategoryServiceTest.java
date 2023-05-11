@@ -29,11 +29,11 @@ class FoodCategoryServiceTest extends ServiceTest {
         FoodCategoryResponse response = foodCategoryService.findFoodCategories();
 
         assertThat(response).isNotNull();
-        List<FoodCategoriesVO> actual = response.getCategory();
+        List<FoodCategoriesVO> vo = response.getCategory();
 
-        for (FoodCategoriesVO category : actual) {
-            assertThat(category.getId()).isNotNull();
-            assertThat(category.getName()).isNotEmpty();
+        for (FoodCategoriesVO actual : vo) {
+            assertThat(actual.getId()).isNotNull();
+            assertThat(actual.getName()).isNotEmpty();
         }
     }
 
