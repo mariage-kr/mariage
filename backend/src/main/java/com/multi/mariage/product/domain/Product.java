@@ -43,9 +43,8 @@ public class Product {
     @Column(name = "lower_category_id")
     private DrinkLowerCategory lowerCategory;
 
-    // TODO: Country 또한 Enum으로 할지 엔티티로 할지 고려해볼 것
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "country_id", nullable = false)
     private Country country;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -53,11 +52,6 @@ public class Product {
     private Image image;
 
     /* 연관관계 편의 메서드 */
-    public void setCountry(Country country) {
-        this.country = country;
-        country.getProducts().add(this);
-    }
-
     public void setImage(Image image) {
         this.image = image;
     }
