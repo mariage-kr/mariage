@@ -1,0 +1,60 @@
+= Auth API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/storage.html[Storage^]
+
+== 로그인
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Auth/Login/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Auth/Login/http-response.adoc[]
+
+== 로그아웃
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Auth/Logout/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Auth/Logout/http-response.adoc[]
+
+== 엑세스 토큰 재발행
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Auth/Reissue/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Auth/Reissue/http-response.adoc[]
