@@ -6,6 +6,7 @@ const API_PATH = {
   CATEGORY: {
     DRINK: {
       UPPER: '/api/categories/upper',
+      LOWER: '/api/categories/lower',
     },
   },
   MEMBER: {

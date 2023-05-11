@@ -1,22 +1,80 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import useInput from '@/hooks/useInput';
 
 import * as S from './Admin.styled';
-import { useRef } from 'react';
+import { requestDrinkLowerCategory } from '@/apis/request/category';
+import useSelect from '@/hooks/useSelect';
+import { LowerCategoryType, UpperCategoryType } from '@/types/category';
+
+type CountryType = {
+  id: number;
+  name: string;
+  flag: string;
+};
+
+type DrinkCategoryType = {
+  category: UpperCategoryType[];
+};
 
 function Admin() {
+  /* 검증 변수 */
   const [isValid, setIsValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
+  /* 사용자 입력 변수 */
   const { value: name, setValue: setName } = useInput<string>('');
-  const { value: upperCategory, setValue: setUpperLevel } =
-    useInput<string>('');
-  const { value: lowerCategory, setValue: setLowerCategory } =
-    useInput<string>('');
-  const { value: info, setValue: setInfo } = useInput<number>(0);
+  const { value: info, setValue: setInfo } = useInput<string>('');
   const [level, setLevel] = useState<number>(0);
+  const { value: country, setValue: setCountry } = useSelect<string>('');
+  const { value: lowerCategory, setValue: setLowerCategory } =
+    useSelect<string>('');
+  const { value: upperCategory, setValue: setUpperCategory } =
+    useSelect<string>('');
 
+  /* 카테고리 데이터 */
+
+  const [countryCategory, setCountryCategory] = useState<CountryType[]>([]);
+  const [drinkCategory, setDrinkCategory] = useState<DrinkCategoryType>();
+  const [drinkUpperCategory, setDrinkUpperCategory] =
+    useState<UpperCategoryType>();
+  const [drinkLowerCategory, setDrinkLowerCategory] =
+    useState<LowerCategoryType>();
+
+  /* 카테고리 데이터 요청 */
+
+  /* TODO: 나라 카테고리 데이터 요청 함수 필요 */
+  const getCountryCategory = useCallback(() => {}, []);
+
+  const getDrinkCategory = useCallback(() => {
+    requestDrinkLowerCategory()
+      .then(response => {
+        setDrinkCategory(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+  /* useEffect */
+  useEffect(() => {
+    getCountryCategory();
+    getDrinkCategory();
+  }, []);
+
+  useEffect(() => {
+    if (drinkCategory) {
+      setDrinkUpperCategory(drinkCategory.category[0]);
+    }
+  }, [drinkCategory]);
+
+  useEffect(() => {
+    if (drinkUpperCategory) {
+      setDrinkLowerCategory(drinkUpperCategory.categories[0]);
+    }
+  }, [drinkUpperCategory]);
+
+  console.log(drinkLowerCategory);
   return (
     <S.Container>
       <S.Header>제품 관리 페이지</S.Header>
@@ -28,10 +86,41 @@ function Admin() {
         <S.Input type={'number'} value={level}></S.Input>
         <S.Label>제품 설명</S.Label>
         <S.TextArea onChange={setInfo}></S.TextArea>
-        <S.Count>글자 수 : 0</S.Count>
+        <S.Count>글자 수 : {info.length}</S.Count>
         <S.Label>국가</S.Label>
+        <label>
+          <S.Select onChange={setCountry}>
+            {countryCategory.map((category: CountryType) => (
+              <option key={category.id} value={category.flag}>
+                {category.name}
+              </option>
+            ))}
+          </S.Select>
+        </label>
         <S.Label>상위 카테고리</S.Label>
+        <label>
+          <S.Select onChange={setUpperCategory}>
+            {drinkUpperCategory?.categories.map(
+              (category: LowerCategoryType, index: number) => (
+                <option key={index} value={category.name}>
+                  {category.value}
+                </option>
+              ),
+            )}
+          </S.Select>
+        </label>
         <S.Label>하위 카테고리</S.Label>
+        <label>
+          <S.Select onChange={setLowerCategory}>
+            {drinkLowerCategory?.subCategories.map(
+              (category, index: number) => (
+                <option key={index} value={category.name}>
+                  {category.value}
+                </option>
+              ),
+            )}
+          </S.Select>
+        </label>
         <S.Label>이미지</S.Label>
         <S.Button type={'submit'}>등록하기</S.Button>
       </S.Form>

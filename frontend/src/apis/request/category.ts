@@ -14,4 +14,8 @@ function requestDrinkUpperCategory() {
     });
 }
 
-export { requestDrinkUpperCategory };
+function requestDrinkLowerCategory() {
+  return axios.get(API_PATH.CATEGORY.DRINK.LOWER);
+}
+
+export { requestDrinkUpperCategory, requestDrinkLowerCategory };

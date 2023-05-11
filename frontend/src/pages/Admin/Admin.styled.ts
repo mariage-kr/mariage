@@ -123,6 +123,13 @@ const Count = styled.p`
   color: gray;
 `;
 
+const Select = styled.select`
+  height: 30px;
+  width: 465px;
+
+  margin-bottom: 20px;
+`;
+
 export {
   Container,
   StyledLink,
@@ -136,4 +143,5 @@ export {
   Line,
   TextArea,
   Count,
+  Select,
 };
