@@ -57,11 +57,11 @@ font-size: 1rem;
 
 background-color: ${prop => (prop.select ? '#9c94d0' : '#fff')};
 color: ${prop => (prop.select ? '#f8f8f8' : '#000')};
-box-shadow: 1px 1px 3px ${prop => (prop.select ? '#00000030' : '#00000030')};
+box-shadow: 1px 1px 3px ${prop => (prop.select ? '#00000030' : '#9C94D055')};
 transition: 250ms;
 
 &:hover {
-  box-shadow: 1.5px 1.5px 3px #00000090;
+  box-shadow: 1.5px 1.5px 3px #9C94D0;
 }
 `;
 
@@ -80,8 +80,7 @@ const Food = styled.li`
 
   &:hover { 
     transform: scale(1.05); 
-    /* font-weight: bold; */
-    text-shadow: 2px 2px 2px #9c94d077; 
+    text-shadow: 0 0 5px #9c94d099; 
   }
 
   &:nth-of-type(1) { margin-right: 3%; }

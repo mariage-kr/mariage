@@ -13,11 +13,18 @@ interface TextProps {
 const Button = styled.button<Props>`
   background: ${props => (props.liked ? '#bb2649' : 'white')};
   text-align: center;
-  padding: 6px 15px;
+  margin: 5px;
+  padding: 10px 15px;
   border-radius: 10px;
   border-style: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  margin: 5px;
+  box-shadow: 1px 1px 3px #9C94D055;
+  transition: 250ms;
+  transform: ${props => (props.liked ? 'scale(1.1)' : 'scale(1)')};
+
+  &:hover {
+    transform: scale(1.1); 
+    box-shadow: 1.5px 1.5px 3px #9C94D0;
+  }
 `;
 
 const Number = styled.span<TextProps>`
