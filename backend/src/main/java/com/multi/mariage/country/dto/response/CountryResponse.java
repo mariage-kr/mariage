@@ -1,6 +1,5 @@
 package com.multi.mariage.country.dto.response;
 
-import com.multi.mariage.category.vo.food.FoodCategoriesVO;
 import com.multi.mariage.country.vo.CountriesVO;
 import lombok.AccessLevel;
 import lombok.Builder;

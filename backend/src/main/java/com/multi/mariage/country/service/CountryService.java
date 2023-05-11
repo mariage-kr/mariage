@@ -1,8 +1,5 @@
 package com.multi.mariage.country.service;
 
-import com.multi.mariage.category.domain.FoodCategory;
-import com.multi.mariage.category.dto.response.FoodCategoryResponse;
-import com.multi.mariage.category.vo.food.FoodCategoriesVO;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.country.dto.response.CountryResponse;
 import com.multi.mariage.country.vo.CountriesVO;
