@@ -4,7 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-**/resources/static/docs
+**/resources/static/docs/
 **/resources/security/*.yml
 **/generated
 *.log
