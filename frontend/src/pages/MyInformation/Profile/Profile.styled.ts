@@ -16,7 +16,7 @@ const Image = styled.div`
   padding: 30px 0;
 `;
 
-const Profileimg = styled.img`
+const ProfileImg = styled.img`
   width: 150px;
   height: 150px;
   margin: 0 auto;
@@ -96,7 +96,7 @@ export {
   Container,
   Profile,
   Image,
-  Profileimg,
+  ProfileImg,
   Info,
   Name,
   Email,

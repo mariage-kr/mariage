@@ -1,12 +1,12 @@
 import * as S from './Profile.styled';
 import user from '../../../assets/svg/user.svg';
 
-import axios from 'axios';
 import React, { useCallback, useRef, useState } from 'react';
+import useInput from '@/hooks/useInput';
 
 function Profile() {
-  const [imageUrl, setImageUrl] = useState<String | null>(null);
-  const [nickname, setNickname] = useState<String>('마리아');
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const { value: nickname, setValue: setNickname } = useInput('마리아');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onUploadImage = useCallback(
@@ -17,25 +17,6 @@ function Profile() {
 
       const formData = new FormData();
       formData.append('image', e.target.files[0]);
-
-      axios({
-        /* TODO: 임시 주소입니다. */
-        baseURL: API_HOST,
-        url: '/images/:username/thumbnail',
-        method: 'POST',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-        .then(response => {
-          e.preventDefault();
-          console.log(response.data);
-          setImageUrl(URL.createObjectURL(e.target.files[0]));
-        })
-        .catch(error => {
-          console.error(error);
-        });
     },
     [],
   );
@@ -48,13 +29,11 @@ function Profile() {
   }, []);
 
   const onDeleteImage = useCallback(() => {
-    setImageUrl(null);
+    setImageUrl('');
   }, []);
 
   const onNicknameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setNickname(e.target.value);
-    },
+    (e: React.ChangeEvent<HTMLInputElement>) => {},
     [],
   );
 
@@ -73,10 +52,10 @@ function Profile() {
         <S.Profile>
           <S.Image>
             <p>프로필 사진</p>
-            {imageUrl ? (
-              <S.Profileimg src={imageUrl} />
+            {imageUrl !== '' ? (
+              <S.ProfileImg src={imageUrl} />
             ) : (
-              <S.Profileimg src={user} />
+              <S.ProfileImg src={user} />
             )}
           </S.Image>
           <S.Info>
@@ -104,16 +83,16 @@ function Profile() {
         </S.Profile>
         <S.NicknameWrap>
           <S.Label>닉네임 변경</S.Label>
-          <S.Nickname
-            type="text"
-            name="nickname"
-            id="nickname"
-            placeholder="변경할 닉네임을 입력해 주세요."
-            onChange={onNicknameChange}
-          />
-          <S.BtnSubmit type="submit" onClick={onSubmitNickname}>
-            닉네임 변경
-          </S.BtnSubmit>
+          <form onSubmit={onSubmitNickname}>
+            <S.Nickname
+              type="text"
+              name="nickname"
+              id="nickname"
+              placeholder="변경할 닉네임을 입력해 주세요."
+              onChange={onNicknameChange}
+            />
+            <S.BtnSubmit type="submit">닉네임 변경</S.BtnSubmit>
+          </form>
         </S.NicknameWrap>
       </S.Container>
     </>

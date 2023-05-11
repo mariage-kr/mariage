@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+type InfoMessageProps = {
+  isValid?: boolean;
+};
+
 const Container = styled.div`
   width: 40.625rem;
   margin: 50px auto;
@@ -16,11 +20,17 @@ const Input = styled.input`
   width: 100%;
   height: 40px;
   margin: 0 auto;
-  margin-bottom: 20px;
   padding: 5px;
   border: 1px solid;
   border-radius: 10px;
   font-size: 1.1rem;
+`;
+
+const InfoMessage = styled.span<InfoMessageProps>`
+  color: #bb2649;
+  visibility: ${({ isValid }) => (isValid ? 'none' : 'hidden')};
+  font-size: 0.7rem;
+  margin-bottom: 15px;
 `;
 
 const Btn = styled.button`
@@ -35,4 +45,4 @@ const Btn = styled.button`
   color: #fff;
 `;
 
-export { Container, Label, Input, Btn };
+export { Container, Label, Input, InfoMessage, Btn };
