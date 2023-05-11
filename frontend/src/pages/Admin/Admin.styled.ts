@@ -1,66 +1,139 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  margin: 0 10%;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: gray;
+  font-size: 0.9rem;
 `;
 
 const Header = styled.h1`
   color: black;
 `;
 
-const CategoryWrapper = styled.div`
+const Form = styled.form`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
 
-  width: 500px;
+  width: 460px;
+
+  padding: 30px;
+  border: 1px solid #0f0f0f50;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #0f0f0f25;
 `;
 
 const Input = styled.input`
-  width: 200px;
-  height: 25px;
+  width: 460px;
+  height: 42px;
+
+  margin-bottom: 20px;
+
+  border: 0;
+  border-bottom: 3px solid #00000050;
+
+  font-size: 16px;
+
+  transition: 100ms;
+
+  &:focus {
+    outline: none;
+    border-bottom: 3px solid #bb2649;
+  }
 `;
 
-const Select = styled.select`
-  width: 210px;
-  height: 35px;
+const Button = styled.button`
+  font-size: 20px;
+
+  width: 460px;
+  height: 52px;
+
+  background-color: #9c94d0;
+  color: #f8f8f8;
 `;
 
-const Wrapper = styled.div`
+const LinkButton = styled.button`
+  font-size: 20px;
+
+  width: 460px;
+  height: 52px;
+
+  color: #9c94d0;
+  border: 1px solid #9c94d0;
+  background-color: #ffffff;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+`;
+
+const ErrorMessage = styled.span`
   display: flex;
   align-items: center;
+  justify-content: center;
 
-  flex-direction: row;
+  height: 40px;
+  width: 460px;
 
-  width: 750px;
-`;
+  border-radius: 3px;
+  background-color: #9c94d050;
 
-const Label = styled.p`
-  width: 150px;
-`;
-
-const Text = styled.p`
-  width: 200px;
+  color: #bb2649;
   font-size: 0.9rem;
-  margin-left: 50px;
+
+  margin-bottom: 30px;
+`;
+
+const Line = styled.div`
+  margin: 20px;
+  height: 1px;
+  width: 460px;
+  background-color: #00000050;
 `;
 
 const TextArea = styled.textarea`
-  width: 380px;
-  height: 100px;
+  height: 125px;
+  width: 460px;
+  resize: none;
+
+  border: 1px solid #000;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #bb2649;
+  }
+`;
+
+const Count = styled.p`
+  margin-top: 5px;
+  font-size: 14px;
+  color: gray;
 `;
 
 export {
   Container,
+  StyledLink,
   Header,
-  CategoryWrapper,
+  Form,
   Input,
-  Select,
-  Wrapper,
   Label,
-  Text,
+  Button,
+  LinkButton,
+  ErrorMessage,
+  Line,
   TextArea,
+  Count,
 };

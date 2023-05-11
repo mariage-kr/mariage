@@ -17,13 +17,14 @@ import * as S from './SignUp.styled';
 function SignUp() {
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState('');
-  const { value: name, setValue: setName } = useInput('');
-  const { value: email, setValue: setEmail } = useInput('');
-  const { value: password, setValue: setPassword } = useInput('');
-  const { value: confirmPassword, setValue: setConfirmPassword } = useInput('');
-  const { value: nickname, setValue: setNickname } = useInput('');
-  const { value: birth, setValue: setBirth } = useInput('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const { value: name, setValue: setName } = useInput<string>('');
+  const { value: email, setValue: setEmail } = useInput<string>('');
+  const { value: password, setValue: setPassword } = useInput<string>('');
+  const { value: confirmPassword, setValue: setConfirmPassword } =
+    useInput<string>('');
+  const { value: nickname, setValue: setNickname } = useInput<string>('');
+  const { value: birth, setValue: setBirth } = useInput<string>('');
 
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isValidName, setIsValidName] = useState<boolean>(true);
