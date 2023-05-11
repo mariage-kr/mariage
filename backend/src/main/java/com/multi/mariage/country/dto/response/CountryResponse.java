@@ -12,18 +12,18 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class CountryResponse {
-    private List<CountriesVO> category;
+    private List<CountriesVO> country;
     private int length;
 
     @Builder
-    private CountryResponse(List<CountriesVO> category, int length) {
-        this.category = category;
+    private CountryResponse(List<CountriesVO> country, int length) {
+        this.country = country;
         this.length = length;
     }
 
     public static CountryResponse from(List<CountriesVO> country) {
         return CountryResponse.builder()
-                .category(country)
+                .country(country)
                 .length(country.size())
                 .build();
     }
