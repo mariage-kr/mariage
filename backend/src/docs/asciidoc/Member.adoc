@@ -5,6 +5,14 @@
 :toc: left
 :toclevels: 3
 
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/category.html[Category^]
+- http://localhost:8080/docs/storage.html[Storage^]
+
 == 회원가입
 
 '''
@@ -14,6 +22,10 @@
 '''
 
 include::{snippets}/Member/Signup/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Member/Signup/request-fields.adoc[]
 
 === Response
 
@@ -37,6 +49,10 @@ include::{snippets}/Member/FindMemberInfo/http-request.adoc[]
 
 include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
 
+==== Fields
+
+include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
+
 == 회원 닉네임 조회
 
 '''
@@ -53,6 +69,9 @@ include::{snippets}/Member/FindMemberNickname/http-request.adoc[]
 
 include::{snippets}/Member/FindMemberNickname/http-response.adoc[]
 
+==== Fields
+
+include::{snippets}/Member/FindMemberNickname/response-fields.adoc[]
 
 == 회원 프로필 사진 삭제
 
@@ -102,6 +121,10 @@ include::{snippets}/Member/UpdateImage/http-request.adoc[]
 
 include::{snippets}/Member/UpdateImage/http-response.adoc[]
 
+==== Fields
+
+include::{snippets}/Member/UpdateImage/response-fields.adoc
+
 == 회원 닉네임 변경
 
 '''
@@ -112,11 +135,19 @@ include::{snippets}/Member/UpdateImage/http-response.adoc[]
 
 include::{snippets}/Member/UpdateNickname/http-request.adoc[]
 
+==== Fields
+
+include::{snippets}/Member/UpdateNickname/request-fields.adoc
+
 === Response
 
 '''
 
 include::{snippets}/Member/UpdateNickname/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Member/UpdateNickname/response-fields.adoc
 
 == 회원 비밀번호 변경
 
@@ -127,6 +158,11 @@ include::{snippets}/Member/UpdateNickname/http-response.adoc[]
 '''
 
 include::{snippets}/Member/UpdatePassword/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Member/UpdatePassword/request-fields.adoc[]
+
 
 === Response
 
