@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ImageService {
     private final StorageRepository storageRepository;
     public Image findById(ProductSaveRequest request) {
-        Image image = storageRepository.findById(request.getImageId())
+        return storageRepository.findById(request.getImageId())
                 .orElseThrow(() -> new StorageException(StorageErrorCode.FAILED_TO_FIND_IMAGE));
-        return image;
     }
 }
