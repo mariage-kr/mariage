@@ -5,6 +5,7 @@ import {
   requestDrinkLowerCategory,
 } from '@/apis/request/category';
 import { requestSaveImage } from '@/apis/request/storage';
+import { requestSaveProduct } from '@/apis/request/product';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
@@ -101,6 +102,26 @@ function Admin() {
   const requestProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const imageId = await getModifyProductRequest();
+    if (!imageId) {
+      alert('사진이 정상적으로 저장되지 않았습니다.\n다시한번 시도해주세요.');
+      return;
+    }
+    await requestSaveProduct({
+      name,
+      level,
+      info,
+      country,
+      upperCategory,
+      lowerCategory,
+      imageId,
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        setErrorMessage(error.response.data.message);
+        console.log(error);
+      });
   };
 
   /* useEffect */
