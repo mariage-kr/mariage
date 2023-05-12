@@ -37,26 +37,21 @@ class DrinkLowerCategoryServiceTest extends ServiceTest {
         String region = "국내";
 
         DrinkLowerCategoryResponse response = drinkLowerCategoryService.findCategories();
-        assertThat(response).isNotNull();
-
         List<DrinkLowerCategoryValuesVO> categoryValues = response.getCategory();
-        assertThat(categoryValues).isNotEmpty();
 
         DrinkLowerCategoryValuesVO categoryValue = categoryValues.stream()
                 .filter(cv -> region.equals(cv.getRegion()))
                 .findFirst()
-                .orElse(null);
-        assertThat(categoryValue).isNotNull();
+                .orElseThrow(RuntimeException::new);
 
         List<DrinkLowerCategoriesVO> subCategoryValues = categoryValue.getCategories();
-        assertThat(subCategoryValues).isNotEmpty();
 
         DrinkLowerCategoriesVO subCategoryValue = subCategoryValues.stream()
-                .filter(cv -> lowerCategory.equals(cv.getValue()))
+                .filter(cv -> lowerCategory.equals(cv.getName()))
                 .findFirst()
                 .orElse(null);
 
         assertThat(subCategoryValue).isNotNull();
-        assertThat(subCategoryValue.getValue()).isEqualTo(lowerCategory);
+        assertThat(subCategoryValue.getName()).isEqualTo(lowerCategory);
     }
 }

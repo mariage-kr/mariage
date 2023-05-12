@@ -12,21 +12,20 @@ import java.util.List;
 @Data
 public class DrinkLowerCategoriesVO {
     private String name;
-    private String value;
+    private DrinkUpperCategory value;
     private List<DrinkLowerSubCategoriesVO> subCategories;
 
     @Builder
-    private DrinkLowerCategoriesVO(String name, String value, List<DrinkLowerSubCategoriesVO> subCategories) {
-        this.name = name;
-        this.value = value;
+    private DrinkLowerCategoriesVO(DrinkUpperCategory category, List<DrinkLowerSubCategoriesVO> subCategories) {
+        this.name = category.getName();
+        this.value = category;
         this.subCategories = subCategories;
     }
 
     public static DrinkLowerCategoriesVO from(DrinkUpperCategory category,
                                               List<DrinkLowerSubCategoriesVO> subCategories) {
         return DrinkLowerCategoriesVO.builder()
-                .name(category.name())
-                .value(category.getName())
+                .category(category)
                 .subCategories(subCategories)
                 .build();
     }
