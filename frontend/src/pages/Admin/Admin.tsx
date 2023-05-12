@@ -1,21 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { requestDrinkLowerCategory } from '@/apis/request/category';
+import {
+  requestCountry,
+  requestDrinkLowerCategory,
+} from '@/apis/request/category';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import {
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
+  CountryType,
 } from '@/types/category';
 
 import * as S from './Admin.styled';
-
-type CountryType = {
-  id: number;
-  name: string;
-  flag: string;
-};
 
 type DrinkCategoryResponseType = {
   category: DrinkRegionCategoryType[];
@@ -62,10 +60,14 @@ function Admin() {
 
   /* 카테고리 데이터 요청 */
   /* TODO: 나라 카테고리 데이터 요청 함수 필요 */
-  const getCountryCategory = useCallback(() => {}, []);
+  const getCountryCategory = useCallback(async () => {
+    await requestCountry().then(response => {
+      setCountryCategory(response.data.country);
+    });
+  }, []);
 
-  const getDrinkCategory = useCallback(() => {
-    requestDrinkLowerCategory()
+  const getDrinkCategory = useCallback(async () => {
+    await requestDrinkLowerCategory()
       .then(response => {
         setDrinkCategoryResponse(response.data);
       })
@@ -99,8 +101,6 @@ function Admin() {
     }
   }, [drinkRegionCategory, upperCategory]);
 
-  console.log(level);
-
   return (
     <S.Container>
       <S.Header>제품 관리 페이지</S.Header>
@@ -132,21 +132,25 @@ function Admin() {
             ))}
           </S.Select>
         </label>
-        <S.Label>상위 카테고리</S.Label>
-        <label>
-          <S.Select onChange={setUpperCategory}>
-            <option selected disabled>
-              주류의 상위 카테고리를 선택하세요.
-            </option>
-            {drinkRegionCategory?.categories.map(
-              (category: DrinkUpperCategoryType, index: number) => (
-                <option key={index} value={category.value}>
-                  {category.name}
+        {country && (
+          <>
+            <S.Label>상위 카테고리</S.Label>
+            <label>
+              <S.Select onChange={setUpperCategory}>
+                <option selected disabled>
+                  주류의 상위 카테고리를 선택하세요.
                 </option>
-              ),
-            )}
-          </S.Select>
-        </label>
+                {drinkRegionCategory?.categories.map(
+                  (category: DrinkUpperCategoryType, index: number) => (
+                    <option key={index} value={category.value}>
+                      {category.name}
+                    </option>
+                  ),
+                )}
+              </S.Select>
+            </label>
+          </>
+        )}
         {upperCategory && (
           <>
             <S.Label>하위 카테고리</S.Label>

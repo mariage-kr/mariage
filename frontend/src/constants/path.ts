@@ -4,6 +4,7 @@ const API_PATH = {
     LOGOUT: '/api/user/auth/logout',
   },
   CATEGORY: {
+    COUNTRY: '/api/country/find',
     DRINK: {
       UPPER: '/api/categories/upper',
       LOWER: '/api/categories/lower',

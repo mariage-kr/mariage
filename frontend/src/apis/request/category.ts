@@ -22,8 +22,13 @@ function requestFoodCategory() {
   return axios.get(API_PATH.CATEGORY.FOOD);
 }
 
+function requestCountry() {
+  return axios.get(API_PATH.CATEGORY.COUNTRY);
+}
+
 export {
   requestDrinkUpperCategory,
   requestDrinkLowerCategory,
   requestFoodCategory,
+  requestCountry,
 };
