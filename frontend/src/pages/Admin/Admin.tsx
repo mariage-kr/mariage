@@ -159,11 +159,26 @@ function Admin() {
     defaultLowerCategory();
   }, [upperCategory]);
 
+  useEffect(() => {
+    if (
+      name === '' ||
+      info === '' ||
+      country === '' ||
+      upperCategory === '' ||
+      lowerCategory === '' ||
+      image === null
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }, [name, level, info, image, country, upperCategory, lowerCategory]);
+
   return (
     <S.Container>
       <S.Header>제품 관리 페이지</S.Header>
       <S.Form onSubmit={requestProduct}>
-        {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>제품 이름</S.Label>
         <S.Input type={'text'} value={name} onChange={setName}></S.Input>
         <S.Label>알코올 도수</S.Label>
@@ -238,7 +253,15 @@ function Admin() {
           onChange={setImage}
         ></S.Input>
         {previewImage && <S.Image src={previewImage} alt="미리보기" />}
-        <S.Button type={'submit'}>등록하기</S.Button>
+        {isValid ? (
+          <S.Button type={'submit'} isValid={isValid}>
+            등록하기
+          </S.Button>
+        ) : (
+          <S.Button isValid={isValid} disabled>
+            등록하기
+          </S.Button>
+        )}
       </S.Form>
     </S.Container>
   );
