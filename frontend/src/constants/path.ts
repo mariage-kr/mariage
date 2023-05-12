@@ -8,6 +8,7 @@ const API_PATH = {
       UPPER: '/api/categories/upper',
       LOWER: '/api/categories/lower',
     },
+    FOOD: '/api/categories/food',
   },
   MEMBER: {
     SIGNUP: '/api/members/signup',

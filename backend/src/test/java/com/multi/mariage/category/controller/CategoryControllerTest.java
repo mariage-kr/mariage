@@ -27,10 +27,10 @@ class CategoryControllerTest extends ControllerTest {
                                 responseFields(
                                         fieldWithPath("category").description("주류 카테고리"),
                                         fieldWithPath("category[].region").description("주류 원산지"),
-                                        fieldWithPath("category[].regionValue").description("주류 원산지 영어 표기"),
+                                        fieldWithPath("category[].value").description("주류 원산지 데이터"),
                                         fieldWithPath("category[].categories").description("주류 상위 카테고리"),
-                                        fieldWithPath("category[].categories[].name").description("주류 상위 카테고리 지칭"),
-                                        fieldWithPath("category[].categories[].value").description("주류 상위 카테고리 명칭")
+                                        fieldWithPath("category[].categories[].name").description("주류 상위 카테고리 이름"),
+                                        fieldWithPath("category[].categories[].value").description("주류 상위 카테고리 데이터")
                                 )
                         )
                 )
@@ -46,15 +46,17 @@ class CategoryControllerTest extends ControllerTest {
                 .andDo(document("Category/FindLowerCategory",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
-                                        fieldWithPath("category").description("주류 카테고리"),
+                                        fieldWithPath("category").description("카테고리"),
                                         fieldWithPath("category[].region").description("주류 원산지"),
-                                        fieldWithPath("category[].regionValue").description("주류 원산지 영어식 명칭"),
+                                        fieldWithPath("category[].value").description("주류 원산지 데이터"),
                                         fieldWithPath("category[].categories").description("주류 상위 카테고리"),
-                                        fieldWithPath("category[].categories[].name").description("주류 상위 카테고리 지칭"),
-                                        fieldWithPath("category[].categories[].value").description("주류 상위 카테고리 명칭"),
+                                        fieldWithPath("category[].categories[].name").description("주류 상위 카테고리 이름"),
+                                        fieldWithPath("category[].categories[].value").description("주류 상위 카테고리 데이터"),
                                         fieldWithPath("category[].categories[].subCategories").description("주류 하위 카테고리"),
-                                        fieldWithPath("category[].categories[].subCategories[].name").description("주류 하위 카테고리 지칭"),
-                                        fieldWithPath("category[].categories[].subCategories[].value").description("주류 하위 카테고리 명칭")
+                                        fieldWithPath("category[].categories[].subCategories[].name")
+                                                .description("주류 하위 카테고리 이름"),
+                                        fieldWithPath("category[].categories[].subCategories[].value").description(
+                                                "주류 하위 카테고리 데이터")
                                 )
                         )
                 )
@@ -73,7 +75,8 @@ class CategoryControllerTest extends ControllerTest {
                                         fieldWithPath("category").description("음식 카테고리"),
                                         fieldWithPath("category[].id").description("음식 식별자"),
                                         fieldWithPath("category[].name").description("음식 명칭"),
-                                        fieldWithPath("length").description("음식 개수")
+                                        fieldWithPath("category[].value").description("음식 데이터"),
+                                        fieldWithPath("length").description("음식 카테고리 개수")
                                 )
                         )
                 )

@@ -7,12 +7,12 @@ interface CategoryType {
 /**
  * 주류의 지역별 카테고리
  * @property {string} region - 지역의 이름
- * @property {string} regionValue - 지역의 데이터
+ * @property {string} value - 지역의 데이터
  * @property {LowerCategoryType[]} drinkUpperCategory - 해당 지역의 주류의 하위 카테고리
  */
 interface DrinkRegionCategoryType {
   region: string;
-  regionValue: string;
+  value: string;
   categories: DrinkUpperCategoryType[];
 }
 

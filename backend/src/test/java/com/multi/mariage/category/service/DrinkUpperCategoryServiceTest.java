@@ -1,8 +1,8 @@
 package com.multi.mariage.category.service;
 
 import com.multi.mariage.category.domain.Region;
-import com.multi.mariage.category.vo.drink_upper.DrinkUpperCategoriesVO;
 import com.multi.mariage.category.dto.response.DrinkUpperCategoryResponse;
+import com.multi.mariage.category.vo.drink_upper.DrinkUpperCategoriesVO;
 import com.multi.mariage.category.vo.drink_upper.DrinkUpperCategoryValuesVO;
 import com.multi.mariage.common.annotation.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DrinkUpperCategoryServiceTest extends ServiceTest {
 
@@ -44,15 +44,15 @@ class DrinkUpperCategoryServiceTest extends ServiceTest {
         List<DrinkUpperCategoryValuesVO> categoryValues = response.getCategory();
 
         DrinkUpperCategoryValuesVO categoryValue = categoryValues.stream()
-                .filter(cv -> region.equals(cv.getRegionValue()))
+                .filter(cv -> region.equals(cv.getValue().name()))
                 .findFirst()
                 .orElse(null);
 
         assertThat(categoryValue).isNotNull();
-        assertThat(categoryValue.getRegionValue()).isEqualTo(region);
+        assertThat(categoryValue.getValue().name()).isEqualTo(region);
 
         for (DrinkUpperCategoriesVO category : categoryValue.getCategories()) {
-            assertThat(category.getName()).contains(region);
+            assertThat(category.getValue().name()).contains(region);
         }
     }
 }

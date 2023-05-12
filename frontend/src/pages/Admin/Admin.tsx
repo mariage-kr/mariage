@@ -79,7 +79,7 @@ function Admin() {
   useEffect(() => {
     if (drinkRegionCategory && upperCategory) {
       const foundUpperCategory = drinkRegionCategory.categories.find(
-        (category: DrinkUpperCategoryType) => category.name === upperCategory,
+        (category: DrinkUpperCategoryType) => category.value === upperCategory,
       );
       setDrinkUpperCategory(foundUpperCategory);
     }
@@ -118,8 +118,8 @@ function Admin() {
             </option>
             {drinkRegionCategory?.categories.map(
               (category: DrinkUpperCategoryType, index: number) => (
-                <option key={index} value={category.name}>
-                  {category.value}
+                <option key={index} value={category.value}>
+                  {category.name}
                 </option>
               ),
             )}
@@ -135,8 +135,8 @@ function Admin() {
                 </option>
                 {drinkUpperCategory?.subCategories.map(
                   (category: DrinkLowerCategoryType, index: number) => (
-                    <option key={index} value={category.name}>
-                      {category.value}
+                    <option key={index} value={category.value}>
+                      {category.name}
                     </option>
                   ),
                 )}

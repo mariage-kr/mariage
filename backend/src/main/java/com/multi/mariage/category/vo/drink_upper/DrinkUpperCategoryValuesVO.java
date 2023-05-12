@@ -13,20 +13,19 @@ import java.util.List;
 public class DrinkUpperCategoryValuesVO {
 
     private String region;
-    private String regionValue;
+    private Region value;
     private List<DrinkUpperCategoriesVO> categories;
 
     @Builder
-    private DrinkUpperCategoryValuesVO(String region, String regionValue, List<DrinkUpperCategoriesVO> categories) {
-        this.region = region;
-        this.regionValue = regionValue;
+    private DrinkUpperCategoryValuesVO(Region region, List<DrinkUpperCategoriesVO> categories) {
+        this.region = region.getValue();
+        this.value = region;
         this.categories = categories;
     }
 
     public static DrinkUpperCategoryValuesVO from(Region region, List<DrinkUpperCategoriesVO> categories) {
         return DrinkUpperCategoryValuesVO.builder()
-                .region(region.getValue())
-                .regionValue(region.name())
+                .region(region)
                 .categories(categories)
                 .build();
     }
