@@ -34,10 +34,16 @@ function Admin() {
   const { value: info, setValue: setInfo } = useInput<string>('');
   const [level, setLevel] = useState<number>(0);
   const { value: country, setValue: setCountry } = useSelect<string>('');
-  const { value: upperCategory, setValue: setUpperCategory } =
-    useSelect<string>('');
-  const { value: lowerCategory, setValue: setLowerCategory } =
-    useSelect<string>('');
+  const {
+    value: upperCategory,
+    setValue: setUpperCategory,
+    defaultValue: defaultUpperCategory,
+  } = useSelect<string>('');
+  const {
+    value: lowerCategory,
+    setValue: setLowerCategory,
+    defaultValue: defaultLowerCategory,
+  } = useSelect<string>('');
 
   /* 검증 변수 */
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -83,14 +89,22 @@ function Admin() {
   }, []);
 
   useEffect(() => {
-    /*  */
-  }, [country]);
-
-  useEffect(() => {
     if (drinkCategoryResponse) {
       setDrinkRegionCategory(drinkCategoryResponse.category[0]);
     }
   }, [drinkCategoryResponse]);
+
+  useEffect(() => {
+    if (drinkCategoryResponse && country) {
+      const foundRegionCategory = drinkCategoryResponse.category.find(
+        (category: DrinkRegionCategoryType) =>
+          category.value === (country === 'korea' ? 'LOCAL' : 'FOREIGN'),
+      );
+      setDrinkRegionCategory(foundRegionCategory);
+    }
+    defaultUpperCategory();
+    defaultLowerCategory();
+  }, [country]);
 
   useEffect(() => {
     if (drinkRegionCategory && upperCategory) {
@@ -99,7 +113,16 @@ function Admin() {
       );
       setDrinkUpperCategory(foundUpperCategory);
     }
-  }, [drinkRegionCategory, upperCategory]);
+
+    defaultLowerCategory();
+  }, [upperCategory]);
+
+  console.log(
+    'country : [%s], upperCategory : [%s], lowerCategory : [%s]',
+    country,
+    upperCategory,
+    lowerCategory,
+  );
 
   return (
     <S.Container>
@@ -131,6 +154,7 @@ function Admin() {
               </option>
             ))}
           </S.Select>
+          <S.Info>선택된 국가 : [{country}]</S.Info>
         </label>
         {country && (
           <>
@@ -148,6 +172,7 @@ function Admin() {
                   ),
                 )}
               </S.Select>
+              <S.Info>선택된 상위 카테고리 : [{upperCategory}]</S.Info>
             </label>
           </>
         )}
@@ -168,6 +193,7 @@ function Admin() {
                 )}
               </S.Select>
             </label>
+            <S.Info>선택된 하위 카테고리 : [{lowerCategory}]</S.Info>
           </>
         )}
         <S.Label>이미지</S.Label>

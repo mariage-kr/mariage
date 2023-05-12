@@ -130,6 +130,12 @@ const Select = styled.select`
   margin-bottom: 20px;
 `;
 
+const Info = styled.p`
+  font-size: 0.8rem;
+
+  color: #00000066;
+  margin-top: -15px;
+`;
 export {
   Container,
   StyledLink,
@@ -144,4 +150,5 @@ export {
   TextArea,
   Count,
   Select,
+  Info,
 };
