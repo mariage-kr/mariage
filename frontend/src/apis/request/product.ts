@@ -11,7 +11,15 @@ const requestSaveProduct = ({
   lowerCategory,
   imageId,
 }: ProductSaveType) => {
-  return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE);
+  return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {
+    name,
+    level,
+    info,
+    country,
+    upperCategory,
+    lowerCategory,
+    imageId,
+  });
 };
 
 export { requestSaveProduct };

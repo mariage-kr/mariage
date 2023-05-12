@@ -94,14 +94,14 @@ function Admin() {
   }, []);
 
   /* 제품 등록/수정 요청 */
-  const getModifyProductRequest = async () => {
+  const uploadImage = async () => {
     const data: ImageIdType = await requestSaveImage(image!);
     return data.imageId;
   };
 
-  const requestProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+  const saveProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const imageId = await getModifyProductRequest();
+    const imageId = await uploadImage();
     if (!imageId) {
       alert('사진이 정상적으로 저장되지 않았습니다.\n다시한번 시도해주세요.');
       return;
@@ -140,7 +140,7 @@ function Admin() {
     if (drinkCategoryResponse && country) {
       const foundRegionCategory = drinkCategoryResponse.category.find(
         (category: DrinkRegionCategoryType) =>
-          category.value === (country === 'KOREA  ' ? 'LOCAL' : 'FOREIGN'),
+          category.value === (country === 'KOREA' ? 'LOCAL' : 'FOREIGN'),
       );
       setDrinkRegionCategory(foundRegionCategory);
     }
@@ -177,7 +177,7 @@ function Admin() {
   return (
     <S.Container>
       <S.Header>제품 관리 페이지</S.Header>
-      <S.Form onSubmit={requestProduct}>
+      <S.Form onSubmit={saveProduct}>
         {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>제품 이름</S.Label>
         <S.Input type={'text'} value={name} onChange={setName}></S.Input>
