@@ -1,4 +1,4 @@
-package com.multi.mariage.category.vo.drinkUpper;
+package com.multi.mariage.category.vo.drink_upper;
 
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import lombok.AccessLevel;

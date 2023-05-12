@@ -3,8 +3,8 @@ package com.multi.mariage.category.service;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.category.domain.Region;
 import com.multi.mariage.category.dto.response.DrinkUpperCategoryResponse;
-import com.multi.mariage.category.vo.drinkUpper.DrinkUpperCategoriesVO;
-import com.multi.mariage.category.vo.drinkUpper.DrinkUpperCategoryValuesVO;
+import com.multi.mariage.category.vo.drink_upper.DrinkUpperCategoriesVO;
+import com.multi.mariage.category.vo.drink_upper.DrinkUpperCategoryValuesVO;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

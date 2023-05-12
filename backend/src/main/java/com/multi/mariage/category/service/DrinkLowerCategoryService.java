@@ -4,9 +4,9 @@ import com.multi.mariage.category.domain.DrinkLowerCategory;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.category.domain.Region;
 import com.multi.mariage.category.dto.response.DrinkLowerCategoryResponse;
-import com.multi.mariage.category.vo.drinkLower.DrinkLowerCategoriesVO;
-import com.multi.mariage.category.vo.drinkLower.DrinkLowerCategoryValuesVO;
-import com.multi.mariage.category.vo.drinkLower.DrinkLowerSubCategoriesVO;
+import com.multi.mariage.category.vo.drink_lower.DrinkLowerCategoriesVO;
+import com.multi.mariage.category.vo.drink_lower.DrinkLowerCategoryValuesVO;
+import com.multi.mariage.category.vo.drink_lower.DrinkLowerSubCategoriesVO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
