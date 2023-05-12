@@ -29,6 +29,10 @@ include::{snippets}/Category/FindUpperCategory/http-request.adoc[]
 
 include::{snippets}/Category/FindUpperCategory/http-response.adoc[]
 
+==== Fields
+
+include::{snippets}/Category/FindUpperCategory/response-fields.adoc[]
+
 == 주류 하위 카테고리 조회
 
 '''
@@ -45,6 +49,10 @@ include::{snippets}/Category/FindLowerCategory/http-request.adoc[]
 
 include::{snippets}/Category/FindLowerCategory/http-response.adoc[]
 
+==== Fields
+
+include::{snippets}/Category/FindLowerCategory/response-fields.adoc[]
+
 == 음식 카테고리 조회
 
 '''
@@ -60,3 +68,7 @@ include::{snippets}/Category/FindFoodCategory/http-request.adoc[]
 '''
 
 include::{snippets}/Category/FindFoodCategory/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Category/FindFoodCategory/response-fields.adoc[]

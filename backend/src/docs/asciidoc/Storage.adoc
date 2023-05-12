@@ -28,3 +28,7 @@ include::{snippets}/Storage/Save/http-request.adoc[]
 '''
 
 include::{snippets}/Storage/Save/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Storage/Save/response-fields.adoc

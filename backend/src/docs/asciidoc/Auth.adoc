@@ -23,11 +23,19 @@
 
 include::{snippets}/Auth/Login/http-request.adoc[]
 
+==== Fields
+
+include::{snippets}/Auth/Login/request-fields.adoc[]
+
 === Response
 
 '''
 
 include::{snippets}/Auth/Login/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Auth/Login/response-fields.adoc[]
 
 == 로그아웃
 
@@ -55,8 +63,16 @@ include::{snippets}/Auth/Logout/http-response.adoc[]
 
 include::{snippets}/Auth/Reissue/http-request.adoc[]
 
+==== Fields
+
+include::{snippets}/Auth/Reissue/request-fields.adoc[]
+
 === Response
 
 '''
 
 include::{snippets}/Auth/Reissue/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Auth/Reissue/response-fields.adoc[]
