@@ -136,6 +136,14 @@ const Info = styled.p`
   color: #00000066;
   margin-top: -15px;
 `;
+
+const Image = styled.img`
+  margin: 5px 0 20px 0;
+
+  max-width: 460px;
+  height: auto;
+`;
+
 export {
   Container,
   StyledLink,
@@ -151,4 +159,5 @@ export {
   Count,
   Select,
   Info,
+  Image,
 };

@@ -6,6 +6,7 @@ import {
 } from '@/apis/request/category';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
+import useImage from '@/hooks/useImage';
 import {
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
@@ -44,6 +45,11 @@ function Admin() {
     setValue: setLowerCategory,
     defaultValue: defaultLowerCategory,
   } = useSelect<string>('');
+  const {
+    value: image,
+    setValue: setImage,
+    preview: previewImage,
+  } = useImage<File | null>(null);
 
   /* 검증 변수 */
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -65,7 +71,6 @@ function Admin() {
   };
 
   /* 카테고리 데이터 요청 */
-  /* TODO: 나라 카테고리 데이터 요청 함수 필요 */
   const getCountryCategory = useCallback(async () => {
     await requestCountry().then(response => {
       setCountryCategory(response.data.country);
@@ -116,13 +121,6 @@ function Admin() {
 
     defaultLowerCategory();
   }, [upperCategory]);
-
-  console.log(
-    'country : [%s], upperCategory : [%s], lowerCategory : [%s]',
-    country,
-    upperCategory,
-    lowerCategory,
-  );
 
   return (
     <S.Container>
@@ -197,6 +195,12 @@ function Admin() {
           </>
         )}
         <S.Label>이미지</S.Label>
+        <S.Input
+          type={'file'}
+          title={'이미지 업로드'}
+          onChange={setImage}
+        ></S.Input>
+        {previewImage && <S.Image src={previewImage} alt="미리보기" />}
         <S.Button type={'submit'}>등록하기</S.Button>
       </S.Form>
     </S.Container>
