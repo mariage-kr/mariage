@@ -1,4 +1,4 @@
-package com.multi.mariage.category.vo.drinkLower;
+package com.multi.mariage.category.vo.drink_lower;
 
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import lombok.AccessLevel;
@@ -22,7 +22,6 @@ public class DrinkLowerCategoriesVO {
         this.subCategories = subCategories;
     }
 
-    //    public static DrinkLowerCategoriesVO from(String name, String value, List<DrinkLowerSubCategoriesVO> subCategories){
     public static DrinkLowerCategoriesVO from(DrinkUpperCategory category,
                                               List<DrinkLowerSubCategoriesVO> subCategories) {
         return DrinkLowerCategoriesVO.builder()

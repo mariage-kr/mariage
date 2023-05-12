@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import SelectBox from './SelectBox/SelectBox';
 import RangeMultiSlider_M_Star from '@/components/RangeMultiSlider_M/RangeMultiSlider_M_Star';

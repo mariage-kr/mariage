@@ -1,6 +1,6 @@
-package com.multi.mariage.category.vo.drinkUpper;
+package com.multi.mariage.category.vo.drink_lower;
 
-import com.multi.mariage.category.domain.DrinkUpperCategory;
+import com.multi.mariage.category.domain.DrinkLowerCategory;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class DrinkUpperCategoriesVO {
+public class DrinkLowerSubCategoriesVO {
 
     private String name;
     private String value;
 
     @Builder
-    private DrinkUpperCategoriesVO(String name, String value) {
+    private DrinkLowerSubCategoriesVO(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public static DrinkUpperCategoriesVO from(DrinkUpperCategory category) {
-        return DrinkUpperCategoriesVO.builder()
+    public static DrinkLowerSubCategoriesVO from(DrinkLowerCategory category) {
+        return DrinkLowerSubCategoriesVO.builder()
                 .name(category.name())
                 .value(category.getName())
                 .build();
