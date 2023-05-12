@@ -77,7 +77,7 @@ const TopRight = styled.div`
 
 const BtnWrap = styled.div`
   box-sizing: border-box;
-  width: 72%;
+  width: 65%;
   float: left;
   text-align: right;
 `;
@@ -104,21 +104,32 @@ const deleteBtn = css`
 
 const Like = styled.div`
   box-sizing: border-box;
-  width: 28%;
+  width: 35%;
   float: right;
   text-align: right;
 `;
 
 const Bottom = styled.div`
   overflow: hidden;
+
+  @media (max-width: 1570px) { margin-top: 20px; }
 `;
 
 const Food = styled.div`
   box-sizing: border-box;
   float: left;
   width: 10.5%;
-  margin: 20px 20px 0 0;
+  margin: 20px 1vw 0 0;
   text-align: center;
+
+  @media (max-width: 1570px) { margin: 0 1vw 0 0; }
+  @media (max-width: 1310px) { 
+    width: 11%;
+    margin: 20px 1vw 0 0;
+  }
+  @media (max-width: 1095px) { width: 11.5%; }
+  @media (max-width: 1045px) { width: 12%; }
+  @media (max-width: 1005px) { width: 13%; }
 `;
 
 const FoodImg = styled.img`
@@ -130,11 +141,18 @@ const FoodImg = styled.img`
 const FoodName = styled.p`
   font-size: 1rem;
   margin: 0 auto;
+
+  @media (max-width: 1670px) { font-size: 0.9rem; }
+  @media (max-width: 1475px) { font-size: 0.8rem; }
+  @media (max-width: 1250px) { font-size: 0.7rem; }
 `;
 
 const ReviewRateText = styled.p`
   margin: 5px 0;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+
+  @media (max-width: 1670px) { font-size: 0.7rem; }
+  @media (max-width: 1250px) { font-size: 0.6rem; }
 `;
 
 const ReviewRate = styled.span`
@@ -147,16 +165,23 @@ const Content = styled.div`
   float: right;
   width: 87.6%;
   overflow: hidden;
+
+  @media (max-width: 1310px) { width: 87%; }
+  @media (max-width: 1095px) { width: 86%; }
+  @media (max-width: 1005px) { width: 85%; }
 `;
 
 const ReviewText = styled.div`
-  width: 75%;
+  width: 80%;
   font-size: 1rem;
   float: left;
   padding-top: 20px;
+
+  @media (max-width: 1570px) { padding-top: 15px; }
 `;
 
 const ReviewImg = styled.div`
+  box-sizing: border-box;
   border: 1px solid #9C94D044;
   width: 17%;
   text-align: center;

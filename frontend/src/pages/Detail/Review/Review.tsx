@@ -1,5 +1,6 @@
 import ReviewCategory from './ReviewCategory/ReviewCategory';
 import ReviewContent from './ReviewContent/ReviewContent';
+import RateStatistic from './RateStatistic/RateStatistic'
 
 import * as S from './Review.styled';
 
@@ -10,7 +11,9 @@ function Review() {
         <ReviewCategory />
         <ReviewContent />
       </S.Left>
-      <S.Right></S.Right>
+      <S.Right>
+        <RateStatistic />
+      </S.Right>
     </S.Container>
   );
 }

@@ -126,11 +126,4 @@ export {
   Option,
   Sort,
   Button
-  // HashtagFilter,
-  // Button,
-  // PairingFood,
-  // Food,
-  // FoodImg,
-  // Name,
-  // Rate
 };
