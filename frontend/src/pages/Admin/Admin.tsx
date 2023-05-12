@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   requestCountry,
   requestDrinkLowerCategory,
 } from '@/apis/request/category';
+import { requestSaveImage } from '@/apis/request/storage';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
@@ -18,6 +19,10 @@ import * as S from './Admin.styled';
 
 type DrinkCategoryResponseType = {
   category: DrinkRegionCategoryType[];
+};
+
+type ImageIdType = {
+  imageId: number;
 };
 
 function Admin() {
@@ -87,6 +92,17 @@ function Admin() {
       });
   }, []);
 
+  /* 제품 등록/수정 요청 */
+  const getModifyProductRequest = async () => {
+    const data: ImageIdType = await requestSaveImage(image!);
+    return data.imageId;
+  };
+
+  const requestProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const imageId = await getModifyProductRequest();
+  };
+
   /* useEffect */
   useEffect(() => {
     getCountryCategory();
@@ -125,7 +141,7 @@ function Admin() {
   return (
     <S.Container>
       <S.Header>제품 관리 페이지</S.Header>
-      <S.Form onSubmit={() => console.log('run')}>
+      <S.Form onSubmit={requestProduct}>
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>제품 이름</S.Label>
         <S.Input type={'text'} value={name} onChange={setName}></S.Input>

@@ -39,6 +39,7 @@ public class StorageService {
         return storageRepository.save(new Image(saveFileName));
     }
 
+    @Transactional
     public ImageSavedResponse upload(MultipartFile file) {
         return ImageSavedResponse.from(save(file));
     }
