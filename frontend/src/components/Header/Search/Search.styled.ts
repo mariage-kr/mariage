@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  /* border: 1px solid pink; */
-
   display: flex;
   align-items: center;
 
@@ -24,7 +22,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-bottom: 3px solid #bb2649;
+    border-bottom: 3px solid #9c94d0;
   }
 `;
 
