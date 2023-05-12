@@ -31,7 +31,7 @@ const SelectBox = styled.select`
   &:focus {
     outline: none;
     border: 2px solid #9c94d0;
-    background-color: rgba(156 148, 208, 0.5);
+    background-color: #9c94d011;
   }
   &:disabled {
     opacity: 0.5;
@@ -63,7 +63,7 @@ const Option = styled.option`
   padding: 6px 8px;
   transition: background-color 0.2s ease-in;
   &:hover {
-    background-color: rgba(156 148, 208, 0.5);
+    background-color: #9c94d011;
   }
 `;
 

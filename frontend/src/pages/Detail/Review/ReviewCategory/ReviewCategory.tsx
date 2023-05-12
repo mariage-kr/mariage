@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import useSelect from '@/hooks/useSelect';
-// import reviewicon from '@/assets/png/reviewicon1.png';
-import reviewicon2 from '@/assets/png/reviewicon2.png';
+import reviewicon from '@/assets/png/reviewicon2.png';
 import * as S from './ReviewCategory.styled';
 
 function ReviewCategory() {
@@ -56,7 +55,7 @@ function ReviewCategory() {
     <S.Container>
       <S.Wrapper>
         <S.Title css={S.title_left}>
-          <S.TitleIcon src={reviewicon2}/>
+          <S.TitleIcon src={reviewicon}/>
         </S.Title>
         <S.Title css={S.title_right}>Reviews</S.Title>
         <S.Bottom>
@@ -82,14 +81,6 @@ function ReviewCategory() {
             </S.Sort>
           </S.FloatWrap>
         </S.Bottom>
-        {/* <S.PairingFood>
-        {pairing.foods.map(food => (
-          <S.Food>
-            <S.FoodImg src={food.img}/>
-            <S.Name>{food.name}<S.Rate>{food.rate}</S.Rate></S.Name>
-          </S.Food>
-        ))}
-        </S.PairingFood> */}
       </S.Wrapper>
     </S.Container>
   );
