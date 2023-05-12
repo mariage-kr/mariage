@@ -1,7 +1,6 @@
 package com.multi.mariage.product.controller;
 
-import com.multi.mariage.member.dto.request.MemberSignupRequest;
-import com.multi.mariage.product.dto.ProductSaveRequest;
+import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

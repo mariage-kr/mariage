@@ -73,7 +73,8 @@ class CategoryControllerTest extends ControllerTest {
                                         fieldWithPath("category").description("음식 카테고리"),
                                         fieldWithPath("category[].id").description("음식 식별자"),
                                         fieldWithPath("category[].name").description("음식 명칭"),
-                                        fieldWithPath("length").description("음식 개수")
+                                        fieldWithPath("category[].value").description("음식 데이터"),
+                                        fieldWithPath("length").description("음식 카테고리 개수")
                                 )
                         )
                 )

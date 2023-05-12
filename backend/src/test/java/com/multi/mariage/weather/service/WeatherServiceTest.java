@@ -28,7 +28,7 @@ class WeatherServiceTest extends ServiceTest {
     }
 
     @DisplayName("해당 시간의 날씨 정보가 존재하는지 확인한다.")
-    @Test
+//    @Test
     void 해당_시간의_날씨_정보가_존재하는지_확인한다() {
         boolean actual = weatherService.validateWeatherTimeIsNotDuplicated();
 

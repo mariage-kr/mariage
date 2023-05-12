@@ -1,6 +1,5 @@
 package com.multi.mariage.product.dto.request;
 
-import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.storage.domain.Image;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -18,5 +17,5 @@ public class ProductSaveRequest {
     private String upperCategory;   // 상위
     private String lowerCategory;   // 하위
     private Image image;
-    //    private Long imageId;
+    private Long imageId;
 }
