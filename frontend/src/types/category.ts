@@ -46,7 +46,7 @@ interface DrinkLowerCategoryType {
 interface CountryType {
   id: number;
   name: string;
-  flag: string;
+  value: string;
 }
 
 export {

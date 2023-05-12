@@ -184,7 +184,7 @@ function Admin() {
               주류의 생산 국가를 선택하세요.
             </option>
             {countryCategory.map((category: CountryType) => (
-              <option key={category.id} value={category.flag}>
+              <option key={category.id} value={category.value}>
                 {category.name}
               </option>
             ))}

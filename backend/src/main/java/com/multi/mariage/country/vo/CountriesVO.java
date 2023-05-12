@@ -11,20 +11,20 @@ import lombok.NoArgsConstructor;
 public class CountriesVO {
     private int id;
     private String name;
-    private String flag;
+    private Country value;
 
     @Builder
-    private CountriesVO(int id, String name, String flag) {
+    private CountriesVO(int id, String name, Country value) {
         this.id = id;
         this.name = name;
-        this.flag = flag;
+        this.value = value;
     }
 
     public static CountriesVO from(Country country) {
         return CountriesVO.builder()
                 .id(country.getId())
                 .name(country.getCountry())
-                .flag(country.getFlagName())
+                .value(country)
                 .build();
     }
 }
