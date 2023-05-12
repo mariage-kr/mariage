@@ -70,7 +70,6 @@ const DropContent = styled.div`
   margin: 0 auto;
   padding-top: 25px;
   padding-left: 22%;
-  /* min-width: 160px; */
 
   background-color: #fff;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -83,16 +82,6 @@ const DropContent = styled.div`
 `;
 
 const DropList = styled.p`
-  /* float: none;
-  color: black;
-
-  padding: 12px 16px;
-  margin: 0px;
-
-  display: block;
-  text-align: left;
-
-  transition: 150ms; */
   float: left;
   color: black;
 
@@ -104,12 +93,6 @@ const DropList = styled.p`
 
   transition: 150ms;
   &:hover {
-    /* background-color: #9c94d0;
-
-    font-weight: bold;
-    color: #f8f8f8;
-
-    border-radius: 3.5px; */
     color: #9c94d0;
     font-weight: bold;
   }

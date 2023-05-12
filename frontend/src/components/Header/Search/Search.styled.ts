@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  /* border: 1px solid pink; */
-
   display: flex;
   align-items: center;
 
