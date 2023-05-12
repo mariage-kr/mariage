@@ -3,12 +3,16 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.response.ProductFindResponse;
+import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
-import com.multi.mariage.storage.repository.StorageRepository;
+import com.multi.mariage.storage.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,24 +20,41 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    private final StorageRepository storageRepository;
+    private final ImageService imageService;
 
     @Transactional
-    public Product create(ProductSaveRequest request) {
-        //TODO: 현재 임시로 예외처리. 예외처리 및 검증 구조 따로 생성 필요.
-        log.info("");
-        Image image = storageRepository.findById(request.getImageId())
-                .orElseThrow(() -> new IllegalArgumentException("이미지를 찾을 수 없습니다."));
+    public Product save(ProductSaveRequest request) {
+//        Image image = imageService.findById(request.getImageId());
+        Image image = imageService.findById(request);
 
         Product product = Product.builder()
                 .name(request.getName())
                 .level(request.getLevel())
                 .info(request.getInfo())
-//                .country(request.getCountry())
-                .image(image)
+                .upperCategory(request.getUpperCategory())
+                .lowerCategory(request.getLowerCategory())
+                .country(request.getCountry())
                 .build();
         product.setImage(image);
 
         return productRepository.save(product);
+    }
+
+    public ProductFindResponse findProducts() {
+        List<ProductsVO> productValues = getProductValues();
+
+        ProductFindResponse response = ProductFindResponse.builder()
+                .product(productValues)
+                .length(productValues.size())
+                .build();
+
+        return response;
+    }
+
+    private List<ProductsVO> getProductValues() {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(product -> ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry()))
+                .toList();
     }
 }
