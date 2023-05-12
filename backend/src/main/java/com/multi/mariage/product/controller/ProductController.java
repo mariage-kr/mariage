@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     private final ProductService productService;
 
-//    @PostMapping("/product/save")
-//    public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request, Long imageId) {
-//        productService.save(request);
-//        return ResponseEntity.ok().build();
-//    }
+    @PostMapping("/user/product/save")
+    public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request, Long imageId) {
+        productService.save(request);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/product/find")
     public ResponseEntity<ProductFindResponse> findProducts() {
