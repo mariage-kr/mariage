@@ -4,7 +4,7 @@ import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
 import * as S from './Profile.styled';
-import { requestUserInfo } from '@/apis/request/member';
+import { requestUpdateNickname, requestUserInfo } from '@/apis/request/member';
 
 type UserInfoType = {
   nickname: string;
@@ -15,26 +15,22 @@ type UserInfoType = {
 
 function Profile() {
   const [imageUrl, setImageUrl] = useState<string>('');
-  const { value: nickname, setValue: setNickname } = useInput('');
+  const {
+    value: nickname,
+    setValue: setNickname,
+    resetValue: resetNickname,
+  } = useInput('');
 
   const { value: image, setValue: setImage } = useImage<File>(null);
-  const [userInfo, setUserInfo] = useState<UserInfoType>();
-
-  const onDeleteImage = useCallback(() => {
-    setImageUrl('');
-  }, []);
-
-  const onSubmitNickname = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      console.log('New nickname:', nickname);
-      alert('닉네임 변경이 완료되었습니다.');
-    },
-    [nickname],
-  );
+  const [userInfo, setUserInfo] = useState<UserInfoType>({
+    nickname: '',
+    email: '',
+    imagePath: '',
+    birth: '',
+  });
 
   /* 유저 정보 요청 */
-  const requestMyData = async () => {
+  const getMyInfo = async () => {
     await requestUserInfo()
       .then(response => {
         setUserInfo(response.data);
@@ -45,8 +41,23 @@ function Profile() {
   };
 
   useEffect(() => {
-    requestMyData();
+    getMyInfo();
   }, []);
+
+  /* 닉네임 변경 */
+  const updateNickname = async () => {
+    await requestUpdateNickname(nickname)
+      .then(response => {
+        const newNickname = response.data.nickname;
+        setUserInfo(prevState => {
+          return { ...prevState, nickname: newNickname };
+        });
+        resetNickname();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <S.Container>
@@ -78,15 +89,16 @@ function Profile() {
       </S.Profile>
       <S.NicknameWrap>
         <S.Label>닉네임 변경</S.Label>
-        <form onSubmit={onSubmitNickname}>
-          <S.Nickname
-            type="text"
-            id="nickname"
-            placeholder="변경할 닉네임을 입력해 주세요."
-            onChange={setNickname}
-          />
-          <S.BtnSubmit type="submit">닉네임 변경</S.BtnSubmit>
-        </form>
+        <S.Nickname
+          type="text"
+          id="nickname"
+          value={nickname}
+          placeholder="변경할 닉네임을 입력해 주세요."
+          onChange={setNickname}
+        />
+        <S.BtnSubmit type="submit" onClick={updateNickname}>
+          닉네임 변경
+        </S.BtnSubmit>
       </S.NicknameWrap>
     </S.Container>
   );
