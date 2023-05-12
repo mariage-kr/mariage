@@ -140,7 +140,7 @@ function Admin() {
     if (drinkCategoryResponse && country) {
       const foundRegionCategory = drinkCategoryResponse.category.find(
         (category: DrinkRegionCategoryType) =>
-          category.value === (country === 'korea' ? 'LOCAL' : 'FOREIGN'),
+          category.value === (country === 'KOREA  ' ? 'LOCAL' : 'FOREIGN'),
       );
       setDrinkRegionCategory(foundRegionCategory);
     }

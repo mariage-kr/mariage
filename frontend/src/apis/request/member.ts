@@ -10,4 +10,17 @@ const requestUserNickname = () => {
   return axiosWithAccessToken.get(API_PATH.MEMBER.NICKNAME);
 };
 
-export { requestSignup, requestUserNickname };
+const requestUserInfo = () => {
+  return axiosWithAccessToken.get(API_PATH.MEMBER.MY.INFO);
+};
+
+const requestUpdateNickname = (nickname: string) => {
+  return axiosWithAccessToken.patch(API_PATH.MEMBER.NICKNAME, nickname);
+};
+
+export {
+  requestSignup,
+  requestUserNickname,
+  requestUserInfo,
+  requestUpdateNickname,
+};

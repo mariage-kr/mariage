@@ -15,7 +15,11 @@ function useInput<T>(initialState: T) {
     setValue(e.target.value);
   };
 
-  return { value, setValue: changeValue };
+  const resetValue = () => {
+    setValue('');
+  };
+
+  return { value, setValue: changeValue, resetValue };
 }
 
 export default useInput;

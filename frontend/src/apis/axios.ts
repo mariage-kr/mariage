@@ -10,6 +10,9 @@ const axios = Axios.create({
 
 const axiosWithAccessToken = Axios.create({
   baseURL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 axiosWithAccessToken.interceptors.request.use(
