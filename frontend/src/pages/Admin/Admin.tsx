@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import useInput from '@/hooks/useInput';
-
-import * as S from './Admin.styled';
 import { requestDrinkLowerCategory } from '@/apis/request/category';
+import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import {
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
 } from '@/types/category';
+
+import * as S from './Admin.styled';
 
 type CountryType = {
   id: number;
@@ -23,7 +23,6 @@ type DrinkCategoryResponseType = {
 
 function Admin() {
   /* 카테고리 데이터 */
-
   const [countryCategory, setCountryCategory] = useState<CountryType[]>([]);
   const [drinkCategoryResponse, setDrinkCategoryResponse] =
     useState<DrinkCategoryResponseType>();
@@ -45,6 +44,21 @@ function Admin() {
   /* 검증 변수 */
   const [isValid, setIsValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  /* Input */
+  const changeLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    const onlyNumber = parseFloat(value.replace(/[^\d.]/g, ''));
+    const roundedNumber = Math.round(onlyNumber * 10) / 10;
+    let finalNumber = isNaN(roundedNumber) ? 0 : roundedNumber;
+
+    if (finalNumber > 100.0) {
+      finalNumber = 100.0;
+    }
+
+    setLevel(finalNumber);
+  };
 
   /* 카테고리 데이터 요청 */
   /* TODO: 나라 카테고리 데이터 요청 함수 필요 */
@@ -85,6 +99,8 @@ function Admin() {
     }
   }, [drinkRegionCategory, upperCategory]);
 
+  console.log(level);
+
   return (
     <S.Container>
       <S.Header>제품 관리 페이지</S.Header>
@@ -93,7 +109,13 @@ function Admin() {
         <S.Label>제품 이름</S.Label>
         <S.Input type={'text'} value={name} onChange={setName}></S.Input>
         <S.Label>알코올 도수</S.Label>
-        <S.Input type={'number'} value={level}></S.Input>
+        <S.Input
+          type={'number'}
+          value={level}
+          onChange={changeLevel}
+          max={100}
+          min={0}
+        ></S.Input>
         <S.Label>제품 설명</S.Label>
         <S.TextArea onChange={setInfo}></S.TextArea>
         <S.Count>글자 수 : {info.length}</S.Count>
