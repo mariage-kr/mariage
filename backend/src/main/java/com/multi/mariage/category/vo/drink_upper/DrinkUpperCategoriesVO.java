@@ -11,18 +11,18 @@ import lombok.NoArgsConstructor;
 public class DrinkUpperCategoriesVO {
 
     private String name;
-    private String value;
+    private DrinkUpperCategory value;
 
     @Builder
-    private DrinkUpperCategoriesVO(String name, String value) {
+    private DrinkUpperCategoriesVO(String name, DrinkUpperCategory value) {
         this.name = name;
         this.value = value;
     }
 
     public static DrinkUpperCategoriesVO from(DrinkUpperCategory category) {
         return DrinkUpperCategoriesVO.builder()
-                .name(category.name())
-                .value(category.getName())
+                .name(category.getName())
+                .value(category)
                 .build();
     }
 }
