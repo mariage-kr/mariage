@@ -1,41 +1,28 @@
-import * as S from './Profile.styled';
-import user from '../../../assets/svg/user.svg';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import React, { useCallback, useRef, useState } from 'react';
+import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+
+import * as S from './Profile.styled';
+import { requestUserInfo } from '@/apis/request/member';
+
+type UserInfoType = {
+  nickname: string;
+  email: string;
+  imagePath: string;
+  birth: string;
+};
 
 function Profile() {
   const [imageUrl, setImageUrl] = useState<string>('');
-  const { value: nickname, setValue: setNickname } = useInput('마리아');
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { value: nickname, setValue: setNickname } = useInput('');
 
-  const onUploadImage = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!e.target.files) {
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append('image', e.target.files[0]);
-    },
-    [],
-  );
-
-  const onUploadImageButtonClick = useCallback(() => {
-    if (!inputRef.current) {
-      return;
-    }
-    inputRef.current.click();
-  }, []);
+  const { value: image, setValue: setImage } = useImage<File>(null);
+  const [userInfo, setUserInfo] = useState<UserInfoType>();
 
   const onDeleteImage = useCallback(() => {
     setImageUrl('');
   }, []);
-
-  const onNicknameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {},
-    [],
-  );
 
   const onSubmitNickname = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,56 +33,62 @@ function Profile() {
     [nickname],
   );
 
+  /* 유저 정보 요청 */
+  const requestMyData = async () => {
+    await requestUserInfo()
+      .then(response => {
+        setUserInfo(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    requestMyData();
+  }, []);
+
   return (
-    <>
-      <S.Container>
-        <S.Profile>
-          <S.Image>
-            <p>프로필 사진</p>
-            {imageUrl !== '' ? (
-              <S.ProfileImg src={imageUrl} />
-            ) : (
-              <S.ProfileImg src={user} />
-            )}
-          </S.Image>
-          <S.Info>
-            <S.Name>
-              {nickname} <S.Email>#mari***(이메일)</S.Email>
-            </S.Name>
-            <S.Birth>1990.12.30(생년월일)</S.Birth>
-            <form encType="multipart/form-data">
-              <input
-                type="file"
-                name="profileImg"
-                accept="image/jpg, image/jpeg, image/png"
-                ref={inputRef}
-                onChange={onUploadImage}
-                style={{ display: 'none' }}
-              />
-              <button css={S.BtnStyle} onClick={onUploadImageButtonClick}>
-                사진변경
-              </button>
-              <button css={S.BtnStyle} onClick={onDeleteImage}>
-                삭제
-              </button>
-            </form>
-          </S.Info>
-        </S.Profile>
-        <S.NicknameWrap>
-          <S.Label>닉네임 변경</S.Label>
-          <form onSubmit={onSubmitNickname}>
-            <S.Nickname
-              type="text"
-              name="nickname"
-              id="nickname"
-              placeholder="변경할 닉네임을 입력해 주세요."
-              onChange={onNicknameChange}
+    <S.Container>
+      <S.Profile>
+        <S.Image>
+          <p>프로필 사진</p>
+          <S.ProfileImg src={userInfo?.imagePath} />
+        </S.Image>
+        <S.Info>
+          <S.Name>
+            {userInfo?.nickname} <S.Email>{userInfo?.email}</S.Email>
+          </S.Name>
+          <S.Birth>{userInfo?.birth}</S.Birth>
+          <form encType="multipart/form-data">
+            <S.ImageInput
+              type="file"
+              accept="image/jpg, image/jpeg, image/png"
+              onChange={setImage}
+              title={'프로필 수정'}
             />
-            <S.BtnSubmit type="submit">닉네임 변경</S.BtnSubmit>
+            <button type={'button'} css={S.BtnStyle}>
+              사진변경
+            </button>
+            <button type={'button'} css={S.BtnStyle}>
+              삭제
+            </button>
           </form>
-        </S.NicknameWrap>
-      </S.Container>
-    </>
+        </S.Info>
+      </S.Profile>
+      <S.NicknameWrap>
+        <S.Label>닉네임 변경</S.Label>
+        <form onSubmit={onSubmitNickname}>
+          <S.Nickname
+            type="text"
+            id="nickname"
+            placeholder="변경할 닉네임을 입력해 주세요."
+            onChange={setNickname}
+          />
+          <S.BtnSubmit type="submit">닉네임 변경</S.BtnSubmit>
+        </form>
+      </S.NicknameWrap>
+    </S.Container>
   );
 }
 

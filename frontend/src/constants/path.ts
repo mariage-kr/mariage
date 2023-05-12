@@ -14,6 +14,9 @@ const API_PATH = {
   MEMBER: {
     SIGNUP: '/api/members/signup',
     NICKNAME: '/api/user/members/nickname',
+    MY: {
+      INFO: '/api/user/members/find',
+    },
   },
   PRODUCT: {
     SAVE: '/api/user/product/save',

@@ -92,6 +92,10 @@ const BtnSubmit = styled.button`
   color: #fff;
 `;
 
+const ImageInput = styled.input`
+  display: none;
+`;
+
 export {
   Container,
   Profile,
@@ -106,4 +110,5 @@ export {
   Label,
   Nickname,
   BtnSubmit,
+  ImageInput,
 };
