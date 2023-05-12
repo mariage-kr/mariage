@@ -71,8 +71,8 @@ function SelectBox({ onChange }: functionProp) {
         >
           {category &&
             category.categories.map((category, index: number) => (
-              <S.Option key={index} value={category.name}>
-                {category.value}
+              <S.Option key={index} value={category.value}>
+                {category.name}
               </S.Option>
             ))}
         </S.SelectBox>

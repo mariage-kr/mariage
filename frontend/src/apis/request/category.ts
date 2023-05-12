@@ -18,4 +18,12 @@ function requestDrinkLowerCategory() {
   return axios.get(API_PATH.CATEGORY.DRINK.LOWER);
 }
 
-export { requestDrinkUpperCategory, requestDrinkLowerCategory };
+function requestFoodCategory() {
+  return axios.get(API_PATH.CATEGORY.FOOD);
+}
+
+export {
+  requestDrinkUpperCategory,
+  requestDrinkLowerCategory,
+  requestFoodCategory,
+};
