@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
+interface Props {
+  isValid: boolean;
+}
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -53,14 +57,14 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<Props>`
   font-size: 20px;
 
   width: 460px;
   height: 52px;
 
-  background-color: #9c94d0;
-  color: #f8f8f8;
+  background-color: ${props => (props.isValid ? '#9c94d0' : '#f8f8f8')};
+  color: ${props => (props.isValid ? '#f8f8f8' : '#000000')};
 `;
 
 const LinkButton = styled.button`
@@ -130,6 +134,20 @@ const Select = styled.select`
   margin-bottom: 20px;
 `;
 
+const Info = styled.p`
+  font-size: 0.8rem;
+
+  color: #00000066;
+  margin-top: -15px;
+`;
+
+const Image = styled.img`
+  margin: 5px 0 20px 0;
+
+  max-width: 460px;
+  height: auto;
+`;
+
 export {
   Container,
   StyledLink,
@@ -144,4 +162,6 @@ export {
   TextArea,
   Count,
   Select,
+  Info,
+  Image,
 };

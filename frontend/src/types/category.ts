@@ -38,9 +38,21 @@ interface DrinkLowerCategoryType {
   name: string;
 }
 
+/**
+ * @property {number} id - 국가의 식별 번호
+ * @property {string} name - 국가 이름
+ * @property {string} flag - 국가의 데이터
+ */
+interface CountryType {
+  id: number;
+  name: string;
+  value: string;
+}
+
 export {
   CategoryType,
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
+  CountryType,
 };

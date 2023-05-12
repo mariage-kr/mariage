@@ -4,6 +4,7 @@ const API_PATH = {
     LOGOUT: '/api/user/auth/logout',
   },
   CATEGORY: {
+    COUNTRY: '/api/country/find',
     DRINK: {
       UPPER: '/api/categories/upper',
       LOWER: '/api/categories/lower',
@@ -13,6 +14,12 @@ const API_PATH = {
   MEMBER: {
     SIGNUP: '/api/members/signup',
     NICKNAME: '/api/user/members/nickname',
+  },
+  PRODUCT: {
+    SAVE: '/api/user/product/save',
+  },
+  STORAGE: {
+    SAVE: '/api/user/storage/image',
   },
 };
 
