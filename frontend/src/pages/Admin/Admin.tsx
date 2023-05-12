@@ -77,12 +77,13 @@ function Admin() {
   }, [drinkCategoryResponse]);
 
   useEffect(() => {
-    const index: number = 0;
-
-    if (drinkRegionCategory) {
-      setDrinkUpperCategory(drinkRegionCategory.categories[0]);
+    if (drinkRegionCategory && upperCategory) {
+      const foundUpperCategory = drinkRegionCategory.categories.find(
+        (category: DrinkUpperCategoryType) => category.name === upperCategory,
+      );
+      setDrinkUpperCategory(foundUpperCategory);
     }
-  }, [drinkRegionCategory]);
+  }, [drinkRegionCategory, upperCategory]);
 
   return (
     <S.Container>
