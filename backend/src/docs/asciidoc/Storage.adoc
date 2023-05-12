@@ -5,6 +5,14 @@
 :toc: left
 :toclevels: 3
 
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/category.html[Category^]
+- http://localhost:8080/docs/member.html[Member^]
+
 == 이미지 저장
 
 '''

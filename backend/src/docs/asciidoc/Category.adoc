@@ -5,6 +5,14 @@
 :toc: left
 :toclevels: 3
 
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/member.html[Member^]
+- http://localhost:8080/docs/storage.html[Storage^]
+
 == 주류 상위 카테고리 조회
 
 '''
