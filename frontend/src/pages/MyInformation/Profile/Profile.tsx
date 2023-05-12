@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
