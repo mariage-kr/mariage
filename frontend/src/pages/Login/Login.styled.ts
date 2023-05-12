@@ -41,15 +41,15 @@ const Input = styled.input`
   margin-bottom: 20px;
 
   border: 0;
-  border-bottom: 3px solid #00000050;
+  border-bottom: 2px solid #00000050;
 
   font-size: 16px;
 
-  transition: 100ms;
+  transition: all 100ms;
 
   &:focus {
     outline: none;
-    border-bottom: 3px solid #bb2649;
+    border-bottom: 2.5px solid #9c94d0;
   }
 `;
 
@@ -68,6 +68,7 @@ const LinkButton = styled.button`
 
   width: 460px;
   height: 52px;
+  margin: 40px 0;
 
   color: #9c94d0;
   border: 1px solid #9c94d0;

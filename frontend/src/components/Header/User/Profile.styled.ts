@@ -17,6 +17,10 @@ const StyledLink = styled(Link)`
   min-width: 100px;
 
   text-align: end;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 const TextButton = styled.p`

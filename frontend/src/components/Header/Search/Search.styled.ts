@@ -24,7 +24,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-bottom: 3px solid #bb2649;
+    border-bottom: 3px solid #9c94d0;
   }
 `;
 

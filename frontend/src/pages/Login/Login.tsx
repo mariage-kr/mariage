@@ -81,14 +81,14 @@ function Login() {
         <S.Header>Mariage</S.Header>
       </S.StyledLink>
       <S.Form onSubmit={login}>
-        <S.Label>이름</S.Label>
+        <S.Label>아이디(이메일)</S.Label>
         <S.Input type={'text'} ref={emailRef} />
         <S.Label>비밀번호</S.Label>
         <S.Input type={'password'} ref={passwordRef} />
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Button type={'submit'}>로그인</S.Button>
       </S.Form>
-      <S.Line />
+      {/* <S.Line /> */}
       <S.StyledLink to={BROWSER_PATH.SIGN_UP}>
         <S.LinkButton type={'button'}>회원가입</S.LinkButton>
       </S.StyledLink>
