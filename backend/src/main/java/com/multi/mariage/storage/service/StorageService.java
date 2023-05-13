@@ -64,7 +64,7 @@ public class StorageService {
         }
     }
 
-    public void remove(Image image) {
+    public void removeByImage(Image image) {
         try {
             Path path = Paths.get(fileDir + image.getName());
             Files.delete(path);
@@ -72,6 +72,13 @@ public class StorageService {
         } catch (Exception e) {
             throw new StorageException(StorageErrorCode.FAILED_TO_REMOVE_FILE);
         }
+    }
+
+    public void removeByImageId(Long imageId) {
+        System.out.println("imageId" + imageId);
+        Image image = storageRepository.findById(imageId)
+                .orElseThrow(RuntimeException::new);
+        removeByImage(image);
     }
 
     public String getFilePath(String fileName) {

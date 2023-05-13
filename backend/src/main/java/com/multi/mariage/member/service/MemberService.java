@@ -94,7 +94,7 @@ public class MemberService {
     }
 
     private void remove(Member member) {
-        storageService.remove(member.getImage());
+        storageService.removeByImage(member.getImage());
         member.updateImage(null);
     }
 

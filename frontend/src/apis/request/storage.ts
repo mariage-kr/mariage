@@ -8,7 +8,7 @@ const requestSaveImage = (image: File) => {
   formData.append('file', image);
 
   return axiosWithAccessToken
-    .post<ImageIdType>(API_PATH.STORAGE.SAVE, formData, {
+    .post<ImageIdType>(API_PATH.STORAGE, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -16,4 +16,12 @@ const requestSaveImage = (image: File) => {
     .then(response => response.data);
 };
 
-export { requestSaveImage };
+const requestRemoveImage = (imageId: number) => {
+  return axiosWithAccessToken.delete(API_PATH.STORAGE, {
+    params: {
+      imageId: imageId,
+    },
+  });
+};
+
+export { requestSaveImage, requestRemoveImage };

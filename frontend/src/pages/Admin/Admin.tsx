@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   requestCountry,
   requestDrinkLowerCategory,
 } from '@/apis/request/category';
-import { requestSaveImage } from '@/apis/request/storage';
+import { requestRemoveImage, requestSaveImage } from '@/apis/request/storage';
 import { requestProductInfo, requestSaveProduct } from '@/apis/request/product';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
+import useSearchParam from '@/hooks/useSearchParam';
 import {
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
@@ -17,7 +18,6 @@ import {
 } from '@/types/category';
 
 import * as S from './Admin.styled';
-import useSearchParam from '@/hooks/useSearchParam';
 
 type DrinkCategoryResponseType = {
   category: DrinkRegionCategoryType[];
@@ -86,6 +86,10 @@ function Admin() {
     preview: previewImage,
   } = useImage<File | null>(null);
 
+  /* 불러온 이미지 */
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageId, setImageId] = useState<number | null>(null);
+
   /* 검증 변수 */
   const [isValid, setIsValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -133,6 +137,8 @@ function Admin() {
         defaultUpperCategory(data.upperCategory);
         defaultLowerCategory(data.lowerCategory);
         setLevel(data.level);
+        setImageUrl(data.imageUrl);
+        setImageId(data.imageId);
       })
       .catch(error => {
         console.error(error);
@@ -172,6 +178,19 @@ function Admin() {
 
   const updateProduct = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const removeImage = async () => {
+    confirm('이미지를 삭제하면 되돌릴수 없습니다!');
+    console.log(imageId);
+    await requestRemoveImage(imageId!)
+      .then(() => {
+        setImageUrl(null);
+        alert('이미지가 정상적으로 삭제되었습니다.');
+      })
+      .catch(() => {
+        alert('서버혹은 잘못된 요청으로 인해 이미지가 삭제되지 않았습니다.');
+      });
   };
 
   /* useEffect */
@@ -312,11 +331,18 @@ function Admin() {
           </>
         )}
         <S.Label>이미지</S.Label>
-        <S.Input
-          type={'file'}
-          title={'이미지 업로드'}
-          onChange={setImage}
-        ></S.Input>
+        {imageUrl ? (
+          <>
+            <button onClick={removeImage}>이미지 제거하기</button>
+            <S.Image src={imageUrl} alt="" />
+          </>
+        ) : (
+          <S.Input
+            type={'file'}
+            title={'이미지 업로드'}
+            onChange={setImage}
+          ></S.Input>
+        )}
         {previewImage && <S.Image src={previewImage} alt="미리보기" />}
         {isValid ? (
           <S.Button type={'submit'} isValid={isValid}>

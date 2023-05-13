@@ -22,9 +22,7 @@ const API_PATH = {
     SAVE: '/api/user/product/save',
     INFO: '/api/user/product/info',
   },
-  STORAGE: {
-    SAVE: '/api/user/storage/image',
-  },
+  STORAGE: '/api/user/storage/image',
 };
 
 const BROWSER_PATH = {

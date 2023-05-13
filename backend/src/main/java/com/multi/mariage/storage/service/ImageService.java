@@ -23,7 +23,7 @@ public class ImageService {
         return storageRepository.findById(request.getImageId())
                 .orElseThrow(() -> new StorageException(StorageErrorCode.FAILED_TO_FIND_IMAGE));
     }
-
+    
     public String getImageUrl(String fileName) {
         return was + fileName;
     }
