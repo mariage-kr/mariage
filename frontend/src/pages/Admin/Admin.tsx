@@ -119,7 +119,7 @@ function Admin() {
 
   /* 제품 정보 요청 */
   const getProductInfo = async () => {
-    await requestProductInfo(productId!)
+    await requestProductInfo(parseInt(productId!))
       .then(response => {
         const data: ProductInfoType = response.data;
         defaultName(data.name);

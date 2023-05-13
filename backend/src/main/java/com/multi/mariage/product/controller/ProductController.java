@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("/user/product/info")
-    public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") String productId) {
+    public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
         ProductInfoResponse response = productService.findProductInfo(productId);
         return ResponseEntity.ok(response);
     }

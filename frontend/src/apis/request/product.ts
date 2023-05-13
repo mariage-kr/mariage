@@ -1,5 +1,6 @@
-import { API_PATH } from '@/constants/path';
 import { axiosWithAccessToken } from '../axios';
+
+import { API_PATH } from '@/constants/path';
 import { ProductSaveType, ProductUpdateType } from '@/types/product';
 
 const requestSaveProduct = (productData: ProductSaveType) => {
@@ -8,7 +9,7 @@ const requestSaveProduct = (productData: ProductSaveType) => {
   });
 };
 
-const requestProductInfo = async (productId: string) => {
+const requestProductInfo = async (productId: number) => {
   return axiosWithAccessToken.get(API_PATH.PRODUCT.INFO, {
     params: { productId: productId },
   });

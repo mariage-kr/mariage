@@ -59,10 +59,8 @@ public class ProductService {
                 .toList();
     }
 
-    public ProductInfoResponse findProductInfo(String productId) {
-        Long id = convertStringToLong(productId);
-
-        Product product = findById(id);
+    public ProductInfoResponse findProductInfo(Long productId) {
+        Product product = findById(productId);
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
         return ProductInfoResponse.from(product, imageUrl);
@@ -71,15 +69,6 @@ public class ProductService {
     private Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
-    }
-
-    private Long convertStringToLong(String productId) {
-        try {
-            return Long.parseLong(productId);
-        } catch (Exception e) {
-            // TODO: 제품의 아이디가 숫자가 아님
-            throw new RuntimeException();
-        }
     }
 
     @Transactional
