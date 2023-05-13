@@ -18,7 +18,7 @@ public class Info {
     private static final Pattern INFO_PATTERN = Pattern.compile(INFO_FORMAT);
     private static final int MIN_LENGTH = 1;
     private static final int MAX_LENGTH = 150;
-    @Column(name = "info", nullable = false, unique = true)
+    @Column(name = "info", nullable = false)
     private String value;
 
 
