@@ -76,9 +76,8 @@ public class StorageService {
     }
 
     public Image findById(Long id) {
-        // TODO: 이미지가 존재하지 않으므로 예외처리
         return storageRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new StorageException(StorageErrorCode.FILE_IS_NOT_EXIST));
     }
 
     public String getFilePath(String fileName) {
