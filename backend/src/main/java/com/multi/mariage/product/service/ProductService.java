@@ -6,7 +6,9 @@ import com.multi.mariage.product.domain.embedded.Info;
 import com.multi.mariage.product.domain.embedded.Level;
 import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
+import com.multi.mariage.product.dto.response.ProductInfoResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductsVO;
@@ -35,7 +37,7 @@ public class ProductService {
         Name name = Name.of(request.getName());
         validateProductIsNotDuplicated(name);
 
-        Image image = imageService.findById(request);
+        Image image = imageService.findById(request.getImageId());
 
         Product product = Product.builder()
                 .name(Name.of(request.getName()))
@@ -59,12 +61,10 @@ public class ProductService {
     public ProductFindResponse findProducts() {
         List<ProductsVO> productValues = getProductValues();
 
-        ProductFindResponse response = ProductFindResponse.builder()
+        return ProductFindResponse.builder()
                 .product(productValues)
                 .length(productValues.size())
                 .build();
-
-        return response;
     }
 
     private List<ProductsVO> getProductValues() {
@@ -78,5 +78,34 @@ public class ProductService {
                     return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
                 })
                 .toList();
+    }
+
+    public ProductInfoResponse findProductInfo(Long productId) {
+        Product product = findById(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
+        return ProductInfoResponse.from(product, imageUrl);
+    }
+
+    private Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+    }
+
+    @Transactional
+    public void update(ProductUpdateRequest request) {
+        Image image = imageService.findById(request.getNewImageId());
+
+        removeProductImage(request.getImageId());
+
+        Product product = findById(request.getId());
+        product.update(request);
+        product.setImage(image);
+    }
+
+    private void removeProductImage(Long imageId) {
+        Image image = storageService.findById(imageId);
+
+        storageService.remove(image);
     }
 }

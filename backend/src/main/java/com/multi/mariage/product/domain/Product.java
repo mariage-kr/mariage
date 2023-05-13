@@ -6,6 +6,7 @@ import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.embedded.Info;
 import com.multi.mariage.product.domain.embedded.Level;
 import com.multi.mariage.product.domain.embedded.Name;
+import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
@@ -54,11 +55,6 @@ public class Product {
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
-    /* 연관관계 편의 메서드 */
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     @Builder
     public Product(Name name, Level level, Info info, DrinkUpperCategory upperCategory,
                    DrinkLowerCategory lowerCategory, Country country, Image image) {
@@ -69,5 +65,19 @@ public class Product {
         this.lowerCategory = lowerCategory;
         this.country = country;
         this.image = image;
+    }
+
+    /* 연관관계 편의 메서드 */
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    /* 비즈니스 로직 */
+    public void update(ProductUpdateRequest request) {
+        this.name = Name.of(request.getName());
+        this.info = Info.of(request.getInfo());
+        this.country = request.getCountry();
+        this.upperCategory = request.getUpperCategory();
+        this.lowerCategory = request.getLowerCategory();
     }
 }

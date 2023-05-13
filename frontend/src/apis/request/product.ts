@@ -1,17 +1,24 @@
-import { API_PATH } from '@/constants/path';
 import { axiosWithAccessToken } from '../axios';
-import { ProductSaveType } from '@/types/product';
 
-const requestSaveProduct = ({
-  name,
-  level,
-  info,
-  country,
-  upperCategory,
-  lowerCategory,
-  imageId,
-}: ProductSaveType) => {
-  return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE);
+import { API_PATH } from '@/constants/path';
+import { ProductSaveType, ProductUpdateType } from '@/types/product';
+
+const requestSaveProduct = (productData: ProductSaveType) => {
+  return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {
+    ...productData,
+  });
 };
 
-export { requestSaveProduct };
+const requestProductInfo = async (productId: number) => {
+  return axiosWithAccessToken.get(API_PATH.PRODUCT.INFO, {
+    params: { productId: productId },
+  });
+};
+
+const requestUpdateProduct = async (productData: ProductUpdateType) => {
+  return axiosWithAccessToken.patch(API_PATH.PRODUCT.UPDATE, {
+    ...productData,
+  });
+};
+
+export { requestSaveProduct, requestProductInfo, requestUpdateProduct };

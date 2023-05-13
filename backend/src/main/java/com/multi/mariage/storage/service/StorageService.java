@@ -64,6 +64,7 @@ public class StorageService {
         }
     }
 
+    @Transactional
     public void remove(Image image) {
         try {
             Path path = Paths.get(fileDir + image.getName());
@@ -72,6 +73,11 @@ public class StorageService {
         } catch (Exception e) {
             throw new StorageException(StorageErrorCode.FAILED_TO_REMOVE_FILE);
         }
+    }
+
+    public Image findById(Long id) {
+        return storageRepository.findById(id)
+                .orElseThrow(() -> new StorageException(StorageErrorCode.FILE_IS_NOT_EXIST));
     }
 
     public String getFilePath(String fileName) {
