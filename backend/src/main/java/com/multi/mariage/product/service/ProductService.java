@@ -71,6 +71,7 @@ public class ProductService {
     }
 
     private Long convertStringToLong(String productId) {
+        System.out.println("productId = " + productId);
         try {
             return Long.parseLong(productId);
         } catch (Exception e) {

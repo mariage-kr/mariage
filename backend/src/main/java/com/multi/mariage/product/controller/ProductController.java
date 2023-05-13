@@ -1,7 +1,5 @@
 package com.multi.mariage.product.controller;
 
-import com.multi.mariage.auth.annotation.Authenticated;
-import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
@@ -31,9 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/user/product/info")
-    public ResponseEntity<ProductInfoResponse> findProductInfo(@Authenticated AuthMember authMember,
-                                                               @Param("productId") String productId) {
-        ProductInfoResponse response =  productService.findProductInfo(productId);
+    public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") String productId) {
+        ProductInfoResponse response = productService.findProductInfo(productId);
         return ResponseEntity.ok(response);
     }
 }

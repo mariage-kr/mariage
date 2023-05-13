@@ -20,6 +20,7 @@ const API_PATH = {
   },
   PRODUCT: {
     SAVE: '/api/user/product/save',
+    INFO: '/api/user/product/info',
   },
   STORAGE: {
     SAVE: '/api/user/storage/image',

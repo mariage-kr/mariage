@@ -5,7 +5,7 @@ import {
   requestDrinkLowerCategory,
 } from '@/apis/request/category';
 import { requestSaveImage } from '@/apis/request/storage';
-import { requestSaveProduct } from '@/apis/request/product';
+import { requestProductInfo, requestSaveProduct } from '@/apis/request/product';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
@@ -98,6 +98,17 @@ function Admin() {
       });
   }, []);
 
+  /* 제품 정보 요청 */
+  const getProductInfo = async () => {
+    await requestProductInfo(productId!)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   /* 제품 등록/수정 요청 */
   const uploadImage = async () => {
     const data: ImageIdType = await requestSaveImage(image!);
@@ -137,7 +148,9 @@ function Admin() {
   }, []);
 
   useEffect(() => {
-    console.log(productId);
+    if (productId !== null && productId !== undefined) {
+      getProductInfo();
+    }
   }, [productId]);
 
   useEffect(() => {

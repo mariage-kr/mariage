@@ -22,4 +22,10 @@ const requestSaveProduct = ({
   });
 };
 
-export { requestSaveProduct };
+const requestProductInfo = async (productId: string) => {
+  return axiosWithAccessToken.get(API_PATH.PRODUCT.INFO, {
+    params: { productId: productId },
+  });
+};
+
+export { requestSaveProduct, requestProductInfo };
