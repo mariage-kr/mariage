@@ -33,6 +33,7 @@ public class Product {
 
     @Embedded
     private Level level;
+
     @Embedded
     private Info info;
 
