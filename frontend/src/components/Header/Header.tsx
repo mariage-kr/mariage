@@ -17,8 +17,6 @@ function Header() {
     setCategory;
   }, []);
 
-  console.log(category);
-
   return (
     <S.Container>
       <S.Logo>
