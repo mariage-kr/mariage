@@ -7,13 +7,12 @@ import com.multi.mariage.product.dto.request.ProductSaveRequest;
 
 public enum ProductFixture {
     PRODUCT_MAKGEOLLI("느린마을 막걸리", 20, "쌀로 만든 술입니다.", Country.KOREA, DrinkUpperCategory.LOCAL_TRADITIONAL, DrinkLowerCategory.MAKGEOLLI);
-    private String name;    // 제품 이름: 글자수 제한
-    private double level;   // 제품 도수
-    private String info;    // 제품 설명: 150자 제한
-    private Country country;     // 제품 제조국
-    private DrinkUpperCategory upperCategory;   // 제품 상위 카테고리
-    private DrinkLowerCategory lowerCategory;   // 제품 하위 카테고리
-//    private Long imageId;     // 제품 이미지
+    private String name;
+    private double level;
+    private String info;
+    private Country country;
+    private DrinkUpperCategory upperCategory;
+    private DrinkLowerCategory lowerCategory;
 
     ProductFixture(String name, double level, String info, Country country, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory) {
         this.name = name;
@@ -22,7 +21,6 @@ public enum ProductFixture {
         this.country = country;
         this.upperCategory = upperCategory;
         this.lowerCategory = lowerCategory;
-//        this.imageId = imageId;
     }
 
     public ProductSaveRequest toRegisterRequest() {
@@ -33,7 +31,6 @@ public enum ProductFixture {
                 .country(country)
                 .upperCategory(upperCategory)
                 .lowerCategory(lowerCategory)
-//                .image(image)
                 .build();
     }
 }
