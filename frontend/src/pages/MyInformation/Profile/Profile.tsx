@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
+import { requestUpdateNickname, requestUserInfo } from '@/apis/request/member';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
 import * as S from './Profile.styled';
-import { requestUpdateNickname, requestUserInfo } from '@/apis/request/member';
 
 type UserInfoType = {
   nickname: string;
