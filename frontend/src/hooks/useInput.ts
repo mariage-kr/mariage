@@ -19,7 +19,11 @@ function useInput<T>(initialState: T) {
     setValue('');
   };
 
-  return { value, setValue: changeValue, resetValue };
+  const defaultData = (data: string) => {
+    setValue(data);
+  };
+
+  return { value, setValue: changeValue, resetValue, defaultData };
 }
 
 export default useInput;
