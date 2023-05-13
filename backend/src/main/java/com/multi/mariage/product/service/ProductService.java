@@ -1,8 +1,5 @@
 package com.multi.mariage.product.service;
 
-import com.multi.mariage.member.domain.embedded.Email;
-import com.multi.mariage.member.exception.MemberErrorCode;
-import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.domain.embedded.Info;

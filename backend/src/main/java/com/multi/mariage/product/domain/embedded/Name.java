@@ -1,8 +1,5 @@
 package com.multi.mariage.product.domain.embedded;
 
-import com.multi.mariage.member.domain.embedded.Email;
-import com.multi.mariage.member.exception.MemberErrorCode;
-import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import jakarta.persistence.Column;
@@ -17,7 +14,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Name {
-    private static final String NAME_FORMAT = "^([가-힣]{1,40})$";
+    private static final String NAME_FORMAT = "^.{1,40}$";
     private static final Pattern NAME_PATTERN = Pattern.compile(NAME_FORMAT);
     private static final int MIN_LENGTH = 1;
     private static final int MAX_LENGTH = 40;
