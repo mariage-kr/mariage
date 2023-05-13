@@ -17,6 +17,8 @@ function Header() {
     setCategory;
   }, []);
 
+  console.log(category);
+
   return (
     <S.Container>
       <S.Logo>
@@ -26,7 +28,14 @@ function Header() {
       </S.Logo>
       <S.Nav>
         {category.map((category: CategoryType, index: number) => {
-          return <Dropdown data={category} key={index} />;
+          return (
+            <Dropdown
+              value={category.value}
+              region={category.region}
+              categories={category.categories}
+              key={index}
+            />
+          );
         })}
       </S.Nav>
       <Search />
