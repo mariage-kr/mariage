@@ -332,7 +332,12 @@ function Admin() {
           </>
         )}
         <S.Label>이미지</S.Label>
-        {imageUrl && <S.Image src={imageUrl} alt="" />}
+        {imageUrl && (
+          <>
+            <S.Image src={imageUrl} alt="" />
+            <S.Label>수정할 이미지</S.Label>
+          </>
+        )}
         <S.Input
           type={'file'}
           title={'이미지 업로드'}
