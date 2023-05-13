@@ -1,6 +1,6 @@
 import { API_PATH } from '@/constants/path';
 import { axiosWithAccessToken } from '../axios';
-import { ProductSaveType } from '@/types/product';
+import { ProductSaveType, ProductUpdateType } from '@/types/product';
 
 const requestSaveProduct = ({
   name,
@@ -28,4 +28,29 @@ const requestProductInfo = async (productId: string) => {
   });
 };
 
-export { requestSaveProduct, requestProductInfo };
+const requestUpdateProduct = async ({
+  id,
+  name,
+  info,
+  level,
+  country,
+  upperCategory,
+  lowerCategory,
+  imageId,
+  newImageId,
+}: ProductUpdateType) => {
+  console.log(newImageId);
+  return axiosWithAccessToken.patch(API_PATH.PRODUCT.UPDATE, {
+    id,
+    name,
+    info,
+    level,
+    country,
+    upperCategory,
+    lowerCategory,
+    imageId,
+    newImageId,
+  });
+};
+
+export { requestSaveProduct, requestProductInfo, requestUpdateProduct };

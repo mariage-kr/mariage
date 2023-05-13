@@ -19,11 +19,11 @@ public class ImageService {
     @Value("${storagePath}")
     private String was;
 
-    public Image findById(ProductSaveRequest request) {
-        return storageRepository.findById(request.getImageId())
+    public Image findById(Long imageId) {
+        return storageRepository.findById(imageId)
                 .orElseThrow(() -> new StorageException(StorageErrorCode.FAILED_TO_FIND_IMAGE));
     }
-    
+
     public String getImageUrl(String fileName) {
         return was + fileName;
     }

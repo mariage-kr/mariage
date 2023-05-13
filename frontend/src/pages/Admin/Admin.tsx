@@ -4,8 +4,12 @@ import {
   requestCountry,
   requestDrinkLowerCategory,
 } from '@/apis/request/category';
-import { requestRemoveImage, requestSaveImage } from '@/apis/request/storage';
-import { requestProductInfo, requestSaveProduct } from '@/apis/request/product';
+import { requestSaveImage } from '@/apis/request/storage';
+import {
+  requestProductInfo,
+  requestSaveProduct,
+  requestUpdateProduct,
+} from '@/apis/request/product';
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
@@ -176,20 +180,35 @@ function Admin() {
       });
   };
 
-  const updateProduct = (e: React.FormEvent<HTMLFormElement>) => {
+  const updateProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
+    const newImageId = await uploadImage();
 
-  const removeImage = async () => {
-    confirm('이미지를 삭제하면 되돌릴수 없습니다!');
-    console.log(imageId);
-    await requestRemoveImage(imageId!)
-      .then(() => {
-        setImageUrl(null);
-        alert('이미지가 정상적으로 삭제되었습니다.');
+    if (!newImageId && !imageId) {
+      alert('사진이 정상적으로 저장되지 않았습니다.\n다시한번 시도해주세요.');
+      return;
+    }
+    if (!imageId) {
+      return;
+    }
+
+    const id: number = parseInt(productId!);
+    await requestUpdateProduct({
+      id,
+      name,
+      info,
+      level,
+      country,
+      upperCategory,
+      lowerCategory,
+      imageId,
+      newImageId,
+    })
+      .then(response => {
+        console.log(response);
       })
-      .catch(() => {
-        alert('서버혹은 잘못된 요청으로 인해 이미지가 삭제되지 않았습니다.');
+      .catch(error => {
+        console.error(error);
       });
   };
 
@@ -331,18 +350,12 @@ function Admin() {
           </>
         )}
         <S.Label>이미지</S.Label>
-        {imageUrl ? (
-          <>
-            <button onClick={removeImage}>이미지 제거하기</button>
-            <S.Image src={imageUrl} alt="" />
-          </>
-        ) : (
-          <S.Input
-            type={'file'}
-            title={'이미지 업로드'}
-            onChange={setImage}
-          ></S.Input>
-        )}
+        {imageUrl && <S.Image src={imageUrl} alt="" />}
+        <S.Input
+          type={'file'}
+          title={'이미지 업로드'}
+          onChange={setImage}
+        ></S.Input>
         {previewImage && <S.Image src={previewImage} alt="미리보기" />}
         {isValid ? (
           <S.Button type={'submit'} isValid={isValid}>

@@ -64,7 +64,8 @@ public class StorageService {
         }
     }
 
-    public void removeByImage(Image image) {
+    @Transactional
+    public void remove(Image image) {
         try {
             Path path = Paths.get(fileDir + image.getName());
             Files.delete(path);
@@ -74,11 +75,10 @@ public class StorageService {
         }
     }
 
-    public void removeByImageId(Long imageId) {
-        System.out.println("imageId" + imageId);
-        Image image = storageRepository.findById(imageId)
+    public Image findById(Long id) {
+        // TODO: 이미지가 존재하지 않으므로 예외처리
+        return storageRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
-        removeByImage(image);
     }
 
     public String getFilePath(String fileName) {

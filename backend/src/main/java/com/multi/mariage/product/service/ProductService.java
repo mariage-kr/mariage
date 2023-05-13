@@ -3,11 +3,13 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,11 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ImageService imageService;
+    private final StorageService storageService;
 
     @Transactional
     public Product save(ProductSaveRequest request) {
-        Image image = imageService.findById(request);
+        Image image = imageService.findById(request.getImageId());
 
         Product product = Product.builder()
                 .name(request.getName())
@@ -77,5 +80,23 @@ public class ProductService {
             // TODO: 제품의 아이디가 숫자가 아님
             throw new RuntimeException();
         }
+    }
+
+    @Transactional
+    public void update(ProductUpdateRequest request) {
+        Long productId = convertStringToLong(request.getId());
+        Image image = imageService.findById(request.getNewImageId());
+
+        removeProductImage(request.getImageId());
+
+        Product product = findById(productId);
+        product.update(request);
+        product.setImage(image);
+    }
+
+    private void removeProductImage(Long imageId) {
+        Image image = storageService.findById(imageId);
+
+        storageService.remove(image);
     }
 }
