@@ -53,7 +53,7 @@ public class ProductService {
     }
 
     private void validateProductIsNotDuplicated(Name name) {
-        if (productRepository.existsByName(name)) {
+        if (productRepository.existsByProduct(name)) {
             throw new ProductException(ProductErrorCode.SAVE_INVALID_PRODUCT);
         }
     }
