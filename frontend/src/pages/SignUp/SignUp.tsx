@@ -78,7 +78,7 @@ function SignUp() {
   const signup = () => {
     requestSignup({ name, email, password, nickname, birth })
       .then(() => {
-        navigate(BROWSER_PATH.LOGIN);
+        navigate(BROWSER_PATH.LOGIN, { replace: true });
       })
       .catch(error => {
         setErrorMessage(error.response.data.message);
