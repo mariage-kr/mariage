@@ -36,7 +36,6 @@ public class ProductService {
     public Product save(ProductSaveRequest request) {
 
         Name name = Name.of(request.getName());
-
         validateProductIsNotDuplicated(name);
 
         Image image = imageService.findById(request);
