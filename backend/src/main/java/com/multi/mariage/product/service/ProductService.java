@@ -5,6 +5,8 @@ import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.domain.embedded.Info;
+import com.multi.mariage.product.domain.embedded.Level;
 import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
@@ -40,9 +42,9 @@ public class ProductService {
         Image image = imageService.findById(request);
 
         Product product = Product.builder()
-                .name(request.getName())
-                .level(request.getLevel())
-                .info(request.getInfo())
+                .name(Name.of(request.getName()))
+                .level(Level.of(request.getLevel()))
+                .info(Info.of(request.getInfo()))
                 .upperCategory(request.getUpperCategory())
                 .lowerCategory(request.getLowerCategory())
                 .country(request.getCountry())
