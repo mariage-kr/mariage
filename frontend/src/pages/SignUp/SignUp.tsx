@@ -78,7 +78,7 @@ function SignUp() {
   const signup = () => {
     requestSignup({ name, email, password, nickname, birth })
       .then(() => {
-        navigate(BROWSER_PATH.LOGIN);
+        navigate(BROWSER_PATH.LOGIN, { replace: true });
       })
       .catch(error => {
         setErrorMessage(error.response.data.message);
@@ -89,7 +89,7 @@ function SignUp() {
   return (
     <S.Container>
       <S.Header>회원가입</S.Header>
-      <S.Form onSubmit={signup}>
+      <S.Form>
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>이름</S.Label>
         <S.Input
@@ -149,11 +149,11 @@ function SignUp() {
           생년월일은 공백일 수 없습니다.
         </S.InfoMessage>
         {isValidNull ? (
-          <S.DisableButton type={'submit'} disabled>
-            가입하기
-          </S.DisableButton>
+          <S.DisableButton disabled>가입하기</S.DisableButton>
         ) : (
-          <S.Button type={'submit'}>가입하기</S.Button>
+          <S.Button type={'button'} onClick={signup}>
+            가입하기
+          </S.Button>
         )}
       </S.Form>
     </S.Container>
