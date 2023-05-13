@@ -27,9 +27,19 @@ type ImageIdType = {
   imageId: number;
 };
 
+type ProductInfoType = {
+  name: string;
+  info: string;
+  level: number;
+  country: string;
+  upperCategory: string;
+  lowerCategory: string;
+  imageId: number;
+  imageUrl: string;
+};
+
 function Admin() {
   /* 쿼리스트링 */
-
   const { value: productId, setValue: setProductId } = useSearchParam(null);
 
   /* 카테고리 데이터 */
@@ -42,18 +52,32 @@ function Admin() {
     useState<DrinkUpperCategoryType>();
 
   /* 사용자 입력 변수 */
-  const { value: name, setValue: setName } = useInput<string>('');
-  const { value: info, setValue: setInfo } = useInput<string>('');
+  const {
+    value: name,
+    setValue: setName,
+    defaultData: defaultName,
+  } = useInput<string>('');
+  const {
+    value: info,
+    setValue: setInfo,
+    defaultData: defaultInfo,
+  } = useInput<string>('');
   const [level, setLevel] = useState<number>(0);
-  const { value: country, setValue: setCountry } = useSelect<string>('');
+  const {
+    value: country,
+    setValue: setCountry,
+    defaultValue: defaultCountry,
+  } = useSelect<string>('');
   const {
     value: upperCategory,
     setValue: setUpperCategory,
+    resetValue: resetUpperCategory,
     defaultValue: defaultUpperCategory,
   } = useSelect<string>('');
   const {
     value: lowerCategory,
     setValue: setLowerCategory,
+    resetValue: resetLowerCategory,
     defaultValue: defaultLowerCategory,
   } = useSelect<string>('');
   const {
@@ -82,13 +106,13 @@ function Admin() {
   };
 
   /* 카테고리 데이터 요청 */
-  const getCountryCategory = useCallback(async () => {
+  const getCountryCategory = async () => {
     await requestCountry().then(response => {
       setCountryCategory(response.data.country);
     });
-  }, []);
+  };
 
-  const getDrinkCategory = useCallback(async () => {
+  const getDrinkCategory = async () => {
     await requestDrinkLowerCategory()
       .then(response => {
         setDrinkCategoryResponse(response.data);
@@ -96,13 +120,19 @@ function Admin() {
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  };
 
   /* 제품 정보 요청 */
   const getProductInfo = async () => {
     await requestProductInfo(productId!)
       .then(response => {
-        console.log(response);
+        const data: ProductInfoType = response.data;
+        defaultName(data.name);
+        defaultInfo(data.info);
+        defaultCountry(data.country);
+        defaultUpperCategory(data.upperCategory);
+        defaultLowerCategory(data.lowerCategory);
+        setLevel(data.level);
       })
       .catch(error => {
         console.error(error);
@@ -140,6 +170,10 @@ function Admin() {
       });
   };
 
+  const updateProduct = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   /* useEffect */
   useEffect(() => {
     getCountryCategory();
@@ -167,8 +201,8 @@ function Admin() {
       );
       setDrinkRegionCategory(foundRegionCategory);
     }
-    defaultUpperCategory();
-    defaultLowerCategory();
+    resetUpperCategory();
+    resetLowerCategory();
   }, [country]);
 
   useEffect(() => {
@@ -179,7 +213,7 @@ function Admin() {
       setDrinkUpperCategory(foundUpperCategory);
     }
 
-    defaultLowerCategory();
+    resetLowerCategory();
   }, [upperCategory]);
 
   useEffect(() => {
@@ -199,8 +233,12 @@ function Admin() {
 
   return (
     <S.Container>
-      <S.Header>제품 관리 페이지</S.Header>
-      <S.Form onSubmit={saveProduct}>
+      {productId === null ? (
+        <S.Header>제품 등록 페이지</S.Header>
+      ) : (
+        <S.Header>제품 수정 페이지</S.Header>
+      )}
+      <S.Form onSubmit={productId === null ? saveProduct : updateProduct}>
         {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>제품 이름</S.Label>
         <S.Input type={'text'} value={name} onChange={setName}></S.Input>
@@ -213,7 +251,7 @@ function Admin() {
           min={0}
         ></S.Input>
         <S.Label>제품 설명</S.Label>
-        <S.TextArea onChange={setInfo}></S.TextArea>
+        <S.TextArea onChange={setInfo} value={info}></S.TextArea>
         <S.Count>글자 수 : {info.length}</S.Count>
         <S.Label>국가</S.Label>
         <label>
@@ -222,7 +260,11 @@ function Admin() {
               주류의 생산 국가를 선택하세요.
             </option>
             {countryCategory.map((category: CountryType) => (
-              <option key={category.id} value={category.value}>
+              <option
+                key={category.id}
+                value={category.value}
+                selected={category.value === country}
+              >
                 {category.name}
               </option>
             ))}
@@ -278,11 +320,11 @@ function Admin() {
         {previewImage && <S.Image src={previewImage} alt="미리보기" />}
         {isValid ? (
           <S.Button type={'submit'} isValid={isValid}>
-            등록하기
+            확인
           </S.Button>
         ) : (
           <S.Button isValid={isValid} disabled>
-            등록하기
+            확인
           </S.Button>
         )}
       </S.Form>
