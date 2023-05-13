@@ -17,6 +17,7 @@ import {
 } from '@/types/category';
 
 import * as S from './Admin.styled';
+import useSearchParam from '@/hooks/useSearchParam';
 
 type DrinkCategoryResponseType = {
   category: DrinkRegionCategoryType[];
@@ -27,6 +28,10 @@ type ImageIdType = {
 };
 
 function Admin() {
+  /* 쿼리스트링 */
+
+  const { value: productId, setValue: setProductId } = useSearchParam(null);
+
   /* 카테고리 데이터 */
   const [countryCategory, setCountryCategory] = useState<CountryType[]>([]);
   const [drinkCategoryResponse, setDrinkCategoryResponse] =
@@ -128,7 +133,12 @@ function Admin() {
   useEffect(() => {
     getCountryCategory();
     getDrinkCategory();
+    setProductId('id');
   }, []);
+
+  useEffect(() => {
+    console.log(productId);
+  }, [productId]);
 
   useEffect(() => {
     if (drinkCategoryResponse) {
