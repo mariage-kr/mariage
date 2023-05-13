@@ -1,6 +1,7 @@
 /* 메인 검색 필터 */
 interface CategoryType {
   region: string;
+  value: string;
   categories: DrinkLowerCategoryType[];
 }
 
@@ -49,10 +50,23 @@ interface CountryType {
   value: string;
 }
 
+interface HeaderRegionCategoryType {
+  region: string;
+  value: string;
+  categories: HeaderUpperCategoryType[];
+}
+
+interface HeaderUpperCategoryType {
+  name: string;
+  value: string;
+}
+
 export {
   CategoryType,
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
   CountryType,
+  HeaderRegionCategoryType,
+  HeaderUpperCategoryType,
 };

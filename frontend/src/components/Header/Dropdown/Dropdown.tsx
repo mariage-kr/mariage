@@ -1,18 +1,22 @@
-import { CategoriesType, CategoryType } from '@/types/category';
-
+import {
+  HeaderRegionCategoryType,
+  HeaderUpperCategoryType,
+} from '@/types/category';
 import * as S from './Dropdown.styled';
 
-function Dropdown({ data }: CategoriesType | any) {
+function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
   return (
     <S.Container>
       <S.Dropdown>
         <S.DropBtn>
-          <span css={S.UnderBar}>{data.region}</span>
+          <span css={S.UnderBar}>{region}</span>
         </S.DropBtn>
         <S.DropContent>
-          {data.categories.map((category: CategoriesType, index: number) => {
-            return <S.DropList key={index}>{category.value}</S.DropList>;
-          })}
+          {categories.map(
+            (category: HeaderUpperCategoryType, index: number) => {
+              return <S.DropList key={index}>{category.name}</S.DropList>;
+            },
+          )}
         </S.DropContent>
       </S.Dropdown>
     </S.Container>
