@@ -1,3 +1,14 @@
+type ProductInfoType = {
+  name: string;
+  info: string;
+  level: number;
+  country: string;
+  upperCategory: string;
+  lowerCategory: string;
+  imageId: number;
+  imageUrl: string;
+};
+
 type ProductSaveType = {
   name: string;
   level: number;
@@ -20,4 +31,4 @@ type ProductUpdateType = {
   newImageId: number;
 };
 
-export { ProductSaveType, ProductUpdateType };
+export { ProductInfoType, ProductSaveType, ProductUpdateType };

@@ -14,7 +14,9 @@ import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
 import useSearchParam from '@/hooks/useSearchParam';
+import { ProductInfoType } from '@/types/product';
 import {
+  DrinkCategoryResponseType,
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
@@ -23,23 +25,8 @@ import {
 
 import * as S from './Admin.styled';
 
-type DrinkCategoryResponseType = {
-  category: DrinkRegionCategoryType[];
-};
-
 type ImageIdType = {
   imageId: number;
-};
-
-type ProductInfoType = {
-  name: string;
-  info: string;
-  level: number;
-  country: string;
-  upperCategory: string;
-  lowerCategory: string;
-  imageId: number;
-  imageUrl: string;
 };
 
 function Admin() {
@@ -175,24 +162,19 @@ function Admin() {
         console.log(response);
       })
       .catch(error => {
-        setErrorMessage(error.response.data.message);
         console.log(error);
       });
   };
 
   const updateProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newImageId = await uploadImage();
 
-    if (!newImageId && !imageId) {
-      alert('사진이 정상적으로 저장되지 않았습니다.\n다시한번 시도해주세요.');
-      return;
-    }
+    const newImageId = await uploadImage();
+    const id: number = parseInt(productId!);
     if (!imageId) {
       return;
     }
 
-    const id: number = parseInt(productId!);
     await requestUpdateProduct({
       id,
       name,

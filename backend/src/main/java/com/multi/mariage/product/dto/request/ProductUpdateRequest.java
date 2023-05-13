@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductUpdateRequest {
-    private String id;
+    private Long id;
     private String name;
     private String info;
     private double level;

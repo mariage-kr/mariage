@@ -61,6 +61,10 @@ interface HeaderUpperCategoryType {
   value: string;
 }
 
+type DrinkCategoryResponseType = {
+  category: DrinkRegionCategoryType[];
+};
+
 export {
   CategoryType,
   DrinkRegionCategoryType,
@@ -69,4 +73,5 @@ export {
   CountryType,
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
+  DrinkCategoryResponseType,
 };

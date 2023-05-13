@@ -84,12 +84,11 @@ public class ProductService {
 
     @Transactional
     public void update(ProductUpdateRequest request) {
-        Long productId = convertStringToLong(request.getId());
         Image image = imageService.findById(request.getNewImageId());
 
         removeProductImage(request.getImageId());
 
-        Product product = findById(productId);
+        Product product = findById(request.getId());
         product.update(request);
         product.setImage(image);
     }
