@@ -1,9 +1,15 @@
 package com.multi.mariage.product.service;
 
+import com.multi.mariage.member.domain.embedded.Email;
+import com.multi.mariage.member.exception.MemberErrorCode;
+import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
+import com.multi.mariage.product.exception.ProductErrorCode;
+import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
@@ -26,6 +32,11 @@ public class ProductService {
 
     @Transactional
     public Product save(ProductSaveRequest request) {
+
+        Name name = Name.of(request.getName());
+
+        validateProductIsNotDuplicated(name);
+
         Image image = imageService.findById(request);
 
         Product product = Product.builder()
@@ -39,6 +50,12 @@ public class ProductService {
         product.setImage(image);
 
         return productRepository.save(product);
+    }
+
+    private void validateProductIsNotDuplicated(Name name) {
+        if (productRepository.existsByName(name)) {
+            throw new ProductException(ProductErrorCode.SAVE_INVALID_PRODUCT);
+        }
     }
 
     public ProductFindResponse findProducts() {
