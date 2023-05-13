@@ -4,6 +4,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
+import com.multi.mariage.product.dto.response.ProductInfoResponse;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
@@ -24,7 +25,6 @@ public class ProductService {
 
     @Transactional
     public Product save(ProductSaveRequest request) {
-//        Image image = imageService.findById(request.getImageId());
         Image image = imageService.findById(request);
 
         Product product = Product.builder()
@@ -43,12 +43,10 @@ public class ProductService {
     public ProductFindResponse findProducts() {
         List<ProductsVO> productValues = getProductValues();
 
-        ProductFindResponse response = ProductFindResponse.builder()
+        return ProductFindResponse.builder()
                 .product(productValues)
                 .length(productValues.size())
                 .build();
-
-        return response;
     }
 
     private List<ProductsVO> getProductValues() {
@@ -56,5 +54,28 @@ public class ProductService {
         return products.stream()
                 .map(product -> ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry()))
                 .toList();
+    }
+
+    public ProductInfoResponse findProductInfo(String productId) {
+        Long id = convertStringToLong(productId);
+
+        Product product = findById(id);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
+        return ProductInfoResponse.from(product, imageUrl);
+    }
+
+    private Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+    }
+
+    private Long convertStringToLong(String productId) {
+        try {
+            return Long.parseLong(productId);
+        } catch (Exception e) {
+            // TODO: 제품의 아이디가 숫자가 아님
+            throw new RuntimeException();
+        }
     }
 }
