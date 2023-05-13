@@ -19,10 +19,10 @@ public class ProductsVO {
     private String upperCategory;
     private String lowerCategory;
     private String country;
-    private Long image;
+    private String imageUrl;
 
     @Builder
-    private ProductsVO(int id, String name, double level, String info, String upperCategory, String lowerCategory, String country, Long image) {
+    private ProductsVO(int id, String name, double level, String info, String upperCategory, String lowerCategory, String country, String imageUrl) {
         this.id = id;
         this.name = name;
         this.level = level;
@@ -30,11 +30,10 @@ public class ProductsVO {
         this.upperCategory = upperCategory;
         this.lowerCategory = lowerCategory;
         this.country = country;
-        this.image = image;
+        this.imageUrl = imageUrl;
     }
 
-
-    public static ProductsVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country) {
+    public static ProductsVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country, String imageUrl) {
         return ProductsVO.builder()
                 .name(product.getName())
                 .level(product.getLevel())
@@ -42,6 +41,7 @@ public class ProductsVO {
                 .upperCategory(upperCategory.getName())
                 .lowerCategory(lowerCategory.getName())
                 .country(country.getCountry())
+                .imageUrl(imageUrl)
                 .build();
     }
 }

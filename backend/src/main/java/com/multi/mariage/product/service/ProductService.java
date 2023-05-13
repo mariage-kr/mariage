@@ -7,6 +7,7 @@ import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,10 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ImageService imageService;
+    private final StorageService storageService;
 
     @Transactional
     public Product save(ProductSaveRequest request) {
-//        Image image = imageService.findById(request.getImageId());
         Image image = imageService.findById(request);
 
         Product product = Product.builder()
@@ -53,8 +54,14 @@ public class ProductService {
 
     private List<ProductsVO> getProductValues() {
         List<Product> products = productRepository.findAll();
+
         return products.stream()
-                .map(product -> ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry()))
+                .map(product -> {
+                    Image image = product.getImage();
+                    String fileName = image.getName();
+                    String imageUrl = storageService.getFilePath(fileName);
+                    return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
+                })
                 .toList();
     }
 }

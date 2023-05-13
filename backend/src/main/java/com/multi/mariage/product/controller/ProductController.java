@@ -15,7 +15,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/user/product/save")
-    public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request, Long imageId) {
+    public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request) {
         productService.save(request);
         return ResponseEntity.ok().build();
     }
