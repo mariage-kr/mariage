@@ -11,7 +11,7 @@ import * as S from './Login.styled';
 function Login() {
   const navigate = useNavigate();
 
-  const { setLogin, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const [isValid, setIsValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -63,8 +63,7 @@ function Login() {
           accessToken: response.data.accessToken,
           refreshToken: response.data.refreshToken,
         };
-        setLogin(true);
-        setAuth(token);
+        setAuth({ ...token });
         window.location.reload();
         navigate(-1);
       })
