@@ -1,30 +1,23 @@
 package com.multi.mariage.product.service;
 
-import com.multi.mariage.category.dto.response.FoodCategoryResponse;
-import com.multi.mariage.category.vo.food.FoodCategoriesVO;
 import com.multi.mariage.common.annotation.ServiceTest;
-import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
-import com.multi.mariage.member.domain.Member;
-import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
-import com.multi.mariage.storage.service.ImageService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceTest extends ServiceTest {
     @Autowired
@@ -33,11 +26,18 @@ class ProductServiceTest extends ServiceTest {
     private StorageRepository storageRepository;
     @Autowired
     private ProductService productService;
+    private Product product;
+
+    @BeforeEach
+    void setUp() {
+        product = productService.save(ProductFixture.PRODUCT_MAKGEOLLI1.toSaveRequest());
+    }
+
     @DisplayName("제품을 등록한다.")
     @Test
     void 제품을_등록한다() {
 
-        ProductSaveRequest request = ProductFixture.PRODUCT_MAKGEOLLI.toRegisterRequest();
+        ProductSaveRequest request = ProductFixture.PRODUCT_SOJU1.toSaveRequest();
         Image savedImage = storageRepository.save(new Image("test.jpg"));
         Long imageId = savedImage.getId();
 
@@ -59,5 +59,18 @@ class ProductServiceTest extends ServiceTest {
             assertThat(actual.getName()).isNotEmpty();
         }
     }
-    
+
+    @DisplayName("제품을 수정한다.")
+    @Test
+    void 제품을_수정한다() {
+
+        Long newImageId = storageRepository.save(new Image("test2.jpg")).getId();
+        Long imageId = product.getImage().getId();
+
+        ProductUpdateRequest request = ProductFixture.PRODUCT_SOJU1.toUpdateRequest(product, imageId, newImageId);
+        productService.update(request);
+        assertThat(request).isNotNull();
+
+    }
+
 }
