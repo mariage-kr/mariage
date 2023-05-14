@@ -20,7 +20,7 @@ public class ProductInfoResponse {
     private Long imageId;
     private String imageUrl;
 
-    private ProductInfoResponse(Product product ,String imageUrl) {
+    private ProductInfoResponse(Product product, String imageUrl) {
         this.name = String.valueOf(product.getName());
         this.info = String.valueOf(product.getInfo());
         this.level = product.getLevel().getValue();

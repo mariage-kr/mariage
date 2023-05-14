@@ -72,9 +72,7 @@ public class ProductService {
 
         return products.stream()
                 .map(product -> {
-                    Image image = product.getImage();
-                    String fileName = image.getName();
-                    String imageUrl = storageService.getFilePath(fileName);
+                    String imageUrl = imageService.getImageUrl(product.getImage().getName());
                     return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
                 })
                 .toList();
