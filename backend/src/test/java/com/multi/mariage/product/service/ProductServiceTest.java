@@ -30,7 +30,14 @@ class ProductServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        product = productService.save(ProductFixture.PRODUCT_MAKGEOLLI1.toSaveRequest());
+        ProductSaveRequest saveRequest = ProductFixture.PRODUCT_MAKGEOLLI1.toSaveRequest();
+
+        Image savedImage = storageRepository.save(new Image("test.jpg"));
+        Long imageId = savedImage.getId();
+
+        saveRequest.setImageId(imageId);
+
+        product = productService.save(saveRequest);
     }
 
     @DisplayName("제품을 등록한다.")
@@ -38,10 +45,11 @@ class ProductServiceTest extends ServiceTest {
     void 제품을_등록한다() {
 
         ProductSaveRequest request = ProductFixture.PRODUCT_SOJU1.toSaveRequest();
-        Image savedImage = storageRepository.save(new Image("test.jpg"));
+        Image savedImage = storageRepository.save(new Image("test1.jpg"));
         Long imageId = savedImage.getId();
 
         request.setImageId(imageId);
+
         Product actual = productService.save(request);
         assertThat(actual).isNotNull();
     }
@@ -63,11 +71,13 @@ class ProductServiceTest extends ServiceTest {
     @DisplayName("제품을 수정한다.")
     @Test
     void 제품을_수정한다() {
+        Image savedNewImage = storageRepository.save(new Image("test2.jpg"));
+        Long newImageId = savedNewImage.getId();
 
-        Long newImageId = storageRepository.save(new Image("test2.jpg")).getId();
         Long imageId = product.getImage().getId();
-
         ProductUpdateRequest request = ProductFixture.PRODUCT_SOJU1.toUpdateRequest(product, imageId, newImageId);
+        request.setImageId(imageId);
+
         productService.update(request);
         assertThat(request).isNotNull();
 
