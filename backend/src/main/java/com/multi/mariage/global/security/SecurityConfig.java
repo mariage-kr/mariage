@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig());
 
         return http.build();
     }
