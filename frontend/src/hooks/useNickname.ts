@@ -1,8 +1,8 @@
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { userNicknameState } from '@/store/status';
-import { useCallback } from 'react';
 import { requestUserNickname } from '@/apis/request/member';
+import { userNicknameState } from '@/store/status';
 
 function useNickname() {
   const [value, setValue] = useRecoilState(userNicknameState);

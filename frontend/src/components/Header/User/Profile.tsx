@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { requestLogout } from '@/apis/request/auth';
+import { requestLogout, requestReissue } from '@/apis/request/auth';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Profile.styled';
 import useNickname from '@/hooks/useNickname';
+import useAuth from '@/hooks/useAuth';
 
 function User() {
+  const { accessToken, refreshToken, setAuth, resetAuth } = useAuth();
   const { key } = useLocation();
   const navigate = useNavigate();
 
@@ -18,20 +20,15 @@ function User() {
     setIsLogin(window.sessionStorage.getItem('isLogin') === 'true');
   };
 
-  const removeIsLogin = () => {
-    window.sessionStorage.removeItem('isLogin');
-    handlerIsLogin();
-  };
-
   const logout = () => {
     requestLogout()
       .then(() => {
-        removeIsLogin();
+        handlerIsLogin();
+        resetAuth();
         navigate(BROWSER_PATH.BASE);
-        window.location.reload();
       })
-      .catch(error => {
-        console.log(error);
+      .finally(() => {
+        window.location.reload();
       });
   };
 
@@ -44,6 +41,22 @@ function User() {
 
   useEffect(() => {
     handlerIsLogin();
+
+    if (!isLogin && !accessToken && !refreshToken) {
+      return;
+    }
+
+    const reissueToken = () => {
+      requestReissue({ accessToken, refreshToken })
+        .then(response => {
+          setAuth({ ...response.data });
+        })
+        .catch(() => {
+          resetAuth();
+        });
+    };
+
+    reissueToken();
   }, [key]);
 
   if (isLogin) {

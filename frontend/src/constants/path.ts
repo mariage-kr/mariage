@@ -2,6 +2,7 @@ const API_PATH = {
   AUTH: {
     LOGIN: '/api/auth/login',
     LOGOUT: '/api/user/auth/logout',
+    REISSUE: '/api/auth/reissue',
   },
   CATEGORY: {
     COUNTRY: '/api/country/find',

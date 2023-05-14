@@ -6,6 +6,9 @@ const baseURL = process.env.BASE_URL;
 
 const axios = Axios.create({
   baseURL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 const axiosWithAccessToken = Axios.create({
@@ -25,9 +28,6 @@ axiosWithAccessToken.interceptors.request.use(
     }
 
     return config;
-  },
-  function (error) {
-    return Promise.reject(error);
   },
 );
 
