@@ -1,20 +1,13 @@
 package com.multi.mariage.product.domain;
 
 import com.multi.mariage.common.annotation.RepositoryTest;
-import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
-import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +21,6 @@ public class ProductRepositoryTest extends RepositoryTest {
     private Product 처음처럼;
     private Product 간바레오또상;
     private Product 일품진로;
-    private Product 산토리_위스키;
 
     @BeforeEach
     void setUp() {
@@ -36,18 +28,13 @@ public class ProductRepositoryTest extends RepositoryTest {
         처음처럼 = saveProduct(ProductFixture.처음처럼);
         간바레오또상 = saveProduct(ProductFixture.간바레오또상);
         일품진로 = saveProduct(ProductFixture.일품진로);
-        산토리_위스키 = saveProduct(ProductFixture.산토리_위스키);
     }
 
     @DisplayName("제품을 저장한다.")
-    @ParameterizedTest
-    @MethodSource("getProducts")
-    void 제품을_저장한다(Product product) {
-        Product actual = productRepository.save(product);
+    @Test
+    void 제품을_저장한다() {
+        Product actual = saveProduct(ProductFixture.산토리_위스키);
         assertThat(actual).isNotNull();
-    }
-    private Stream<Product> getProducts() {
-        return Stream.of(참이슬, 처음처럼, 간바레오또상, 일품진로, 산토리_위스키);
     }
 
     private Product saveProduct(ProductFixture productFixture) {
