@@ -71,12 +71,13 @@ class ProductServiceTest extends ServiceTest {
     @DisplayName("제품을 수정한다.")
     @Test
     void 제품을_수정한다() {
+
+        Long imageId = product.getImage().getId();
+
         Image savedNewImage = storageRepository.save(new Image("test2.jpg"));
         Long newImageId = savedNewImage.getId();
 
-        Long imageId = product.getImage().getId();
         ProductUpdateRequest request = ProductFixture.PRODUCT_SOJU1.toUpdateRequest(product, imageId, newImageId);
-        request.setImageId(imageId);
 
         productService.update(request);
         assertThat(request).isNotNull();
