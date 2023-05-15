@@ -1,36 +1,36 @@
-import * as S from './MyInformation.styled';
-
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Password from './Password/Password';
-import Profile from './Profile/Profile';
-import { useState } from 'react';
+import Password from '@/components/MyInformation/Password/Password';
+import Profile from '@/components/MyInformation/Profile/Profile';
+
+import * as S from './MyInformation.styled';
 
 function MyInformation() {
-  const [tabmenu, setTabmenu] = useState(0);
+  const [tabMenu, setTabMenu] = useState(0);
 
   return (
     <>
-      <S.Navi>
+      <S.Nav>
         <S.Block></S.Block>
         <Link
           to="./"
-          css={tabmenu === 0 ? S.ActiveTab : S.LinkStyle}
-          onClick={() => setTabmenu(0)}
-          onSelect={() => setTabmenu(0)}
+          css={tabMenu === 0 ? S.ActiveTab : S.LinkStyle}
+          onClick={() => setTabMenu(0)}
+          onSelect={() => setTabMenu(0)}
         >
           프로필 수정
         </Link>
         <Link
           to="./"
-          css={tabmenu === 1 ? S.ActiveTab : S.LinkStyle}
-          onClick={() => setTabmenu(1)}
+          css={tabMenu === 1 ? S.ActiveTab : S.LinkStyle}
+          onClick={() => setTabMenu(1)}
         >
           비밀번호 변경
         </Link>
-      </S.Navi>
-      {tabmenu === 0 && <Profile />}
-      {tabmenu === 1 && <Password />}
+      </S.Nav>
+      {tabMenu === 0 && <Profile />}
+      {tabMenu === 1 && <Password />}
     </>
   );
 }

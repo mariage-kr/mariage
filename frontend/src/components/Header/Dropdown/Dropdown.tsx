@@ -1,7 +1,7 @@
 import {
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
-} from '@/types/category';
+} from '@/@types/category';
 import * as S from './Dropdown.styled';
 
 function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {

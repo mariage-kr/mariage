@@ -1,8 +1,8 @@
 import { axios, axiosWithAccessToken } from '../axios';
 import { API_PATH } from '@/constants/path';
-import { SignupUser } from '@/types/user';
+import { SignupUserType } from '@/@types/user';
 
-const requestSignup = (userData: SignupUser) => {
+const requestSignup = (userData: SignupUserType) => {
   return axios.post(API_PATH.MEMBER.SIGNUP, userData);
 };
 

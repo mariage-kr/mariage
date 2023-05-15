@@ -36,7 +36,7 @@ function SignUp() {
   const [isValidBirth, setIsValidBirth] = useState<boolean>(true);
   const [isValidNull, setIsValidNull] = useState<boolean>(true);
 
-  const isNull = () => {
+  const isNull = (): boolean => {
     if (
       isValidName ||
       isValidEmail ||

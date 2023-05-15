@@ -1,5 +1,5 @@
 import { axios } from '../axios';
-import { CategoryType } from '@/types/category';
+import { CategoryType } from '@/@types/category';
 import { API_PATH } from '@/constants/path';
 
 interface requestDataType {

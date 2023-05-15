@@ -10,24 +10,26 @@ import {
   requestSaveProduct,
   requestUpdateProduct,
 } from '@/apis/request/product';
+
+import { COUNTRY_TYPE } from '@/constants/category';
+
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
 import useSearchParam from '@/hooks/useSearchParam';
-import { ProductInfoType } from '@/types/product';
+import useLevel from '@/hooks/useLevel';
+
+import { ImageIdType } from '@/@types/id';
+import { ProductModifyInfoType } from '@/@types/product';
 import {
   DrinkCategoryResponseType,
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
   CountryType,
-} from '@/types/category';
+} from '@/@types/category';
 
 import * as S from './Admin.styled';
-
-type ImageIdType = {
-  imageId: number;
-};
 
 function Admin() {
   /* 쿼리스트링 */
@@ -53,7 +55,6 @@ function Admin() {
     setValue: setInfo,
     defaultData: defaultInfo,
   } = useInput<string>('');
-  const [level, setLevel] = useState<number>(0);
   const {
     value: country,
     setValue: setCountry,
@@ -76,6 +77,7 @@ function Admin() {
     setValue: setImage,
     preview: previewImage,
   } = useImage<File | null>(null);
+  const { level, setLevel, inputLevel } = useLevel<number>(0);
 
   /* 불러온 이미지 */
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -84,21 +86,6 @@ function Admin() {
   /* 검증 변수 */
   const [isValid, setIsValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
-  /* Input */
-  const changeLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    const onlyNumber = parseFloat(value.replace(/[^\d.]/g, ''));
-    const roundedNumber = Math.round(onlyNumber * 10) / 10;
-    let finalNumber = isNaN(roundedNumber) ? 0 : roundedNumber;
-
-    if (finalNumber > 100.0) {
-      finalNumber = 100.0;
-    }
-
-    setLevel(finalNumber);
-  };
 
   /* 카테고리 데이터 요청 */
   const getCountryCategory = async () => {
@@ -113,7 +100,7 @@ function Admin() {
         setDrinkCategoryResponse(response.data);
       })
       .catch(error => {
-        console.error(error);
+        setErrorMessage(error.response.data.message);
       });
   };
 
@@ -121,7 +108,8 @@ function Admin() {
   const getProductInfo = async () => {
     await requestProductInfo(parseInt(productId!))
       .then(response => {
-        const data: ProductInfoType = response.data;
+        const data: ProductModifyInfoType = response.data;
+        console.log(response);
         defaultName(data.name);
         defaultInfo(data.info);
         defaultCountry(data.country);
@@ -132,19 +120,20 @@ function Admin() {
         setImageId(data.imageId);
       })
       .catch(error => {
-        console.error(error);
+        // console.log(error);
+        setErrorMessage(error.response.data.message);
       });
   };
 
-  /* 제품 등록/수정 요청 */
-  const uploadImage = async () => {
+  /* 제품 등록, 수정 요청 */
+  const uploadImage = async (): Promise<number> => {
     const data: ImageIdType = await requestSaveImage(image!);
     return data.imageId;
   };
 
   const saveProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const imageId = await uploadImage();
+    const imageId: number = await uploadImage();
     if (!imageId) {
       alert('사진이 정상적으로 저장되지 않았습니다.\n다시한번 시도해주세요.');
       return;
@@ -159,17 +148,20 @@ function Admin() {
       imageId,
     })
       .then(response => {
+        /* TODO: 추후 제품의 상세 페이지로 이동 */
         console.log(response);
       })
       .catch(error => {
-        console.log(error);
+        if (error.response.status === 400) {
+          setErrorMessage(error.response.data.message);
+        }
       });
   };
 
   const updateProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newImageId = await uploadImage();
+    const newImageId: number = await uploadImage();
     const id: number = parseInt(productId!);
     if (!imageId) {
       return;
@@ -187,10 +179,13 @@ function Admin() {
       newImageId,
     })
       .then(response => {
+        /* TODO: 추후 제품의 상세 페이지로 이동 */
         console.log(response);
       })
       .catch(error => {
-        console.error(error);
+        if (error.response.status === 400) {
+          setErrorMessage(error.response.data.message);
+        }
       });
   };
 
@@ -217,7 +212,10 @@ function Admin() {
     if (drinkCategoryResponse && country) {
       const foundRegionCategory = drinkCategoryResponse.category.find(
         (category: DrinkRegionCategoryType) =>
-          category.value === (country === 'KOREA' ? 'LOCAL' : 'FOREIGN'),
+          category.value ===
+          (country === COUNTRY_TYPE.KOREA
+            ? COUNTRY_TYPE.REGION.LOCAL
+            : COUNTRY_TYPE.REGION.FOREIGN),
       );
       setDrinkRegionCategory(foundRegionCategory);
     }
@@ -261,17 +259,17 @@ function Admin() {
       <S.Form onSubmit={productId === null ? saveProduct : updateProduct}>
         {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>제품 이름</S.Label>
-        <S.Input type={'text'} value={name} onChange={setName}></S.Input>
+        <S.Input type={'text'} value={name} onChange={setName} />
         <S.Label>알코올 도수</S.Label>
         <S.Input
           type={'number'}
           value={level}
-          onChange={changeLevel}
+          onChange={inputLevel}
           max={100}
           min={0}
-        ></S.Input>
+        />
         <S.Label>제품 설명</S.Label>
-        <S.TextArea onChange={setInfo} value={info}></S.TextArea>
+        <S.TextArea onChange={setInfo} value={info} />
         <S.Count>글자 수 : {info.length}</S.Count>
         <S.Label>국가</S.Label>
         <label>
@@ -334,15 +332,11 @@ function Admin() {
         <S.Label>이미지</S.Label>
         {imageUrl && (
           <>
-            <S.Image src={imageUrl} alt="" />
+            <S.Image src={imageUrl} alt=""></S.Image>
             <S.Label>수정할 이미지</S.Label>
           </>
         )}
-        <S.Input
-          type={'file'}
-          title={'이미지 업로드'}
-          onChange={setImage}
-        ></S.Input>
+        <S.Input type={'file'} title={'이미지 업로드'} onChange={setImage} />
         {previewImage && <S.Image src={previewImage} alt="미리보기" />}
         {isValid ? (
           <S.Button type={'submit'} isValid={isValid}>
