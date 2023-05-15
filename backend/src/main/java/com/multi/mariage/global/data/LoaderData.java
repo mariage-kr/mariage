@@ -1,11 +1,8 @@
-package com.multi.mariage;
+package com.multi.mariage.global.data;
 
-import com.multi.mariage.category.domain.DrinkLowerCategory;
-import com.multi.mariage.category.domain.DrinkUpperCategory;
-import com.multi.mariage.country.domain.Country;
+import com.multi.mariage.global.data.Fixture.ProductFixture;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.service.MemberService;
-import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.service.ProductService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -17,7 +14,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
-public class InitDB {
+public class LoaderData {
 
     private final InitMemberService memberService;
     private final InitProductService productService;
@@ -53,26 +50,26 @@ public class InitDB {
         private final StorageRepository storageRepository;
 
         private Image saveImage1;
+        private Image saveImage2;
+        private Image saveImage3;
+        private Image saveImage4;
+        private Image saveImage5;
 
         private void imageSetUp() {
-            Image image = new Image("product/chamisul.png");
-
-            saveImage1 = storageRepository.save(image);
+            saveImage1 = storageRepository.save(new Image("product/chamisul.png"));
+            saveImage2 = storageRepository.save(new Image("product/chumchurum.png"));
+            saveImage3 = storageRepository.save(new Image("product/ganbareotosang.png"));
+            saveImage4 = storageRepository.save(new Image("product/ilpoomjinro.png"));
+            saveImage5 = storageRepository.save(new Image("product/suntory.png"));
         }
 
         public void init() {
             imageSetUp();
-            ProductSaveRequest product1 = ProductSaveRequest.builder()
-                    .name("참이슬")
-                    .country(Country.KOREA)
-                    .level(16.5)
-                    .info("1998년 10월 19일 국내 소주 시장에 첫선을 보인 참이슬은 소주는 25도라는 상식을 깨며, 독한 소주의 이미지를 ‘부드럽고 깨끗하게’ 바꿔 놓은\n" +
-                            "국내 소주 최고의 브랜드입니다.")
-                    .upperCategory(DrinkUpperCategory.LOCAL_SOJU)
-                    .lowerCategory(DrinkLowerCategory.NORMAL_SOJU)
-                    .imageId(saveImage1.getId())
-                    .build();
-            productService.save(product1);
+            productService.save(ProductFixture.참이슬.toProduct(saveImage1.getId()));
+            productService.save(ProductFixture.처음처럼.toProduct(saveImage2.getId()));
+            productService.save(ProductFixture.간바레오또상.toProduct(saveImage3.getId()));
+            productService.save(ProductFixture.일품진로.toProduct(saveImage4.getId()));
+            productService.save(ProductFixture.산토리_위스키.toProduct(saveImage5.getId()));
         }
     }
 }
