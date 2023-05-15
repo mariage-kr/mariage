@@ -8,6 +8,7 @@ import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
