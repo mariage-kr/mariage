@@ -10,7 +10,7 @@ import static com.multi.mariage.product.domain.QProduct.product;
 
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private final JPAQueryFactory queryFactory;
-
+    
     public ProductRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
@@ -18,7 +18,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     @Override
     public List<Product> searchProductByName(String name) {
         return queryFactory.selectFrom(product)
-                .where(product.name.like(name))
+                .where(product.name.contains(name))
                 .fetch();
     }
 }
