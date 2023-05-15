@@ -6,14 +6,27 @@ import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+public class ServerTimeUtil {
+    public static LocalDateTime getCurrentDateTime() {
+        return LocalDateTime.now();
+    }
+
+    public static LocalDateTime getCurrentDateTimeWithDayPrecision() {
+        LocalDateTime currentDateTime = getCurrentDateTime();
+        return LocalDateTime.of(currentDateTime.getYear(), currentDateTime.getMonth(), currentDateTime.getDayOfMonth(), currentDateTime.getHour(), 0, 0);
+    }
+}
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,6 +36,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
+
+    @Column(nullable = false)
     private int productScore;
     private String productContent;
     private String foodContent;
