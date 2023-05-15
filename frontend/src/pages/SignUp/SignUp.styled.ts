@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  margin: 0 10%;
+  margin: 50px 10%;
 `;
 
 const Header = styled.h1`
@@ -46,7 +46,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-bottom: 3px solid #bb2649;
+    border-bottom: 3px solid #9c94d0;
   }
 `;
 

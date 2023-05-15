@@ -1,15 +1,21 @@
+import { useEffect } from 'react';
+
 import Dropdown from './Dropdown/Dropdown';
-import Profile from './Profile/Profile';
+import User from './User/Profile';
+import Search from './Search/Search';
 
 import { BROWSER_PATH } from '@/constants/path';
+import { useDrinkUpperCategory } from '@/hooks/useCategory';
+import { CategoryType } from '@/types/category';
 
 import * as S from './Header.styled';
 
-import categoryData from './category.json';
-import Search from './Search/Search';
-
 function Header() {
-  const data = categoryData;
+  const { value: category, setValue: setCategory } = useDrinkUpperCategory();
+
+  useEffect(() => {
+    setCategory;
+  }, []);
 
   return (
     <S.Container>
@@ -19,12 +25,19 @@ function Header() {
         </S.StyledLink>
       </S.Logo>
       <S.Nav>
-        {data.category.map((category, index) => {
-          return <Dropdown key={index} data={category} />;
+        {category.map((category: CategoryType, index: number) => {
+          return (
+            <Dropdown
+              value={category.value}
+              region={category.region}
+              categories={category.categories}
+              key={index}
+            />
+          );
         })}
       </S.Nav>
       <Search />
-      <Profile />
+      <User />
     </S.Container>
   );
 }

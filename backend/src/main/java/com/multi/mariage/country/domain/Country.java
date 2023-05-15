@@ -1,27 +1,23 @@
 package com.multi.mariage.country.domain;
 
-import com.multi.mariage.product.domain.Product;
-import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
-public class Country {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "column_id")
-    private Long id;
+public enum Country {
+    //TODO: 추후 나라 추가
+    KOREA(1, "대한민국", "korea"),
+    USA(2, "미국", "usa"),
+    JAPAN(3, "일본", "japan"),
+    CHINA(4, "중국", "china");
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "country_name", nullable = false, unique = true)
-    private Value name;
+    private int id;
+    private String country;
+    private String flagName;
 
-    @OneToMany(mappedBy = "country")
-    private List<Product> products = new ArrayList<>();
+
+    Country(int id, String country, String flagName) {
+        this.id = id;
+        this.country = country;
+        this.flagName = flagName;
+    }
 }

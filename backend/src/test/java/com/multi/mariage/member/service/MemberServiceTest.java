@@ -33,9 +33,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MemberServiceTest extends ServiceTest {
-
-    @Value("${fileDir}")
-    private String fileDir;
+    @Value("${storagePath}")
+    private String STORAGE_PATH;
 
     @Autowired
     private MemberService memberService;
@@ -138,7 +137,7 @@ class MemberServiceTest extends ServiceTest {
 
         MyInfoResponse actual = memberService.findMemberInfo(authMember);
 
-        assertThat(actual.getImagePath()).isEqualTo(fileDir + "profile.png");
+        assertThat(actual.getImagePath()).isEqualTo(STORAGE_PATH + "profile.png");
         System.out.println(actual.getImagePath());
     }
 
@@ -152,6 +151,17 @@ class MemberServiceTest extends ServiceTest {
         AuthMember authMember = convertMember(member);
 
         return memberService.updateImage(authMember, file);
+    }
+
+    @DisplayName("회원의 별칭을 조회한다.")
+    @Test
+    void 회원의_별칭을_조회한다() {
+        AuthMember authMember = convertMember(member);
+        String expected = MemberFixture.MARI.toSignupRequest().getNickname();
+
+        String actual = memberService.findMemberNickname(authMember).getNickname();
+
+        assertThat(actual).isEqualTo(expected);
     }
 
     @DisplayName("비밀번호 수정 테스트")

@@ -41,7 +41,7 @@ class MemberControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andDo(
-                        document("Member: Signup",
+                        document("Member/Signup",
                                 preprocessRequest(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("name").description("회원 이름"),
@@ -61,18 +61,18 @@ class MemberControllerTest extends ControllerTest {
         mockMvc.perform(delete("/api/user/members/withdraw")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
-                .andDo(document("Member: Withdraw"))
+                .andDo(document("Member/Withdraw"))
                 .andExpect(status().isOk());
     }
 
     @DisplayName("사용자의 프로필 이미지를 수정한다.")
     @Test
     void 사용자의_프로필_이미지를_수정한다() throws Exception {
-        mockMvc.perform(multipart("/api/user/members/update/image")
+        mockMvc.perform(multipart("/api/user/members/image")
                         .file(IMAGE)
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
-                .andDo(document("Member: UpdateImage",
+                .andDo(document("Member/UpdateImage",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
                                         fieldWithPath("imagePath").description("수정한 이미지 파일의 경로")
@@ -85,14 +85,14 @@ class MemberControllerTest extends ControllerTest {
     @DisplayName("사용자의 프로필 이미지를 삭제한다.")
     @Test
     void 사용자의_프로필_이미지를_삭제한다() throws Exception {
-        mockMvc.perform(multipart("/api/user/members/update/image")
+        mockMvc.perform(multipart("/api/user/members/image")
                 .file(IMAGE)
                 .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN));
 
-        mockMvc.perform(patch("/api/user/members/remove/image")
+        mockMvc.perform(patch("/api/user/members/image")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
-                .andDo(document("Member: RemoveImage"))
+                .andDo(document("Member/RemoveImage"))
                 .andExpect(status().isOk());
     }
 
@@ -102,13 +102,13 @@ class MemberControllerTest extends ControllerTest {
         UpdateNicknameRequest request = new UpdateNicknameRequest("마리아주");
         String content = objectMapper.writeValueAsString(request);
 
-        mockMvc.perform(patch("/api/user/members/update/nickname")
+        mockMvc.perform(patch("/api/user/members/nickname")
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
                 .andDo(
-                        document("Member: UpdateNickname",
+                        document("Member/UpdateNickname",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 requestFields(
@@ -129,13 +129,13 @@ class MemberControllerTest extends ControllerTest {
         UpdatePasswordRequest request = new UpdatePasswordRequest(password, "mari12!@");
         String content = objectMapper.writeValueAsString(request);
 
-        mockMvc.perform(patch("/api/user/members/update/password")
+        mockMvc.perform(patch("/api/user/members/password")
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
                 .andDo(
-                        document("Member: UpdatePassword",
+                        document("Member/UpdatePassword",
                                 preprocessRequest(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("password").description("현재 비밀번호"),
@@ -153,12 +153,29 @@ class MemberControllerTest extends ControllerTest {
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
                 .andDo(
-                        document("Member: FindMemberInfo",
+                        document("Member/FindMemberInfo",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
                                         fieldWithPath("birth").description("회원 생년월일"),
                                         fieldWithPath("email").description("회원 이메일"),
                                         fieldWithPath("imagePath").description("프로필 이미지 경로"),
+                                        fieldWithPath("nickname").description("회원 별칭")
+                                )
+                        )
+                )
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("회원의 별칭을 조회한다.")
+    @Test
+    void 회원의_별칭을_조회한다() throws Exception {
+        mockMvc.perform(get("/api/user/members/nickname")
+                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
+                .andDo(print())
+                .andDo(
+                        document("Member/FindMemberNickname",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
                                         fieldWithPath("nickname").description("회원 별칭")
                                 )
                         )

@@ -18,8 +18,8 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class StorageServiceTest extends ServiceTest {
-    @Value("${fileDir}")
-    private String FILE_DIR;
+    @Value("${storagePath}")
+    private String STORAGE_PATH;
 
     @Autowired
     private StorageService storageService;
@@ -54,7 +54,7 @@ class StorageServiceTest extends ServiceTest {
     @ValueSource(strings = {"mari.png", "suri.png"})
     void 파일의_저장경로를_가져온다(String fileName) {
         String actual = storageService.getFilePath(fileName);
-        String expected = FILE_DIR + fileName;
+        String expected = STORAGE_PATH + fileName;
 
         assertThat(actual).isEqualTo(expected);
     }

@@ -5,22 +5,23 @@ import { Like } from '../../../assets/svg/SVG';
 
 interface LikeButtonProps {
   liked: boolean;
+  likeCount: number;
   onClick: () => void;
 }
 
-const LikeButton = (props: LikeButtonProps) => {
-  const [liked, setLiked] = useState(props.liked);
+function LikeButton({ liked, likeCount, onClick }: LikeButtonProps) {
+  const [like, setLike] = useState(liked);
 
   const handleButtonClick = () => {
-    setLiked(!liked);
+    setLike(!like);
+    onClick();
   };
 
   return (
-    <S.Button liked={liked} onClick={handleButtonClick}>
+    <S.Button liked={like} onClick={handleButtonClick}>
       <S.Container>
-        <Like fill={liked ? 'white' : 'black'} />
-        {/* TODO: 더미데이터 */}
-        <S.Number liked={liked}>10</S.Number>
+        <Like fill={like ? 'white' : 'black'} />
+        <S.Number liked={like}>{likeCount}</S.Number>
       </S.Container>
     </S.Button>
   );

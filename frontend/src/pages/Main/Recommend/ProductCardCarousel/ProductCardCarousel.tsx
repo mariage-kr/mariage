@@ -15,9 +15,9 @@ const ProductCardCarousel = () => {
 
     if (width >= 1800) {
       return Math.floor(width / 320) - 1;
-    } else if (width >= 1500) {
+    } else if (width >= 1570) {
       return 4;
-    } else if (width >= 1180) {
+    } else if (width >= 1200) {
       return 3;
     }
     return 2;
@@ -74,7 +74,7 @@ const ProductCardCarousel = () => {
           },
           children: <span>{`<`}</span>,
         }}
-        speed={400}
+        speed={1000}
         easing="linear"
       >
         {dummy.cards.map((card, index: number) => {

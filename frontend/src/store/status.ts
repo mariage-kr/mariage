@@ -1,12 +1,24 @@
-import { DefaultValue, selector } from 'recoil';
+import { DefaultValue, atom, selector } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
+import { isBoolean } from '@/utils/boolean';
+import { CategoryType } from '@/types/category';
 
-const isBoolean = (value: string): boolean => {
-  const truthy: string[] = ['true', 'True', '1'];
-  return truthy.includes(value);
-};
+const { persistAtom } = recoilPersist();
+
+const drinkUpperCategoryState = atom<CategoryType[]>({
+  key: 'drinkUpperCategoryState',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
+
+const userNicknameState = atom<string>({
+  key: 'userNickname',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
 
 const isLoginState = selector<boolean>({
   key: 'isLogin',
@@ -56,4 +68,10 @@ const refreshTokenState = selector<string>({
   },
 });
 
-export { isLoginState, accessTokenState, refreshTokenState };
+export {
+  drinkUpperCategoryState,
+  userNicknameState,
+  isLoginState,
+  accessTokenState,
+  refreshTokenState,
+};

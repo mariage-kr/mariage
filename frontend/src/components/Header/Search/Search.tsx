@@ -1,9 +1,15 @@
 import * as S from './Search.styled';
+import { ReactComponent as SearchImg } from '../../../assets/svg/search.svg';
 
 function Search() {
   return (
     <S.Container>
-      <S.Input placeholder="원하시는 주류를 검색하세요"></S.Input>
+      <S.Input
+        type={'text'}
+        placeholder="원하시는 주류를 검색하세요"
+        autoComplete={'off'}
+      ></S.Input>
+      <SearchImg />
     </S.Container>
   );
 }

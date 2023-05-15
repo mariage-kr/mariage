@@ -29,6 +29,9 @@ public class StorageService {
     @Value("${fileDir}")
     private String fileDir;
 
+    @Value("${storagePath}")
+    private String was;
+
     @Transactional
     public Image save(MultipartFile file) {
         String saveFileName = convertFileName(file.getOriginalFilename());
@@ -36,13 +39,14 @@ public class StorageService {
         return storageRepository.save(new Image(saveFileName));
     }
 
+    @Transactional
     public ImageSavedResponse upload(MultipartFile file) {
         return ImageSavedResponse.from(save(file));
     }
 
     private String convertFileName(String originFileName) {
         String uuid = UUID.randomUUID().toString();
-        String extension = "";
+        String extension;
         try {
             extension = Objects.requireNonNull(originFileName)
                     .substring(originFileName.lastIndexOf("."));
@@ -60,6 +64,7 @@ public class StorageService {
         }
     }
 
+    @Transactional
     public void remove(Image image) {
         try {
             Path path = Paths.get(fileDir + image.getName());
@@ -70,7 +75,12 @@ public class StorageService {
         }
     }
 
+    public Image findById(Long id) {
+        return storageRepository.findById(id)
+                .orElseThrow(() -> new StorageException(StorageErrorCode.FILE_IS_NOT_EXIST));
+    }
+
     public String getFilePath(String fileName) {
-        return fileDir + fileName;
+        return was + fileName;
     }
 }

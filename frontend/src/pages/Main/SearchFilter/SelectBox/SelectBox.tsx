@@ -1,78 +1,80 @@
 import { useEffect, useState } from 'react';
-import * as S from './SelectBox.styled';
 
 import useSelect from '@/hooks/useSelect';
+import { useDrinkUpperCategory } from '@/hooks/useCategory';
+import { CategoryType } from '@/types/category';
 
-interface Options {
-  value: string;
-  name: string;
+import * as S from './SelectBox.styled';
+
+/**
+ * 1. [Typescript] React - useState를 props로 전달할 때의 타입 선언
+ * https://velog.io/@rkio/Typescript-React-useState%EB%A5%BC-props%EB%A1%9C-%EC%A0%84%EB%8B%AC%ED%95%A0-%EB%95%8C%EC%9D%98-%ED%83%80%EC%9E%85-%EC%84%A0%EC%96%B8
+ *
+ * 2. React + Typescript 프롭스 타입 정의 하기
+ * https://velog.io/@ovogmap/React-Typescript-2
+ *
+ * 3. typescript에서 undefined value 처리하기
+ * https://blog.toycrane.xyz/typescript%EC%97%90%EC%84%9C-undefined-value-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0-181035b5ee47
+ */
+
+interface functionProp {
+  onChange: Function;
 }
 
-function SelectBox() {
-  const mainOptions = [
-    { value: 'domestic', name: '국내' },
-    { value: 'overseas', name: '해외' },
-  ];
+function SelectBox({ onChange }: functionProp) {
+  const drinkUpperCategory = useDrinkUpperCategory().value;
+  const [category, setCategory] = useState<CategoryType | undefined>(
+    drinkUpperCategory[0],
+  );
 
-  // 국내
-  const domesticOptions = [
-    { value: 'soju', name: '소주' },
-    { value: 'beer', name: '맥주' },
-    { value: 'traditionalLiquor', name: '전통주' },
-    { value: 'etc', name: 'etc' },
-  ];
+  const { value: region, setValue: setRegion } = useSelect<string>(
+    drinkUpperCategory[0].region,
+  );
+  const { value: selectCategory, setValue: setSelectCategory } =
+    useSelect<string>('');
 
-  // 해외
-  const overseasOptions = [
-    { value: 'spirits', name: '증류주' },
-    { value: 'beer', name: '맥주' },
-    { value: 'wine', name: '와인' },
-    { value: 'whisky', name: '위스키' },
-    { value: 'etc', name: 'etc' },
-  ];
-
-  const { value: option, setValue: setOption } = useSelect(mainOptions[0].value);
-  const [middle, setMiddle] = useState<Options[]>([]);
-
-  // const { value: middleOption, setValue: setMiddleOption } = useSelect(domesticOptions[0].value, overseasOptions[0].value);
-
-  const onChangeHanlder = (option: string) => {
-    if (option === 'domestic') {
-      setMiddle(domesticOptions);
-    } else {
-      setMiddle(overseasOptions);
-    }
+  const onRegionChangeHandler = (region: string) => {
+    setCategory(
+      drinkUpperCategory.find(category => category.region === region),
+    );
   };
 
   useEffect(() => {
-    onChangeHanlder(option);
-  }, [onChangeHanlder, option]);
+    const defaultCategory: string = drinkUpperCategory.find(
+      category => category.region === region,
+    )!.categories[0].name;
 
-  const [currentValue, setCurrentValue] = useState(mainOptions[0].name);
-  const [showOptions, setShowOptions] = useState(false);
+    onRegionChangeHandler(region);
+    onChange({ region: region, category: defaultCategory });
+  }, [region]);
 
-  const handleSelectValue = (e : any) => {
-	  setCurrentValue(e.target.getAttribute("value"));
-  };
+  useEffect(() => {
+    onChange({ region: region, category: selectCategory });
+  }, [selectCategory]);
 
   return (
     <S.Container>
       <label>
-        <S.SelectBox onChange={setOption}>
-          {mainOptions.map(mainOption => (
-            <S.Option key={mainOption.value} value={mainOption.value}>
-            {mainOption.name}
+        <S.SelectBox onChange={setRegion}>
+          {drinkUpperCategory.map((category: CategoryType, index: number) => (
+            <S.Option key={index} value={category.region}>
+              {category.region}
             </S.Option>
           ))}
         </S.SelectBox>
       </label>
       <label>
-        <S.SelectBox>
-          {middle.map((domesticOption, index) => (
-            <S.Option key={index} value={domesticOption.value}>
-              {domesticOption.name}
-            </S.Option>
-          ))}
+        <S.SelectBox
+          id="category"
+          onChange={setSelectCategory}
+          value={selectCategory}
+        >
+          {category &&
+            category.categories.map((category, index: number) => (
+              <S.Option key={index} value={category.value}>
+                {category.name}
+              </S.Option>
+            ))}
         </S.SelectBox>
       </label>
     </S.Container>

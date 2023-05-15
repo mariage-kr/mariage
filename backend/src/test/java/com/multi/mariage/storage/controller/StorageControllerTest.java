@@ -30,13 +30,13 @@ class StorageControllerTest extends ControllerTest {
         saveMember();
         String accessToken = accessToken();
 
-        mockMvc.perform(multipart("/api/user/image")
+        mockMvc.perform(multipart("/api/user/storage/image")
                         .file(IMAGE)
                         .header("Authorization", "Bearer " + accessToken)
                 )
                 .andDo(print())
                 .andDo(
-                        document("Storage: Save",
+                        document("Storage/Save",
                                 preprocessResponse(prettyPrint()),
                                 requestParts(
                                         partWithName("file").description("업로드를 원하는 이미지")),

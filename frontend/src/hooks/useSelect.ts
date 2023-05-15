@@ -7,7 +7,15 @@ function useSelect<T>(initialState: T) {
     setValue(e.target.value);
   };
 
-  return { value, setValue: changeValue };
+  const resetValue = () => {
+    setValue('');
+  };
+
+  const defaultValue = (data: string) => {
+    setValue(data);
+  };
+
+  return { value, setValue: changeValue, resetValue, defaultValue };
 }
 
 export default useSelect;

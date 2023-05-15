@@ -8,26 +8,25 @@ const CarouselCard = styled.div`
 `;
 
 const CardContainer = styled.div`
-  margin: 0 25px 20px 25px;
-
-  width: 220px;
-  height: 343.2px;
+  margin: 0 20px 10px;
+  width: 240px;
+  height: 350px;
 
   border: 1px solid #9c94d066;
   border-radius: 10px;
-
-  box-shadow: 3px 3px 3px #00000033;
-
+  box-shadow: 3px 3px 3px #9c94d033;
   transition: 250ms;
 
   &:hover {
     box-shadow: 3px 3px 3px #9c94d0;
   }
+
+  @media (min-width:1920px) { margin: 0 18px 10px; }
 `;
 
 const Wrapper = styled.div`
-  height: 26vh;
-  margin-left: 1vw;
+  height: 260px;
+  margin: 0 10px 0 8px;
 `;
 
 const Inner = styled.div`
@@ -36,7 +35,7 @@ const Inner = styled.div`
 
 const inner_left = css`
   float: left;
-  width: 40%;
+  width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -44,78 +43,83 @@ const inner_left = css`
 `;
 
 const Img = styled.img`
-  width: 80%;
-  height: 80%;
-  margin-bottom: 1vh;
+  width: 90%;
+  height: 100%;
+  margin-bottom: 10px;
 `;
 
 const inner_right = css`
-  border-left: 1px solid #9c94d0;
   box-sizing: border-box;
   float: right;
-  width: 60%;
-  height: 20.5vh;
-  margin: 5.5vh auto 0;
+  width: 50%;
+  margin: 125px auto 0;
 `;
 
 const StarRate = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 6vh;
-  margin: 4vh auto 0;
+  height: 60px;
+  margin: 0 auto;
   text-align: center;
 `;
 
 const StarRateText = styled.p`
   width: 100%;
   margin: 0 auto;
-  font-size: 1vw;
+  font-size: 1.2rem;
   font-weight: bold;
 `;
 
 const Review = styled.p`
   width: 100%;
-  margin: 1vh 0;
+  margin: 20px 0 0;
   text-align: center;
-  font-size: 0.9vw;
+  font-size: 1.1rem;
 `;
 
 const ReviewCount = styled.span`
   color: #bb2649;
-  font-size: 0.9vw;
+  font-size: 1rem;
+`;
+
+const Bottom = styled.div`
+  margin: 0 auto;
+  text-align: center;
+  overflow: hidden;
+`;
+
+const Name = styled.div`
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
 `;
 
 const Country = styled.div`
   width: 100%;
+  margin: 0 5px;
+  display: inline-block;
+  vertical-align: top;
 `;
 
 const country_left = css`
-  float: left;
-  width: 30%;
-  height: auto;
+  border-radius: 50%;
+  box-shadow: 1px 1px #9c94d055;
+  width: 30px;
+  height: 30px;
   text-align: right;
 `;
+
 const FlagImg = styled.img`
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const country_right = css`
-  float: right;
-  width: 70%;
-  height: 4vh;
-  font-size: 0.8vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Bottom = styled.div`
-  margin-top: 1vh;
-  text-align: center;
-  font-size: 1vw;
-  font-weight: bold;
-  letter-spacing: 0.1em;
+  width: auto;
+  height: auto;
+  padding: 3px 0 0;
+  font-size: 1rem;
 `;
 
 export {
@@ -130,9 +134,10 @@ export {
   StarRateText,
   Review,
   ReviewCount,
+  Bottom,
+  Name,
   Country,
   country_left,
   FlagImg,
-  country_right,
-  Bottom,
+  country_right
 };

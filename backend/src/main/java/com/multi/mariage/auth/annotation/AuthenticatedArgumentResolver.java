@@ -30,7 +30,7 @@ public class AuthenticatedArgumentResolver implements HandlerMethodArgumentResol
 
     @Override
     public AuthMember resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                      NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                      NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String authorization = Objects.requireNonNull(request)
                 .getHeader(HEADER_AUTHORIZATION);

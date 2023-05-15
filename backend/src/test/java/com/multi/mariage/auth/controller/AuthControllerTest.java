@@ -43,7 +43,7 @@ class AuthControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andDo(
-                        document("Auth: Login",
+                        document("Auth/Login",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 requestFields(
@@ -67,7 +67,7 @@ class AuthControllerTest extends ControllerTest {
 
         mockMvc.perform(delete("/api/user/auth/logout")
                         .header(AUTHORIZATION, BEARER_PREFIX + token.getAccessToken()))
-                .andDo(document("Auth: Logout"))
+                .andDo(document("Auth/Logout"))
                 .andExpect(status().isOk());
     }
 
@@ -81,7 +81,7 @@ class AuthControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andDo(
-                        document("Auth: Reissue",
+                        document("Auth/Reissue",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 requestFields(

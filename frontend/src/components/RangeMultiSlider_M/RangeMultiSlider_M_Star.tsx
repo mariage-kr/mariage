@@ -15,11 +15,11 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
-const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
+function RangeMultiSlider_M_Star({
   min,
   max,
   onChange,
-}) => {
+}: rangeMultiSliderProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -60,7 +60,7 @@ const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
   // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  }, [minVal, maxVal]);
 
   return (
     <>
@@ -77,7 +77,7 @@ const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
             setMinVal(value);
             event.target.value = value.toString();
           }}
-          css={[S.thumb_zindex3, S.thumb_zindex5(minVal, max)]}
+          css={[S.Thumb_zIndex3, S.Thumb_zIndex5(minVal, max)]}
         />
         <S.Thumb
           type="range"
@@ -90,18 +90,17 @@ const RangeMultiSlider_M_Star: FC<rangeMultiSliderProps> = ({
             setMaxVal(value);
             event.target.value = value.toString();
           }}
-          css={S.thumb_zindex4}
+          css={S.Thumb_zIndex4}
         />
-
         <S.Slider>
           <S.Slider_sub css={S.slider_sub12}></S.Slider_sub>
           <S.Slider_sub css={S.slider_sub12} ref={range}></S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{minVal}</S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{maxVal}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{minVal / 10}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{maxVal / 10}</S.Slider_sub>
         </S.Slider>
       </S.Container>
     </>
   );
-};
+}
 
 export default RangeMultiSlider_M_Star;

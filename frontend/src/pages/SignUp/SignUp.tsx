@@ -17,13 +17,14 @@ import * as S from './SignUp.styled';
 function SignUp() {
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState('');
-  const { value: name, setValue: setName } = useInput('');
-  const { value: email, setValue: setEmail } = useInput('');
-  const { value: password, setValue: setPassword } = useInput('');
-  const { value: confirmPassword, setValue: setConfirmPassword } = useInput('');
-  const { value: nickname, setValue: setNickname } = useInput('');
-  const { value: birth, setValue: setBirth } = useInput('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const { value: name, setValue: setName } = useInput<string>('');
+  const { value: email, setValue: setEmail } = useInput<string>('');
+  const { value: password, setValue: setPassword } = useInput<string>('');
+  const { value: confirmPassword, setValue: setConfirmPassword } =
+    useInput<string>('');
+  const { value: nickname, setValue: setNickname } = useInput<string>('');
+  const { value: birth, setValue: setBirth } = useInput<string>('');
 
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isValidName, setIsValidName] = useState<boolean>(true);
@@ -77,7 +78,7 @@ function SignUp() {
   const signup = () => {
     requestSignup({ name, email, password, nickname, birth })
       .then(() => {
-        navigate(BROWSER_PATH.LOGIN);
+        navigate(BROWSER_PATH.LOGIN, { replace: true });
       })
       .catch(error => {
         setErrorMessage(error.response.data.message);
@@ -88,7 +89,7 @@ function SignUp() {
   return (
     <S.Container>
       <S.Header>회원가입</S.Header>
-      <S.Form onSubmit={signup}>
+      <S.Form>
         {isValid && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>이름</S.Label>
         <S.Input
@@ -148,11 +149,11 @@ function SignUp() {
           생년월일은 공백일 수 없습니다.
         </S.InfoMessage>
         {isValidNull ? (
-          <S.DisableButton type={'submit'} disabled>
-            가입하기
-          </S.DisableButton>
+          <S.DisableButton disabled>가입하기</S.DisableButton>
         ) : (
-          <S.Button type={'submit'}>가입하기</S.Button>
+          <S.Button type={'button'} onClick={signup}>
+            가입하기
+          </S.Button>
         )}
       </S.Form>
     </S.Container>
