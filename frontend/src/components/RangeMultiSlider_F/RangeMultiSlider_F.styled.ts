@@ -5,7 +5,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 240px;
+  width: 15vw;
   height: 3vh;
 `;
 
@@ -16,7 +16,7 @@ const Thumb = styled.input`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 240px;
+    width: 15vw;
     outline: none;
   }
 
@@ -64,7 +64,7 @@ const thumb_zindex5 = (minVal: number, max: number) => css`
 
 const Slider = styled.div`
   position: relative;
-  width: 240px;
+  width: 15vw;
 `;
 
 const Slider_sub = styled.div`

@@ -12,6 +12,7 @@ function Product() {
       </S.Aside>
       <S.Contents>
         <Option />
+        {/* TODO: map함수 써야함 */}
         <ProductCard />
       </S.Contents>
     </S.Container>

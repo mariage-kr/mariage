@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   width: 100%;
-  max-width: 600px;
 `;
 
 const FilterWrap = styled.div`

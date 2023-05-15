@@ -2,17 +2,26 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: flex;
+  justify-content: flex-start;
   flex-flow: row wrap;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin: 50px 0;
   padding: 20px;
+  box-sizing: border-box;
   border: 1px solid #ddd;
   border-radius: 30px;
-  transition: all
+  transition: all 0.2s;
 
   &:hover {
     box-shadow: 0px 8px 10px #00000050;
+  }
+
+  &:hover > div {
+    :first-child {
+      transition: all 0.25s;
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -21,12 +30,12 @@ const Image = styled.div`
 `;
 
 const Img = styled.img`
-  width: 90%;
+  width: 100%;
 `;
 
 const Content = styled.div`
   width: 60%;
-  padding: 10px 30px;
+  padding: 20px 0 0 40px;
 `;
 
 const CountryWrap = styled.div`

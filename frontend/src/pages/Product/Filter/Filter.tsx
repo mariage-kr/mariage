@@ -76,7 +76,7 @@ const Filter: React.FC<FilterProps> = ({ name, total }) => {
             별점
             <RangeMultiSlider_F
               min={0}
-              max={50}
+              max={5}
               onChange={({ min, max }: { min: number; max: number }) =>
                 changeRateOption({
                   max: max,
