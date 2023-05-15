@@ -5,17 +5,13 @@ import RangeMultiSlider_M_Star from '@/components/RangeMultiSlider_M/RangeMultiS
 import RangeMultiSlider_M_ABV from '@/components/RangeMultiSlider_M/RangeMultiSlider_M_ABV';
 
 import * as S from './SearchFilter.styled';
+import { Range } from '@/@types/slider';
 
 type Option = {
   region: string;
   category: string;
   rate: Range;
   level: Range;
-};
-
-type Range = {
-  max: number;
-  min: number;
 };
 
 function SearchFilter() {

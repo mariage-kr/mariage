@@ -1,14 +1,21 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 
 import * as S from './ProductCard.styled';
+import { ProductRecommendType } from '@/@types/product';
 
-function ProductCard({ card }: any) {
+function ProductCard({
+  img,
+  reviewCount,
+  name,
+  flagImg,
+  country,
+}: ProductRecommendType) {
   return (
     <S.CarouselCard>
       <S.CardContainer>
         <S.Wrapper>
           <S.Inner css={S.inner_left}>
-            <S.Img alt="" src={card.img} />
+            <S.Img alt="" src={img} />
           </S.Inner>
           <S.Inner css={S.inner_right}>
             <S.StarRate>
@@ -16,16 +23,16 @@ function ProductCard({ card }: any) {
               <StarRateAverage averageReviewRate={3.6} />
             </S.StarRate>
             <S.Review>
-              <S.ReviewCount>{card.review}</S.ReviewCount> reviews
-            </S.Review>   
+              <S.ReviewCount>{reviewCount}</S.ReviewCount> reviews
+            </S.Review>
           </S.Inner>
         </S.Wrapper>
         <S.Bottom>
-          <S.Name>{card.name}</S.Name>
+          <S.Name>{name}</S.Name>
           <S.Country css={S.country_left}>
-            <S.FlagImg alt="" src={card.flagImg} />
+            <S.FlagImg alt="" src={flagImg} />
           </S.Country>
-          <S.Country css={S.country_right}>{card.country}</S.Country>
+          <S.Country css={S.country_right}>{country}</S.Country>
         </S.Bottom>
       </S.CardContainer>
     </S.CarouselCard>

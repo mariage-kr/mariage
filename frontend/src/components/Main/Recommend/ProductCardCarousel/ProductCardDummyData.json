@@ -2,16 +2,16 @@
   "cards": [
     {
       "id": 1,
+      "name": "참이슬",
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/Hufh9mi5Jq.png",
-      "review": 20,
-      "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png",
+      "reviewCount": 20,
       "country": "Korea",
-      "name": "참이슬"
+      "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png"
     },
     {
       "id": 2,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/uACKv0Fhba.png",
-      "review": 50,
+      "reviewCount": 50,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png",
       "country": "Korea",
       "name": "처음처럼"
@@ -19,7 +19,7 @@
     {
       "id": 3,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/XVt7ybK6oF.png",
-      "review": 120,
+      "reviewCount": 120,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png",
       "country": "Korea",
       "name": "일품진로"
@@ -27,7 +27,7 @@
     {
       "id": 4,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/a2P3PXaMwY.png",
-      "review": 80,
+      "reviewCount": 80,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png",
       "country": "Japan",
       "name": "간바레오또상"
@@ -35,7 +35,7 @@
     {
       "id": 5,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/Hufh9mi5Jq.png",
-      "review": 20,
+      "reviewCount": 20,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png",
       "country": "Korea",
       "name": "참이슬"
@@ -43,7 +43,7 @@
     {
       "id": 6,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/uACKv0Fhba.png",
-      "review": 50,
+      "reviewCount": 50,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png",
       "country": "Korea",
       "name": "처음처럼"
@@ -51,7 +51,7 @@
     {
       "id": 7,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/XVt7ybK6oF.png",
-      "review": 120,
+      "reviewCount": 120,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/7I84JTTVYR.png",
       "country": "Korea",
       "name": "일품진로"
@@ -59,7 +59,7 @@
     {
       "id": 8,
       "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/a2P3PXaMwY.png",
-      "review": 80,
+      "reviewCount": 80,
       "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png",
       "country": "Japan",
       "name": "간바레오또상"

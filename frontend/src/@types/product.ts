@@ -61,6 +61,15 @@ type ProductInfoType = {
   food: PairingFoodType[];
 };
 
+type ProductRecommendType = {
+  id: number;
+  name: string;
+  img: string;
+  reviewCount: number;
+  country: string;
+  flagImg: string;
+};
+
 export {
   ProductModifyInfoType,
   ProductSaveType,
@@ -68,4 +77,5 @@ export {
   PairingFoodType,
   ProductContentType,
   ProductInfoType,
+  ProductRecommendType,
 };

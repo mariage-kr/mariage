@@ -3,11 +3,15 @@ import Carousel from 'react-simply-carousel';
 
 import ProductCard from '../ProductCard/ProductCard';
 
+import { ProductRecommendType } from '@/@types/product';
+
 import * as S from './ProductCardCarousel.styled';
 
 import dummy from './ProductCardDummyData.json';
 
 const ProductCardCarousel = () => {
+  const data: ProductRecommendType[] = dummy.cards;
+
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   const getItemCount = (): number => {
@@ -77,8 +81,8 @@ const ProductCardCarousel = () => {
         speed={1000}
         easing="linear"
       >
-        {dummy.cards.map((card, index: number) => {
-          return <ProductCard card={card} keys={index} />;
+        {data.map((product: ProductRecommendType) => {
+          return <ProductCard key={product.id} {...product} />;
         })}
       </Carousel>
     </S.Container>
