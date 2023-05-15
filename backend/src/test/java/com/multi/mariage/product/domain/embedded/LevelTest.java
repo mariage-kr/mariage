@@ -23,16 +23,16 @@ class LevelTest {
 
     @DisplayName("도수의 값이 0 미만 100 초과이면 예외를 던진다.")
     @ParameterizedTest
-    @ValueSource(doubles = {0.0001, 100.1, 100.001})
+    @ValueSource(doubles = {100.1, 100.8})
     void 도수의_값이_0_미만_100_초과이면_예외를_던진다(double value) {
         assertThatThrownBy(() -> Level.of(value))
                 .isInstanceOf(ProductException.class)
                 .hasMessageContaining(ProductErrorCode.LEVEL_CANNOT_BE_OUT_OF_RANGE.getMessage());
     }
 
-    @DisplayName("도수의 소수점이 3개 초과이면 예외를 던진다.")
+    @DisplayName("도수의 소수점이 1개 초과이면 예외를 던진다.")
     @ParameterizedTest
-    @ValueSource(doubles = {0.1111, 89.9999})
+    @ValueSource(doubles = {0.11, 89.99})
     void 도수의_소수점이_3개_초과이면_예외를_던진다(double value) {
         assertThatThrownBy(() -> Level.of(value))
                 .isInstanceOf(ProductException.class)

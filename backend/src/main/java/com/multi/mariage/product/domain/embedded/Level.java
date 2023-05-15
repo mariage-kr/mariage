@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Level {
-    private static final String LEVEL_FORMAT = "^\\d+(\\.\\d{1,3})?$";   // 소수점 셋째자리까지 허용.
+    private static final String LEVEL_FORMAT = "^[0-9]+(\\.\\d{1})?$";   // 소수점 첫째자리까지 허용.
     private static final Pattern LEVEL_PATTERN = Pattern.compile(LEVEL_FORMAT);
-    private static final double MIN_VALUE = 0.001;
+    private static final double MIN_VALUE = 0;
     private static final double MAX_VALUE = 100;
     @Column(name = "level", nullable = false)
     private double value;
