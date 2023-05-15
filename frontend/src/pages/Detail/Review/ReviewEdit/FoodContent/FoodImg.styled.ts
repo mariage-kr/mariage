@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import { selector } from 'recoil';
 
 const Container = styled.div`
   overflow: hidden;
   width: 99%;
-  height: 300px;
+  height: 257px;
   border: 1px solid #9C94D044;
   border-radius: 10px;
   box-sizing: border-box;
@@ -21,9 +20,11 @@ const InputImg = styled.input`
 `;
 
 const BtnWrapper = styled.div`
-  width: 95%;
-  margin: 15px 2.5% 5px;
+  float: left;
+  width: 35%;
+  margin: 15px 0 0 2.5%;
   padding: 5px 2px;
+  box-sizing: border-box;
 `;
 
 const InputImgBtn = styled.button`
@@ -49,14 +50,20 @@ const InputImgBtn = styled.button`
 `;
 
 const ImgWrapper = styled.div`
-  width: 95%;
-  height: auto;
-  margin: 0 auto;
+  float: right;
+  width: 57.5%;
+  height: 215px;
+  margin: 20px 2.7% 0 0;
+  padding: 15px 0;
   text-align: center;
+  border: 1px solid #9C94D022;
+  border-radius: 10px;
+  box-shadow: 0 0 3px #9C94D044;
+  box-sizing: border-box;
 `;
 
 const PreviewImg = styled.img`
-  width: 30%;
+  width: 45%;
 `;
 
 

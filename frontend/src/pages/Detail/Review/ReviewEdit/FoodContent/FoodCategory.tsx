@@ -1,7 +1,12 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 import * as S from './FoodCategory.styled';
 
-function FoodCategory() {
+type FunctionProps = {
+  category: string | null;
+  changeCategory: (category: string) => void;
+};
+
+function FoodCategory({category, changeCategory}: FunctionProps) {
 
   // 안주 카테고리 셀렉트
   const foodOptions = [
@@ -29,9 +34,13 @@ function FoodCategory() {
 
   const [radioChecked, setRadioChecked] = useState<number|undefined>();
 
-  const handleRadioBtn = (e: any) => {
-    setRadioChecked(e.target.value)
-  }
+  const handleRadioBtn = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedValue = parseInt(e.target.value);
+    const category = foodOptions.find(
+      category => category.id === selectedValue,
+    )!.name;
+    changeCategory(category);
+  };
 
   return (
     <S.Container>
@@ -43,7 +52,7 @@ function FoodCategory() {
                 type="radio"
                 key={foodOption.id} 
                 value={foodOption.id}
-                checked={radioChecked === foodOption.id}
+                checked={category === foodOption.name}
                 onChange={handleRadioBtn}
               />
               <S.Label>

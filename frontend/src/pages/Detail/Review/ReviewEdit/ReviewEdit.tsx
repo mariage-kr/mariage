@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import useSelect from '@/hooks/useSelect';
 import StarRate from "@/components/StarRate/Common/StarRate";
 import FoodCategory from './FoodContent/FoodCategory';
 import FoodImg from './FoodContent/FoodImg';
+import HashTag from './HashTag/HashTag';
 import * as S from './ReviewEdit.styled';
 
 type PropsType = {
@@ -14,23 +14,28 @@ type PropsType = {
 }
 
 function ReviewEdit({id, flagImg, country, name, level}: PropsType) {
-
   // 버튼 클릭 이벤트
   const [content, setContent] = useState();
+  const [category, setCategory] = useState<string | null>(null);
 
   const handleClickButton = (e: any) => {
       const { name } = e.target;
       setContent(name);
   };
 
-  const btnDatas = [
+  const btnData = [
     { id: 1, name: 'FoodCategory', text: '음식 카테고리' },
     { id: 2, name: 'FoodImg', text: '음식 사진 추가' },
   ]
 
   const selectComponent = {
-    FoodCategory: <FoodCategory />,
-    FoodImg: <FoodImg />
+    FoodCategory: (
+      <FoodCategory
+        category={category}
+        changeCategory={(category: string) => setCategory(category)}
+      />
+    ),
+    FoodImg: <FoodImg />,
   };
 
   return (
@@ -58,7 +63,7 @@ function ReviewEdit({id, flagImg, country, name, level}: PropsType) {
       
         <S.Bottom>
           <S.BtnWrapper>
-          {btnDatas.map(data => {
+          {btnData.map(data => {
             return (
               <S.Btn
                 onClick={handleClickButton}
@@ -71,6 +76,19 @@ function ReviewEdit({id, flagImg, country, name, level}: PropsType) {
           })}
           </S.BtnWrapper>
           {content && <S.FoodContent>{selectComponent[content]}</S.FoodContent>}
+          {category !== null && <p>{category}</p>}
+          <S.HashTag>
+            <S.HashTagTitle>#해시태그</S.HashTagTitle>
+            <HashTag />
+          </S.HashTag>
+          <S.FinalBtn>
+            <S.Cancel>
+              <S.CancelBtn>취소</S.CancelBtn>
+            </S.Cancel>
+            <S.Submit>
+              <S.SubmitBtn>적용</S.SubmitBtn>
+            </S.Submit>
+          </S.FinalBtn>
         </S.Bottom>
       </S.Wrapper>
     </S.Container>
