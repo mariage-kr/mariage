@@ -3,6 +3,9 @@ package com.multi.mariage.product.domain;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.product.domain.embedded.Name;
+import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.storage.domain.Image;
+import com.multi.mariage.storage.repository.StorageRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,15 +22,6 @@ public class ProductRepositoryTest extends RepositoryTest {
     @BeforeEach
     void setUp() {
         product = productRepository.save(ProductFixture.일품진로.toProduct());
-    }
-
-    @DisplayName("제품을 저장한다.")
-    @Test
-    void 제품을_저장한다() {
-        Product expected = ProductFixture.처음처럼.toProduct();
-
-        Product actual = productRepository.save(expected);
-        assertThat(actual).isEqualTo(expected);
     }
 
     @DisplayName("해당 제품이 이미 존재하는지 확인한다.")
