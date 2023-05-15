@@ -43,7 +43,8 @@ function Pairing() {
         {pairing.foods.map(food => (
           <S.Food>
             <S.FoodImg src={food.img}/>
-            <S.Name>{food.name}<S.Rate>{food.rate}</S.Rate></S.Name>
+            <S.NameRate css={S.name}>{food.name}</S.NameRate>
+            <S.NameRate css={S.rate}>{food.rate}</S.NameRate>
           </S.Food>
         ))}
         </S.PairingFood>

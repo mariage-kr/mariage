@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-
 
 const Container = styled.div`
   margin: 0;
@@ -8,10 +6,13 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
   border: 1px solid #9C94D055;
   width: 85%;
   margin: 0 0 0 30px;
   padding: 0;
+
+  @media (max-width: 980px) { width: 84%; }
 `;
 
 const Top = styled.div`
@@ -62,6 +63,7 @@ const Star = styled.div`
     width: 68%; 
     text-align: left;
   }
+  @media (max-width: 1100px) { width: 72%; }
 `;
 
 const Graph = styled.div`
@@ -95,46 +97,8 @@ const Count = styled.div`
     width: 30%;
     text-align : left;
   }
+  @media (max-width: 1100px) { width: 25%; }
 `;
-
-const EditBtn = styled.button`
-  border-radius: 5px;
-  box-sizing: border-box;
-  box-shadow: 1px 1px 3px #00000030;
-  background-color: #9C94D0;
-  width: 85%;
-  height: 50px;
-  margin: 30px 0 0 30px;
-  padding: 0;
-  text-align : center;
-  color: #fff;
-  transition: 250ms;
-  
-  &:hover {
-    box-shadow: 1.5px 1.5px 3px #9C94D0;
-    transform: scale(1.05);
-  } 
-`;
-
-const Edit = styled.div`
-  display: inline-block;
-  vertical-align: bottom;
-  margin: 0 5px;
-  font-size: 1.1rem;
-`;
-
-const editi = css`
-  width: 25px;
-  height: 25px;
-`;
-
-const EditIcon = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin: 0 10px 0 0;
-`;
-
 
 
 export {
@@ -149,9 +113,5 @@ export {
   Star,
   Graph,
   TempGraph,
-  Count,
-  EditBtn,
-  EditIcon,
-  editi,
-  Edit
+  Count
 };

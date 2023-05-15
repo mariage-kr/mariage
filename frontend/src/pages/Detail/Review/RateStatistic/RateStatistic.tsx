@@ -1,5 +1,4 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
-import editicon from '@/assets/png/edit.png';
 import * as S from './RateStatistic.styled';
 
 function RateStatistic() {
@@ -50,10 +49,6 @@ function RateStatistic() {
           </S.RateOption>
         </S.Bottom>
       </S.Wrapper>
-      <S.EditBtn>
-        <S.Edit css={S.editi}><S.EditIcon src={editicon} /></S.Edit>
-        <S.Edit>리뷰 작성</S.Edit>
-      </S.EditBtn>
     </S.Container>
   );
 };

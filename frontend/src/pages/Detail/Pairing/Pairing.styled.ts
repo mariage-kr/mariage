@@ -76,6 +76,7 @@ const Food = styled.li`
   box-sizing: border-box;
   display: inline-block;
   width: 17.2%;
+  overflow: hidden;
   transition: all 0.2s linear;
 
   &:hover { 
@@ -97,15 +98,23 @@ const FoodImg = styled.img`
   object-fit: cover;
 `;
 
-const Name = styled.p`
+const NameRate = styled.div`
+  margin: 5px 0 0;
+  padding: 0;
+  display: inline-block;
   text-align: center;
   font-size: 1.1rem;
+
+  @media (max-width:1140px) { display: block; }
 `;
 
-const Rate = styled.span`
+const name = css``;
+
+const rate = css`
   margin-left: 15px;
   color: #bb2649;
 
+  @media (max-width:1140px) { margin-left: 0; }
 `;
 
 export {
@@ -120,6 +129,7 @@ export {
   PairingFood,
   Food,
   FoodImg,
-  Name,
-  Rate
+  NameRate,
+  name,
+  rate
 };
