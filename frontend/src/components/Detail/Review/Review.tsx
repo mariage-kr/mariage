@@ -13,6 +13,7 @@ import { ProductContentType } from '@/@types/product';
 import * as S from './Review.styled';
 
 import reviewsData from './ReviewContent/ReviewsData.json';
+import { PagingType } from '@/@types/paging';
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review(productContent: ProductContentType) {
@@ -24,11 +25,13 @@ function Review(productContent: ProductContentType) {
     // document.body.style.overflow = "hidden";
   }, [isOpenModal]);
 
+  const data: PagingType<ReviewType> = reviewsData;
+
   return (
     <S.Container>
       <S.Left>
         <ReviewCategory />
-        {reviewsData.reviews.map((review: ReviewType) => {
+        {data.content.map((review: ReviewType) => {
           return <ReviewContent {...review} />;
         })}
       </S.Left>

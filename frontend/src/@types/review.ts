@@ -1,13 +1,3 @@
-type ReviewPagingType = {
-  reviews: ReviewType[];
-  pageNumber: number;
-  totalCount: number; // 해당 제품의 전체 리뷰 수
-  pageSize: number;
-  totalPages: number;
-  isFirstPage: boolean;
-  isLastPage: boolean;
-};
-
 type ReviewType = {
   id: number;
   member: ReviewMemberType;
@@ -41,7 +31,6 @@ type ReviewFoodType = {
 };
 
 export {
-  ReviewPagingType as ReviewResponseType,
   ReviewType,
   ReviewMemberType,
   ReviewContentType,
