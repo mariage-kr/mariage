@@ -38,9 +38,9 @@ public class ProductsVO {
     public static ProductsVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country, String imageUrl) {
         return ProductsVO.builder()
                 .id(product.getId())
-                .name(String.valueOf(product.getName()))
+                .name(product.getName())
                 .level(product.getLevel().getValue())
-                .info(String.valueOf(product.getInfo()))
+                .info(product.getInfo())
                 .upperCategory(upperCategory.getName())
                 .lowerCategory(lowerCategory.getName())
                 .country(country.getCountry())

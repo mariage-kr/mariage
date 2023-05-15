@@ -81,4 +81,12 @@ public class Product {
         this.upperCategory = request.getUpperCategory();
         this.lowerCategory = request.getLowerCategory();
     }
+
+    public String getName() {
+        return name.getValue();
+    }
+
+    public String getInfo() {
+        return info.getValue();
+    }
 }
