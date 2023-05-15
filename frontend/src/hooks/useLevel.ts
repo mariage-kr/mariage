@@ -6,19 +6,7 @@ function useLevel<T>(initialState: T) {
   const inputLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    const finalNumber = validIsNumber(value);
-
-    setLevel(finalNumber);
-  };
-
-  const changeLevel = (level: number) => {
-    const finalNumber = validIsNumber(level);
-
-    setLevel(finalNumber);
-  };
-
-  const validIsNumber = (number: any): number => {
-    const onlyNumber = parseFloat(number.replace(/[^\d.]/g, ''));
+    const onlyNumber = parseFloat(value.replace(/[^\d.]/g, ''));
     const roundedNumber = Math.round(onlyNumber * 10) / 10;
     let finalNumber = isNaN(roundedNumber) ? 0 : roundedNumber;
 
@@ -26,7 +14,11 @@ function useLevel<T>(initialState: T) {
       finalNumber = 100.0;
     }
 
-    return finalNumber;
+    setLevel(finalNumber);
+  };
+
+  const changeLevel = (level: number) => {
+    setLevel(level);
   };
 
   return { level, setLevel: changeLevel, inputLevel };
