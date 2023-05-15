@@ -1,6 +1,6 @@
 package com.multi.mariage.member.service;
 
-import com.multi.mariage.auth.dto.AuthMember;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;

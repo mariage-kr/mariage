@@ -1,7 +1,7 @@
 package com.multi.mariage.member.controller;
 
 import com.multi.mariage.auth.annotation.Authenticated;
-import com.multi.mariage.auth.dto.AuthMember;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;

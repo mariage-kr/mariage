@@ -1,6 +1,6 @@
 package com.multi.mariage.member.service;
 
-import com.multi.mariage.auth.dto.AuthMember;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.domain.embedded.Email;

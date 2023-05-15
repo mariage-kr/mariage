@@ -1,6 +1,6 @@
 package com.multi.mariage.auth.service;
 
-import com.multi.mariage.auth.dto.AuthMember;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
 import com.multi.mariage.auth.support.TokenProvider;
