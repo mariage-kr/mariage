@@ -37,7 +37,7 @@ class MemberServiceTest extends ServiceTest {
     private String STORAGE_PATH;
 
     @Autowired
-    private MemberService memberService;
+    private MemberFindService memberService;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -46,13 +46,13 @@ class MemberServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        member = memberService.signup(MemberFixture.MARI.toSignupRequest());
+        member = memberModifyService.signup(MemberFixture.MARI.toSignupRequest());
     }
 
     @DisplayName("회원 탈퇴한다.")
     @Test
     void 회원_탈퇴한다() {
-        memberService.withdrawalByMember(new AuthMember(member.getId()));
+        memberModifyService.withdrawalByMember(new AuthMember(member.getId()));
 
         Optional<Member> actual = memberRepository.findById(member.getId());
 
@@ -66,7 +66,7 @@ class MemberServiceTest extends ServiceTest {
         AuthMember authMember = convertMember(member);
         UpdateNicknameRequest request = new UpdateNicknameRequest(nickname);
 
-        UpdateNicknameResponse actual = memberService.updateNickname(authMember, request);
+        UpdateNicknameResponse actual = memberModifyService.updateNickname(authMember, request);
 
         assertAll(
                 () -> assertThat(actual).isNotNull(),
@@ -88,7 +88,7 @@ class MemberServiceTest extends ServiceTest {
         updateImage();
 
         assertAll(
-                () -> assertThatCode(() -> memberService.removeImage(convertMember(member)))
+                () -> assertThatCode(() -> memberModifyService.removeImage(convertMember(member)))
                         .doesNotThrowAnyException(),
                 () -> assertThat(member.getImage()).isNull()
         );
@@ -100,7 +100,7 @@ class MemberServiceTest extends ServiceTest {
     void 회원_가입한다() {
         MemberSignupRequest request = MemberFixture.SURI.toSignupRequest();
 
-        Member actual = memberService.signup(request);
+        Member actual = memberModifyService.signup(request);
 
         assertThat(actual).isNotNull();
     }
@@ -110,7 +110,7 @@ class MemberServiceTest extends ServiceTest {
     void 이미_가입된_이메일인_경우_예외를_던진다() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
 
-        assertThatThrownBy(() -> memberService.signup(request))
+        assertThatThrownBy(() -> memberModifyService.signup(request))
                 .isInstanceOf(MemberException.class)
                 .hasMessageContaining(MemberErrorCode.SIGNUP_INVALID_EMAIL.getMessage());
     }
@@ -150,7 +150,7 @@ class MemberServiceTest extends ServiceTest {
         MockMultipartFile file = ImageFixture.JPEG_IMAGE.toMultipartFile();
         AuthMember authMember = convertMember(member);
 
-        return memberService.updateImage(authMember, file);
+        return memberModifyService.updateImage(authMember, file);
     }
 
     @DisplayName("회원의 별칭을 조회한다.")
@@ -187,7 +187,7 @@ class MemberServiceTest extends ServiceTest {
             String password = MemberFixture.MARI.toLoginRequest().getPassword();
             UpdatePasswordRequest request = new UpdatePasswordRequest(password, newPassword);
 
-            assertThatCode(() -> memberService.updatePassword(authMember, request))
+            assertThatCode(() -> memberModifyService.updatePassword(authMember, request))
                     .doesNotThrowAnyException();
         }
 
@@ -197,7 +197,7 @@ class MemberServiceTest extends ServiceTest {
         void 잘못된_비밀번호_입력시_예외를_던진다(UpdatePasswordRequest request, String message) {
             AuthMember authMember = convertMember(member);
 
-            assertThatThrownBy(() -> memberService.updatePassword(authMember, request))
+            assertThatThrownBy(() -> memberModifyService.updatePassword(authMember, request))
                     .isInstanceOf(MemberException.class)
                     .hasMessageContaining(message);
         }

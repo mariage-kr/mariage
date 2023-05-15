@@ -26,5 +26,4 @@ public class CountryResponse {
                 .length(country.size())
                 .build();
     }
-
 }

@@ -1,11 +1,10 @@
 package com.multi.mariage.auth.service;
 
-import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
 import com.multi.mariage.auth.support.TokenProvider;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
-import com.multi.mariage.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,6 @@ class AuthServiceTest extends ServiceTest {
 
     @Autowired
     private AuthService authService;
-
-    @Autowired
-    private MemberService memberService;
-
     @Autowired
     private TokenProvider tokenProvider;
 
@@ -58,7 +53,7 @@ class AuthServiceTest extends ServiceTest {
     }
 
     void signupMember() {
-        memberService.signup(MARI.toSignupRequest());
+        memberModifyService.signup(MARI.toSignupRequest());
     }
 
     LoginRequest convertWrongRequest(LoginRequest request) {

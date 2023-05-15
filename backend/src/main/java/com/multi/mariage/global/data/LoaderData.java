@@ -2,7 +2,7 @@ package com.multi.mariage.global.data;
 
 import com.multi.mariage.global.data.Fixture.ProductFixture;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
-import com.multi.mariage.member.service.MemberService;
+import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.service.ProductService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -30,7 +30,7 @@ public class LoaderData {
     @RequiredArgsConstructor
     @Component
     static class InitMemberService {
-        private final MemberService memberService;
+        private final MemberModifyService memberService;
 
         public void init() {
             MemberSignupRequest request = MemberSignupRequest.builder()

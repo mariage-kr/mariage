@@ -5,7 +5,7 @@ import com.multi.mariage.auth.dto.request.ReissueRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
 import com.multi.mariage.auth.service.AuthService;
 import com.multi.mariage.common.annotation.ControllerTest;
-import com.multi.mariage.member.service.MemberService;
+import com.multi.mariage.member.service.MemberFindService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class AuthControllerTest extends ControllerTest {
     @Autowired
     private AuthService authService;
     @Autowired
-    private MemberService memberService;
+    private MemberFindService memberService;
 
     @BeforeEach
     void setUp() {
@@ -99,7 +99,7 @@ class AuthControllerTest extends ControllerTest {
     }
 
     void signupMember() {
-        memberService.signup(MARI.toSignupRequest());
+        memberModifyService.signup(MARI.toSignupRequest());
     }
 
     TokenResponse loginMember(LoginRequest request) {

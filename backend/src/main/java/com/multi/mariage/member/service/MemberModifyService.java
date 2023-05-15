@@ -10,8 +10,6 @@ import com.multi.mariage.member.domain.embedded.Password;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
-import com.multi.mariage.member.dto.response.MyInfoResponse;
-import com.multi.mariage.member.dto.response.NicknameResponse;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
@@ -25,15 +23,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 @Service
-public class MemberService {
+public class MemberModifyService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final StorageService storageService;
+    private final MemberFindService memberFindService;
 
-    @Transactional
     public Member signup(MemberSignupRequest request) {
         Email email = Email.of(request.getEmail());
 
@@ -56,20 +54,13 @@ public class MemberService {
         }
     }
 
-    @Transactional
     public void withdrawalByMember(AuthMember authMember) {
-        Member member = findById(authMember.getId());
+        Member member = memberFindService.findById(authMember.getId());
         memberRepository.delete(member);
     }
 
-    private Member findById(Long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
-    }
-
-    @Transactional
     public UpdateImageResponse updateImage(AuthMember authMember, MultipartFile file) {
-        Member member = findById(authMember.getId());
+        Member member = memberFindService.findById(authMember.getId());
 
         if (hasImage(member)) {
             remove(member);
@@ -83,7 +74,7 @@ public class MemberService {
     }
 
     public void removeImage(AuthMember authMember) {
-        Member member = findById(authMember.getId());
+        Member member = memberFindService.findById(authMember.getId());
 
         if (hasImage(member)) {
             remove(member);
@@ -102,9 +93,8 @@ public class MemberService {
         return member.getImage() != null;
     }
 
-    @Transactional
     public UpdateNicknameResponse updateNickname(AuthMember authMember, UpdateNicknameRequest request) {
-        Member member = findById(authMember.getId());
+        Member member = memberFindService.findById(authMember.getId());
         Nickname nickname = Nickname.of(request.getNickname());
 
         member.updateNickname(nickname);
@@ -112,11 +102,10 @@ public class MemberService {
         return UpdateNicknameResponse.from(member);
     }
 
-    @Transactional
     public void updatePassword(AuthMember authMember, UpdatePasswordRequest request) {
         validateSamePassword(request);
 
-        Member member = findById(authMember.getId());
+        Member member = memberFindService.findById(authMember.getId());
         confirmPassword(member, request.getPassword());
 
         member.updatePassword(Password.encrypt(request.getNewPassword(), passwordEncoder));
@@ -133,22 +122,5 @@ public class MemberService {
         if (request.getPassword().equals(request.getNewPassword())) {
             throw new MemberException(MemberErrorCode.MEMBER_PASSWORD_IS_SAME);
         }
-    }
-
-    public MyInfoResponse findMemberInfo(AuthMember authMember) {
-        Member member = findById(authMember.getId());
-        String imageName = getImageName(member.getImage());
-
-        String filePath = storageService.getFilePath(imageName);
-        return MyInfoResponse.from(member, filePath);
-    }
-
-    private String getImageName(Image image) {
-        return image != null ? image.getName() : "profile.png";
-    }
-
-    public NicknameResponse findMemberNickname(AuthMember authMember) {
-        Member member = findById(authMember.getId());
-        return new NicknameResponse(member.getNickname());
     }
 }
