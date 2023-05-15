@@ -1,19 +1,21 @@
-import * as S from './Password.styled';
-
 import { useState, useEffect } from 'react';
 
 import useInput from '@/hooks/useInput';
 import { checkValidPassword } from '@/pages/SignUp/Validate';
 import { MEMBER_RULE } from '@/constants/rule';
 
-function Password() {
-  const { value: password, setValue: setPassword } = useInput('');
-  const { value: newPassword, setValue: setNewPassword } = useInput('');
-  const { value: confirmPassword, setValue: setConfirmPassword } = useInput('');
-  const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
+import * as S from './Password.styled';
 
-  const isNull = () => {
+function Password() {
+  const { value: password, setValue: setPassword } = useInput<string>('');
+  const { value: newPassword, setValue: setNewPassword } = useInput<string>('');
+  const { value: confirmPassword, setValue: setConfirmPassword } =
+    useInput<string>('');
+  const [isValidConfirmPassword, setIsValidConfirmPassword] =
+    useState<boolean>(true);
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
+
+  const isNull = (): boolean => {
     return !(isValidPassword && isValidConfirmPassword);
   };
 
@@ -27,6 +29,7 @@ function Password() {
       return;
     }
   };
+
   return (
     <S.Container>
       <S.Label>현재 비밀번호</S.Label>

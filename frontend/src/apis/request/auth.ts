@@ -1,9 +1,9 @@
 import { axios, axiosWithAccessToken } from '../axios';
 import { API_PATH } from '@/constants/path';
-import { ReissueTokenType } from '@/@types/token';
-import { LoginUser } from '@/@types/user';
+import { Token } from '@/@types/token';
+import { LoginUserType } from '@/@types/user';
 
-const requestLogin = (userData: LoginUser) => {
+const requestLogin = (userData: LoginUserType) => {
   return axios.post(API_PATH.AUTH.LOGIN, userData);
 };
 
@@ -19,7 +19,7 @@ const requestLogout = () => {
   return axiosWithAccessToken.delete(API_PATH.AUTH.LOGOUT);
 };
 
-const requestReissue = (Token: ReissueTokenType) => {
+const requestReissue = (Token: Token) => {
   return axios.post(API_PATH.AUTH.REISSUE, Token);
 };
 

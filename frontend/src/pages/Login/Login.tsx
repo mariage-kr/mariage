@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { requestLogin } from '@/apis/request/auth';
-import { Token } from '@/@types/user';
+import { Token } from '@/@types/token';
 import useAuth from '@/hooks/useAuth';
 import { BROWSER_PATH } from '@/constants/path';
 

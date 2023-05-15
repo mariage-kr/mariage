@@ -1,6 +1,6 @@
-type ReissueTokenType = {
+type Token = {
   accessToken: string;
   refreshToken: string;
 };
 
-export { ReissueTokenType };
+export { Token };

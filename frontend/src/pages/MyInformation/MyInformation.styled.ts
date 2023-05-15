@@ -69,7 +69,7 @@ const ActiveTab = css`
   }
 `;
 
-const Navi = styled.ul`
+const Nav = styled.ul`
   width: 100%;
   margin: 0;
   padding: 0;
@@ -80,4 +80,4 @@ const Block = styled.div`
   width: 20%;
 `;
 
-export { LinkStyle, ActiveTab, Navi, Block };
+export { LinkStyle, ActiveTab, Nav, Block };

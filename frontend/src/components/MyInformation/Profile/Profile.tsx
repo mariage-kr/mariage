@@ -3,18 +3,11 @@ import { useEffect, useState } from 'react';
 import { requestUpdateNickname, requestUserInfo } from '@/apis/request/member';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+import { UserInfoType } from '@/@types/user';
 
 import * as S from './Profile.styled';
 
-type UserInfoType = {
-  nickname: string;
-  email: string;
-  imagePath: string;
-  birth: string;
-};
-
 function Profile() {
-  const [imageUrl, setImageUrl] = useState<string>('');
   const {
     value: nickname,
     setValue: setNickname,

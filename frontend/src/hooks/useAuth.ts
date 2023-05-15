@@ -1,12 +1,8 @@
 import { useRecoilState } from 'recoil';
 
-import {
-  accessTokenState,
-  isLoginState,
-  refreshTokenState,
-} from '@/store/status';
+import { accessTokenState, refreshTokenState } from '@/store/status';
 
-import { Token } from '@/@types/user';
+import { Token } from '@/@types/token';
 
 const useAuth = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
