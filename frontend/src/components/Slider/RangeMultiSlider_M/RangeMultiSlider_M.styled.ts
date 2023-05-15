@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 const Container = styled.div`
-  /* border: 1px solid olive; */
   box-sizing: border-box;
   width: 520px;
   height: 60px;

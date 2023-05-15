@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import { ChangeEvent, useCallback, useEffect, useState, useRef } from 'react';
 
 import * as S from './RangeMultiSlider_M.styled';
 
@@ -15,11 +8,7 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
-function RangeMultiSlider_M_Star({
-  min,
-  max,
-  onChange,
-}: rangeMultiSliderProps) {
+function RangeMultiSlider_M_ABV({ min, max, onChange }: rangeMultiSliderProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -64,6 +53,7 @@ function RangeMultiSlider_M_Star({
 
   return (
     <>
+      <p></p>
       <S.Container>
         <S.Thumb
           type="range"
@@ -91,15 +81,16 @@ function RangeMultiSlider_M_Star({
           }}
           css={S.Thumb_zIndex4}
         />
+
         <S.Slider>
           <S.Slider_sub css={S.slider_sub12}></S.Slider_sub>
           <S.Slider_sub css={S.slider_sub12} ref={range}></S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{minVal / 10}</S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{maxVal / 10}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{minVal}%</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{maxVal}%</S.Slider_sub>
         </S.Slider>
       </S.Container>
     </>
   );
 }
 
-export default RangeMultiSlider_M_Star;
+export default RangeMultiSlider_M_ABV;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import RangeMultiSlider_F from '@/components/RangeMultiSlider_F/RangeMultiSlider_F';
+import RangeMultiSlider_F from '@/components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
 
 import { Range } from '@/@types/slider';
 
