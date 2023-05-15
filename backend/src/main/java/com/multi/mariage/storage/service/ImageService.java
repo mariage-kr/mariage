@@ -1,6 +1,5 @@
 package com.multi.mariage.storage.service;
 
-import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.exception.StorageErrorCode;
 import com.multi.mariage.storage.exception.StorageException;

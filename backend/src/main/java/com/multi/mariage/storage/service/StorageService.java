@@ -40,7 +40,7 @@ public class StorageService {
     }
 
     @Transactional
-    public ImageSavedResponse upload(MultipartFile file) {
+    public ImageSavedResponse saveFile(MultipartFile file) {
         return ImageSavedResponse.from(save(file));
     }
 

@@ -61,6 +61,6 @@ class StorageServiceTest extends ServiceTest {
 
     ImageSavedResponse saveFile() {
         MockMultipartFile file = ImageFixture.JPEG_IMAGE.toMultipartFile();
-        return storageService.upload(file);
+        return storageService.saveFile(file);
     }
 }
