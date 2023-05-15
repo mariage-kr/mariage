@@ -5,6 +5,8 @@ import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
 import com.multi.mariage.storage.repository.StorageRepository;
+import com.multi.mariage.storage.service.StorageService;
+import com.multi.mariage.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,13 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class ServiceTest {
     @Autowired
     protected MemberModifyService memberModifyService;
-
     @Autowired
     protected MemberFindService memberFindService;
     @Autowired
     protected ProductFindService productFindService;
     @Autowired
     protected ProductModifyService productModifyService;
+    @Autowired
+    protected StorageService storageService;
+    @Autowired
+    protected WeatherService weatherService;
     @Autowired
     protected StorageRepository storageRepository;
 }

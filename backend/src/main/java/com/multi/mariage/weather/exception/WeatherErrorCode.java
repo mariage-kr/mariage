@@ -2,7 +2,6 @@ package com.multi.mariage.weather.exception;
 
 import com.multi.mariage.global.exception.exception.ErrorCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public enum WeatherErrorCode implements ErrorCode {
