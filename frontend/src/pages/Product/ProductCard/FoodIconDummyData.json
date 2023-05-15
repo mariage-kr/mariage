@@ -1,0 +1,19 @@
+{
+  "foodIcon": [
+    {
+      "id": 1,
+      "icon": "https://i.esdrop.com/d/f/CeyD9bnnT5/9d5PyHTsce.png",
+      "name": "치즈"
+    },
+    {
+      "id": 2,
+      "icon": "https://i.esdrop.com/d/f/CeyD9bnnT5/ygl89X0Nm1.png",
+      "name": "과자"
+    },
+    {
+      "id": 3,
+      "icon": "https://i.esdrop.com/d/f/CeyD9bnnT5/GDZ5XpdDw9.png",
+      "name": "튀김"
+    }
+  ]
+}
