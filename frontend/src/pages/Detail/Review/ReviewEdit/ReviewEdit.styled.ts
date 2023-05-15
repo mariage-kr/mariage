@@ -21,7 +21,7 @@ const TitleInfo = styled.p`
 
 const Wrapper = styled.div`
   overflow-y: auto; 
-  height: 60vh;
+  height: 62vh;
 
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
@@ -95,9 +95,9 @@ const InputReview = styled.textarea`
   padding: 8px;
   border: none;
   border-radius: 10px;
-  background-color: #9C94D044;
+  background-color: #9C94D022;
   box-sizing: border-box;
-  box-shadow: 0 0 3px #9C94D088;
+  box-shadow: 0 0 5px #9C94D066;
   font-size: small;
   cursor: pointer;
 
@@ -146,6 +146,15 @@ const Btn = styled.button`
   }
 `;
 
+const FoodCategoryPrint = styled.p`
+  margin: 7px 3%;
+  font-size: 1rem;
+`;
+
+const FoodCategorySpan = styled.span`
+  color: #bb2649;
+`;
+
 const FoodContent = styled.div`
   width: 100%;
   height: auto;
@@ -161,30 +170,6 @@ const HashTagTitle = styled.p`
   font-size: 1rem;
   margin: 0;
   padding: 0;
-`;
-
-const InputHashTag = styled.input`
-  width: 99%;
-  height: 40px;
-  margin: 10px 0.5% 0;
-  padding: 5px;
-  border: none;
-  border-radius: 10px;
-  background-color: #9C94D044;
-  box-sizing: border-box;
-  box-shadow: 0 0 3px #9C94D088;
-  font-size: small;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 5px #9C94D0;
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #999999;
-  }
 `;
 
 const FinalBtn = styled.div`
@@ -206,7 +191,7 @@ const CancelBtn = styled.button`
   height: 40px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0 0 3px #9C94D055;
+  box-shadow: 0 0 5px #9C94D088;
   font-size: 1rem;
   transition: 250ms;
 
@@ -215,8 +200,6 @@ const CancelBtn = styled.button`
     transform: scale(1.02);
   }
   &:focus {
-    background-color: #9C94D0;
-    color: #fff;
     transform: scale(1.02);
   }
 `;
@@ -226,7 +209,7 @@ const Submit = styled.div`
   float: right;
   width: 50%;
   margin: 0;
-  padding: 5px 10px;
+  padding: 5px;
   text-align: right;
 `;
 
@@ -234,8 +217,9 @@ const SubmitBtn = styled.button`
   width: 95%;
   height: 40px;
   border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 3px #9C94D055;
+  background-color: #9C94D0;
+  box-shadow: 0 0 5px #b9b9b9;
+  color: #fff;
   font-size: 1rem;
   transition: 250ms;
 
@@ -244,8 +228,6 @@ const SubmitBtn = styled.button`
     transform: scale(1.02);
   }
   &:focus {
-    background-color: #9C94D0;
-    color: #fff;
     transform: scale(1.02);
   }
 `;
@@ -271,10 +253,11 @@ export {
   Bottom,
   BtnWrapper,
   Btn,
+  FoodCategoryPrint,
+  FoodCategorySpan,
   FoodContent,
   HashTag,
   HashTagTitle,
-  InputHashTag,
   FinalBtn,
   Cancel,
   CancelBtn,

@@ -64,9 +64,12 @@ function HashTag() {
       {hashTags.length > 0 &&
         hashTags.map((hashTag) => {
         return (
-          <div key={hashTag} className='tag' onClick={() => removeHashTag(hashTag)}>
-            #{hashTag}
-          </div>
+          <S.HashTagPrint key={hashTag}> 
+            <S.HashTagPrintText key={hashTag}>
+              #{hashTag}
+            </S.HashTagPrintText>
+            <S.RemoveBtn onClick={() => removeHashTag(hashTag)}>x</S.RemoveBtn>
+          </S.HashTagPrint>
         );
       })}
       
@@ -76,7 +79,7 @@ function HashTag() {
         onKeyUp={addHashTag}
         onKeyDown={keyDownHandler}
         disabled={hashTags.length >= 3}
-        placeholder="#해시태그를 등록해보세요. (최대 3개)"
+        placeholder="해시태그를 등록해보세요. (최대 3개)"
       />
     </S.Container>
   );

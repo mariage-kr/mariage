@@ -75,8 +75,9 @@ function ReviewEdit({id, flagImg, country, name, level}: PropsType) {
             );
           })}
           </S.BtnWrapper>
+          {category !== null && <S.FoodCategoryPrint>선택한 카테고리: <S.FoodCategorySpan>{category}</S.FoodCategorySpan></S.FoodCategoryPrint>}
           {content && <S.FoodContent>{selectComponent[content]}</S.FoodContent>}
-          {category !== null && <p>{category}</p>}
+          
           <S.HashTag>
             <S.HashTagTitle>#해시태그</S.HashTagTitle>
             <HashTag />

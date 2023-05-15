@@ -24,9 +24,9 @@ const Wrapper = styled.div`
 
 const DialogBox = styled.dialog`
   width: 800px;
-  height: 700px;
+  height: 80vh;
   position: absolute;
-  top: 100px;
+  top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
