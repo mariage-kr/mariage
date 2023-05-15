@@ -1,11 +1,9 @@
 package com.multi.mariage.product.service;
 
 import com.multi.mariage.common.annotation.ServiceTest;
-import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
-import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.storage.domain.Image;
@@ -14,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 

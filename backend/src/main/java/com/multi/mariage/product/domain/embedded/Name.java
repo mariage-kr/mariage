@@ -8,8 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.regex.Pattern;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable

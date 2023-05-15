@@ -8,8 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.regex.Pattern;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
@@ -35,6 +33,5 @@ public class Info {
             throw new ProductException(ProductErrorCode.INFO_CANNOT_BE_OUT_OF_RANGE);
         }
     }
-
 }
 
