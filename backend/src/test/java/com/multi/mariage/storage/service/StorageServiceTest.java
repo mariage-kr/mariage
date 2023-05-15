@@ -4,12 +4,10 @@ import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.dto.response.ImageSavedResponse;
-import com.multi.mariage.storage.repository.StorageRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -20,12 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class StorageServiceTest extends ServiceTest {
     @Value("${storagePath}")
     private String STORAGE_PATH;
-
-    @Autowired
-    private StorageService storageService;
-
-    @Autowired
-    private StorageRepository storageRepository;
 
     @DisplayName("파일을 저장한다.")
     @Test

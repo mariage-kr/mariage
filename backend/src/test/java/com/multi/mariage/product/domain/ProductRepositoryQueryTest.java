@@ -1,6 +1,7 @@
 package com.multi.mariage.product.domain;
 
 
+import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -15,12 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class ProductRepositoryQueryTest {
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private StorageRepository storageRepository;
+class ProductRepositoryQueryTest extends RepositoryTest {
     private Product 참이슬;
     private Product 처음처럼;
     private Product 간바레오또상;
@@ -42,14 +38,5 @@ class ProductRepositoryQueryTest {
         List<Product> actual = productRepository.searchProductByName("진로");
 
         assertThat(actual).contains(일품진로);
-    }
-
-    private Product saveProduct(ProductFixture productFixture) {
-        Product product = productFixture.toProduct();
-
-        Image image = storageRepository.save(new Image(productFixture.getImageName()));
-        product.setImage(image);
-
-        return productRepository.save(product);
     }
 }

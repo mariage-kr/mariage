@@ -1,7 +1,10 @@
 package com.multi.mariage.country.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public enum Country {
     //TODO: 추후 나라 추가

@@ -1,9 +1,13 @@
 package com.multi.mariage.common.annotation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.auth.service.AuthService;
 import com.multi.mariage.category.service.DrinkUpperCategoryService;
-import com.multi.mariage.member.service.MemberService;
+import com.multi.mariage.common.fixture.MemberFixture;
+import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.member.service.MemberFindService;
+import com.multi.mariage.member.service.MemberModifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,9 +30,22 @@ public abstract class ControllerTest {
     @Autowired
     protected ObjectMapper objectMapper;
     @Autowired
-    protected MemberService memberService;
+    protected MemberFindService memberFindService;
+
+    @Autowired
+    protected MemberModifyService memberModifyService;
     @Autowired
     protected AuthService authService;
     @Autowired
     protected DrinkUpperCategoryService drinkUpperCategoryService;
+
+    protected void saveMember() {
+        MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
+        memberModifyService.signup(request);
+    }
+
+    protected String accessToken(MemberFixture memberFixture) {
+        LoginRequest request = memberFixture.toLoginRequest();
+        return authService.login(request).getAccessToken();
+    }
 }

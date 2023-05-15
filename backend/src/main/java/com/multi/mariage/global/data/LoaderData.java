@@ -2,18 +2,21 @@ package com.multi.mariage.global.data;
 
 import com.multi.mariage.global.data.Fixture.ProductFixture;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
-import com.multi.mariage.member.service.MemberService;
-import com.multi.mariage.product.service.ProductService;
+import com.multi.mariage.member.service.MemberModifyService;
+import com.multi.mariage.product.service.ProductFindService;
+import com.multi.mariage.product.service.ProductModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
+@Profile("dev")
 public class LoaderData {
 
     private final InitMemberService memberService;
@@ -28,7 +31,7 @@ public class LoaderData {
     @RequiredArgsConstructor
     @Component
     static class InitMemberService {
-        private final MemberService memberService;
+        private final MemberModifyService memberService;
 
         public void init() {
             MemberSignupRequest request = MemberSignupRequest.builder()
@@ -46,7 +49,7 @@ public class LoaderData {
     @RequiredArgsConstructor
     @Component
     static class InitProductService {
-        private final ProductService productService;
+        private final ProductModifyService productModifyService;
         private final StorageRepository storageRepository;
 
         private Image saveImage1;
@@ -65,11 +68,11 @@ public class LoaderData {
 
         public void init() {
             imageSetUp();
-            productService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
-            productService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
-            productService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
-            productService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
-            productService.save(ProductFixture.산토리_위스키.toProductSaveRequest(saveImage5.getId()));
+            productModifyService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
+            productModifyService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
+            productModifyService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
+            productModifyService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
+            productModifyService.save(ProductFixture.산토리_위스키.toProductSaveRequest(saveImage5.getId()));
         }
     }
 }

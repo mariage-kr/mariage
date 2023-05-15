@@ -1,4 +1,4 @@
-package com.multi.mariage.auth.dto;
+package com.multi.mariage.auth.vo;
 
 import lombok.AccessLevel;
 import lombok.Getter;

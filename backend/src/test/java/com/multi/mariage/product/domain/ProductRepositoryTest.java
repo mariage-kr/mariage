@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductRepositoryTest extends RepositoryTest {
+class ProductRepositoryTest extends RepositoryTest {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -35,14 +35,5 @@ public class ProductRepositoryTest extends RepositoryTest {
     void 제품을_저장한다() {
         Product actual = saveProduct(ProductFixture.산토리_위스키);
         assertThat(actual).isNotNull();
-    }
-
-    private Product saveProduct(ProductFixture productFixture) {
-        Product product = productFixture.toProduct();
-
-        Image image = storageRepository.save(new Image(productFixture.getImageName()));
-        product.setImage(image);
-
-        return productRepository.save(product);
     }
 }

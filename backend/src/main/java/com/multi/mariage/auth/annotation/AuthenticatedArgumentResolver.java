@@ -1,6 +1,6 @@
 package com.multi.mariage.auth.annotation;
 
-import com.multi.mariage.auth.dto.AuthMember;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.auth.support.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

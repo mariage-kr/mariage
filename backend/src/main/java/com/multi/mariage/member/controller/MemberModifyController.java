@@ -1,15 +1,13 @@
 package com.multi.mariage.member.controller;
 
 import com.multi.mariage.auth.annotation.Authenticated;
-import com.multi.mariage.auth.dto.AuthMember;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
-import com.multi.mariage.member.dto.response.MyInfoResponse;
-import com.multi.mariage.member.dto.response.NicknameResponse;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
-import com.multi.mariage.member.service.MemberService;
+import com.multi.mariage.member.service.MemberModifyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
-public class MemberController {
+public class MemberModifyController {
 
-    private final MemberService memberService;
+    private final MemberModifyService memberService;
 
     @PostMapping("/members/signup")
     public ResponseEntity<Void> signup(@RequestBody MemberSignupRequest request) {
@@ -36,11 +34,6 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/user/members/find")
-    public ResponseEntity<MyInfoResponse> findMemberInfo(@Authenticated AuthMember authMember) {
-        MyInfoResponse response = memberService.findMemberInfo(authMember);
-        return ResponseEntity.ok(response);
-    }
 
     @PatchMapping("/user/members/image")
     public ResponseEntity<Void> removeImage(@Authenticated AuthMember authMember) {
@@ -66,11 +59,5 @@ public class MemberController {
     public ResponseEntity<Void> withdraw(@Authenticated AuthMember authMember) {
         memberService.withdrawalByMember(authMember);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/user/members/nickname")
-    public ResponseEntity<NicknameResponse> findMemberNickname(@Authenticated AuthMember authMember) {
-        NicknameResponse response = memberService.findMemberNickname(authMember);
-        return ResponseEntity.ok(response);
     }
 }

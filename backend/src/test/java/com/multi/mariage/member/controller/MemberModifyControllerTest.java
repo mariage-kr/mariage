@@ -1,10 +1,8 @@
 package com.multi.mariage.member.controller;
 
-import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.common.annotation.ControllerTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
-import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class MemberControllerTest extends ControllerTest {
+class MemberModifyControllerTest extends ControllerTest {
 
     private static final MockMultipartFile IMAGE = ImageFixture.JPEG_IMAGE.toMultipartFile();
     private String ACCESS_TOKEN;
@@ -28,7 +26,7 @@ class MemberControllerTest extends ControllerTest {
     @BeforeEach
     void setUp() {
         saveMember();
-        ACCESS_TOKEN = accessToken();
+        ACCESS_TOKEN = accessToken(MemberFixture.MARI);
     }
 
     @DisplayName("사용자가 회원 가입한다.")
@@ -144,52 +142,5 @@ class MemberControllerTest extends ControllerTest {
                         )
                 )
                 .andExpect(status().isOk());
-    }
-
-    @DisplayName("회원 정보를 조회한다.")
-    @Test
-    void 회원_정보를_조회한다() throws Exception {
-        mockMvc.perform(get("/api/user/members/find")
-                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
-                .andDo(print())
-                .andDo(
-                        document("Member/FindMemberInfo",
-                                preprocessResponse(prettyPrint()),
-                                responseFields(
-                                        fieldWithPath("birth").description("회원 생년월일"),
-                                        fieldWithPath("email").description("회원 이메일"),
-                                        fieldWithPath("imagePath").description("프로필 이미지 경로"),
-                                        fieldWithPath("nickname").description("회원 별칭")
-                                )
-                        )
-                )
-                .andExpect(status().isOk());
-    }
-
-    @DisplayName("회원의 별칭을 조회한다.")
-    @Test
-    void 회원의_별칭을_조회한다() throws Exception {
-        mockMvc.perform(get("/api/user/members/nickname")
-                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
-                .andDo(print())
-                .andDo(
-                        document("Member/FindMemberNickname",
-                                preprocessResponse(prettyPrint()),
-                                responseFields(
-                                        fieldWithPath("nickname").description("회원 별칭")
-                                )
-                        )
-                )
-                .andExpect(status().isOk());
-    }
-
-    void saveMember() {
-        MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
-        memberService.signup(request);
-    }
-
-    String accessToken() {
-        LoginRequest request = MemberFixture.MARI.toLoginRequest();
-        return authService.login(request).getAccessToken();
     }
 }
