@@ -1,21 +1,13 @@
-import ProductContent from '../../components/Detail/ProductContent/ProductContent';
-import Pairing from '../../components/Detail/Pairing/Pairing';
-import Review from '../../components/Detail/Review/Review';
+import { ProductContentType } from '@/@types/product';
+
+import ProductContent from '@/components/Detail/ProductContent/ProductContent';
+import Pairing from '@/components/Detail/Pairing/Pairing';
+import Review from '@/components/Detail/Review/Review';
+
 import * as S from './Detail.styled';
 
-type DetailProductType = {
-  id: number;
-  img: string;
-  flagImg: string;
-  country: string;
-  name: string;
-  level: number;
-  reviewRate: number;
-  content: string;
-};
-
 function Detail() {
-  const productData: DetailProductType = {
+  const productData: ProductContentType = {
     id: 1,
     img: 'https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png',
     flagImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png',
