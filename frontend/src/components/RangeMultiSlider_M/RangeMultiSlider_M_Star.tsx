@@ -64,7 +64,6 @@ function RangeMultiSlider_M_Star({
 
   return (
     <>
-      <p></p>
       <S.Container>
         <S.Thumb
           type="range"

@@ -56,5 +56,4 @@ class ProductServiceTest extends ServiceTest {
             assertThat(actual.getName()).isNotEmpty();
         }
     }
-
 }

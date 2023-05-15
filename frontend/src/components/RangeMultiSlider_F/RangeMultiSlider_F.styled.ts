@@ -2,13 +2,11 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 const Container = styled.div`
-  border: 1px solid olive;
-  width: 20vw;
-  height: 5vh;
-  padding-top: 3vh;
   display: flex;
-  // align-items: center;
+  align-items: center;
   justify-content: center;
+  width: 15vw;
+  height: 3vh;
 `;
 
 const Thumb = styled.input`
@@ -18,7 +16,7 @@ const Thumb = styled.input`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 17vw;
+    width: 15vw;
     outline: none;
   }
 
@@ -66,7 +64,7 @@ const thumb_zindex5 = (minVal: number, max: number) => css`
 
 const Slider = styled.div`
   position: relative;
-  width: 17vw;
+  width: 15vw;
 `;
 
 const Slider_sub = styled.div`

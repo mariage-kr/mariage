@@ -80,6 +80,9 @@ const BtnWrap = styled.div`
   width: 65%;
   float: left;
   text-align: right;
+
+  @media (max-width: 1300px) { width: 60%; }
+  @media (max-width: 1150px) { width: 55%; }
 `;
 
 const Btn = styled.button`
@@ -94,6 +97,10 @@ const Btn = styled.button`
     text-shadow: 0 0 10px #9C94D099;
     color: #000;
   }
+
+  @media (max-width: 1150px) { 
+    margin: 15px 0 0 0;
+    font-size: 0.9rem; }
 `;
 
 const updateBtn = css`
@@ -107,12 +114,13 @@ const Like = styled.div`
   width: 35%;
   float: right;
   text-align: right;
+
+  @media (max-width: 1300px) { width: 40%; }
+  @media (max-width: 1150px) { width: 45%; }
 `;
 
 const Bottom = styled.div`
   overflow: hidden;
-
-  @media (max-width: 1570px) { margin-top: 20px; }
 `;
 
 const Food = styled.div`
@@ -122,11 +130,8 @@ const Food = styled.div`
   margin: 20px 1vw 0 0;
   text-align: center;
 
-  @media (max-width: 1570px) { margin: 0 1vw 0 0; }
-  @media (max-width: 1310px) { 
-    width: 11%;
-    margin: 20px 1vw 0 0;
-  }
+  /* @media (max-width: 1570px) { margin: 0 1vw 0 0; } */
+  @media (max-width: 1310px) { width: 11%; }
   @media (max-width: 1095px) { width: 11.5%; }
   @media (max-width: 1045px) { width: 12%; }
   @media (max-width: 1005px) { width: 13%; }
@@ -176,8 +181,6 @@ const ReviewText = styled.div`
   font-size: 1rem;
   float: left;
   padding-top: 20px;
-
-  @media (max-width: 1570px) { padding-top: 15px; }
 `;
 
 const ReviewImg = styled.div`
@@ -185,8 +188,11 @@ const ReviewImg = styled.div`
   border: 1px solid #9C94D044;
   width: 17%;
   text-align: center;
-  padding: 10px 0 5px;
+  padding: 1vh 0 0;
   float: right;
+
+  @media (max-width: 1570px) { margin-top: 17px; }
+  @media (max-width: 1450px) { margin-top: 20px; }
 `;
 
 const Img = styled.img`
