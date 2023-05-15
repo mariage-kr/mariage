@@ -22,19 +22,16 @@ public class ProductUpdateRequest {
     private Long imageId;
     private Long newImageId;
 
-    private ProductUpdateRequest(Product product, Long imageId, Long newImageId) {
-        this.id = product.getId();
-        this.name = String.valueOf(product.getName());
-        this.level = product.getLevel().getValue();
-        this.info = String.valueOf(product.getInfo());
-        this.country = product.getCountry();
-        this.upperCategory = product.getUpperCategory();
-        this.lowerCategory = product.getLowerCategory();
+    @Builder
+    public ProductUpdateRequest(Long id, String name, String info, double level, Country country, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Long imageId, Long newImageId) {
+        this.id = id;
+        this.name = name;
+        this.level = level;
+        this.info = info;
+        this.country = country;
+        this.upperCategory = upperCategory;
+        this.lowerCategory = lowerCategory;
         this.imageId = imageId;
         this.newImageId = newImageId;
-    }
-
-    public static ProductUpdateRequest from(Product product, Long imageId, Long newImageId) {
-        return new ProductUpdateRequest(product, imageId, newImageId);
     }
 }

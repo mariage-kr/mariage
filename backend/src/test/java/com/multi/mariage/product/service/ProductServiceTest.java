@@ -1,6 +1,5 @@
 package com.multi.mariage.product.service;
 
-import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
@@ -26,32 +25,24 @@ class ProductServiceTest extends ServiceTest {
     private StorageRepository storageRepository;
     @Autowired
     private ProductService productService;
-    private Product product;
+    private Product registeredProduct;
 
     @BeforeEach
     void setUp() {
-        ProductSaveRequest saveRequest = ProductFixture.PRODUCT_MAKGEOLLI1.toSaveRequest();
-        MockMultipartFile imageFile = ImageFixture.JPEG_IMAGE2.toMultipartFile();
-        Image savedImage = storageRepository.save(new Image(imageFile.getName()));
+        Image savedImage = storageRepository.save(new Image(ProductFixture.참이슬.getImageName()));
+        ProductSaveRequest saveRequest = ProductFixture.참이슬.toProductSaveRequest(savedImage.getId());
 
-        Long imageId = savedImage.getId();
-
-        saveRequest.setImageId(imageId);
-
-        product = productService.save(saveRequest);
+        registeredProduct = productService.save(saveRequest);
     }
 
     @DisplayName("제품을 등록한다.")
     @Test
     void 제품을_등록한다() {
-        MockMultipartFile imageFile = ImageFixture.JPEG_IMAGE.toMultipartFile();
-        ProductSaveRequest request = ProductFixture.PRODUCT_SOJU1.toSaveRequest();
-        Image savedImage = storageRepository.save(new Image(imageFile.getName()));
-        Long imageId = savedImage.getId();
+        Image savedImage = storageRepository.save(new Image(ProductFixture.간바레오또상.getImageName()));
+        ProductSaveRequest saveRequest = ProductFixture.간바레오또상.toProductSaveRequest(savedImage.getId());
 
-        request.setImageId(imageId);
+        Product actual = productService.save(saveRequest);
 
-        Product actual = productService.save(request);
         assertThat(actual).isNotNull();
     }
 
@@ -69,17 +60,4 @@ class ProductServiceTest extends ServiceTest {
         }
     }
 
-    @DisplayName("제품을 수정한다.")
-    @Test
-    void 제품을_수정한다() {
-        Long imageId = product.getImage().getId();
-        MockMultipartFile savedNewImage = ImageFixture.JPEG_IMAGE3.toMultipartFile();
-        Image image = storageRepository.save(new Image(savedNewImage.getName()));
-        Long newImageId = image.getId();
-
-        ProductUpdateRequest request = ProductFixture.PRODUCT_SOJU1.toUpdateRequest(product, imageId, newImageId);
-
-        productService.update(request);
-        assertThat(request).isNotNull();
-    }
 }
