@@ -23,7 +23,7 @@ function ReviewCategory() {
     { id: 15, name: '튀김' },
     { id: 16, name: '스낵' },
     { id: 17, name: '치즈' },
-    { id: 18, name: '과일' },
+    { id: 18, name: '과일/샐러드' },
     { id: 19, name: '디저트' },
     { id: 20, name: '기타' }
   ];
