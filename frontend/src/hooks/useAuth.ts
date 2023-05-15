@@ -6,7 +6,7 @@ import {
   refreshTokenState,
 } from '@/store/status';
 
-import { Token } from '@/types/user';
+import { Token } from '@/@types/user';
 
 const useAuth = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);

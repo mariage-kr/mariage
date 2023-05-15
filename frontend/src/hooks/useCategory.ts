@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { drinkUpperCategoryState } from '@/store/status';
 import { requestDrinkUpperCategory } from '@/apis/request/category';
 import { QUERY_KEY } from '@/constants/key';
-import { CategoryType } from '@/types/category';
+import { CategoryType } from '@/@types/category';
 
 function useDrinkUpperCategory() {
   const [value, setValue] = useRecoilState<CategoryType[]>(

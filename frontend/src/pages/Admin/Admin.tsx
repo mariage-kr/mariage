@@ -14,20 +14,18 @@ import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
 import useImage from '@/hooks/useImage';
 import useSearchParam from '@/hooks/useSearchParam';
-import { ProductInfoType } from '@/types/product';
+import { ProductInfoType } from '@/@types/product';
 import {
   DrinkCategoryResponseType,
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
   CountryType,
-} from '@/types/category';
+} from '@/@types/category';
 
 import * as S from './Admin.styled';
-
-type ImageIdType = {
-  imageId: number;
-};
+import { ImageIdType } from '@/@types/id';
+import useLevel from '@/hooks/useLevel';
 
 function Admin() {
   /* 쿼리스트링 */
@@ -53,7 +51,6 @@ function Admin() {
     setValue: setInfo,
     defaultData: defaultInfo,
   } = useInput<string>('');
-  const [level, setLevel] = useState<number>(0);
   const {
     value: country,
     setValue: setCountry,
@@ -76,6 +73,7 @@ function Admin() {
     setValue: setImage,
     preview: previewImage,
   } = useImage<File | null>(null);
+  const { level, setLevel, inputLevel } = useLevel<number>(0);
 
   /* 불러온 이미지 */
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -86,19 +84,21 @@ function Admin() {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   /* Input */
-  const changeLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+  // const [level, setLevel] = useState<number>(0);
 
-    const onlyNumber = parseFloat(value.replace(/[^\d.]/g, ''));
-    const roundedNumber = Math.round(onlyNumber * 10) / 10;
-    let finalNumber = isNaN(roundedNumber) ? 0 : roundedNumber;
+  // const changeLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = e.target;
 
-    if (finalNumber > 100.0) {
-      finalNumber = 100.0;
-    }
+  //   const onlyNumber = parseFloat(value.replace(/[^\d.]/g, ''));
+  //   const roundedNumber = Math.round(onlyNumber * 10) / 10;
+  //   let finalNumber = isNaN(roundedNumber) ? 0 : roundedNumber;
 
-    setLevel(finalNumber);
-  };
+  //   if (finalNumber > 100.0) {
+  //     finalNumber = 100.0;
+  //   }
+
+  //   setLevel(finalNumber);
+  // };
 
   /* 카테고리 데이터 요청 */
   const getCountryCategory = async () => {
@@ -113,7 +113,7 @@ function Admin() {
         setDrinkCategoryResponse(response.data);
       })
       .catch(error => {
-        console.error(error);
+        setErrorMessage(error.response.data.message);
       });
   };
 
@@ -132,7 +132,7 @@ function Admin() {
         setImageId(data.imageId);
       })
       .catch(error => {
-        console.error(error);
+        setErrorMessage(error.response.data.message);
       });
   };
 
@@ -159,10 +159,13 @@ function Admin() {
       imageId,
     })
       .then(response => {
+        /* TODO: 추후 제품의 상세 페이지로 이동 */
         console.log(response);
       })
       .catch(error => {
-        console.log(error);
+        if (error.response.status === 400) {
+          setErrorMessage(error.response.data.message);
+        }
       });
   };
 
@@ -190,7 +193,9 @@ function Admin() {
         console.log(response);
       })
       .catch(error => {
-        console.error(error);
+        if (error.response.status === 400) {
+          setErrorMessage(error.response.data.message);
+        }
       });
   };
 
@@ -266,7 +271,7 @@ function Admin() {
         <S.Input
           type={'number'}
           value={level}
-          onChange={changeLevel}
+          onChange={inputLevel}
           max={100}
           min={0}
         ></S.Input>

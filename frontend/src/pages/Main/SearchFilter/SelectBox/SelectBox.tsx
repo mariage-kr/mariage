@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import useSelect from '@/hooks/useSelect';
 import { useDrinkUpperCategory } from '@/hooks/useCategory';
-import { CategoryType } from '@/types/category';
+import { CategoryType } from '@/@types/category';
 
 import * as S from './SelectBox.styled';
 

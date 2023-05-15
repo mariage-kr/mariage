@@ -1,7 +1,7 @@
 import { axiosWithAccessToken } from '../axios';
 
 import { API_PATH } from '@/constants/path';
-import { ProductSaveType, ProductUpdateType } from '@/types/product';
+import { ProductSaveType, ProductUpdateType } from '@/@types/product';
 
 const requestSaveProduct = (productData: ProductSaveType) => {
   return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {

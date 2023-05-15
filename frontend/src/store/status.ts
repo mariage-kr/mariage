@@ -4,7 +4,7 @@ import { recoilPersist } from 'recoil-persist';
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
 import { isBoolean } from '@/utils/boolean';
-import { CategoryType } from '@/types/category';
+import { CategoryType } from '@/@types/category';
 
 const { persistAtom } = recoilPersist();
 
