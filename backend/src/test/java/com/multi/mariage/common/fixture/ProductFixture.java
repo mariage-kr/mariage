@@ -100,6 +100,7 @@ public enum ProductFixture {
                 .build();
     }
 
+
     public String getImageName() {
         return imageName;
     }
