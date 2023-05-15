@@ -65,11 +65,11 @@ public class LoaderData {
 
         public void init() {
             imageSetUp();
-            productService.save(ProductFixture.참이슬.toProduct(saveImage1.getId()));
-            productService.save(ProductFixture.처음처럼.toProduct(saveImage2.getId()));
-            productService.save(ProductFixture.간바레오또상.toProduct(saveImage3.getId()));
-            productService.save(ProductFixture.일품진로.toProduct(saveImage4.getId()));
-            productService.save(ProductFixture.산토리_위스키.toProduct(saveImage5.getId()));
+            productService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
+            productService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
+            productService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
+            productService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
+            productService.save(ProductFixture.산토리_위스키.toProductSaveRequest(saveImage5.getId()));
         }
     }
 }

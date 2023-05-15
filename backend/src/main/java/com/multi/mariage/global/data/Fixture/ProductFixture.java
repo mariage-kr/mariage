@@ -65,7 +65,7 @@ public enum ProductFixture {
         this.lowerCategory = lowerCategory;
     }
 
-    public ProductSaveRequest toProduct(Long imageId) {
+    public ProductSaveRequest toProductSaveRequest(Long imageId) {
         return ProductSaveRequest.builder()
                 .name(name)
                 .level(level)
