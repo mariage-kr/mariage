@@ -22,16 +22,20 @@ public class ReviewSaveRequest {
     private LocalDateTime date;
     private FoodCategory foodCategory;
     private Hashtag hashtag;
-// private
+    // private 날씨 추가
+    // 이미지 추가
 
 }
 
 @Builder
-private ReviewSaveRequest(int productScore, String productContent, String foodContent, int foodScore, LocalDateTime date) {
-this.productScore = productScore;
-this.productContent = productContent;
-this.foodContent = foodContent;
-this.foodScore = foodScore;
-this.date = date;
+private ReviewSaveRequest(int productScore, String productContent, String foodContent, int foodScore, LocalDateTime date, FoodCategory foodCategory, Hashtag hashtag) {
+
+    this.productScore = productScore;
+    this.productContent = productContent;
+    this.foodContent = foodContent;
+    this.foodScore = foodScore;
+    this.date = date;
+    this.foodCategory = foodCategory;
+    this.hashtag = hashtag;
 
 }
