@@ -7,8 +7,6 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 public enum ProductFixture {
 
     PRODUCT_MAKGEOLLI1("느린마을 막걸리", 20, "쌀로 만든 술입니다.", Country.KOREA, DrinkUpperCategory.LOCAL_TRADITIONAL, DrinkLowerCategory.MAKGEOLLI),
@@ -39,7 +37,6 @@ public enum ProductFixture {
                 .lowerCategory(lowerCategory)
                 .build();
     }
-
     public ProductUpdateRequest toUpdateRequest(Product product, Long imageId, Long newImageId) {
         return ProductUpdateRequest.from(product, imageId, newImageId);
     }

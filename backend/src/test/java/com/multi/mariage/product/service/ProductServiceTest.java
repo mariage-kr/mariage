@@ -3,7 +3,6 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
@@ -20,8 +19,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductServiceTest extends ServiceTest {
-    @Autowired
-    private ProductRepository productRepository;
     @Autowired
     private StorageRepository storageRepository;
     @Autowired
@@ -71,7 +68,6 @@ class ProductServiceTest extends ServiceTest {
     @DisplayName("제품을 수정한다.")
     @Test
     void 제품을_수정한다() {
-
         Long imageId = product.getImage().getId();
 
         Image savedNewImage = storageRepository.save(new Image("test2.jpg"));
@@ -81,7 +77,5 @@ class ProductServiceTest extends ServiceTest {
 
         productService.update(request);
         assertThat(request).isNotNull();
-
     }
-
 }
