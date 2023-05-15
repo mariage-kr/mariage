@@ -19,4 +19,5 @@ public class ProductUpdateRequest {
     private DrinkLowerCategory lowerCategory;
     private Long imageId;
     private Long newImageId;
+
 }

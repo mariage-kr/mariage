@@ -12,17 +12,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductsVO {
-    private int id;
+    private Long id;
     private String name;
     private double level;
     private String info;
     private String upperCategory;
     private String lowerCategory;
     private String country;
-    private Long image;
+    private Long imageId;
+    private String imageUrl;
 
     @Builder
-    private ProductsVO(int id, String name, double level, String info, String upperCategory, String lowerCategory, String country, Long image) {
+    private ProductsVO(Long id, String name, double level, String info, String upperCategory, String lowerCategory, String country, Long imageId, String imageUrl) {
         this.id = id;
         this.name = name;
         this.level = level;
@@ -30,18 +31,21 @@ public class ProductsVO {
         this.upperCategory = upperCategory;
         this.lowerCategory = lowerCategory;
         this.country = country;
-        this.image = image;
+        this.imageId = imageId;
+        this.imageUrl = imageUrl;
     }
 
-
-    public static ProductsVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country) {
+    public static ProductsVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country, String imageUrl) {
         return ProductsVO.builder()
+                .id(product.getId())
                 .name(product.getName())
-                .level(product.getLevel())
+                .level(product.getLevel().getValue())
                 .info(product.getInfo())
                 .upperCategory(upperCategory.getName())
                 .lowerCategory(lowerCategory.getName())
                 .country(country.getCountry())
+                .imageId(product.getImage().getId())
+                .imageUrl(imageUrl)
                 .build();
     }
 }

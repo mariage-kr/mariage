@@ -4,6 +4,9 @@ import com.multi.mariage.category.domain.DrinkLowerCategory;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.product.domain.embedded.Info;
+import com.multi.mariage.product.domain.embedded.Level;
+import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -88,9 +91,9 @@ public enum ProductFixture {
 
     public Product toProduct() {
         return Product.builder()
-                .name(name)
-                .level(level)
-                .info(info)
+                .name(Name.of(name))
+                .level(Level.of(level))
+                .info(Info.of(info))
                 .country(country)
                 .upperCategory(upperCategory)
                 .lowerCategory(lowerCategory)

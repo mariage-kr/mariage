@@ -3,6 +3,9 @@ package com.multi.mariage.product.domain;
 import com.multi.mariage.category.domain.DrinkLowerCategory;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.country.domain.Country;
+import com.multi.mariage.product.domain.embedded.Info;
+import com.multi.mariage.product.domain.embedded.Level;
+import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.domain.Image;
@@ -25,13 +28,14 @@ public class Product {
     @Column(name = "product_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Embedded
+    private Name name;
 
-    @Column(nullable = false)
-    private double level;
+    @Embedded
+    private Level level;
 
-    private String info;
+    @Embedded
+    private Info info;
 
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
@@ -53,7 +57,7 @@ public class Product {
     private Image image;
 
     @Builder
-    public Product(String name, double level, String info, DrinkUpperCategory upperCategory,
+    public Product(Name name, Level level, Info info, DrinkUpperCategory upperCategory,
                    DrinkLowerCategory lowerCategory, Country country, Image image) {
         this.name = name;
         this.level = level;
@@ -71,10 +75,18 @@ public class Product {
 
     /* 비즈니스 로직 */
     public void update(ProductUpdateRequest request) {
-        this.name = request.getName();
-        this.info = request.getInfo();
+        this.name = Name.of(request.getName());
+        this.info = Info.of(request.getInfo());
         this.country = request.getCountry();
         this.upperCategory = request.getUpperCategory();
         this.lowerCategory = request.getLowerCategory();
+    }
+
+    public String getName() {
+        return name.getValue();
+    }
+
+    public String getInfo() {
+        return info.getValue();
     }
 }

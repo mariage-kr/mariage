@@ -5,7 +5,6 @@ import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,10 +20,10 @@ public class ProductInfoResponse {
     private Long imageId;
     private String imageUrl;
 
-    private ProductInfoResponse(Product product ,String imageUrl) {
-        this.name = product.getName();
-        this.info = product.getInfo();
-        this.level = product.getLevel();
+    private ProductInfoResponse(Product product, String imageUrl) {
+        this.name = String.valueOf(product.getName());
+        this.info = String.valueOf(product.getInfo());
+        this.level = product.getLevel().getValue();
         this.country = product.getCountry();
         this.upperCategory = product.getUpperCategory();
         this.lowerCategory = product.getLowerCategory();

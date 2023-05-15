@@ -2,6 +2,9 @@ package com.multi.mariage.product.service;
 
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.domain.embedded.Info;
+import com.multi.mariage.product.domain.embedded.Level;
+import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
@@ -30,12 +33,16 @@ public class ProductService {
 
     @Transactional
     public Product save(ProductSaveRequest request) {
+
+        Name name = Name.of(request.getName());
+        validateProductIsNotDuplicated(name);
+
         Image image = imageService.findById(request.getImageId());
 
         Product product = Product.builder()
-                .name(request.getName())
-                .level(request.getLevel())
-                .info(request.getInfo())
+                .name(Name.of(request.getName()))
+                .level(Level.of(request.getLevel()))
+                .info(Info.of(request.getInfo()))
                 .upperCategory(request.getUpperCategory())
                 .lowerCategory(request.getLowerCategory())
                 .country(request.getCountry())
@@ -43,6 +50,12 @@ public class ProductService {
         product.setImage(image);
 
         return productRepository.save(product);
+    }
+
+    private void validateProductIsNotDuplicated(Name name) {
+        if (productRepository.existsByName(name)) {
+            throw new ProductException(ProductErrorCode.SAVE_INVALID_PRODUCT);
+        }
     }
 
     public ProductFindResponse findProducts() {
@@ -56,8 +69,12 @@ public class ProductService {
 
     private List<ProductsVO> getProductValues() {
         List<Product> products = productRepository.findAll();
+
         return products.stream()
-                .map(product -> ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry()))
+                .map(product -> {
+                    String imageUrl = imageService.getImageUrl(product.getImage().getName());
+                    return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
+                })
                 .toList();
     }
 
