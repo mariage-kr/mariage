@@ -1,4 +1,4 @@
-type ReviewResponseType = {
+type ReviewPagingType = {
   reviews: ReviewType[];
   pageNumber: number;
   totalCount: number; // 해당 제품의 전체 리뷰 수
@@ -41,7 +41,7 @@ type ReviewFoodType = {
 };
 
 export {
-  ReviewResponseType,
+  ReviewPagingType as ReviewResponseType,
   ReviewType,
   ReviewMemberType,
   ReviewContentType,

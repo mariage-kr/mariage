@@ -1,14 +1,3 @@
-type ProductInfoType = {
-  name: string;
-  info: string;
-  level: number;
-  country: string;
-  upperCategory: string;
-  lowerCategory: string;
-  imageId: number;
-  imageUrl: string;
-};
-
 type ProductSaveType = {
   name: string;
   level: number;
@@ -17,6 +6,17 @@ type ProductSaveType = {
   upperCategory: string;
   lowerCategory: string;
   imageId: number;
+};
+
+type ProductModifyInfoType = {
+  name: string;
+  info: string;
+  level: number;
+  country: string;
+  upperCategory: string;
+  lowerCategory: string;
+  imageId: number;
+  imageUrl: string;
 };
 
 type ProductUpdateType = {
@@ -49,10 +49,23 @@ type ProductContentType = {
   content: string;
 };
 
+type ProductInfoType = {
+  id: number;
+  img: string;
+  flagImg: string;
+  country: string;
+  name: string;
+  level: number;
+  reviewRate: number;
+  reviewCount: number;
+  food: PairingFoodType[];
+};
+
 export {
-  ProductInfoType,
+  ProductModifyInfoType,
   ProductSaveType,
   ProductUpdateType,
   PairingFoodType,
   ProductContentType,
+  ProductInfoType,
 };

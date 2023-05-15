@@ -20,7 +20,7 @@ import useSearchParam from '@/hooks/useSearchParam';
 import useLevel from '@/hooks/useLevel';
 
 import { ImageIdType } from '@/@types/id';
-import { ProductInfoType } from '@/@types/product';
+import { ProductModifyInfoType } from '@/@types/product';
 import {
   DrinkCategoryResponseType,
   DrinkRegionCategoryType,
@@ -108,7 +108,7 @@ function Admin() {
   const getProductInfo = async () => {
     await requestProductInfo(parseInt(productId!))
       .then(response => {
-        const data: ProductInfoType = response.data;
+        const data: ProductModifyInfoType = response.data;
         console.log(response);
         defaultName(data.name);
         defaultInfo(data.info);

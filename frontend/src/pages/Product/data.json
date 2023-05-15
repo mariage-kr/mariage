@@ -1,0 +1,69 @@
+{
+    "content": [
+        {
+            "id": 1,
+            "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png",
+            "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png",
+            "country": "Japan",
+            "name": "산토리 위스키 가쿠빈 :suntory whisky kakubin",
+            "level": 40,
+            "reviewRate": 4.6,
+            "reviewCount": 1111,
+            "food": [
+                {
+                    "id": 1,
+                    "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/9d5PyHTsce.png",
+                    "name": "치즈",
+                    "rate": 4.7
+                },
+                {
+                    "id": 2,
+                    "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/ygl89X0Nm1.png",
+                    "name": "과자",
+                    "rate": 4.5
+                },
+                {
+                    "id": 3,
+                    "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/GDZ5XpdDw9.png",
+                    "name": "튀김",
+                    "rate": 4.1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png",
+            "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png",
+            "country": "Japan",
+            "name": "산토리 위스키 가쿠빈 :suntory whisky kakubin",
+            "level": 30,
+            "reviewRate": 4.1,
+            "reviewCount": 2222,
+            "food": [
+                {
+                    "id": 1,
+                    "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/9d5PyHTsce.png",
+                    "name": "치킨",
+                    "rate": 4.7
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "img": "https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png",
+            "flagImg": "https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png",
+            "country": "Japan",
+            "name": "산토리 위스키 가쿠빈 :suntory whisky kakubin",
+            "level": 50,
+            "reviewRate": 4.7,
+            "reviewCount": 3333,
+            "food": []
+        }
+    ],
+    "pageNumber": 1,
+    "totalCount": 3,
+    "pageSize": 10,
+    "totalPages": 1,
+    "isFirstPage": true,
+    "isLastPage": true
+}

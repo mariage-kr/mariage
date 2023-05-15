@@ -1,35 +1,22 @@
-import * as S from './Filter.styled';
-
 import { useState } from 'react';
+
 import RangeMultiSlider_F from '@/components/RangeMultiSlider_F/RangeMultiSlider_F';
 
-/*TODO: optionType 작성하기  */
+import { Range } from '@/@types/slider';
 
-interface FilterProps {
-  name: string;
-  total: number;
-}
-interface rangeMultiSliderProps {
-  css?: string;
-  min: number;
-  max: number;
-  onChange: Function;
-}
+import * as S from './Filter.styled';
+
+type FilterProps = {
+  count: number;
+};
 
 type Option = {
-  region: string;
-  category: string;
   rate: Range;
   level: Range;
 };
 
-type Range = {
-  max: number;
-  min: number;
-};
-
-const Filter: React.FC<FilterProps> = ({ name, total }) => {
-  /*TODO: 현재는 임시 데이터 이지만 추후에는 서버의 데이터를 사용  */
+function Filter({ count }: FilterProps) {
+  /*TODO: 현재는 임시 데이터 이지만 추후에는 서버의 데이터를 사용, Recoil에 저장하는 형식이 좋을 듯 보입니다.  */
   const category = [
     '스카치',
     '아메리칸 ·버번',
@@ -39,7 +26,7 @@ const Filter: React.FC<FilterProps> = ({ name, total }) => {
     '포트',
   ];
 
-  const [option, setOption] = useState({
+  const [option, setOption] = useState<Option>({
     rate: {
       max: 50,
       min: 0,
@@ -60,9 +47,7 @@ const Filter: React.FC<FilterProps> = ({ name, total }) => {
 
   return (
     <S.Container>
-      <p>
-        {name} 의 상품 개수는 {total}개 입니다.
-      </p>
+      <p>조회한 상품 개수는 {count}개 입니다.</p>
       <S.FilterWrap>
         <h4>필터</h4>
         <S.CategoryWrap>
@@ -104,6 +89,6 @@ const Filter: React.FC<FilterProps> = ({ name, total }) => {
       </S.FilterWrap>
     </S.Container>
   );
-};
+}
 
 export default Filter;
