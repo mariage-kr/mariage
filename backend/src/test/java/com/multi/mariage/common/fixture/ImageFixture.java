@@ -6,7 +6,9 @@ import org.springframework.mock.web.MockMultipartFile;
 
 @Getter
 public enum ImageFixture {
-    JPEG_IMAGE("file", "test.jpeg", MediaType.IMAGE_JPEG_VALUE, "test".getBytes());
+    JPEG_IMAGE("file", "test.jpeg", MediaType.IMAGE_JPEG_VALUE, "test".getBytes()),
+    JPEG_IMAGE2("file2", "test1.jpeg", MediaType.IMAGE_JPEG_VALUE, "test1".getBytes()),
+    JPEG_IMAGE3("file3", "test2.jpeg", MediaType.IMAGE_JPEG_VALUE, "test2".getBytes());
 
     private final String name;
     private final String originFileName;

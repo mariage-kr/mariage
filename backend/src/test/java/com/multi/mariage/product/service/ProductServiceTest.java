@@ -1,6 +1,8 @@
 package com.multi.mariage.product.service;
 
+import com.multi.mariage.auth.dto.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
+import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 
@@ -28,8 +31,9 @@ class ProductServiceTest extends ServiceTest {
     @BeforeEach
     void setUp() {
         ProductSaveRequest saveRequest = ProductFixture.PRODUCT_MAKGEOLLI1.toSaveRequest();
+        MockMultipartFile imageFile = ImageFixture.JPEG_IMAGE2.toMultipartFile();
+        Image savedImage = storageRepository.save(new Image(imageFile.getName()));
 
-        Image savedImage = storageRepository.save(new Image("test.jpg"));
         Long imageId = savedImage.getId();
 
         saveRequest.setImageId(imageId);
@@ -40,9 +44,9 @@ class ProductServiceTest extends ServiceTest {
     @DisplayName("제품을 등록한다.")
     @Test
     void 제품을_등록한다() {
-
+        MockMultipartFile imageFile = ImageFixture.JPEG_IMAGE.toMultipartFile();
         ProductSaveRequest request = ProductFixture.PRODUCT_SOJU1.toSaveRequest();
-        Image savedImage = storageRepository.save(new Image("test1.jpg"));
+        Image savedImage = storageRepository.save(new Image(imageFile.getName()));
         Long imageId = savedImage.getId();
 
         request.setImageId(imageId);
@@ -69,9 +73,9 @@ class ProductServiceTest extends ServiceTest {
     @Test
     void 제품을_수정한다() {
         Long imageId = product.getImage().getId();
-
-        Image savedNewImage = storageRepository.save(new Image("test2.jpg"));
-        Long newImageId = savedNewImage.getId();
+        MockMultipartFile savedNewImage = ImageFixture.JPEG_IMAGE3.toMultipartFile();
+        Image image = storageRepository.save(new Image(savedNewImage.getName()));
+        Long newImageId = image.getId();
 
         ProductUpdateRequest request = ProductFixture.PRODUCT_SOJU1.toUpdateRequest(product, imageId, newImageId);
 
