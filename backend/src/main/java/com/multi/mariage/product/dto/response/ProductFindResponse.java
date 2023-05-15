@@ -26,5 +26,4 @@ public class ProductFindResponse {
                 .length(product.size())
                 .build();
     }
-
 }

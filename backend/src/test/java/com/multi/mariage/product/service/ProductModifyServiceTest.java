@@ -11,15 +11,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProductServiceTest extends ServiceTest {
+class ProductModifyServiceTest extends ServiceTest {
 
-//    @BeforeEach
+    @BeforeEach
     void setUp() {
         Image image = new Image(ProductFixture.참이슬.getImageName());
+
         Image savedImage = storageRepository.save(image);
         ProductSaveRequest saveRequest = ProductFixture.참이슬.toProductSaveRequest(savedImage.getId());
 
-        productService.save(saveRequest);
+        productModifyService.save(saveRequest);
     }
 
     @DisplayName("제품을 등록한다.")
@@ -28,22 +29,8 @@ class ProductServiceTest extends ServiceTest {
         Image savedImage = storageRepository.save(new Image(ProductFixture.간바레오또상.getImageName()));
         ProductSaveRequest saveRequest = ProductFixture.간바레오또상.toProductSaveRequest(savedImage.getId());
 
-        Product actual = productService.save(saveRequest);
+        Product actual = productModifyService.save(saveRequest);
 
         assertThat(actual).isNotNull();
     }
-
-//    @DisplayName("제품을 조회한다.")
-//    @Test
-//    void 제품을_조회한다() {
-//        ProductFindResponse response = productService.findProducts();
-//
-//        assertThat(response).isNotNull();
-//        List<ProductsVO> vo = response.getProduct();
-//
-//        for (ProductsVO actual : vo) {
-//            assertThat(actual.getId()).isNotNull();
-//            assertThat(actual.getName()).isNotEmpty();
-//        }
-//    }
 }
