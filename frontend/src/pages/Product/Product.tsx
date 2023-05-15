@@ -1,4 +1,3 @@
-import ProductContent from '../Detail/ProductContent/ProductContent';
 import Filter from './Filter/Filter';
 import Option from './Option/Option';
 import * as S from './Product.styled';
@@ -8,6 +7,7 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
+        {/* TODO: name, total 속성 넣어주어야 함. */}
         <Filter />
       </S.Aside>
       <S.Contents>

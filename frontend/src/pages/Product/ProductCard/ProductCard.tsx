@@ -1,12 +1,11 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 
 import foodImg from './FoodIconDummyData.json';
-import Product from '../Product';
-import { ReviewCount } from '@/pages/Main/Recommend/ProductCard/ProductCard.styled';
 
 import * as S from './ProductCard.styled';
 
 function ProductCard() {
+  /* TODO: 임시데이터 입니다. */
   const productData = {
     id: 1,
     img: 'https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png',

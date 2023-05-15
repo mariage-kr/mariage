@@ -3,6 +3,8 @@ import * as S from './Filter.styled';
 import { useState } from 'react';
 import RangeMultiSlider_F from '@/components/RangeMultiSlider_F/RangeMultiSlider_F';
 
+/*TODO: optionType 작성하기  */
+
 interface FilterProps {
   name: string;
   total: number;
@@ -14,7 +16,20 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
+type Option = {
+  region: string;
+  category: string;
+  rate: Range;
+  level: Range;
+};
+
+type Range = {
+  max: number;
+  min: number;
+};
+
 const Filter: React.FC<FilterProps> = ({ name, total }) => {
+  /*TODO: 현재는 임시 데이터 이지만 추후에는 서버의 데이터를 사용  */
   const category = [
     '스카치',
     '아메리칸 ·버번',
@@ -24,7 +39,7 @@ const Filter: React.FC<FilterProps> = ({ name, total }) => {
     '포트',
   ];
 
-  const [option, setOption] = useState<Option>({
+  const [option, setOption] = useState({
     rate: {
       max: 50,
       min: 0,
