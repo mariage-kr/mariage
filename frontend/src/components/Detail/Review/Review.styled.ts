@@ -20,20 +20,20 @@ const EditBtn = styled.button`
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: 1px 1px 3px #00000030;
-  background-color: #9C94D0;
+  background-color: #9c94d0;
   width: 85%;
   height: 50px;
   margin: 30px 0 0 30px;
   padding: 0;
-  text-align : center;
+  text-align: center;
   color: #fff;
   cursor: pointer;
   transition: 250ms;
-  
+
   &:hover {
-    box-shadow: 1.5px 1.5px 3px #9C94D0;
+    box-shadow: 1.5px 1.5px 3px #9c94d0;
     transform: scale(1.05);
-  } 
+  }
 `;
 
 const Edit = styled.div`
@@ -43,7 +43,7 @@ const Edit = styled.div`
   font-size: 1.1rem;
 `;
 
-const editi = css`
+const EditSize = css`
   width: 25px;
   height: 25px;
 `;
@@ -67,7 +67,7 @@ export {
   Right,
   EditBtn,
   EditIcon,
-  editi,
+  EditSize,
   Edit,
-  ReviewEdit
+  ReviewEdit,
 };

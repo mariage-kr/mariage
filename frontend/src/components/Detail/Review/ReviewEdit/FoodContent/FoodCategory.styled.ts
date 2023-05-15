@@ -5,10 +5,10 @@ const Container = styled.div`
   overflow: hidden;
   width: 99%;
   height: 100%;
-  border: 1px solid #9C94D044;
+  border: 1px solid #9c94d044;
   border-radius: 10px;
   box-sizing: border-box;
-  box-shadow: 0 0 3px #9C94D088;
+  box-shadow: 0 0 3px #9c94d088;
   margin: 5px;
 `;
 
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
 const FoodRadioBtn = styled.label`
   width: 23.5%;
-  height : 40px;
+  height: 40px;
   margin: 0;
   padding: 0;
   /* border: 1px solid #EAE7E7; */
@@ -28,21 +28,51 @@ const FoodRadioBtn = styled.label`
   display: inline-block;
   overflow: hidden;
 
-  &:nth-of-type(1) { margin-right: 2%; }
-  &:nth-of-type(2) { margin-right: 2%; }
-  &:nth-of-type(3) { margin-right: 2%; }
-  &:nth-of-type(5) { margin-right: 2%; }
-  &:nth-of-type(6) { margin-right: 2%; }
-  &:nth-of-type(7) { margin-right: 2%; }
-  &:nth-of-type(9) { margin-right: 2%; }
-  &:nth-of-type(10) { margin-right: 2%; }
-  &:nth-of-type(11) { margin-right: 2%; }
-  &:nth-of-type(13) { margin-right: 2%; }
-  &:nth-of-type(14) { margin-right: 2%; }
-  &:nth-of-type(15) { margin-right: 2%; }
-  &:nth-of-type(17) { margin-right: 2%; }
-  &:nth-of-type(18) { margin-right: 2%; }
-  &:nth-of-type(19) { margin-right: 2%; }
+  &:nth-of-type(1) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(2) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(3) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(5) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(6) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(7) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(9) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(10) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(11) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(13) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(14) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(15) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(17) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(18) {
+    margin-right: 2%;
+  }
+  &:nth-of-type(19) {
+    margin-right: 2%;
+  }
 `;
 
 const BtnLabel = styled.label`
@@ -60,14 +90,14 @@ const Btn = styled.input`
   padding: 0;
 
   &:checked + p {
-    background-color: #9C94D0;
-    color: #FFF;
+    background-color: #9c94d0;
+    color: #fff;
   }
 `;
 
 const Label = styled.p`
   display: block;
-  border-bottom: 1px solid #EAE7E7;
+  border-bottom: 1px solid #eae7e7;
   border-radius: 10px;
   box-sizing: border-box;
   margin: 0;
@@ -100,7 +130,6 @@ const btnText = css`
   font-size: 1rem;
   margin-top: 8px;
 `;
-
 
 export {
   Container,

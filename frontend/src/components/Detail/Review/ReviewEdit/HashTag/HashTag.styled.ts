@@ -9,12 +9,12 @@ const Container = styled.div`
 const HashTagPrint = styled.div`
   width: auto;
   height: auto;
-  margin: 0 5px ;
+  margin: 0 5px;
   padding: 5px;
   display: inline-block;
   border-radius: 50px;
   box-shadow: 0 0 3px #b9b9b9;
-  background-color: #9C94D0;
+  background-color: #9c94d0;
   color: #fff;
   font-size: 0.9rem;
 `;
@@ -38,16 +38,16 @@ const InputHashTag = styled.input`
   padding: 5px 10px;
   border: none;
   border-radius: 10px;
-  background-color: #9C94D022;
+  background-color: #9c94d022;
   box-sizing: border-box;
-  box-shadow: 0 0 5px #9C94D066;
+  box-shadow: 0 0 5px #9c94d066;
   font-size: small;
   color: #000;
   cursor: pointer;
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 5px #9C94D0;
+    box-shadow: 0 0 5px #9c94d0;
     outline: none;
   }
 
@@ -56,11 +56,4 @@ const InputHashTag = styled.input`
   }
 `;
 
-
-export {
-  Container,
-  HashTagPrint,
-  HashTagPrintText,
-  RemoveBtn,
-  InputHashTag,
-};
+export { Container, HashTagPrint, HashTagPrintText, RemoveBtn, InputHashTag };

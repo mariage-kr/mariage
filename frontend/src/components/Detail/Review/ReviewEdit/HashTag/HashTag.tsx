@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import * as S from './HashTag.styled';
 
-
 function HashTag() {
-
   // 해시태그 이벤트
-  const [inputHashTag, setInputHashTag] = useState('');
+  const [inputHashTag, setInputHashTag] = useState<string>('');
   const [hashTags, setHashTags] = useState<string[]>([]);
 
   const addHashTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     let hashTag = e.currentTarget.value.trim();
 
-    const isEmptyValue = (hashTag: string) => {
+    const isEmptyValue = (hashTag: string): boolean => {
       return hashTag.length === 0;
-    }
+    };
 
     const allowedCommand = ['Comma', 'Enter', 'Space', 'NumpadEnter'];
     if (!allowedCommand.includes(e.code)) return;
@@ -32,24 +30,24 @@ function HashTag() {
 
     if (isEmptyValue(hashTag)) return;
 
-    setHashTags((prevHashTags) => {
+    setHashTags(prevHashTags => {
       return [...new Set([...prevHashTags, hashTag])];
     });
 
     setInputHashTag('');
   };
 
-  const keyDownHandler = (e: any) => {
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code !== 'Enter' && e.code !== 'NumpadEnter') return;
     e.preventDefault();
 
     const regExp = /^[a-z|A-Z|가-힣|ㄱ-ㅎ|ㅏ-ㅣ|0-9| \t|]+$/g;
-    if (!regExp.test(e.target.value)) {
+    if (!regExp.test(e.currentTarget.value)) {
       setInputHashTag('');
     }
   };
 
-  const changeHashTagInput = (e: any) => {
+  const changeHashTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputHashTag(e.target.value);
   };
 
@@ -59,20 +57,24 @@ function HashTag() {
     });
   };
 
+  const hasHashTags = (): boolean => {
+    return hashTags.length > 0;
+  };
+
   return (
     <S.Container>
-      {hashTags.length > 0 &&
-        hashTags.map((hashTag) => {
-        return (
-          <S.HashTagPrint key={hashTag}> 
-            <S.HashTagPrintText key={hashTag}>
-              #{hashTag}
-            </S.HashTagPrintText>
-            <S.RemoveBtn onClick={() => removeHashTag(hashTag)}>x</S.RemoveBtn>
-          </S.HashTagPrint>
-        );
-      })}
-      
+      {hasHashTags() &&
+        hashTags.map(hashTag => {
+          return (
+            <S.HashTagPrint key={hashTag}>
+              <S.HashTagPrintText key={hashTag}>#{hashTag}</S.HashTagPrintText>
+              <S.RemoveBtn onClick={() => removeHashTag(hashTag)}>
+                x
+              </S.RemoveBtn>
+            </S.HashTagPrint>
+          );
+        })}
+
       <S.InputHashTag
         value={inputHashTag}
         onChange={changeHashTagInput}
@@ -83,6 +85,6 @@ function HashTag() {
       />
     </S.Container>
   );
-};
+}
 
 export default HashTag;

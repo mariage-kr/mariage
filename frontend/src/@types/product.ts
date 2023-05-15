@@ -31,4 +31,28 @@ type ProductUpdateType = {
   newImageId: number;
 };
 
-export { ProductInfoType, ProductSaveType, ProductUpdateType };
+type PairingFoodType = {
+  id: number;
+  img: string;
+  name: string;
+  rate: number;
+};
+
+type ProductContentType = {
+  id: number;
+  img: string;
+  flagImg: string;
+  country: string;
+  name: string;
+  level: number;
+  reviewRate: number;
+  content: string;
+};
+
+export {
+  ProductInfoType,
+  ProductSaveType,
+  ProductUpdateType,
+  PairingFoodType,
+  ProductContentType,
+};

@@ -20,7 +20,7 @@ const TitleInfo = styled.p`
 `;
 
 const Wrapper = styled.div`
-  overflow-y: auto; 
+  overflow-y: auto;
   height: 62vh;
 
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
@@ -54,7 +54,7 @@ const Country = styled.div`
 const country_left = css`
   width: 30px;
   height: 30px;
-  box-shadow: 1px 1px #9C94D0;
+  box-shadow: 1px 1px #9c94d0;
   border-radius: 50%;
 `;
 
@@ -78,7 +78,7 @@ const NameLevel = styled.p`
 `;
 
 const ABV = styled.span`
-  color: #BB2649;
+  color: #bb2649;
 `;
 
 const DrinkStarRate = styled.div`
@@ -95,15 +95,15 @@ const InputReview = styled.textarea`
   padding: 8px;
   border: none;
   border-radius: 10px;
-  background-color: #9C94D022;
+  background-color: #9c94d022;
   box-sizing: border-box;
-  box-shadow: 0 0 5px #9C94D066;
+  box-shadow: 0 0 5px #9c94d066;
   font-size: small;
   cursor: pointer;
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 5px #9C94D0;
+    box-shadow: 0 0 5px #9c94d0;
     outline: none;
   }
 
@@ -139,10 +139,10 @@ const Btn = styled.button`
   margin: 10px 5% 10px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0 0 3px #9C94D055;
+  box-shadow: 0 0 3px #9c94d055;
   font-size: 1rem;
   &:hover {
-    box-shadow: 0 0 4px #9C94D0;
+    box-shadow: 0 0 4px #9c94d0;
   }
 `;
 
@@ -191,12 +191,12 @@ const CancelBtn = styled.button`
   height: 40px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0 0 5px #9C94D088;
+  box-shadow: 0 0 5px #9c94d088;
   font-size: 1rem;
   transition: 250ms;
 
   &:hover {
-    box-shadow: 0 0 4px #9C94D0;
+    box-shadow: 0 0 4px #9c94d0;
     transform: scale(1.02);
   }
   &:focus {
@@ -217,21 +217,20 @@ const SubmitBtn = styled.button`
   width: 95%;
   height: 40px;
   border-radius: 10px;
-  background-color: #9C94D0;
+  background-color: #9c94d0;
   box-shadow: 0 0 5px #b9b9b9;
   color: #fff;
   font-size: 1rem;
   transition: 250ms;
 
   &:hover {
-    box-shadow: 0 0 4px #9C94D0;
+    box-shadow: 0 0 4px #9c94d0;
     transform: scale(1.02);
   }
   &:focus {
     transform: scale(1.02);
   }
 `;
-
 
 export {
   Container,
@@ -262,5 +261,5 @@ export {
   Cancel,
   CancelBtn,
   Submit,
-  SubmitBtn
+  SubmitBtn,
 };

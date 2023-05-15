@@ -4,10 +4,10 @@ const Container = styled.div`
   overflow: hidden;
   width: 99%;
   height: 257px;
-  border: 1px solid #9C94D044;
+  border: 1px solid #9c94d044;
   border-radius: 10px;
   box-sizing: border-box;
-  box-shadow: 0 0 3px #9C94D088;
+  box-shadow: 0 0 3px #9c94d088;
   margin: 5px;
 `;
 
@@ -31,20 +31,20 @@ const InputImgBtn = styled.button`
   width: 200px;
   height: 40px;
   border-radius: 10px;
-  border: 1px solid #9C94D044;
+  border: 1px solid #9c94d044;
   box-sizing: border-box;
-  box-shadow: 0 0 3px #9C94D055;
+  box-shadow: 0 0 3px #9c94d055;
   background: #fff;
   font-size: 1rem;
-  
+
   &:hover {
-    box-shadow: 0 0 5px #9C94D0;
-    background: #9C94D0;
+    box-shadow: 0 0 5px #9c94d0;
+    background: #9c94d0;
     color: #fff;
   }
   &:focus {
-    box-shadow: 0 0 5px #9C94D0;
-    background: #9C94D0;
+    box-shadow: 0 0 5px #9c94d0;
+    background: #9c94d0;
     color: #fff;
   }
 `;
@@ -56,9 +56,9 @@ const ImgWrapper = styled.div`
   margin: 20px 2.7% 0 0;
   padding: 15px 0;
   text-align: center;
-  border: 1px solid #9C94D022;
+  border: 1px solid #9c94d022;
   border-radius: 10px;
-  box-shadow: 0 0 3px #9C94D044;
+  box-shadow: 0 0 3px #9c94d044;
   box-sizing: border-box;
 `;
 
@@ -66,12 +66,4 @@ const PreviewImg = styled.img`
   width: 45%;
 `;
 
-
-export {
-  Container,
-  InputImg,
-  BtnWrapper,
-  InputImgBtn,
-  ImgWrapper,
-  PreviewImg
-};
+export { Container, InputImg, BtnWrapper, InputImgBtn, ImgWrapper, PreviewImg };

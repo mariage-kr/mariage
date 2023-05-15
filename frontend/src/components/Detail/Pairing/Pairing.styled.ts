@@ -11,7 +11,6 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  /* border: 1px solid green; */
   width: 95%;
   margin: 0 auto;
   padding: 0;
@@ -47,22 +46,22 @@ const HashtagFilter = styled.div`
 `;
 
 const Button = styled.button<Select>`
-border-radius: 50px;
-width: auto;
-min-width: 78px;
-height: 40px;
-margin-right: 15px;
-padding: 0 20px;
-font-size: 1rem;
+  border-radius: 50px;
+  width: auto;
+  min-width: 78px;
+  height: 40px;
+  margin-right: 15px;
+  padding: 0 20px;
+  font-size: 1rem;
 
-background-color: ${prop => (prop.select ? '#9c94d0' : '#fff')};
-color: ${prop => (prop.select ? '#f8f8f8' : '#000')};
-box-shadow: 1px 1px 3px ${prop => (prop.select ? '#00000030' : '#9C94D055')};
-transition: 250ms;
+  background-color: ${prop => (prop.select ? '#9c94d0' : '#fff')};
+  color: ${prop => (prop.select ? '#f8f8f8' : '#000')};
+  box-shadow: 1px 1px 3px ${prop => (prop.select ? '#00000030' : '#9C94D055')};
+  transition: 250ms;
 
-&:hover {
-  box-shadow: 1.5px 1.5px 3px #9C94D0;
-}
+  &:hover {
+    box-shadow: 1.5px 1.5px 3px #9c94d0;
+  }
 `;
 
 const PairingFood = styled.ul`
@@ -79,15 +78,23 @@ const Food = styled.li`
   overflow: hidden;
   transition: all 0.2s linear;
 
-  &:hover { 
-    transform: scale(1.05); 
-    text-shadow: 0 0 5px #9c94d099; 
+  &:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 5px #9c94d099;
   }
 
-  &:nth-of-type(1) { margin-right: 3%; }
-  &:nth-of-type(2) { margin-right: 3%; }
-  &:nth-of-type(3) { margin-right: 3%; }
-  &:nth-of-type(4) { margin-right: 3%; }
+  &:nth-of-type(1) {
+    margin-right: 3%;
+  }
+  &:nth-of-type(2) {
+    margin-right: 3%;
+  }
+  &:nth-of-type(3) {
+    margin-right: 3%;
+  }
+  &:nth-of-type(4) {
+    margin-right: 3%;
+  }
 `;
 
 const FoodImg = styled.img`
@@ -105,7 +112,9 @@ const NameRate = styled.div`
   text-align: center;
   font-size: 1.1rem;
 
-  @media (max-width:1140px) { display: block; }
+  @media (max-width: 1140px) {
+    display: block;
+  }
 `;
 
 const name = css``;
@@ -114,13 +123,15 @@ const rate = css`
   margin-left: 15px;
   color: #bb2649;
 
-  @media (max-width:1140px) { margin-left: 0; }
+  @media (max-width: 1140px) {
+    margin-left: 0;
+  }
 `;
 
 export {
   Container,
   Wrapper,
-  Title, 
+  Title,
   title_left,
   TitleIcon,
   title_right,
@@ -131,5 +142,5 @@ export {
   FoodImg,
   NameRate,
   name,
-  rate
+  rate,
 };
