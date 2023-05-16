@@ -36,6 +36,7 @@ const BROWSER_PATH = {
   MY: '/my',
   PRODUCT: '/product',
   SIGN_UP: '/signup',
+  REVIEW: '/review',
   TEST: '/test' /* prod 때는 삭제 */,
 };
 

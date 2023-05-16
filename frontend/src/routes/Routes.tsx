@@ -7,6 +7,7 @@ import {
   NotFound,
   Product,
   SignUp,
+  Review,
   Test /* TODO: 개발때만 사용 */,
 } from '@/pages/Pages';
 
@@ -24,6 +25,7 @@ function Routes() {
       <Route path={BROWSER_PATH.PRODUCT} element={<Product />} />
       <Route path={BROWSER_PATH.LOGIN} element={<Login />} />
       <Route path={BROWSER_PATH.SIGN_UP} element={<SignUp />} />
+      <Route path={BROWSER_PATH.REVIEW} element={<Review />} />
       <Route path={BROWSER_PATH.TEST} element={<Test />} />
       {/* TODO: 개발때만 사용 */}
       <Route path={'*'} element={<NotFound />} />
