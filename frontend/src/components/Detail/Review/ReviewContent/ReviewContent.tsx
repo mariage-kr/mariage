@@ -6,6 +6,12 @@ import { ReviewType } from '@/@types/review';
 import * as S from './ReviewContent.styled';
 
 function ReviewContent(review: ReviewType) {
+  const hashTags = [
+    {id: 1, value: '크리스마스'},
+    {id: 2, value: '데이트'},
+    {id: 3, value: '달달한'},
+  ]
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -55,7 +61,12 @@ function ReviewContent(review: ReviewType) {
             </S.ReviewRateText>
           </S.Food>
           <S.Content>
-            <S.ReviewText>{review.content.content}</S.ReviewText>
+            <S.ReviewText>
+              <S.ReviewContentText>{review.content.content}</S.ReviewContentText>
+              {hashTags.map(tag => (
+                <S.HashTag>#{tag.value}</S.HashTag>
+              ))}
+            </S.ReviewText>
             {review.content.img && (
               <S.ReviewImg>
                 <S.Img src={review.content.img} />

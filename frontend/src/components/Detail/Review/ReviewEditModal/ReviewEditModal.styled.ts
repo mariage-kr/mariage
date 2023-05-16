@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  /* border: 2px solid red; */
   box-sizing: border-box;
   width: 100%;
   height: 100%;

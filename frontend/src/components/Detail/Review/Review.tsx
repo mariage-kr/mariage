@@ -22,7 +22,6 @@ function Review(productContent: ProductContentType) {
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
-    // document.body.style.overflow = "hidden";
   }, [isOpenModal]);
 
   const data: PagingType<ReviewType> = reviewsData;

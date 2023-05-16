@@ -137,8 +137,8 @@ function ReviewCategory() {
 
   // 정렬
   const [sort, setSort] = useState<SortType>({
-    sympathy: true,
-    newest: false,
+    sympathy: false,
+    newest: true,
   });
 
   const changeSort = (key: string) => {
