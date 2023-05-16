@@ -7,11 +7,15 @@ const requestSignup = (userData: SignupUserType) => {
 };
 
 const requestUserNickname = () => {
-  return axiosWithAccessToken.get(API_PATH.MEMBER.NICKNAME);
+  return axiosWithAccessToken.get(API_PATH.MEMBER.INFO);
 };
 
 const requestUserInfo = () => {
-  return axiosWithAccessToken.get(API_PATH.MEMBER.MY.INFO);
+  return axiosWithAccessToken.get(API_PATH.MEMBER.INFO);
+};
+
+const requestUserProfile = () => {
+  return axiosWithAccessToken.get(API_PATH.MEMBER.PROFILE);
 };
 
 const requestUpdateNickname = (nickname: string) => {
@@ -21,6 +25,6 @@ const requestUpdateNickname = (nickname: string) => {
 export {
   requestSignup,
   requestUserNickname,
-  requestUserInfo,
+  requestUserProfile,
   requestUpdateNickname,
 };

@@ -57,6 +57,9 @@ function User() {
     };
 
     if (accessToken) {
+      if (!setNickname()) {
+        reissueToken();
+      }
       return;
     }
 

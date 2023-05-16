@@ -25,14 +25,14 @@ class MemberFindControllerTest extends ControllerTest {
         ACCESS_TOKEN = accessToken(MemberFixture.MARI);
     }
 
-    @DisplayName("회원 정보를 조회한다.")
+    @DisplayName("회원 프로필을 조회한다.")
     @Test
-    void 회원_정보를_조회한다() throws Exception {
-        mockMvc.perform(get("/api/user/members/find")
+    void 회원_프로필을_조회한다() throws Exception {
+        mockMvc.perform(get("/api/user/members/profile")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
                 .andDo(
-                        document("Member/FindMemberInfo",
+                        document("Member/FindMemberProfile",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
                                         fieldWithPath("birth").description("회원 생년월일"),
@@ -45,16 +45,17 @@ class MemberFindControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("회원의 별칭을 조회한다.")
+    @DisplayName("회원의 정보를 조회한다.")
     @Test
-    void 회원의_별칭을_조회한다() throws Exception {
-        mockMvc.perform(get("/api/user/members/nickname")
+    void 회원의_정보를_조회한다() throws Exception {
+        mockMvc.perform(get("/api/user/members/info")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
                 .andDo(print())
                 .andDo(
-                        document("Member/FindMemberNickname",
+                        document("Member/FindMemberInfo",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
+                                        fieldWithPath("id").description("회원 식별자"),
                                         fieldWithPath("nickname").description("회원 별칭")
                                 )
                         )

@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class NicknameResponse {
+public class MemberInfoResponse {
+    private Long id;
 
     private String nickname;
 
-    public NicknameResponse(String nickname) {
+    public MemberInfoResponse(Long id, String nickname) {
+        this.id = id;
         this.nickname = nickname;
     }
 }
