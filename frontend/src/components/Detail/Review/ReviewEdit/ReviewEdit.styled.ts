@@ -142,7 +142,12 @@ const Btn = styled.button`
   box-shadow: 0 0 3px #9c94d055;
   font-size: 1rem;
   &:hover {
-    box-shadow: 0 0 4px #9c94d0;
+    box-shadow: 0 0 5px #9c94d0;
+  }
+  &:focus {
+    background-color: #9c94d0;
+    color: #fff;
+    box-shadow: 0 0 5px #b9b9b9;
   }
 `;
 

@@ -55,7 +55,6 @@ const Star = styled.div`
   float: left;
   width: 41%;
   padding-right: 3px;
-  transform: scaleX(-1);
 
   @media (max-width: 1640px) { width: 45%; }
   @media (max-width: 1495px) { width: 50%; }
@@ -64,6 +63,12 @@ const Star = styled.div`
     text-align: left;
   }
   @media (max-width: 1100px) { width: 72%; }
+`;
+
+const StarImg = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 `;
 
 const Graph = styled.div`
@@ -111,6 +116,7 @@ export {
   Bottom,
   RateOption,
   Star,
+  StarImg,
   Graph,
   TempGraph,
   Count
