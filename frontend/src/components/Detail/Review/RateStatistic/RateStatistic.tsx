@@ -1,4 +1,7 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+
+import PercentageBar from '@/components/Bar/PercentageBar/PercentageBar';
+
 import star5 from '@/assets/png/star5.png'
 import star4 from '@/assets/png/star4.png'
 import star3 from '@/assets/png/star3.png'
@@ -65,7 +68,7 @@ function RateStatistic() {
                 <S.StarImg src={rate.img} />
               </S.Star>
               <S.Graph>
-                <S.TempGraph></S.TempGraph>
+                <S.TempGraph><PercentageBar percentage={rate.value}/></S.TempGraph>
               </S.Graph>
               <S.Count>{rate.value}%</S.Count>
             </S.RateOption>
