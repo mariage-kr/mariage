@@ -75,7 +75,6 @@ const Graph = styled.div`
   box-sizing: border-box;
   float: left;
   width: 41%;
-  /* padding-right: 3px; */
 
   @media (max-width: 1640px) { width: 39%; }
   @media (max-width: 1495px) { width: 34%; }

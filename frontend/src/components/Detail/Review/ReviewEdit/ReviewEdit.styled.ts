@@ -100,6 +100,7 @@ const InputReview = styled.textarea`
   box-shadow: 0 0 5px #9c94d066;
   font-size: small;
   cursor: pointer;
+  resize: none;
 
   &:hover,
   &:focus {

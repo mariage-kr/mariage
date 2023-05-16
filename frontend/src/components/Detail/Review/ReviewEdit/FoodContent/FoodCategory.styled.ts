@@ -22,7 +22,6 @@ const FoodRadioBtn = styled.label`
   height: 40px;
   margin: 0;
   padding: 0;
-  /* border: 1px solid #EAE7E7; */
   border-radius: 10px;
   box-sizing: border-box;
   display: inline-block;
