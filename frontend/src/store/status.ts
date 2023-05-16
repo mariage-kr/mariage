@@ -5,11 +5,12 @@ import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
 import { isBoolean } from '@/utils/boolean';
 import { CategoryType } from '@/@types/category';
+import { RECOIL_KEY } from '@/constants/key';
 
 const { persistAtom } = recoilPersist();
 
 const drinkUpperCategoryState = atom<CategoryType[]>({
-  key: 'drinkUpperCategoryState',
+  key: RECOIL_KEY.DRINK_UPPER_CATEGORY,
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
