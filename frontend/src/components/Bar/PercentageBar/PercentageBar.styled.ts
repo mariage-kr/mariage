@@ -6,7 +6,7 @@ interface BarProps {
 
 const BarWrapper = styled.div`
   width: 100%;
-  height: 16px;
+  height: 20px;
   background-color: rgba(156, 148, 208, 0.2);
 `;
 
@@ -16,8 +16,4 @@ const Bar = styled.div<BarProps>`
   width: ${props => `${props.percentage}%`};
 `;
 
-const Container = styled.div`
-  margin: 0 5px;
-`;
-
-export { BarWrapper, Bar, Container };
+export { BarWrapper, Bar };
