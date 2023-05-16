@@ -1,5 +1,5 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
-
+import PercentageBar from '@/components/Bar/PercentageBar/PercentageBar';
 import * as S from './RateStatistic.styled';
 
 function RateStatistic() {
@@ -55,7 +55,7 @@ function RateStatistic() {
                 <StarRateAverage key={rate.id} averageReviewRate={rate.id} />
               </S.Star>
               <S.Graph>
-                <S.TempGraph></S.TempGraph>
+                <S.TempGraph><PercentageBar percentage={rate.value}/></S.TempGraph>
               </S.Graph>
               <S.Count>{rate.value}%</S.Count>
             </S.RateOption>
