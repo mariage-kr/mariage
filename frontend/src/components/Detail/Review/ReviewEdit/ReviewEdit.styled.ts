@@ -136,7 +136,7 @@ const BtnWrapper = styled.div`
 
 const Btn = styled.button`
   width: 30%;
-  height: 40px;
+  height: 42px;
   margin: 10px 5% 10px;
   border-radius: 10px;
   background-color: #fff;
@@ -194,7 +194,7 @@ const Cancel = styled.div`
 
 const CancelBtn = styled.button`
   width: 95%;
-  height: 40px;
+  height: 42px;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 0 5px #9c94d088;
@@ -221,7 +221,7 @@ const Submit = styled.div`
 
 const SubmitBtn = styled.button`
   width: 95%;
-  height: 40px;
+  height: 42px;
   border-radius: 10px;
   background-color: #9c94d0;
   box-shadow: 0 0 5px #b9b9b9;

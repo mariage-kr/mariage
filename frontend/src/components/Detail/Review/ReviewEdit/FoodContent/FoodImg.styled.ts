@@ -29,7 +29,7 @@ const BtnWrapper = styled.div`
 
 const InputImgBtn = styled.button`
   width: 200px;
-  height: 40px;
+  height: 42px;
   border-radius: 10px;
   border: 1px solid #9c94d044;
   box-sizing: border-box;
