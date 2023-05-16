@@ -25,6 +25,7 @@ const requestUpdateNickname = (nickname: string) => {
 export {
   requestSignup,
   requestUserNickname,
+  requestUserInfo,
   requestUserProfile,
   requestUpdateNickname,
 };

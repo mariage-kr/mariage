@@ -1,19 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { Token } from '@/@types/token';
 import { requestLogout, requestReissue } from '@/apis/request/auth';
+import { requestUserInfo } from '@/apis/request/member';
 import { BROWSER_PATH } from '@/constants/path';
-
-import * as S from './Profile.styled';
-import useNickname from '@/hooks/useNickname';
 import useAuth from '@/hooks/useAuth';
 
+import * as S from './Profile.styled';
+
+type UserInfo = {
+  id: number;
+  nickname: string;
+};
+
 function User() {
-  const { accessToken, refreshToken, setAuth, resetAuth } = useAuth();
+  const { accessToken, refreshToken, setAuth, resetAuth, removeIsLogin } =
+    useAuth();
   const { key } = useLocation();
   const navigate = useNavigate();
 
-  const { value: nickname, setValue: setNickname } = useNickname();
+  const [userInfo, setUserInfo] = useState<UserInfo>();
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const handlerIsLogin = () => {
@@ -23,8 +30,8 @@ function User() {
   const logout = () => {
     requestLogout()
       .then(() => {
-        handlerIsLogin();
         resetAuth();
+        handlerIsLogin();
         navigate(BROWSER_PATH.BASE);
       })
       .finally(() => {
@@ -33,33 +40,38 @@ function User() {
   };
 
   useEffect(() => {
-    if (nickname) {
-      return;
-    }
-    setNickname();
-  }, []);
-
-  useEffect(() => {
     handlerIsLogin();
 
-    if (!accessToken && !refreshToken) {
+    if (!accessToken || !refreshToken) {
       return;
     }
 
     const reissueToken = async () => {
       await requestReissue({ accessToken, refreshToken })
         .then(response => {
-          setAuth({ ...response.data });
+          const token: Token = {
+            accessToken: response.data.accessToken,
+            refreshToken: response.data.refreshToken,
+          };
+          setAuth({ ...token });
         })
         .catch(() => {
-          resetAuth();
+          removeIsLogin;
+        });
+    };
+
+    const getUserInfo = async () => {
+      await requestUserInfo()
+        .then(response => {
+          setUserInfo({ ...response.data });
+        })
+        .catch(() => {
+          reissueToken();
         });
     };
 
     if (accessToken) {
-      if (!setNickname()) {
-        reissueToken();
-      }
+      getUserInfo();
       return;
     }
 
@@ -69,7 +81,7 @@ function User() {
   if (isLogin) {
     return (
       <S.Container>
-        <S.StyledLink to={BROWSER_PATH.MY}>{nickname}님</S.StyledLink>
+        <S.StyledLink to={BROWSER_PATH.MY}>{userInfo?.nickname}님</S.StyledLink>
         <S.TextButton onClick={logout}>로그아웃</S.TextButton>
       </S.Container>
     );
