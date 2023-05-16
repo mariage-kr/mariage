@@ -42,12 +42,12 @@ function User() {
   useEffect(() => {
     handlerIsLogin();
 
-    if (!isLogin && !accessToken && !refreshToken) {
+    if (!accessToken && !refreshToken) {
       return;
     }
 
-    const reissueToken = () => {
-      requestReissue({ accessToken, refreshToken })
+    const reissueToken = async () => {
+      await requestReissue({ accessToken, refreshToken })
         .then(response => {
           setAuth({ ...response.data });
         })
@@ -55,6 +55,10 @@ function User() {
           resetAuth();
         });
     };
+
+    if (accessToken) {
+      return;
+    }
 
     reissueToken();
   }, [key]);

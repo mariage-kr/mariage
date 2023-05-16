@@ -10,12 +10,14 @@ import com.multi.mariage.auth.exception.AuthException;
 import com.multi.mariage.auth.support.TokenProvider;
 import com.multi.mariage.auth.vo.AuthMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -35,8 +37,10 @@ public class AuthService {
 
         TokenResponse response = tokenProvider.generateTokenResponse(authenticate);
 
+        Long memberId = Long.valueOf(authenticate.getName());
+
         RefreshToken token = RefreshToken.builder()
-                .id(Long.valueOf(authenticate.getName()))
+                .id(memberId)
                 .value(response.getRefreshToken())
                 .build();
 
@@ -61,7 +65,7 @@ public class AuthService {
         Long id = Long.valueOf(authentication.getName());
         RefreshToken refreshToken = authRepository.findById(id)
                 .orElseThrow(() -> new AuthException(AuthErrorCode.MEMBER_IS_ALREADY_LOGOUT));
-
+        
         if (!refreshToken.getValue().equals(request.getRefreshToken())) {
             throw new AuthException(AuthErrorCode.TOKEN_MEMBER_INFORMATION_IS_NOT_SAME);
         }
