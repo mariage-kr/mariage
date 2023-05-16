@@ -1,6 +1,7 @@
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
 import ProductCard from '@/components/Product/ProductCard/ProductCard';
+import NoItems from '@/components/NoItems/NoItems';
 
 import { PagingType } from '@/@types/paging';
 import { ProductInfoType } from '@/@types/product';
@@ -13,8 +14,8 @@ import nullData from './nullData.json';
 
 function Product() {
   /* 위의 데이터는 데이터가 존재할 경우이며 아래는 데이터가 없을 경우입니다. */
-  // const products: PagingType<ProductInfoType> = data;
-  const products: PagingType<ProductInfoType> = nullData;
+  const products: PagingType<ProductInfoType> = data;
+  // const products: PagingType<ProductInfoType> = nullData;
 
   const lengthIsZero = (): boolean => {
     return products.content.length === 0;
@@ -32,9 +33,7 @@ function Product() {
       <S.Contents>
         <Option />
         {lengthIsZero() ? (
-          <div>
-            <h1>만약 데이터가 없으면?</h1>
-          </div>
+          <NoItems />
         ) : (
           products.content.map((product: ProductInfoType) => {
             return <ProductCard key={product.id} {...product} />;
