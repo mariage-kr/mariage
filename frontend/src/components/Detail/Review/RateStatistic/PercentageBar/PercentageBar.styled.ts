@@ -7,7 +7,9 @@ interface BarProps {
 const BarWrapper = styled.div`
   width: 100%;
   height: 20px;
-  background-color: rgba(156, 148, 208, 0.2);
+  background-color: #9C94D022;
+
+  @media (max-width: 1200px) { height: 15px; }
 `;
 
 const Bar = styled.div<BarProps>`
