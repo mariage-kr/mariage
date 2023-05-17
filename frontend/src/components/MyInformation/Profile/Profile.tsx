@@ -27,7 +27,7 @@ function Profile() {
     birth: '',
   });
 
-  const { userInfo, setUserInfo } = useUserInfo();
+  const { setUserInfo } = useUserInfo();
 
   /* 유저 정보 요청 */
   const getMyInfo = async () => {
