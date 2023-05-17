@@ -9,10 +9,11 @@ import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +25,10 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
-    private int productScore;
-    private String productContent;
-    private String foodContent;
-    private int foodScore;
-    private LocalDateTime date;
+    private int productRate;
+    private String content;
+    private int foodRate;
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -56,6 +56,16 @@ public class Review {
     @JoinColumn(name = "image_id")
     private Image image;
 
+    @Builder
+    public Review(int productRate, String content, int foodRate, LocalDate date, FoodCategory foodCategory, Image image) {
+        this.productRate = productRate;
+        this.content = content;
+        this.foodRate = foodRate;
+        this.date = date;
+        this.foodCategory = foodCategory;
+        this.image = image;
+    }
+
     /* 연관관계 편의 메서드 */
     public void setWeather(Weather weather) {
         weather.getReviews().add(this);
@@ -65,10 +75,6 @@ public class Review {
     public void setProduct(Product product) {
         product.getReviews().add(this);
         this.product = product;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public void setMember(Member member) {

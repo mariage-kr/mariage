@@ -36,6 +36,7 @@ public class WeatherService {
     @Value("${open.weather.units}")
     private String units;
 
+    /* TODO: 테스트 관련 내용으로 인해서 접근 제어라를 public 로 하는 행위는 좋지 않으므로 수정 한다. */
     public boolean validateWeatherTimeIsNotDuplicated() {
         LocalDateTime date = getFormatLocalDateTime(System.currentTimeMillis());
         return weatherRepository.existsByDate(date);

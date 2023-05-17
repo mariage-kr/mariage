@@ -8,4 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReviewSaveResponse {
     private Long reviewId;
+
+    public ReviewSaveResponse(Long reviewId) {
+        this.reviewId = reviewId;
+    }
 }
