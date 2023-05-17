@@ -10,11 +10,6 @@ import useAuth from '@/hooks/useAuth';
 import * as S from './Profile.styled';
 import useUserInfo from '@/hooks/useUserInfo';
 
-type UserInfo = {
-  id: number;
-  nickname: string;
-};
-
 function User() {
   const { accessToken, refreshToken, setAuth, resetAuth, removeIsLogin } =
     useAuth();
