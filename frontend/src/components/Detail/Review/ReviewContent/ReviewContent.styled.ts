@@ -57,12 +57,11 @@ const RateDate = styled.div`
   box-sizing: border-box;
   width: auto;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 `;
 
 const Date = styled.p`
   margin: 0 20px;
-  padding-bottom: 4px;
   font-size: 1.1rem;
   color: #b7b7b7;
 `;
