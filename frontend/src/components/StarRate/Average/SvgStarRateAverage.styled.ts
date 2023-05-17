@@ -10,8 +10,6 @@ const Container = styled.div`
 
   width: 100px;
   height: 20px;
-
-  border: 1px solid red;
 `;
 
 const Image = css`

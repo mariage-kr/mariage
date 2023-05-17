@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Rating000,
   Rating012,
@@ -39,7 +38,6 @@ function SvgStarRateAverage({ id, rate }: RateType) {
         } else if (decimalRate === 8 || decimalRate === 9) {
           stars[i] = <Rating089 key={`${id}_${i}`} css={S.Image} />;
         }
-        console.log(decimalRate);
       } else {
         stars[i] = <Rating000 key={`${id}_${i}`} css={S.Image} />;
       }

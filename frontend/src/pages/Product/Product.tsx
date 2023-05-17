@@ -14,8 +14,8 @@ import nullData from './nullData.json';
 
 function Product() {
   /* 위의 데이터는 데이터가 존재할 경우이며 아래는 데이터가 없을 경우입니다. */
-  // const products: PagingType<ProductInfoType> = data;
-  const products: PagingType<ProductInfoType> = nullData;
+  const products: PagingType<ProductInfoType> = data;
+  // const products: PagingType<ProductInfoType> = nullData;
 
   const { value: category, setValue: setCategory } = useProductCategory();
 
