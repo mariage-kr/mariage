@@ -4,7 +4,8 @@ import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review_hashtag.domain.ReviewHashTag;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class Review {
     private List<Like> likes = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
-    private List<ReviewHashTag> reviewHashtags = new ArrayList<>();
+    private List<ReviewHashtag> reviewHashtags = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "food_category_id")
@@ -57,13 +59,22 @@ public class Review {
     private Image image;
 
     @Builder
-    public Review(int productRate, String content, int foodRate, LocalDate date, FoodCategory foodCategory, Image image) {
+    public Review(int productRate, String content, int foodRate, LocalDate date, FoodCategory foodCategory) {
         this.productRate = productRate;
         this.content = content;
         this.foodRate = foodRate;
         this.date = date;
         this.foodCategory = foodCategory;
-        this.image = image;
+    }
+
+    public static Review from(ReviewSaveRequest request) {
+        return Review.builder()
+                .productRate(request.getProductRate())
+                .content(request.getContent())
+                .foodRate(request.getFoodRate())
+                .date(LocalDate.now(ZoneId.of("Asia/Seoul")))
+                .foodCategory(request.getFoodCategory())
+                .build();
     }
 
     /* 연관관계 편의 메서드 */
@@ -80,5 +91,10 @@ public class Review {
     public void setMember(Member member) {
         member.getReviews().add(this);
         this.member = member;
+    }
+
+    /* 비즈니스 로직 */
+    public void changeImage(Image image) {
+        this.image = image;
     }
 }
