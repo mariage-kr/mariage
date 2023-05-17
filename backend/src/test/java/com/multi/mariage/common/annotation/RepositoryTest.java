@@ -3,6 +3,7 @@ package com.multi.mariage.common.annotation;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public abstract class RepositoryTest {
     @Autowired
     protected StorageRepository storageRepository;
 
+    @Autowired
+    protected ReviewRepository reviewRepository;
+
     protected Product saveProduct(ProductFixture productFixture) {
         Product product = productFixture.toProduct();
 
@@ -25,5 +29,9 @@ public abstract class RepositoryTest {
         product.setImage(image);
 
         return productRepository.save(product);
+    }
+
+    protected Image saveImage(String imageName) {
+        return storageRepository.save(new Image(imageName));
     }
 }

@@ -5,7 +5,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  min-height: 400px;
+  min-height: 900px;
 `;
 
 export { Container, Content };
