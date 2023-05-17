@@ -34,8 +34,6 @@ function ReviewList() {
     {id: 3, value: '달달한'},
   ]
 
-  // toLocaleString();
-
   return (
     <S.Container>
       <S.Wrapper>
