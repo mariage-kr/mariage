@@ -8,6 +8,7 @@ import { BROWSER_PATH } from '@/constants/path';
 import useAuth from '@/hooks/useAuth';
 
 import * as S from './Profile.styled';
+import useUserInfo from '@/hooks/useUserInfo';
 
 type UserInfo = {
   id: number;
@@ -20,7 +21,7 @@ function User() {
   const { key } = useLocation();
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState<UserInfo>();
+  const { userInfo, setUserInfo } = useUserInfo();
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const handlerIsLogin = () => {

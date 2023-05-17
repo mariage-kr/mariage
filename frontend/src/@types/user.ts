@@ -11,11 +11,16 @@ type LoginUserType = {
   password: string;
 };
 
-type UserInfoType = {
+type UserProfileType = {
   nickname: string;
   email: string;
   imagePath: string;
   birth: string;
 };
 
-export { SignupUserType, LoginUserType, UserInfoType };
+type UserInfoType = {
+  id: number;
+  nickname: string;
+};
+
+export { SignupUserType, LoginUserType, UserProfileType, UserInfoType };
