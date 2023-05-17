@@ -26,7 +26,6 @@ public class Weather {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "weathers")
     private Value value;
-
     @Column(nullable = false)
     private LocalDateTime date;
 

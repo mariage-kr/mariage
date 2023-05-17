@@ -28,7 +28,7 @@ public enum ReviewFixture {
         this.hashtags = hashtags;
     }
 
-    Review toReview(Member member, Product product, Image image, Weather weather) {
+    public Review toReview(Member member, Product product, Image image, Weather weather) {
         Review review = Review.builder()
                 .productRate(productRate)
                 .content(content)
