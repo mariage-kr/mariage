@@ -18,7 +18,7 @@ function Profile() {
   } = useInput('');
 
   const { value: image, setValue: setImage } = useImage<File>(null);
-  const [userInfo, setUserInfo] = useState<UserProfileType>({
+  const [userProfile, setUserProfile] = useState<UserProfileType>({
     nickname: '',
     email: '',
     imagePath: '',
@@ -29,7 +29,7 @@ function Profile() {
   const getMyInfo = async () => {
     await requestUserProfile()
       .then(response => {
-        setUserInfo(response.data);
+        setUserProfile(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -45,7 +45,7 @@ function Profile() {
     await requestUpdateNickname(nickname)
       .then(response => {
         const newNickname = response.data.nickname;
-        setUserInfo(prevState => {
+        setUserProfile(prevState => {
           return { ...prevState, nickname: newNickname };
         });
         resetNickname();
@@ -60,13 +60,13 @@ function Profile() {
       <S.Profile>
         <S.Image>
           <p>프로필 사진</p>
-          <S.ProfileImg src={userInfo?.imagePath} />
+          <S.ProfileImg src={userProfile?.imagePath} />
         </S.Image>
         <S.Info>
           <S.Name>
-            {userInfo?.nickname} <S.Email>{userInfo?.email}</S.Email>
+            {userProfile?.nickname} <S.Email>{userProfile?.email}</S.Email>
           </S.Name>
-          <S.Birth>{userInfo?.birth}</S.Birth>
+          <S.Birth>{userProfile?.birth}</S.Birth>
           <form encType="multipart/form-data">
             <S.ImageInput
               type="file"
