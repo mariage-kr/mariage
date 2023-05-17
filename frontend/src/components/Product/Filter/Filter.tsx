@@ -48,8 +48,13 @@ function Filter({ count, categories }: FilterProps) {
   const handleUpperCategoryClick = (
     upperCategory: DrinkUpperCategoryType,
   ): void => {
-    setSelectedUpperCategory(upperCategory);
-    setSelectedLowerCategory([]);
+    if (selectedUpperCategory === upperCategory) {
+      // 선택한 상위 카테고리 재클릭 시 하위 카테고리까지 취소
+      setSelectedUpperCategory(null);
+      setSelectedLowerCategory([]);
+    } else {
+      setSelectedUpperCategory(upperCategory);
+    }
   };
 
   const handleLowerCategoryClick = (
@@ -105,8 +110,8 @@ function Filter({ count, categories }: FilterProps) {
                       background: selectedLowerCategory.includes(
                         lowerCategory.value,
                       )
-                        ? 'lightblue'
-                        : 'transparent',
+                        ? '#9c94d0'
+                        : '',
                     }}
                   >
                     {lowerCategory.name}
