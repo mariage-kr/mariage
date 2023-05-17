@@ -4,6 +4,7 @@ import ProductCard from '@/components/Product/ProductCard/ProductCard';
 
 import { PagingType } from '@/@types/paging';
 import { ProductInfoType } from '@/@types/product';
+import { useProductCategory } from '@/hooks/useProductCategory';
 
 import * as S from './Product.styled';
 
@@ -16,6 +17,8 @@ function Product() {
   // const products: PagingType<ProductInfoType> = data;
   const products: PagingType<ProductInfoType> = nullData;
 
+  const { value: category, setValue: setCategory } = useProductCategory();
+
   const lengthIsZero = (): boolean => {
     return products.content.length === 0;
   };
@@ -23,10 +26,11 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
-        {lengthIsZero() ? (
-          <Filter count={0} />
-        ) : (
-          <Filter count={products.totalCount} />
+        {category && (
+          <Filter
+            count={lengthIsZero() ? 0 : products.totalCount}
+            categories={category}
+          />
         )}
       </S.Aside>
       <S.Contents>

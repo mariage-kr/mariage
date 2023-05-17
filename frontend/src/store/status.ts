@@ -4,14 +4,21 @@ import { recoilPersist } from 'recoil-persist';
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
 import { isBoolean } from '@/utils/boolean';
-import { CategoryType } from '@/@types/category';
+import { CategoryType, DrinkRegionCategoryType } from '@/@types/category';
 import { RECOIL_KEY } from '@/constants/key';
 import { UserInfoType } from '@/@types/user';
+
 
 const { persistAtom } = recoilPersist();
 
 const drinkUpperCategoryState = atom<CategoryType[]>({
   key: RECOIL_KEY.DRINK_UPPER_CATEGORY,
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
+
+const productCategoryState = atom<DrinkRegionCategoryType[]>({
+  key: 'productCategoryState',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
@@ -76,4 +83,5 @@ export {
   isLoginState,
   accessTokenState,
   refreshTokenState,
+  productCategoryState,
 };

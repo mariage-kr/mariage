@@ -1,0 +1,238 @@
+{
+    "category": [
+        {
+            "region": "국내",
+            "value": "LOCAL",
+            "categories": [
+                {
+                    "name": "소주",
+                    "value": "LOCAL_SOJU",
+                    "subCategories": [
+                        {
+                            "name": "희석식 소주",
+                            "value": "NORMAL_SOJU"
+                        },
+                        {
+                            "name": "증류식 소주",
+                            "value": "LUXURIOUS_SOJU"
+                        },
+                        {
+                            "name": "과일 소주",
+                            "value": "FRUIT_SOJU"
+                        }
+                    ]
+                },
+                {
+                    "name": "맥주",
+                    "value": "LOCAL_BEER",
+                    "subCategories": [
+                        {
+                            "name": "일반 맥주",
+                            "value": "BASIC_BEER"
+                        },
+                        {
+                            "name": "수제 맥주",
+                            "value": "CRAFT_BEER"
+                        }
+                    ]
+                },
+                {
+                    "name": "전통주",
+                    "value": "LOCAL_TRADITIONAL",
+                    "subCategories": [
+                        {
+                            "name": "막걸리",
+                            "value": "MAKGEOLLI"
+                        },
+                        {
+                            "name": "약주 & 청주",
+                            "value": "CLEAR_LIQUOR"
+                        },
+                        {
+                            "name": "과실주",
+                            "value": "FRUIT_LIQUOR"
+                        },
+                        {
+                            "name": "담금주",
+                            "value": "SOAKED_LIQUOR"
+                        }
+                    ]
+                },
+                {
+                    "name": "기타",
+                    "value": "LOCAL_ETC",
+                    "subCategories": [
+                        {
+                            "name": "국산 와인",
+                            "value": "DOMESTIC_WINE"
+                        },
+                        {
+                            "name": "국산 위스키",
+                            "value": "DOMESTIC_WHISKEY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "region": "해외",
+            "value": "FOREIGN",
+            "categories": [
+                {
+                    "name": "증류주",
+                    "value": "FOREIGN_SPIRITS",
+                    "subCategories": [
+                        {
+                            "name": "일본 소주",
+                            "value": "JAPANESE_SHOCHU"
+                        },
+                        {
+                            "name": "고량주",
+                            "value": "KAOLIANG_LIQUOR"
+                        },
+                        {
+                            "name": "보드카 & 진",
+                            "value": "VODKA"
+                        }
+                    ]
+                },
+                {
+                    "name": "맥주",
+                    "value": "FOREIGN_BEER",
+                    "subCategories": [
+                        {
+                            "name": "에일",
+                            "value": "ALE"
+                        },
+                        {
+                            "name": "라거",
+                            "value": "LAGER"
+                        },
+                        {
+                            "name": "흑맥주",
+                            "value": "DARK_BEER"
+                        }
+                    ]
+                },
+                {
+                    "name": "와인",
+                    "value": "FOREIGN_WINE",
+                    "subCategories": [
+                        {
+                            "name": "화이트 와인",
+                            "value": "WHITE_WINE"
+                        },
+                        {
+                            "name": "로제 와인",
+                            "value": "ROSE_WINE"
+                        },
+                        {
+                            "name": "레드 와인",
+                            "value": "RED_WINE"
+                        },
+                        {
+                            "name": "스파클링 와인",
+                            "value": "SPARKLING_WINE"
+                        },
+                        {
+                            "name": "디저트 와인",
+                            "value": "DESSERT_WINE"
+                        },
+                        {
+                            "name": "강화 와인",
+                            "value": "FORTIFIED_WINE"
+                        }
+                    ]
+                },
+                {
+                    "name": "위스키",
+                    "value": "FOREIGN_WHISKEY",
+                    "subCategories": [
+                        {
+                            "name": "몰트 위스키",
+                            "value": "MALT_WHISKY"
+                        },
+                        {
+                            "name": "블렌디드 위스키",
+                            "value": "BLENDED_WHISKEY"
+                        },
+                        {
+                            "name": "그레인 위스키",
+                            "value": "GRAIN_WHISKY"
+                        },
+                        {
+                            "name": "스카치 위스키",
+                            "value": "SCOTCH_WHISKY"
+                        },
+                        {
+                            "name": "아이리쉬 위스키",
+                            "value": "IRISH_WHISKEY"
+                        },
+                        {
+                            "name": "버번(아메리칸) 위스키",
+                            "value": "BOURBON_WHISKEY"
+                        },
+                        {
+                            "name": "캐나디안 위스키",
+                            "value": "CANADIAN_WHISKY"
+                        },
+                        {
+                            "name": "재패니즈 위스키",
+                            "value": "JAPANESE_WHISKEY"
+                        },
+                        {
+                            "name": "포트 위스키",
+                            "value": "PORT_WHISKY"
+                        },
+                        {
+                            "name": "페이턴트 위스키",
+                            "value": "PATENT_WHISKEY"
+                        },
+                        {
+                            "name": "기타",
+                            "value": "ETC_WHISKEY"
+                        }
+                    ]
+                },
+                {
+                    "name": "기타",
+                    "value": "FOREIGN_ETC",
+                    "subCategories": [
+                        {
+                            "name": "사케",
+                            "value": "SAKE"
+                        },
+                        {
+                            "name": "백주",
+                            "value": "BAIJIU"
+                        },
+                        {
+                            "name": "브랜디(꼬냑)",
+                            "value": "BRANDY"
+                        },
+                        {
+                            "name": "럼",
+                            "value": "RUM"
+                        },
+                        {
+                            "name": "데킬라",
+                            "value": "TEQUILA"
+                        },
+                        {
+                            "name": "리큐르",
+                            "value": "LIQUEUR"
+                        },
+                        {
+                            "name": "샴페인",
+                            "value": "CHAMPAGNE"
+                        },
+                        {
+                            "name": "그 외",
+                            "value": "OTHERS"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
