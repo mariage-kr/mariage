@@ -53,7 +53,7 @@ include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
 
 include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
 
-== 회원 닉네임 조회
+== 회원 정보 조회
 
 '''
 
@@ -61,17 +61,17 @@ include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
 
 '''
 
-include::{snippets}/Member/FindMemberNickname/http-request.adoc[]
+include::{snippets}/Member/FindMemberInfo/http-request.adoc[]
 
 === Response
 
 '''
 
-include::{snippets}/Member/FindMemberNickname/http-response.adoc[]
+include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
 
 ==== Fields
 
-include::{snippets}/Member/FindMemberNickname/response-fields.adoc[]
+include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
 
 == 회원 프로필 사진 삭제
 

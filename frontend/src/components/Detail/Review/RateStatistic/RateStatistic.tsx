@@ -1,12 +1,7 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import PercentageBar from './PercentageBar/PercentageBar';
 
-import PercentageBar from '@/components/Bar/PercentageBar/PercentageBar';
-
-import star5 from '@/assets/png/star5.png'
-import star4 from '@/assets/png/star4.png'
-import star3 from '@/assets/png/star3.png'
-import star2 from '@/assets/png/star2.png'
-import star1 from '@/assets/png/star1.png'
+import star from '@/assets/png/staricon.png'
 
 import * as S from './RateStatistic.styled';
 
@@ -25,27 +20,27 @@ function RateStatistic() {
     {
       id: 5,
       value: 77,
-      img: star5
+      standard: 5
     },
     {
       id: 4,
       value: 12,
-      img: star4
+      standard: 4
     },
     {
       id: 3,
       value: 1,
-      img: star3
+      standard: 3
     },
     {
       id: 2,
       value: 3,
-      img: star2
+      standard: 2
     },
     {
       id: 1,
       value: 15,
-      img: star1
+      standard: 1
     },
   ];
   return (
@@ -59,13 +54,14 @@ function RateStatistic() {
               averageReviewRate={rateData.average}
             />
           </S.StarRate>
-          <S.TotalRate>{rateData.totalCount} Reviews</S.TotalRate>
+          <S.TotalRate><S.Span>{rateData.totalCount}</S.Span> Reviews</S.TotalRate>
         </S.Top>
         <S.Bottom>
           {rateData2.map((rate: any) => (
             <S.RateOption>
               <S.Star>
-                <S.StarImg src={rate.img} />
+                <S.StarWrapper css={S.img}><S.StarImg src={star} /></S.StarWrapper>
+                <S.StarWrapper>{rate.standard}</S.StarWrapper>                
               </S.Star>
               <S.Graph>
                 <S.TempGraph><PercentageBar percentage={rate.value}/></S.TempGraph>

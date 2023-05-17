@@ -35,8 +35,10 @@ public class AuthService {
 
         TokenResponse response = tokenProvider.generateTokenResponse(authenticate);
 
+        Long memberId = Long.valueOf(authenticate.getName());
+
         RefreshToken token = RefreshToken.builder()
-                .id(Long.valueOf(authenticate.getName()))
+                .id(memberId)
                 .value(response.getRefreshToken())
                 .build();
 

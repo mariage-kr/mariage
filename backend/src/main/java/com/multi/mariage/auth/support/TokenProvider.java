@@ -50,6 +50,8 @@ public class TokenProvider {
                 .compact();
 
         String refreshToken = Jwts.builder()
+                .setSubject(auth.getName())
+                .claim(AUTHORITIES_KEY, authorities)
                 .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();

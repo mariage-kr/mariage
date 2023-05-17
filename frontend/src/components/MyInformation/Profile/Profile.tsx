@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { requestUpdateNickname, requestUserInfo } from '@/apis/request/member';
+import {
+  requestUpdateNickname,
+  requestUserProfile,
+} from '@/apis/request/member';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
-import { UserInfoType } from '@/@types/user';
+import { UserProfileType } from '@/@types/user';
 
 import * as S from './Profile.styled';
 
@@ -15,7 +18,7 @@ function Profile() {
   } = useInput('');
 
   const { value: image, setValue: setImage } = useImage<File>(null);
-  const [userInfo, setUserInfo] = useState<UserInfoType>({
+  const [userInfo, setUserInfo] = useState<UserProfileType>({
     nickname: '',
     email: '',
     imagePath: '',
@@ -24,7 +27,7 @@ function Profile() {
 
   /* 유저 정보 요청 */
   const getMyInfo = async () => {
-    await requestUserInfo()
+    await requestUserProfile()
       .then(response => {
         setUserInfo(response.data);
       })

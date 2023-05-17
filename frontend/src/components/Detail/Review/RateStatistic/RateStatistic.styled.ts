@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 const Container = styled.div`
   margin: 0;
@@ -36,11 +37,18 @@ const TotalRate = styled.div`
   margin: 0;
 `;
 
+const Span = styled.span`
+  color: #bb2649;
+`;
+
 const Bottom = styled.div`
   margin: 0 auto;
-  padding: 15px 0 20px;
+  padding: 20px 0 25px;
   width: 95%;
   text-align: center;
+  font-size: 1rem;
+
+  @media (max-width: 1650px) { font-size: 0.95rem; }
 `;
 
 const RateOption = styled.div`
@@ -48,60 +56,74 @@ const RateOption = styled.div`
   width: 95%;
   text-align: center;
   overflow: hidden;
+
+  @media (max-width: 1400px) { width: 86%; }
 `;
 
 const Star = styled.div`
   box-sizing: border-box;
   float: left;
-  width: 41%;
-  padding-right: 3px;
+  width: 24%;
+  padding-right: 10px;
+  margin: 2px 0 0;
 
-  @media (max-width: 1640px) { width: 45%; }
-  @media (max-width: 1495px) { width: 50%; }
-  @media (max-width: 1345px) { 
-    width: 68%; 
-    text-align: left;
-  }
-  @media (max-width: 1100px) { width: 72%; }
+  @media (max-width: 1400px) { width: 27%; }
+  @media (max-width: 1200px) { width: 31%; }
+`;
+
+const StarWrapper = styled.div`
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+`;
+
+const img = css`
+  width: 30px;
+  height: 30px;
+
+  @media (max-width: 1800px) { width: 25px; height: 25px; }
+  @media (max-width: 1200px) { width: 20px; height: 20px; }
 `;
 
 const StarImg = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 `;
 
 const Graph = styled.div`
   box-sizing: border-box;
   float: left;
-  width: 41%;
+  width: 58%;
 
-  @media (max-width: 1640px) { width: 39%; }
-  @media (max-width: 1495px) { width: 34%; }
-  @media (max-width: 1345px) { display : none; }
+  @media (max-width: 1400px) { width: 70%; }
+  @media (max-width: 1200px) { width: 65%; }
 `;
 
 
 const TempGraph = styled.div`
   box-sizing: border-box;
-  background-color: lightcyan;
   width: 100%;
   height: 20px;
-  margin: 3px 0;
+  margin: 8px 0;
+
+  @media (max-width: 1800px) { margin: 6px 0; }
+  @media (max-width: 1200px) { 
+    height: 15px;
+    margin: 6.5px 0;
+  }
 `;
 
 const Count = styled.div`
   box-sizing: border-box;
   float: right;
-  width: 18%;
+  width: 17%;
+  margin: 0;
+  padding-top: 5px;
 
-  @media (max-width: 1640px) { width: 16%; }
-  @media (max-width: 1495px) { font-size: 0.9rem; }
-  @media (max-width: 1345px) { 
-    width: 30%;
-    text-align : left;
-  }
-  @media (max-width: 1100px) { width: 25%; }
+  @media (max-width: 1800px) { padding-top: 3px; }
+  @media (max-width: 1650px) { padding-top: 4.5px; }
+  @media (max-width: 1400px) { display: none; }
 `;
 
 
@@ -112,9 +134,12 @@ export {
   AverageRate,
   StarRate,
   TotalRate,
+  Span,
   Bottom,
   RateOption,
   Star,
+  StarWrapper,
+  img,
   StarImg,
   Graph,
   TempGraph,

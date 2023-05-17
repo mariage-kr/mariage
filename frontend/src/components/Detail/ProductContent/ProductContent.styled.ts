@@ -85,8 +85,9 @@ const ABVText = styled.span`
 const StarRate = styled.div`
   box-sizing: border-box;
   display: inline-block;
-  margin: 3px 0 0;
+  margin: 5px 0 0;
   padding: 0;
+  vertical-align: bottom;
 `;
 
 const StarRateText = styled.p`

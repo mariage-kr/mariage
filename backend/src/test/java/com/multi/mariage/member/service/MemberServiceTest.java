@@ -120,7 +120,7 @@ class MemberServiceTest extends ServiceTest {
     void 회원_정보를_조회한다() {
         AuthMember authMember = convertMember(member);
 
-        MyInfoResponse actual = memberService.findMemberInfo(authMember);
+        MyInfoResponse actual = memberService.findMemberProfile(authMember);
 
         assertAll(
                 () -> assertThat(actual).isNotNull(),
@@ -135,7 +135,7 @@ class MemberServiceTest extends ServiceTest {
     void 회원의_프로필_사진이_존재하지_않으면_기본_사진을_가져온다() {
         AuthMember authMember = convertMember(member);
 
-        MyInfoResponse actual = memberService.findMemberInfo(authMember);
+        MyInfoResponse actual = memberService.findMemberProfile(authMember);
 
         assertThat(actual.getImagePath()).isEqualTo(STORAGE_PATH + "profile.png");
         System.out.println(actual.getImagePath());
@@ -159,7 +159,7 @@ class MemberServiceTest extends ServiceTest {
         AuthMember authMember = convertMember(member);
         String expected = MemberFixture.MARI.toSignupRequest().getNickname();
 
-        String actual = memberService.findMemberNickname(authMember).getNickname();
+        String actual = memberService.findMemberInfo(authMember).getNickname();
 
         assertThat(actual).isEqualTo(expected);
     }

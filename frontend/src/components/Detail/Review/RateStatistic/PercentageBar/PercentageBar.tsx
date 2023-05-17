@@ -7,7 +7,7 @@ interface PercentageProps {
 function PercentageBar({ percentage }: PercentageProps) {
     
   return (
-      <S.BarWrapper>
+    <S.BarWrapper>
       <S.Bar
         percentage={percentage}
       />
