@@ -62,6 +62,7 @@ function Profile() {
         getUserInfo();
       })
       .catch(error => {
+        /* TODO: 추후 에러 문구를 출력하는 방향으로 수정 */
         console.error(error);
       });
   };

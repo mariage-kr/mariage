@@ -16,7 +16,7 @@ function User() {
   const { key } = useLocation();
   const navigate = useNavigate();
 
-  const { userInfo, setUserInfo } = useUserInfo();
+  const { userInfo, setUserInfo, resetUserInfo } = useUserInfo();
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const handlerIsLogin = () => {
@@ -28,6 +28,7 @@ function User() {
       .then(() => {
         resetAuth();
         handlerIsLogin();
+        resetUserInfo();
         navigate(BROWSER_PATH.BASE);
       })
       .finally(() => {

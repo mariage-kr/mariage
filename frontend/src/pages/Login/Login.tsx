@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { requestUserInfo } from '@/apis/request/member';
 import { requestLogin } from '@/apis/request/auth';
 import { Token } from '@/@types/token';
 import useAuth from '@/hooks/useAuth';
+import useUserInfo from '@/hooks/useUserInfo';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Login.styled';
@@ -14,7 +16,8 @@ function Login() {
   const { setAuth } = useAuth();
 
   const [isValid, setIsValid] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { setUserInfo } = useUserInfo();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -57,6 +60,12 @@ function Login() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+    const getUserInfo = () => {
+      requestUserInfo().then(response => {
+        setUserInfo({ ...response.data });
+      });
+    };
+
     requestLogin({ email, password })
       .then(response => {
         const token: Token = {
@@ -66,8 +75,8 @@ function Login() {
 
         const success = async () => {
           setAuth({ ...token });
-          await window.location.reload();
-          await navigate(-1);
+          getUserInfo();
+          history.back();
         };
 
         success();
