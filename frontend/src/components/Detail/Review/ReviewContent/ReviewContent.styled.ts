@@ -73,21 +73,29 @@ const TopRight = styled.div`
   width: 30%;
   float: right;
   overflow: hidden;
+  padding-top: 40px;
+
+  @media (max-width: 1750px) { padding-top: 30px; }
+  @media (max-width: 1450px) { padding-top: 20px; }
+  @media (max-width: 1320px) { padding-top: 10px; }
+  @media (max-width: 1100px) { padding-top: 10px; }
 `;
 
 const BtnWrap = styled.div`
   box-sizing: border-box;
-  width: 65%;
+  width: 70%;
   float: left;
   text-align: right;
 
-  @media (max-width: 1300px) { width: 60%; }
-  @media (max-width: 1150px) { width: 55%; }
+  @media (max-width: 1750px) { width: 65%; }
+  @media (max-width: 1450px) { width: 60%; }
+  @media (max-width: 1300px) { width: 55%; }
+  @media (max-width: 1050px) { width: 52%; }
 `;
 
 const Btn = styled.button`
   display: inline-block;
-  margin: 15px 0 0 3px;
+  margin: 20px 0 0 3px;
   background-color: #fff;
   color: #090909;
   font-size: 1rem;
@@ -98,9 +106,11 @@ const Btn = styled.button`
     color: #000;
   }
 
-  @media (max-width: 1150px) { 
-    margin: 15px 0 0 0;
-    font-size: 0.9rem; }
+  @media (max-width: 1150px) { margin: 20px 0 0 0; } 
+  @media (max-width: 1100px) { 
+    margin: 17px 0 0 0;
+    font-size: 0.9rem; 
+  }
 `;
 
 const updateBtn = css`
@@ -111,12 +121,14 @@ const deleteBtn = css`
 
 const Like = styled.div`
   box-sizing: border-box;
-  width: 35%;
+  width: 30%;
   float: right;
   text-align: right;
 
-  @media (max-width: 1300px) { width: 40%; }
-  @media (max-width: 1150px) { width: 45%; }
+  @media (max-width: 1750px) { width: 35%; }
+  @media (max-width: 1450px) { width: 40%; }
+  @media (max-width: 1300px) { width: 45%; }
+  @media (max-width: 1050px) { width: 48%; }
 `;
 
 const Bottom = styled.div`
@@ -130,7 +142,6 @@ const Food = styled.div`
   margin: 20px 1vw 0 0;
   text-align: center;
 
-  /* @media (max-width: 1570px) { margin: 0 1vw 0 0; } */
   @media (max-width: 1310px) { width: 11%; }
   @media (max-width: 1095px) { width: 11.5%; }
   @media (max-width: 1045px) { width: 12%; }
@@ -177,22 +188,38 @@ const Content = styled.div`
 `;
 
 const ReviewText = styled.div`
-  width: 80%;
+  width: 75%;
   font-size: 1rem;
   float: left;
-  padding-top: 20px;
+
+  @media (max-width: 1750px) { width: 70%; }
+  @media (max-width: 1100px) { font-size: 0.9rem; }
+`;
+
+const ReviewContentText = styled.p`
+  width: 100%;
+`;
+
+const HashTag = styled.p`
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 5px 10px;
+  background-color: #9C94D022;
+  border-radius: 10px;
 `;
 
 const ReviewImg = styled.div`
   box-sizing: border-box;
   border: 1px solid #9C94D044;
-  width: 17%;
+  width: 22%;
   text-align: center;
   padding: 1vh 0 0;
   float: right;
 
-  @media (max-width: 1570px) { margin-top: 17px; }
-  @media (max-width: 1450px) { margin-top: 20px; }
+  @media (max-width: 1750px) { width: 27%; }
+  @media (max-width: 1570px) { margin-top: 10px; }
+  @media (max-width: 1450px) { margin-top: 15px; }
+  @media (max-width: 1200px) { margin-top: 17px; }
 `;
 
 const Img = styled.img`
@@ -227,6 +254,8 @@ export {
   ReviewRate,
   Content,
   ReviewText,
+  ReviewContentText,
+  HashTag,
   ReviewImg,
   Img,
 };

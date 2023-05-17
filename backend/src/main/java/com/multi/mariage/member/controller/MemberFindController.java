@@ -3,7 +3,7 @@ package com.multi.mariage.member.controller;
 import com.multi.mariage.auth.annotation.Authenticated;
 import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.member.dto.response.MyInfoResponse;
-import com.multi.mariage.member.dto.response.NicknameResponse;
+import com.multi.mariage.member.dto.response.MemberInfoResponse;
 import com.multi.mariage.member.service.MemberFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,15 @@ public class MemberFindController {
 
     private final MemberFindService memberService;
 
-    @GetMapping("/user/members/find")
-    public ResponseEntity<MyInfoResponse> findMemberInfo(@Authenticated AuthMember authMember) {
-        MyInfoResponse response = memberService.findMemberInfo(authMember);
+    @GetMapping("/user/members/profile")
+    public ResponseEntity<MyInfoResponse> findMemberProfile(@Authenticated AuthMember authMember) {
+        MyInfoResponse response = memberService.findMemberProfile(authMember);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/user/members/nickname")
-    public ResponseEntity<NicknameResponse> findMemberNickname(@Authenticated AuthMember authMember) {
-        NicknameResponse response = memberService.findMemberNickname(authMember);
+    @GetMapping("/user/members/info")
+    public ResponseEntity<MemberInfoResponse> findMemberInfo(@Authenticated AuthMember authMember) {
+        MemberInfoResponse response = memberService.findMemberInfo(authMember);
         return ResponseEntity.ok(response);
     }
 }

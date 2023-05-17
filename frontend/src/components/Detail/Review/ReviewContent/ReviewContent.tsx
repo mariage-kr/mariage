@@ -1,11 +1,17 @@
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 import LikeButton from '@/components/Button/Like/Like';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 
 import { ReviewType } from '@/@types/review';
 
 import * as S from './ReviewContent.styled';
 
 function ReviewContent(review: ReviewType) {
+  const hashTags = [
+    { id: 1, value: '크리스마스' },
+    { id: 2, value: '데이트' },
+    { id: 3, value: '달달한' },
+  ];
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -17,9 +23,10 @@ function ReviewContent(review: ReviewType) {
             <S.Profile css={S.Profile2}>
               <S.Name>{review.member.nickname}</S.Name>
               <S.RateDate>
-                <StarRateAverage
+                <SvgStarRateAverage
                   key={review.id}
-                  averageReviewRate={review.content.rate}
+                  id={review.id}
+                  rate={review.content.rate}
                 />
               </S.RateDate>
               <S.RateDate>
@@ -55,7 +62,14 @@ function ReviewContent(review: ReviewType) {
             </S.ReviewRateText>
           </S.Food>
           <S.Content>
-            <S.ReviewText>{review.content.content}</S.ReviewText>
+            <S.ReviewText>
+              <S.ReviewContentText>
+                {review.content.content}
+              </S.ReviewContentText>
+              {hashTags.map(tag => (
+                <S.HashTag>#{tag.value}</S.HashTag>
+              ))}
+            </S.ReviewText>
             {review.content.img && (
               <S.ReviewImg>
                 <S.Img src={review.content.img} />

@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
-
-import * as S from './FoodImg.styled';
+import { useRef } from 'react';
 import useImage from '@/hooks/useImage';
+import * as S from './FoodImg.styled';
 
 function FoodImg() {
   const {
@@ -12,7 +11,7 @@ function FoodImg() {
 
   const imageInput = useRef<HTMLInputElement>(null);
 
-  // 버튼클릭시 input태그에 클릭이벤트를 걸어준다.
+  // 버튼 클릭시 input태그에 클릭이벤트 적용
   const onClickBtn = () => {
     imageInput.current!.click();
   };

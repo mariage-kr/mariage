@@ -8,16 +8,24 @@ const useAuth = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenState);
 
-  const setAuth = ({ accessToken, refreshToken }: Token) => {
+  const setAuth = async ({
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
+  }: Token) => {
     window.sessionStorage.setItem('isLogin', 'true');
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
+    setAccessToken(newAccessToken);
+    setRefreshToken(newRefreshToken);
+    window.location.reload();
   };
 
   const resetAuth = () => {
-    window.sessionStorage.removeItem('isLogin');
+    removeIsLogin();
     setAccessToken('');
     setRefreshToken('');
+  };
+
+  const removeIsLogin = () => {
+    window.sessionStorage.removeItem('isLogin');
   };
 
   return {
@@ -26,6 +34,7 @@ const useAuth = () => {
     refreshToken,
     setAuth,
     resetAuth,
+    removeIsLogin,
   };
 };
 

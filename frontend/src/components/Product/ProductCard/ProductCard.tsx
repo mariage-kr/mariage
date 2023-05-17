@@ -1,4 +1,4 @@
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 
 import { PairingFoodType, ProductInfoType } from '@/@types/product';
 import Reviewer from '@/components/Animation/Reviewer';
@@ -54,7 +54,7 @@ function ProductCard({
       <S.StarWrap>
         <S.Star>
           <S.StarRateText>{reviewRate}</S.StarRateText>
-          <StarRateAverage key={id} averageReviewRate={reviewRate} />
+          <SvgStarRateAverage key={id} id={id} rate={reviewRate} />
         </S.Star>
         <S.Review>
           {[reviewCount].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
