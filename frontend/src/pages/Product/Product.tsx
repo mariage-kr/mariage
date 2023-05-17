@@ -37,12 +37,10 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
-        {category && (
-          <Filter
-            count={lengthIsZero() ? 0 : products.totalCount}
-            categories={category}
-          />
-        )}
+        <Filter
+          count={lengthIsZero() ? 0 : products.totalCount}
+          categories={category}
+        />
       </S.Aside>
       <S.Contents>
         <Option />
