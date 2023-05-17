@@ -63,9 +63,8 @@ public class WeatherService {
         /* 4. OPEN API 의 날씨 정보가 최신이면 해당 날씨를 저장 후 반환 */
         return weatherRepository.save(newWeather);
     }
-
-    /* TODO: 테스트 관련 내용으로 인해서 접근 제어라를 public 로 하는 행위는 좋지 않으므로 수정 한다. */
-    public boolean validateNowWeatherIsExisted() {
+    
+    private boolean validateNowWeatherIsExisted() {
         LocalDateTime date = getFormatLocalDateTime(System.currentTimeMillis());
         return weatherRepository.existsByDate(date);
     }
