@@ -36,13 +36,18 @@ public class Review {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "weather_id", nullable = false)
-    private Weather weather;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "weather_id", nullable = false)
+    private Weather weather;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
     private List<Like> likes = new ArrayList<>();
@@ -54,17 +59,13 @@ public class Review {
     @Column(name = "food_category_id")
     private FoodCategory foodCategory;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
-
     @Builder
-    public Review(int productRate, String content, int foodRate, LocalDate date, FoodCategory foodCategory) {
+    public Review(int productRate, String content, int foodRate, FoodCategory foodCategory) {
         this.productRate = productRate;
         this.content = content;
         this.foodRate = foodRate;
-        this.date = date;
         this.foodCategory = foodCategory;
+        this.date = LocalDate.now(ZoneId.of("Asia/Seoul"));
     }
 
     public static Review from(ReviewSaveRequest request) {
@@ -72,7 +73,6 @@ public class Review {
                 .productRate(request.getProductRate())
                 .content(request.getContent())
                 .foodRate(request.getFoodRate())
-                .date(LocalDate.now(ZoneId.of("Asia/Seoul")))
                 .foodCategory(request.getFoodCategory())
                 .build();
     }

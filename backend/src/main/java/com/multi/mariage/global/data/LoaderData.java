@@ -1,10 +1,13 @@
 package com.multi.mariage.global.data;
 
+import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.global.data.Fixture.ProductFixture;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.service.MemberModifyService;
-import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import jakarta.annotation.PostConstruct;
@@ -13,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -21,6 +25,7 @@ public class LoaderData {
 
     private final InitMemberService memberService;
     private final InitProductService productService;
+    private final InitReviewService reviewService;
 
     @PostConstruct
     public void init() {
@@ -73,6 +78,28 @@ public class LoaderData {
             productModifyService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
             productModifyService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
             productModifyService.save(ProductFixture.산토리_위스키.toProductSaveRequest(saveImage5.getId()));
+        }
+    }
+
+    @RequiredArgsConstructor
+    @Component
+    static class InitReviewService {
+        private final ReviewModifyService reviewModifyService;
+        private final StorageRepository storageRepository;
+
+        /* TODO: 2023/05/17 추후 더미데이터를 추가할 예정 */
+        public void init() {
+            Image image = storageRepository.save(new Image("product/chamisul.png"));
+            ReviewSaveRequest request = ReviewSaveRequest.builder()
+                    .productId(1L)
+                    .productRate(4)
+                    .content("리뷰")
+                    .foodRate(3)
+                    .foodCategory(FoodCategory.ASIAN)
+                    .foodImageId(image.getId())
+                    .hashtags(List.of("참이슬", "쌀국수", "야식"))
+                    .build();
+            reviewModifyService.save(new AuthMember(1L), request);
         }
     }
 }
