@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import {
+  requestUserInfo,
   requestUpdateNickname,
   requestUserProfile,
 } from '@/apis/request/member';
@@ -9,6 +10,7 @@ import useInput from '@/hooks/useInput';
 import { UserProfileType } from '@/@types/user';
 
 import * as S from './Profile.styled';
+import useUserInfo from '@/hooks/useUserInfo';
 
 function Profile() {
   const {
@@ -18,18 +20,20 @@ function Profile() {
   } = useInput('');
 
   const { value: image, setValue: setImage } = useImage<File>(null);
-  const [userInfo, setUserInfo] = useState<UserProfileType>({
+  const [userProfile, setUserProfile] = useState<UserProfileType>({
     nickname: '',
     email: '',
     imagePath: '',
     birth: '',
   });
 
+  const { setUserInfo } = useUserInfo();
+
   /* 유저 정보 요청 */
   const getMyInfo = async () => {
     await requestUserProfile()
       .then(response => {
-        setUserInfo(response.data);
+        setUserProfile(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -42,15 +46,23 @@ function Profile() {
 
   /* 닉네임 변경 */
   const updateNickname = async () => {
+    const getUserInfo = async () => {
+      await requestUserInfo().then(response => {
+        setUserInfo({ ...response.data });
+      });
+    };
+
     await requestUpdateNickname(nickname)
       .then(response => {
         const newNickname = response.data.nickname;
-        setUserInfo(prevState => {
+        setUserProfile(prevState => {
           return { ...prevState, nickname: newNickname };
         });
         resetNickname();
+        getUserInfo();
       })
       .catch(error => {
+        /* TODO: 추후 에러 문구를 출력하는 방향으로 수정 */
         console.error(error);
       });
   };
@@ -60,13 +72,13 @@ function Profile() {
       <S.Profile>
         <S.Image>
           <p>프로필 사진</p>
-          <S.ProfileImg src={userInfo?.imagePath} />
+          <S.ProfileImg src={userProfile?.imagePath} />
         </S.Image>
         <S.Info>
           <S.Name>
-            {userInfo?.nickname} <S.Email>{userInfo?.email}</S.Email>
+            {userProfile?.nickname} <S.Email>{userProfile?.email}</S.Email>
           </S.Name>
-          <S.Birth>{userInfo?.birth}</S.Birth>
+          <S.Birth>{userProfile?.birth}</S.Birth>
           <form encType="multipart/form-data">
             <S.ImageInput
               type="file"
