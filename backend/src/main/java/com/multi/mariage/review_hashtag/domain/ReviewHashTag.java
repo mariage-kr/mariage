@@ -22,4 +22,15 @@ public class ReviewHashTag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private Review review;
+
+    /* 연관 관계 편의 메서드 */
+    public void setHashtag(Hashtag hashtag) {
+        hashtag.getReviewHashTags().add(this);
+        this.hashtag = hashtag;
+    }
+
+    public void setReview(Review review) {
+        review.getReviewHashtags().add(this);
+        this.review = review;
+    }
 }

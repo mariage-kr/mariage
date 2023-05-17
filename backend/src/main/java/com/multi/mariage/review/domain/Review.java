@@ -70,4 +70,9 @@ public class Review {
     public void setImage(Image image) {
         this.image = image;
     }
+
+    public void setMember(Member member) {
+        member.getReviews().add(this);
+        this.member = member;
+    }
 }
