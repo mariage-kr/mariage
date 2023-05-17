@@ -153,7 +153,7 @@ const ProductStarRate = styled.div`
   display: inline-block;
   margin: 5px 0 0;
   padding: 0;
-  vertical-align: bottom;
+  vertical-align: middle;
 
   @media (max-width: 1650px) { margin: 2px 0 0; }
 `;
@@ -239,12 +239,11 @@ const RateDate = styled.div`
   box-sizing: border-box;
   width: auto;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 `;
 
 const Date = styled.p`
   margin: 0 20px;
-  padding-bottom: 4px;
   font-size: 1.1rem;
   color: #b7b7b7;
 `;

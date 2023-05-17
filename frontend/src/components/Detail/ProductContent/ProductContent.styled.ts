@@ -87,11 +87,12 @@ const StarRate = styled.div`
   display: inline-block;
   margin: 5px 0 0;
   padding: 0;
-  vertical-align: bottom;
+  vertical-align: middle;
 `;
 
 const StarRateText = styled.p`
   margin: 0 10px 0 0;
+  padding-bottom: 2px;
   font-size: 1.2rem;
   font-weight: bold;
 `;

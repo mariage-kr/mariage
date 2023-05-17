@@ -1,4 +1,4 @@
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import LikeButton from '@/components/Button/Like/Like';
 
 import * as S from './ReviewList.styled';
@@ -10,18 +10,18 @@ function ReviewList() {
     name: '산토리 위스키 가쿠빈 :suntory whisky kakubin',
     flagImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png',
     country: 'Japan',
-    level: '40',
-    rate: '4.6',
+    level: 40,
+    rate: 3.8,
   };
 
   const ReviewData = {
     id: 1,
     profileImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png',
     nickname: 'maria',
-    reviewRate: '4.6',
+    rate: 4.6,
     date: 'April 15, 2023',
     isLiked: true,
-    likeCount: '10',
+    likeCount: 10,
     foodImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/NEUdCmsFva.png',
     foodName: '돈까스/회/일식',
     reviewContent: '가격이 저렴해서 대중적이지만 아무래도 저가형 위스키인지라 스트레이트로 마셨을 때 향이 그리 우수하지 못하다. 그러다 보니 하이볼로 만들어 마시는 게 가장 맛있고, 대중적으로 알려진 것 같다. 산토리 위스키 하이볼은 탄산의 맛으로 가볍게 마시는 술이기 때문에 어떤 안주든 다 잘 어울리지만 나는 개인적으로 산토리가 일본 위스키라는 점에서 이자카야 해산물 안주가 특히 잘 어울리는 것 같다.',
@@ -59,9 +59,10 @@ function ReviewList() {
                 </S.ProductStarRate>
                 <S.ProductStarRate>
                   {/* TODO: 평균 별점 */}
-                  <StarRateAverage
-                    key={'averageRate'}
-                    averageReviewRate={ProductData.rate}
+                  <SvgStarRateAverage
+                    key={ProductData.id}
+                    id={ProductData.id}
+                    rate={ProductData.rate}
                   />
                 </S.ProductStarRate>
               </S.ProductStarRateWrap>
@@ -78,9 +79,10 @@ function ReviewList() {
               <S.Profile css={S.Profile2}>
                 <S.Name>{ReviewData.nickname}</S.Name>
                 <S.RateDate>
-                  <StarRateAverage
+                  <SvgStarRateAverage
+                    id={ReviewData.id}
                     key={ReviewData.id}
-                    averageReviewRate={ReviewData.reviewRate}
+                    rate={ReviewData.rate}
                   />
                 </S.RateDate>
                 <S.RateDate>
