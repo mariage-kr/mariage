@@ -19,6 +19,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.TimeZone;
 
 @Transactional(readOnly = true)
@@ -36,14 +37,44 @@ public class WeatherService {
     @Value("${open.weather.units}")
     private String units;
 
+    @Transactional
+    public Weather findLatestWeather() {
+        LocalDateTime now = getFormatLocalDateTime(System.currentTimeMillis());
+
+        /* 1. 최신 날씨 정보가 있으면 반환 */
+        if (validateNowWeatherIsExisted()) {
+            return weatherRepository.findByDate(now)
+                    .orElseThrow(() -> new WeatherException(WeatherErrorCode.OPEN_API_SERVER_ERROR));
+        }
+
+        Weather newWeather = byOpenWeatherApi();
+        Optional<Weather> latestWeather = weatherRepository.findLatestWeather();
+
+        /* 2. DB에 날씨 정보가 1개도 없으면 새로운 날씨 데이터를 저장 후 반환 */
+        if (latestWeather.isEmpty()) {
+            return weatherRepository.save(newWeather);
+        }
+
+        /* 3. OPEN API 의 갱신문제로 인하여 최신 정보를 못 가져올 경우 DB에 있는 최신 정보를 반환 */
+        if (isEqualsDate(newWeather, latestWeather.get())) {
+            return latestWeather.get();
+        }
+
+        /* 4. OPEN API 의 날씨 정보가 최신이면 해당 날씨를 저장 후 반환 */
+        return weatherRepository.save(newWeather);
+    }
+
     /* TODO: 테스트 관련 내용으로 인해서 접근 제어라를 public 로 하는 행위는 좋지 않으므로 수정 한다. */
-    public boolean validateWeatherTimeIsNotDuplicated() {
+    public boolean validateNowWeatherIsExisted() {
         LocalDateTime date = getFormatLocalDateTime(System.currentTimeMillis());
         return weatherRepository.existsByDate(date);
     }
 
-    @Transactional
-    public Weather save() {
+    private boolean isEqualsDate(Weather newWeather, Weather latestWeather) {
+        return newWeather.getDate().isEqual(latestWeather.getDate());
+    }
+
+    private Weather byOpenWeatherApi() {
         String openWeatherMapApi = getOpenWeatherMapApi();
 
         JSONObject json;
@@ -55,13 +86,11 @@ public class WeatherService {
             throw new WeatherException(WeatherErrorCode.OPEN_API_SERVER_ERROR);
         }
 
-        Weather weather = Weather.builder()
+        return Weather.builder()
                 .weatherId(getId(json))
                 .date(getDate(json))
                 .temp(getTemp(json))
                 .build();
-
-        return weatherRepository.save(weather);
     }
 
     private String getOpenWeatherMapApi() {

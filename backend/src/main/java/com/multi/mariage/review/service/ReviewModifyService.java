@@ -28,8 +28,8 @@ public class ReviewModifyService {
     private final ReviewRepository reviewRepository;
     private final ImageService imageService;
     private final MemberFindService memberFindService;
-    private final WeatherService weatherService;
     private final ProductFindService productFindService;
+    private final WeatherService weatherService;
 
     public ReviewSaveResponse save(AuthMember authMember, ReviewSaveRequest request) {
         Member member = memberFindService.findById(authMember.getId());
@@ -47,6 +47,10 @@ public class ReviewModifyService {
                 .image(image)
                 .build();
 
+        /* TODO: 2023/05/17 해시 태그 로직 필요 */
+
+        /* TODO: 2023/05/17 weather Service에서 정보를 가져와서 담기 */
+        review.setWeather(null);
         review.setMember(member);
         review.setProduct(product);
 
