@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
 import ProductCard from '@/components/Product/ProductCard/ProductCard';
@@ -6,6 +8,7 @@ import NoItems from '@/components/NoItems/NoItems';
 import { PagingType } from '@/@types/paging';
 import { ProductInfoType } from '@/@types/product';
 import { useProductCategory } from '@/hooks/useProductCategory';
+import useSearchParam from '@/hooks/useSearchParam';
 
 import * as S from './Product.styled';
 
@@ -19,10 +22,17 @@ function Product() {
   // const products: PagingType<ProductInfoType> = nullData;
 
   const { value: category, setValue: setCategory } = useProductCategory();
+  const { value: drinkUpper, setValue: setDrinkUpper } = useSearchParam(null);
 
   const lengthIsZero = (): boolean => {
     return products.content.length === 0;
   };
+
+  useEffect(() => {
+    setDrinkUpper('upper');
+  }, []);
+
+  console.log(drinkUpper);
 
   return (
     <S.Container>
