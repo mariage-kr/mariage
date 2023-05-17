@@ -8,6 +8,7 @@ const MyInformation = lazy(() => import('./MyInformation/MyInformation'));
 const NotFound = lazy(() => import('./NotFound/NotFound'));
 const Product = lazy(() => import('./Product/Product'));
 const SignUp = lazy(() => import('./SignUp/SignUp'));
+const Review = lazy(() => import('./Review/Review'));
 const Test = lazy(() => import('./Test/Test')); /* TODO: 개발때만 사용 */
 
 export {
@@ -19,5 +20,6 @@ export {
   NotFound,
   Product,
   SignUp,
+  Review,
   Test,
 };
