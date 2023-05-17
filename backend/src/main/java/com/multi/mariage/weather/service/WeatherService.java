@@ -44,7 +44,7 @@ public class WeatherService {
         /* 1. 최신 날씨 정보가 있으면 반환 */
         if (validateNowWeatherIsExisted()) {
             return weatherRepository.findByDate(now)
-                    .orElseThrow(() -> new WeatherException(WeatherErrorCode.OPEN_API_SERVER_ERROR));
+                    .orElseThrow(() -> new WeatherException(WeatherErrorCode.DB_SERVER_IS_ERROR));
         }
 
         Weather newWeather = byOpenWeatherApi();
@@ -63,7 +63,7 @@ public class WeatherService {
         /* 4. OPEN API 의 날씨 정보가 최신이면 해당 날씨를 저장 후 반환 */
         return weatherRepository.save(newWeather);
     }
-    
+
     private boolean validateNowWeatherIsExisted() {
         LocalDateTime date = getFormatLocalDateTime(System.currentTimeMillis());
         return weatherRepository.existsByDate(date);

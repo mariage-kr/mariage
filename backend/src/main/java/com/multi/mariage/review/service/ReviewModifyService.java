@@ -12,6 +12,7 @@ import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,12 +48,12 @@ public class ReviewModifyService {
                 .image(image)
                 .build();
 
-        /* TODO: 2023/05/17 해시 태그 로직 필요 */
-
-        /* TODO: 2023/05/17 weather Service에서 정보를 가져와서 담기 */
-        review.setWeather(null);
+        Weather weather = weatherService.findLatestWeather();
+        review.setWeather(weather);
         review.setMember(member);
         review.setProduct(product);
+
+        /* TODO: 2023/05/17 해시 태그 로직 필요 */
 
         Review savedReview = reviewRepository.save(review);
         return new ReviewSaveResponse(savedReview.getId());
