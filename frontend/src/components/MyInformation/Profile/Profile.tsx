@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import {
+  requestUserInfo,
   requestUpdateNickname,
   requestUserProfile,
 } from '@/apis/request/member';
@@ -9,6 +10,7 @@ import useInput from '@/hooks/useInput';
 import { UserProfileType } from '@/@types/user';
 
 import * as S from './Profile.styled';
+import useUserInfo from '@/hooks/useUserInfo';
 
 function Profile() {
   const {
@@ -24,6 +26,8 @@ function Profile() {
     imagePath: '',
     birth: '',
   });
+
+  const { userInfo, setUserInfo } = useUserInfo();
 
   /* 유저 정보 요청 */
   const getMyInfo = async () => {
@@ -42,6 +46,12 @@ function Profile() {
 
   /* 닉네임 변경 */
   const updateNickname = async () => {
+    const getUserInfo = async () => {
+      await requestUserInfo().then(response => {
+        setUserInfo({ ...response.data });
+      });
+    };
+
     await requestUpdateNickname(nickname)
       .then(response => {
         const newNickname = response.data.nickname;
@@ -49,6 +59,7 @@ function Profile() {
           return { ...prevState, nickname: newNickname };
         });
         resetNickname();
+        getUserInfo();
       })
       .catch(error => {
         console.error(error);
