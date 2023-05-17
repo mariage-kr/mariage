@@ -37,7 +37,7 @@ type ReviewSaveType = {
   foodRate: number;
   foodCategory: string;
   foodImageId: number;
-  hashtag: string[];
+  hashtags: string[];
 };
 
 export {
