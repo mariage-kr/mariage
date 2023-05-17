@@ -1,6 +1,6 @@
 package com.multi.mariage.hashtag.domain;
 
-import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review_hashtag.domain.ReviewHashTag;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,6 +21,6 @@ public class Hashtag {
     @Column(nullable = false, name = "hashtags")
     private String value;
 
-    @OneToMany(mappedBy = "hashtag")
-    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hashtag")
+    private List<ReviewHashTag> reviewHashTags = new ArrayList<>();
 }

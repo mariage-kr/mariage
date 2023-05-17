@@ -30,10 +30,21 @@ type ReviewFoodType = {
   img: string;
 };
 
+type ReviewSaveType = {
+  productId: number;
+  productRate: number;
+  content: string;
+  foodRate: number;
+  foodCategory: string;
+  foodImageId: number;
+  hashtag: string[];
+};
+
 export {
   ReviewType,
   ReviewMemberType,
   ReviewContentType,
   ReviewLikeType,
   ReviewFoodType,
+  ReviewSaveType,
 };
