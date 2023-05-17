@@ -18,9 +18,13 @@ public class Hashtag {
     @Column(name = "hashtag_id")
     private Long id;
 
-    @Column(nullable = false, name = "hashtags")
-    private String value;
+    @Column(nullable = false)
+    private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "hashtag")
     private List<ReviewHashTag> reviewHashTags = new ArrayList<>();
+
+    public Hashtag(String name) {
+        this.name = name;
+    }
 }

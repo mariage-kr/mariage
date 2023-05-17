@@ -2,6 +2,7 @@ package com.multi.mariage.review.service;
 
 
 import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.hashtag.service.HashtagService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
@@ -27,6 +28,7 @@ import java.time.ZoneId;
 public class ReviewModifyService {
 
     private final ReviewRepository reviewRepository;
+    private final HashtagService hashtagService;
     private final ImageService imageService;
     private final MemberFindService memberFindService;
     private final ProductFindService productFindService;
