@@ -4,7 +4,6 @@ import ProductCard from '@/components/Product/ProductCard/ProductCard';
 
 import { PagingType } from '@/@types/paging';
 import { ProductInfoType } from '@/@types/product';
-import { useDrinkUpperCategory } from '@/hooks/useCategory';
 import { useProductCategory } from '@/hooks/useProductCategory';
 
 import * as S from './Product.styled';
@@ -27,10 +26,10 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
-      {category && (
+        {category && (
           <Filter
             count={lengthIsZero() ? 0 : products.totalCount}
-            categories= {category}
+            categories={category}
           />
         )}
       </S.Aside>

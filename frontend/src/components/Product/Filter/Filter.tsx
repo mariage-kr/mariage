@@ -6,7 +6,6 @@ import {
   DrinkUpperCategoryType,
   DrinkRegionCategoryType,
   DrinkLowerCategoryType,
-  CategoryType,
 } from '@/@types/category';
 
 type FilterProps = {
