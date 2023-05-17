@@ -36,8 +36,8 @@ function Visual() {
       navButtonsAlwaysInvisible={true}
     >
       {VisualItems.map((item: VisualType) => (
-        <S.Visual>
-          <S.Image key={item.id} src={item.imageUrl} alt={item.name} />
+        <S.Visual key={item.id}>
+          <S.Image src={item.imageUrl} alt={item.name} />
         </S.Visual>
       ))}
     </Carousel>

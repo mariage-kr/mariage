@@ -3,8 +3,8 @@ package com.multi.mariage.member.service;
 import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
+import com.multi.mariage.member.dto.response.MemberInfoResponse;
 import com.multi.mariage.member.dto.response.MyInfoResponse;
-import com.multi.mariage.member.dto.response.NicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.storage.domain.Image;
@@ -26,7 +26,7 @@ public class MemberFindService {
                 .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
     }
 
-    public MyInfoResponse findMemberInfo(AuthMember authMember) {
+    public MyInfoResponse findMemberProfile(AuthMember authMember) {
         Member member = findById(authMember.getId());
         String imageName = getImageName(member.getImage());
 
@@ -38,8 +38,8 @@ public class MemberFindService {
         return image != null ? image.getName() : "profile.png";
     }
 
-    public NicknameResponse findMemberNickname(AuthMember authMember) {
+    public MemberInfoResponse findMemberInfo(AuthMember authMember) {
         Member member = findById(authMember.getId());
-        return new NicknameResponse(member.getNickname());
+        return new MemberInfoResponse(member.getId(), member.getNickname());
     }
 }

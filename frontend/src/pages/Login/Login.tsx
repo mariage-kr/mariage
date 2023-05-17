@@ -63,12 +63,16 @@ function Login() {
           accessToken: response.data.accessToken,
           refreshToken: response.data.refreshToken,
         };
-        setAuth({ ...token });
-        window.location.reload();
-        navigate(-1);
+
+        const success = async () => {
+          setAuth({ ...token });
+          await window.location.reload();
+          await navigate(-1);
+        };
+
+        success();
       })
       .catch(error => {
-        console.log(error);
         setIsValid(true);
         setErrorMessage(error.response.data.message);
       });
