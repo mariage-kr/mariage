@@ -64,7 +64,6 @@ const RangeMultiSlider_F: FC<rangeMultiSliderProps> = ({
 
   return (
     <>
-      <p></p>
       <S.Container>
         <S.Thumb
           type="range"

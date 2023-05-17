@@ -1,6 +1,7 @@
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 
 import { PairingFoodType, ProductInfoType } from '@/@types/product';
+import Reviewer from '@/components/Animation/Reviewer';
 
 import * as S from './ProductCard.styled';
 
@@ -25,11 +26,11 @@ function ProductCard({
         <S.Img src={img} />
       </S.Image>
       <S.Content>
+        <S.Name>{name}</S.Name>
         <S.CountryWrap>
           <S.FlagImg src={flagImg} />
           <S.Country>{country}</S.Country>
         </S.CountryWrap>
-        <S.Name>{name}</S.Name>
         <p>
           알코올 도수<S.ABV> {level}</S.ABV>%
         </p>
@@ -43,7 +44,10 @@ function ProductCard({
               </S.Food>
             ))
           ) : (
-            <p>아무것도 없을 때</p>
+            <>
+              <Reviewer />
+              <S.p>당신이 첫번째 리뷰를 올려주세요!</S.p>
+            </>
           )}
         </S.FoodWrap>
       </S.Content>

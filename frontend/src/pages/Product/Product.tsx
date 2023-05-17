@@ -1,6 +1,7 @@
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
 import ProductCard from '@/components/Product/ProductCard/ProductCard';
+import NoItems from '@/components/NoItems/NoItems';
 
 import { PagingType } from '@/@types/paging';
 import { ProductInfoType } from '@/@types/product';
@@ -36,9 +37,7 @@ function Product() {
       <S.Contents>
         <Option />
         {lengthIsZero() ? (
-          <div>
-            <h1>만약 데이터가 없으면?</h1>
-          </div>
+          <NoItems />
         ) : (
           products.content.map((product: ProductInfoType) => {
             return <ProductCard key={product.id} {...product} />;
