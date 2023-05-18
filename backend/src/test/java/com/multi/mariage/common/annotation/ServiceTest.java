@@ -12,6 +12,7 @@ import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.review_hashtag.service.ReviewHashtagService;
@@ -47,6 +48,9 @@ public abstract class ServiceTest {
     protected StorageService storageService;
     @Autowired
     protected WeatherService weatherService;
+    /* TODO: 2023/05/18 추후 FindService 로 수정 */
+    @Autowired
+    protected ReviewRepository reviewRepository;
     @Autowired
     protected StorageRepository storageRepository;
 
@@ -63,7 +67,9 @@ public abstract class ServiceTest {
         return storageService.saveFile(file);
     }
 
-    protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture, Long memberId, Long productId,
+    protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture,
+                                            Long memberId,
+                                            Long productId,
                                             Long foodImageId) {
         return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
     }
