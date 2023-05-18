@@ -41,7 +41,7 @@ public class Review {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id")
     private Image image;
 
