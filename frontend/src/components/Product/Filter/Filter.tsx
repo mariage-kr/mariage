@@ -24,25 +24,21 @@ function Filter({ count, categories }: FilterProps) {
     string | undefined
   >();
 
-  const [selectedLowerCategory, setSelectedLowerCategory] = useState<string[]>(
-    [],
-  );
+  const [selectedLowerCategory, setSelectedLowerCategory] = useState<
+    string | null
+  >(null);
 
   const handleUpperCategoryClick = (
     category: string | undefined,
     categoryRegion: string,
   ) => {
     setSelectedUpperCategory(category);
-    setSelectedLowerCategory([]);
+    setSelectedLowerCategory(null);
   };
 
   const handleLowerCategoryClick = (
     lowerCategory: DrinkLowerCategoryType,
-  ): void => {
-    setSelectedLowerCategory(existCategories => {
-      return [...existCategories, lowerCategory.value];
-    });
-  };
+  ): void => {};
 
   const [option, setOption] = useState<Option>({
     rate: {
@@ -116,18 +112,6 @@ function Filter({ count, categories }: FilterProps) {
                               onClick={() =>
                                 handleLowerCategoryClick(lowerCategory)
                               }
-                              style={{
-                                background: selectedLowerCategory.includes(
-                                  lowerCategory.value,
-                                )
-                                  ? '#9c94d0'
-                                  : '',
-                                color: selectedLowerCategory.includes(
-                                  lowerCategory.value,
-                                )
-                                  ? '#fff'
-                                  : '',
-                              }}
                             >
                               {lowerCategory.name}
                             </S.Category>
