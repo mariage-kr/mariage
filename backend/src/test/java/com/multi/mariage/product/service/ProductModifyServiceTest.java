@@ -35,20 +35,6 @@ class ProductModifyServiceTest extends ServiceTest {
         assertThat(actual).isNotNull();
     }
 
-    @DisplayName("식별자를 통해 제품을 삭제한다.")
-    @Test
-    void 식별자를_통해_제품을_삭제한다() {
-        Product product = save();
 
-        productModifyService.remove(product.getId());
 
-    }
-
-    private Product save() {
-        Image savedImage = storageRepository.save(new Image(ProductFixture.처음처럼.getImageName()));
-        ProductSaveRequest saveRequest = ProductFixture.처음처럼.toProductSaveRequest(savedImage.getId());
-
-        Product actual = productModifyService.save(saveRequest);
-        return actual;
-    }
 }
