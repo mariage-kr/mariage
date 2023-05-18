@@ -25,4 +25,10 @@ public class ProductModifyController {
         productModifyService.update(request);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/user/product/remove")
+    public ResponseEntity<Void> remove(@PathVariable Long id) {
+        productModifyService.remove(id);
+        return ResponseEntity.ok().build();
+    }
 }

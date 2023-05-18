@@ -69,4 +69,11 @@ public class ProductModifyService {
 
         storageService.remove(image);
     }
+
+    @Transactional
+    public void remove(Long id) {
+        Product product = productFindService.findById(id);
+
+        productRepository.delete(product);
+    }
 }
