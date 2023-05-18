@@ -39,7 +39,7 @@ function User() {
   useEffect(() => {
     handlerIsLogin();
 
-    if (!accessToken || !refreshToken) {
+    if (!isLogin || !accessToken || !refreshToken) {
       return;
     }
 
