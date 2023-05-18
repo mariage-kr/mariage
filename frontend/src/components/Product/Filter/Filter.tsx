@@ -2,6 +2,7 @@ import { useState } from 'react';
 import RangeMultiSlider_F from '@/components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
 import { Range } from '@/@types/slider';
 import * as S from './Filter.styled';
+
 import {
   DrinkUpperCategoryType,
   DrinkRegionCategoryType,
@@ -23,12 +24,21 @@ function Filter({ count, categories }: FilterProps) {
     string | undefined
   >();
 
+  const [selectedLowerCategory, setSelectedLowerCategory] = useState<
+    string | null
+  >(null);
+
   const handleUpperCategoryClick = (
-    categoryValue: string | undefined,
+    category: string | undefined,
     categoryRegion: string,
   ) => {
-    setSelectedUpperCategory(categoryValue);
+    setSelectedUpperCategory(category);
+    setSelectedLowerCategory(null);
   };
+
+  const handleLowerCategoryClick = (
+    lowerCategory: DrinkLowerCategoryType,
+  ): void => {};
 
   const [option, setOption] = useState<Option>({
     rate: {
@@ -97,7 +107,12 @@ function Filter({ count, categories }: FilterProps) {
                             lowerCategory: DrinkLowerCategoryType,
                             lowerIndex: number,
                           ) => (
-                            <S.Category key={lowerIndex}>
+                            <S.Category
+                              key={lowerIndex}
+                              onClick={() =>
+                                handleLowerCategoryClick(lowerCategory)
+                              }
+                            >
                               {lowerCategory.name}
                             </S.Category>
                           ),
