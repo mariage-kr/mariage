@@ -7,6 +7,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -51,6 +52,12 @@ public abstract class RepositoryTest {
         product.setImage(image);
 
         return productRepository.save(product);
+    }
+
+    protected Review saveReview(ReviewFixture reviewFixture ,Member member, Product product, Image image, Weather weather) {
+        Review review = reviewFixture.toReview(member, product, image, weather);
+
+        return reviewRepository.save(review);
     }
 
     protected Image saveImage(ImageFixture imageFixture) {

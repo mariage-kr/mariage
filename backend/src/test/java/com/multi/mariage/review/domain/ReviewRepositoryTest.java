@@ -29,14 +29,8 @@ class ReviewRepositoryTest extends RepositoryTest {
     @DisplayName("리뷰를 저장한다.")
     @Test
     void 리뷰를_저장한다() {
-        Review actual = saveReview();
+        Review actual = saveReview(ReviewFixture.참이슬_과자, member, product, image, weather);
 
         Assertions.assertThat(actual).isNotNull();
-    }
-
-    Review saveReview() {
-        Review review = ReviewFixture.참이슬_과자.toReview(member, product, image, weather);
-
-        return reviewRepository.save(review);
     }
 }
