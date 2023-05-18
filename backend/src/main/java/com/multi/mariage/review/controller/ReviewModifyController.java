@@ -22,9 +22,7 @@ public class ReviewModifyController {
     @PostMapping("/user/review/save")
     public ResponseEntity<ReviewSaveResponse> save(@Authenticated AuthMember authMember,
                                                    @RequestBody ReviewSaveRequest request) {
-        System.out.println(request.getHashtags());
-//        ReviewSaveResponse response = reviewModifyService.save(authMember, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        ReviewSaveResponse response = reviewModifyService.save(authMember, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

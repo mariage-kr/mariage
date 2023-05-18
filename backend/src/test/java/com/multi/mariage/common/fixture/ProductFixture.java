@@ -12,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public enum ProductFixture {
+public enum  ProductFixture {
     참이슬("참이슬",
             16.5,
             "1998년 10월 19일 국내 소주 시장에 첫선을 보인 참이슬은 소주는 25도라는 상식을 깨며," +
