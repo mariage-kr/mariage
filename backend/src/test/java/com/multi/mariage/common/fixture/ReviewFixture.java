@@ -41,4 +41,8 @@ public enum ReviewFixture {
         review.changeImage(image);
         return review;
     }
+
+    public List<String> getHashtags() {
+        return hashtags;
+    }
 }

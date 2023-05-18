@@ -9,6 +9,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
+import com.multi.mariage.review_hashtag.domain.ReviewHashtagRepository;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import com.multi.mariage.weather.domain.Weather;
@@ -29,12 +30,14 @@ public abstract class RepositoryTest {
     @Autowired
     protected ReviewRepository reviewRepository;
     @Autowired
+    protected ReviewHashtagRepository reviewHashtagRepository;
+    @Autowired
     protected StorageRepository storageRepository;
     @Autowired
     protected WeatherRepository weatherRepository;
 
-    protected Hashtag saveHashtag(HashtagFixture hashtagFixture) {
-        Hashtag hashtag = new Hashtag(hashtagFixture.name());
+    protected Hashtag saveHashtag(String name) {
+        Hashtag hashtag = new Hashtag(name);
 
         return hashtagRepository.save(hashtag);
     }
@@ -54,7 +57,7 @@ public abstract class RepositoryTest {
         return productRepository.save(product);
     }
 
-    protected Review saveReview(ReviewFixture reviewFixture ,Member member, Product product, Image image, Weather weather) {
+    protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Image image, Weather weather) {
         Review review = reviewFixture.toReview(member, product, image, weather);
 
         return reviewRepository.save(review);
