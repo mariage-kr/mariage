@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
@@ -18,8 +18,6 @@ function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
   useEffect(() => {
     setCategoryValue(`upper:${categoryValue}`);
   }, []);
-
-  console.log('categoryValue:', categoryValue);
 
   return (
     <S.Container>

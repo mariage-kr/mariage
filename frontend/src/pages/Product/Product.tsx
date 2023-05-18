@@ -22,7 +22,9 @@ function Product() {
   // const products: PagingType<ProductInfoType> = nullData;
 
   const { value: category, setValue: setCategory } = useProductCategory();
-  const { value: drinkUpper, setValue: setDrinkUpper } = useSearchParam(null);
+  const { value: drinkUpper, setValue: setDrinkUpper } = useSearchParam<
+    string | null
+  >(null);
 
   const lengthIsZero = (): boolean => {
     return products.content.length === 0;
@@ -31,8 +33,6 @@ function Product() {
   useEffect(() => {
     setDrinkUpper('upper');
   }, []);
-
-  console.log(drinkUpper);
 
   return (
     <S.Container>
