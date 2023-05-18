@@ -1,28 +1,28 @@
 package com.multi.mariage.global.data;
 
 import com.multi.mariage.auth.vo.AuthMember;
-import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.global.data.Fixture.MemberFixture;
 import com.multi.mariage.global.data.Fixture.ProductFixture;
-import com.multi.mariage.member.dto.request.MemberSignupRequest;
+import com.multi.mariage.global.data.Fixture.ReviewFixture;
+import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberModifyService;
+import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
-import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-@Profile("dev")
 public class LoaderData {
 
+    private static Member 마리;
+    private static Product 참이슬;
+    private static ReviewSaveResponse 참이슬과고기;
     private final InitMemberService memberService;
     private final InitProductService productService;
     private final InitReviewService reviewService;
@@ -31,6 +31,7 @@ public class LoaderData {
     public void init() {
         memberService.init();
         productService.init();
+//        reviewService.init();
     }
 
     @RequiredArgsConstructor
@@ -39,15 +40,7 @@ public class LoaderData {
         private final MemberModifyService memberService;
 
         public void init() {
-            MemberSignupRequest request = MemberSignupRequest.builder()
-                    .name("마리")
-                    .email("mari1234@gmail.com")
-                    .birth(LocalDate.now())
-                    .password("qwer1234!@")
-                    .nickname("마리아주")
-                    .build();
-
-            memberService.signup(request);
+            마리 = memberService.signup(MemberFixture.MARI.toSignupRequest());
         }
     }
 
@@ -73,7 +66,7 @@ public class LoaderData {
 
         public void init() {
             imageSetUp();
-            productModifyService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
+            참이슬 = productModifyService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
             productModifyService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
             productModifyService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
             productModifyService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
@@ -89,17 +82,9 @@ public class LoaderData {
 
         /* TODO: 2023/05/17 추후 더미데이터를 추가할 예정 */
         public void init() {
-            Image image = storageRepository.save(new Image("product/chamisul.png"));
-            ReviewSaveRequest request = ReviewSaveRequest.builder()
-                    .productId(1L)
-                    .productRate(4)
-                    .content("리뷰")
-                    .foodRate(3)
-                    .foodCategory(FoodCategory.ASIAN)
-                    .foodImageId(image.getId())
-                    .hashtags(List.of("참이슬", "쌀국수", "야식"))
-                    .build();
-            reviewModifyService.save(new AuthMember(1L), request);
+            ReviewFixture fixture1 = ReviewFixture.참이슬과_고기;
+            Image image1 = storageRepository.save(new Image(fixture1.getFoodImagePath()));
+            참이슬과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture1.toSaveRequest(참이슬.getId(), image1.getId()));
         }
     }
 }
