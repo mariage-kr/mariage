@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div``;
 
@@ -71,13 +72,17 @@ const DropContent = styled.div`
 
 const DropList = styled.p`
   float: left;
-  color: black;
 
   padding: 12px 16px;
   margin: 10px 0;
 
   display: block;
   text-align: left;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 
   transition: 150ms;
   &:hover {
@@ -86,4 +91,12 @@ const DropList = styled.p`
   }
 `;
 
-export { Container, UnderBar, Dropdown, DropBtn, DropContent, DropList };
+export {
+  Container,
+  UnderBar,
+  Dropdown,
+  DropBtn,
+  DropContent,
+  DropList,
+  StyledLink,
+};

@@ -15,7 +15,7 @@ class StorageRepositoryTest extends RepositoryTest {
     @Autowired
     protected StorageRepository storageRepository;
 
-    @DisplayName("파일을 이름을 저장한다.")
+    @DisplayName("파일의 이름을 저장한다.")
     @Test
     void 파일의_이름을_저장한다() {
         Image image = Image.of("test.jpeg");

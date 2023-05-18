@@ -46,7 +46,7 @@ class MemberServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        member = memberModifyService.signup(MemberFixture.MARI.toSignupRequest());
+        member = signup(MemberFixture.MARI);
     }
 
     @DisplayName("회원 탈퇴한다.")
