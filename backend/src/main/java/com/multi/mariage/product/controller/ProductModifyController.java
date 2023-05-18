@@ -5,6 +5,7 @@ import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import com.multi.mariage.product.service.ProductModifyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ProductModifyController {
     @PostMapping("/user/product/save")
     public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request) {
         productModifyService.save(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/user/product/update")

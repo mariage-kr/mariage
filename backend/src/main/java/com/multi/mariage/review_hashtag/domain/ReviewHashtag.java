@@ -4,10 +4,12 @@ import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "review_hashtag")
+@Getter
 @Entity
 public class ReviewHashtag {
     @Id
