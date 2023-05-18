@@ -97,4 +97,10 @@ public class Review {
     public void changeImage(Image image) {
         this.image = image;
     }
+
+    public void removeHashtags() {
+        for (ReviewHashtag reviewHashtag : reviewHashtags) {
+            reviewHashtag.removeHashtag
+        }
+    }
 }

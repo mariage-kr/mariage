@@ -35,4 +35,11 @@ public class ReviewHashtag {
         review.getReviewHashtags().add(this);
         this.review = review;
     }
+
+    public void removeHashtag() {
+        if (hashtag != null) {
+            hashtag.getReviewHashTags().remove(this);
+            hashtag = null;
+        }
+    }
 }

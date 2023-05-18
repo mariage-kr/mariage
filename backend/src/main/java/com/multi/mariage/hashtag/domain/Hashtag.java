@@ -24,7 +24,11 @@ public class Hashtag {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "hashtag")
     private List<ReviewHashtag> reviewHashTags = new ArrayList<>();
 
-    public Hashtag(String name) {
-        this.name = name;
+
     }
-}
+}  public Hashtag(String name) {
+
+    this.name = name;
+
+    reviewHashTags.remove();
+    reviewHashTags.size() == 0;
