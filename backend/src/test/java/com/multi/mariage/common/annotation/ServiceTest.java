@@ -1,16 +1,27 @@
 package com.multi.mariage.common.annotation;
 
+import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.common.fixture.ImageFixture;
+import com.multi.mariage.common.fixture.MemberFixture;
+import com.multi.mariage.common.fixture.ProductFixture;
+import com.multi.mariage.common.fixture.ReviewFixture;
 import com.multi.mariage.hashtag.service.HashtagService;
+import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.member.service.MemberModifyService;
+import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.review_hashtag.service.ReviewHashtagService;
+import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.repository.StorageRepository;
 import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +40,8 @@ public abstract class ServiceTest {
     @Autowired
     protected ProductModifyService productModifyService;
     @Autowired
+    protected ReviewModifyService reviewModifyService;
+    @Autowired
     protected ReviewHashtagService reviewHashtagService;
     @Autowired
     protected StorageService storageService;
@@ -37,9 +50,21 @@ public abstract class ServiceTest {
     @Autowired
     protected StorageRepository storageRepository;
 
-    /* TODO: 2023/05/18 회원 저장 */
-    /* TODO: 2023/05/18 제품 저장 */
-    /* TODO: 2023/05/18 이미지 저장 */
-    /* TODO: 2023/05/18 날씨 저장 */
-    /* TODO: 2023/05/18 리뷰 저장 */
+    protected Member signup(MemberFixture memberFixture) {
+        return memberModifyService.signup(memberFixture.toSignupRequest());
+    }
+
+    protected Product saveProduct(ProductFixture productFixture, Long imageId) {
+        return productModifyService.save(productFixture.toProductSaveRequest(imageId));
+    }
+
+    protected ImageSavedResponse saveImage(ImageFixture imageFixture) {
+        MockMultipartFile file = imageFixture.toMultipartFile();
+        return storageService.saveFile(file);
+    }
+
+    protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture, Long memberId, Long productId,
+                                            Long foodImageId) {
+        return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
+    }
 }
