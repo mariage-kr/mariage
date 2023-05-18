@@ -26,7 +26,7 @@ public class ProductModifyController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/user/product/remove")
+    @DeleteMapping("/user/product/remove/{id}")
     public ResponseEntity<Void> remove(@PathVariable Long id) {
         productModifyService.remove(id);
         return ResponseEntity.ok().build();
