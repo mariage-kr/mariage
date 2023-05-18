@@ -52,7 +52,7 @@ public class Product {
     @Column(name = "country_id", nullable = false)
     private Country country;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
