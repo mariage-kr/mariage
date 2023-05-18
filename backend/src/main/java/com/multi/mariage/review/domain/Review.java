@@ -100,7 +100,7 @@ public class Review {
 
     public void removeHashtags() {
         for (ReviewHashtag reviewHashtag : reviewHashtags) {
-            reviewHashtag.removeHashtag
+            reviewHashtag.removeHashtag();
         }
     }
 }
