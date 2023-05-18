@@ -20,6 +20,30 @@ type Option = {
 };
 
 function Filter({ count, categories }: FilterProps) {
+  const [selectedUpperCategory, setSelectedUpperCategory] = useState<
+    string | undefined
+  >();
+
+  const [selectedLowerCategory, setSelectedLowerCategory] = useState<string[]>(
+    [],
+  );
+
+  const handleUpperCategoryClick = (
+    category: string | undefined,
+    categoryRegion: string,
+  ) => {
+    setSelectedUpperCategory(category);
+    setSelectedLowerCategory([]);
+  };
+
+  const handleLowerCategoryClick = (
+    lowerCategory: DrinkLowerCategoryType,
+  ): void => {
+    setSelectedLowerCategory(prevSelectedLowerCategory => {
+      return [...prevSelectedLowerCategory, lowerCategory.value];
+    });
+  };
+
   const [option, setOption] = useState<Option>({
     rate: {
       max: 50,
@@ -39,37 +63,6 @@ function Filter({ count, categories }: FilterProps) {
     setOption({ ...option, level: selectLevelRange });
   };
 
-  const [selectedUpperCategory, setSelectedUpperCategory] =
-    useState<DrinkUpperCategoryType | null>(null);
-  const [selectedLowerCategory, setSelectedLowerCategory] = useState<string[]>(
-    [],
-  );
-
-  const handleUpperCategoryClick = (
-    upperCategory: DrinkUpperCategoryType,
-  ): void => {
-    if (selectedUpperCategory === upperCategory) {
-      // 선택한 상위 카테고리 재클릭 시 하위 카테고리까지 취소
-      setSelectedUpperCategory(null);
-      setSelectedLowerCategory([]);
-    } else {
-      setSelectedUpperCategory(upperCategory);
-    }
-  };
-
-  const handleLowerCategoryClick = (
-    lowerCategory: DrinkLowerCategoryType,
-  ): void => {
-    setSelectedLowerCategory(prevSelectedLowerCategory => {
-      if (prevSelectedLowerCategory.includes(lowerCategory.value)) {
-        return prevSelectedLowerCategory.filter(
-          value => value !== lowerCategory.value,
-        );
-      }
-      return [...prevSelectedLowerCategory, lowerCategory.value];
-    });
-  };
-
   return (
     <S.Container>
       <p>조회한 상품 개수는 {count}개 입니다.</p>
@@ -80,15 +73,16 @@ function Filter({ count, categories }: FilterProps) {
           {categories.map(
             (category: DrinkRegionCategoryType, index: number) => (
               <div key={index}>
-                {/* 상위 카테고리 전체를 버튼으로 map */}
                 {category.categories.map(
-                  (
-                    upperCategory: DrinkUpperCategoryType,
-                    upperIndex: number,
-                  ) => (
+                  (upperCategory: DrinkUpperCategoryType, index: number) => (
                     <S.Category
-                      key={upperIndex}
-                      onClick={() => handleUpperCategoryClick(upperCategory)}
+                      key={index}
+                      onClick={() =>
+                        handleUpperCategoryClick(
+                          upperCategory.value,
+                          category.region,
+                        )
+                      }
                     >
                       {category.region} {upperCategory.name}
                     </S.Category>
@@ -97,31 +91,50 @@ function Filter({ count, categories }: FilterProps) {
               </div>
             ),
           )}
-
-          {selectedUpperCategory && (
-            <div>
-              <p>하위 카테고리</p>
-              {selectedUpperCategory.subCategories.map(
-                (lowerCategory: DrinkLowerCategoryType, lowerIndex: number) => (
-                  <S.Category
-                    key={lowerIndex}
-                    onClick={() => handleLowerCategoryClick(lowerCategory)}
-                    style={{
-                      background: selectedLowerCategory.includes(
-                        lowerCategory.value,
-                      )
-                        ? '#9c94d0'
-                        : '',
-                    }}
-                  >
-                    {lowerCategory.name}
-                  </S.Category>
-                ),
-              )}
-            </div>
+          <p>하위 카테고리</p>
+          {categories.map(
+            (category: DrinkRegionCategoryType, index: number) => (
+              <div key={index}>
+                {category.categories
+                  .filter(
+                    (upperCategory: DrinkUpperCategoryType) =>
+                      upperCategory.value === selectedUpperCategory,
+                  )
+                  .map(
+                    (
+                      upperCategory: DrinkUpperCategoryType,
+                      upperIndex: number,
+                    ) => (
+                      <div key={upperIndex}>
+                        {upperCategory.subCategories.map(
+                          (
+                            lowerCategory: DrinkLowerCategoryType,
+                            lowerIndex: number,
+                          ) => (
+                            <S.Category
+                              key={lowerIndex}
+                              onClick={() =>
+                                handleLowerCategoryClick(lowerCategory)
+                              }
+                              style={{
+                                background: selectedLowerCategory.includes(
+                                  lowerCategory.value,
+                                )
+                                  ? '#9c94d0'
+                                  : '',
+                              }}
+                            >
+                              {lowerCategory.name}
+                            </S.Category>
+                          ),
+                        )}
+                      </div>
+                    ),
+                  )}
+              </div>
+            ),
           )}
         </S.CategoryWrap>
-
         <S.RangeWrap>
           <S.Star>
             별점
