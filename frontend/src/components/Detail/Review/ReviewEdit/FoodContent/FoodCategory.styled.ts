@@ -7,7 +7,6 @@ const Container = styled.div`
   height: 100%;
   border: 1px solid #9c94d044;
   border-radius: 10px;
-  box-sizing: border-box;
   box-shadow: 0 0 3px #9c94d088;
   margin: 5px;
 `;
@@ -23,7 +22,6 @@ const FoodRadioBtn = styled.label`
   margin: 0;
   padding: 0;
   border-radius: 10px;
-  box-sizing: border-box;
   display: inline-block;
   overflow: hidden;
 
@@ -75,7 +73,6 @@ const FoodRadioBtn = styled.label`
 `;
 
 const BtnLabel = styled.label`
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
   margin: 0;
@@ -98,7 +95,6 @@ const Label = styled.p`
   display: block;
   border-bottom: 1px solid #eae7e7;
   border-radius: 10px;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   text-align: center;

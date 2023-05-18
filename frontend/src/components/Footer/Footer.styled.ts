@@ -6,7 +6,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 0 10%;
+  padding: 0.5vh 10% 0;
   text-align: center;
 `;
 

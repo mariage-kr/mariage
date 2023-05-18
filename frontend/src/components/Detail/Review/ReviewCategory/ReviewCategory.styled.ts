@@ -14,7 +14,6 @@ const Wrapper = styled.div`
   width: 95%;
   height: 100%;
   margin: 0 auto;
-  padding: 0;
   overflow: hidden;
 `;
 
@@ -47,7 +46,6 @@ const Bottom = styled.div`
   height: 50px;
   margin: 15px 0 20px;
   overflow: hidden;
-  
 `;
 
 const FloatWrap = styled.div`
@@ -59,7 +57,6 @@ const SelectBox = styled.select`
   outline: none;
   border: none;
   border-radius: 70px;
-  box-sizing: border-box;
   box-shadow: 1px 1px 3px #9C94D055;
   background: url('https://i.esdrop.com/d/f/CeyD9bnnT5/1Kum5nNwU4.png') no-repeat 95% 50%; 
   background-size: 13% auto;
@@ -90,8 +87,7 @@ const Option = styled.option`
   transition: background-color 0.2s ease-in;
 `;
 
-const Sort = styled.div`
-`;
+const Sort = styled.div``;
 
 const Button = styled.button<Sort>`
 border-radius: 70px;
