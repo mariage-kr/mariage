@@ -4,6 +4,8 @@ import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.like.domain.LikeRepository;
 import com.multi.mariage.like.dto.request.LikeSaveRequest;
+import com.multi.mariage.like.exception.LikeErrorCode;
+import com.multi.mariage.like.exception.LikeException;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.review.domain.Review;
@@ -25,6 +27,7 @@ public class LikeService {
 
         Member member = memberFindService.findById(authMember.getId());
         Review review = reviewFindService.findById(request.getReviewId());
+        validateMemberAlreadyLiked(authMember.getId(), request.getReviewId());
 
         Like like = Like.builder()
                 .member(member)
@@ -33,6 +36,10 @@ public class LikeService {
 
         likeRepository.save(like);
     }
-
-//    TODO: like를 이미 했는지에 대한 예외처리
+    private void validateMemberAlreadyLiked(Long memberId, Long reviewId) {
+        boolean isExist = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
+        if (isExist) {
+            throw new LikeException(LikeErrorCode.REVIEW_ALREADY_LIKED);
+        }
+    }
 }
