@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  margin: 50px 10%;
+  margin: 6vh 10% 14vh;
 `;
 
 const Header = styled.h1`

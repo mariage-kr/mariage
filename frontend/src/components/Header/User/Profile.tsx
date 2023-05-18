@@ -86,6 +86,7 @@ function User() {
 
   return (
     <S.Container>
+      <S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink>
       <S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink>
       <S.StyledLink to={BROWSER_PATH.SIGN_UP}>회원가입</S.StyledLink>
     </S.Container>
