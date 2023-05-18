@@ -39,8 +39,8 @@ function Filter({ count, categories }: FilterProps) {
   const handleLowerCategoryClick = (
     lowerCategory: DrinkLowerCategoryType,
   ): void => {
-    setSelectedLowerCategory(prevSelectedLowerCategory => {
-      return [...prevSelectedLowerCategory, lowerCategory.value];
+    setSelectedLowerCategory(existCategories => {
+      return [...existCategories, lowerCategory.value];
     });
   };
 
@@ -121,6 +121,11 @@ function Filter({ count, categories }: FilterProps) {
                                   lowerCategory.value,
                                 )
                                   ? '#9c94d0'
+                                  : '',
+                                color: selectedLowerCategory.includes(
+                                  lowerCategory.value,
+                                )
+                                  ? '#fff'
                                   : '',
                               }}
                             >
