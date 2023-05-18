@@ -78,6 +78,7 @@ function User() {
   if (isLogin) {
     return (
       <S.Container>
+        <S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink>
         <S.StyledLink to={BROWSER_PATH.MY}>{userInfo?.nickname}님</S.StyledLink>
         <S.TextButton onClick={logout}>로그아웃</S.TextButton>
       </S.Container>
@@ -86,7 +87,6 @@ function User() {
 
   return (
     <S.Container>
-      <S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink>
       <S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink>
       <S.StyledLink to={BROWSER_PATH.SIGN_UP}>회원가입</S.StyledLink>
     </S.Container>
