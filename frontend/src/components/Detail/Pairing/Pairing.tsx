@@ -52,7 +52,7 @@ function Pairing() {
           {pairing.foods.map((food: PairingFoodType) => (
             <S.Food key={food.id}>
               <S.FoodImg src={food.img} />
-              <S.NameRate css={S.name}>{food.name}</S.NameRate>
+              <S.NameRate>{food.name}</S.NameRate>
               <S.NameRate css={S.rate}>{food.rate}</S.NameRate>
             </S.Food>
           ))}

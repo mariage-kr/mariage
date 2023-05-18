@@ -72,10 +72,8 @@ const DropContent = styled.div`
 
 const DropList = styled.p`
   float: left;
-
   padding: 12px 16px;
   margin: 10px 0;
-
   display: block;
   text-align: left;
 `;

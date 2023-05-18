@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   width: 95%;
   height: 100%;
   margin: 0 auto;
-  padding: 30px 0 20px;
+  padding: 30px 0;
   overflow: hidden;
 `;
 
@@ -19,7 +19,6 @@ const Top = styled.div`
 `;
 
 const TopLeft = styled.div`
-  box-sizing: border-box;
   width: 70%;
   float: left;
   overflow: hidden;
@@ -33,6 +32,11 @@ const Profile = styled.div`
 const Profile1 = css`
   width: 15%;
   margin-right: 20px;
+
+  @media (max-width: 1650px) { width: 17%; margin-right: 18px; }
+  @media (max-width: 1400px) { width: 19%; }
+  @media (max-width: 1150px) { width: 20%; }
+  @media (max-width: 1050px) { width: 21%; margin-right: 15px; }
 `;
 
 const ProfileImg = styled.img`
@@ -45,7 +49,12 @@ const ProfileImg = styled.img`
 const Profile2 = css`
   width: 70%;
   overflow: hidden;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
+
+  @media (max-width: 1650px) { width: 68%; margin-bottom: 18px; }
+  @media (max-width: 1400px) { width: 66%; margin-bottom: 17px; }
+  @media (max-width: 1150px) { width: 65%; margin-bottom: 15px; }
+  @media (max-width: 1050px) { width: 64%; margin-bottom: 13px; }
 `;
 
 const Name = styled.p`
@@ -54,34 +63,29 @@ const Name = styled.p`
 `;
 
 const RateDate = styled.div`
-  box-sizing: border-box;
   width: auto;
   display: inline-block;
   vertical-align: middle;
 `;
 
 const Date = styled.p`
-  margin: 0 20px;
+  margin: 0 0 0 20px;
   font-size: 1.1rem;
   color: #b7b7b7;
 `;
 
 
 const TopRight = styled.div`
-  box-sizing: border-box;
   width: 30%;
   float: right;
   overflow: hidden;
   padding-top: 40px;
 
   @media (max-width: 1750px) { padding-top: 30px; }
-  @media (max-width: 1450px) { padding-top: 20px; }
-  @media (max-width: 1320px) { padding-top: 10px; }
-  @media (max-width: 1100px) { padding-top: 10px; }
+  @media (max-width: 1200px) { padding-top: 25px; }
 `;
 
 const BtnWrap = styled.div`
-  box-sizing: border-box;
   width: 70%;
   float: left;
   text-align: right;
@@ -112,14 +116,11 @@ const Btn = styled.button`
   }
 `;
 
-const updateBtn = css`
-`;
+const updateBtn = css``;
 
-const deleteBtn = css`
-`;
+const deleteBtn = css``;
 
 const Like = styled.div`
-  box-sizing: border-box;
   width: 30%;
   float: right;
   text-align: right;
@@ -135,7 +136,6 @@ const Bottom = styled.div`
 `;
 
 const Food = styled.div`
-  box-sizing: border-box;
   float: left;
   width: 10.5%;
   margin: 20px 1vw 0 0;
@@ -176,7 +176,6 @@ const ReviewRate = styled.span`
 `;
 
 const Content = styled.div`
-  box-sizing: border-box;
   float: right;
   width: 87.6%;
   overflow: hidden;
@@ -208,7 +207,6 @@ const HashTag = styled.p`
 `;
 
 const ReviewImg = styled.div`
-  box-sizing: border-box;
   border: 1px solid #9C94D044;
   width: 22%;
   text-align: center;

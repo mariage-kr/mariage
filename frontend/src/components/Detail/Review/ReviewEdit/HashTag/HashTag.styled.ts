@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   width: 100%;
-  margin: 5px 0;
-  padding: 0;
+  margin: 7px 0;
 `;
 
 const HashTagPrint = styled.div`
@@ -27,7 +26,7 @@ const HashTagPrintText = styled.p`
 const RemoveBtn = styled.p`
   float: right;
   margin: 0;
-  padding: 0 1px 0 10px;
+  padding: 0 5px 0 10px;
   cursor: pointer;
 `;
 

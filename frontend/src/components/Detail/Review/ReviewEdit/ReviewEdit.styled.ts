@@ -9,13 +9,11 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
-  margin: 10px 0;
-  padding: 0;
+  margin: 25px 0 10px;
 `;
 
 const TitleInfo = styled.p`
   margin: 5px 0 10px;
-  padding: 0;
   font-size: 1rem;
 `;
 
@@ -46,7 +44,6 @@ const DrinkInfo = styled.div`
 `;
 
 const Country = styled.div`
-  box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
 `;
@@ -72,8 +69,7 @@ const country_right = css`
 `;
 
 const NameLevel = styled.p`
-  margin: 5px 0;
-  padding: 0;
+  margin: 7px 0 5px 2px;
   font-size: 1rem;
 `;
 
@@ -84,7 +80,6 @@ const ABV = styled.span`
 const DrinkStarRate = styled.div`
   float: right;
   width: 30%;
-  box-sizing: border-box;
   margin: 33px auto 0;
 `;
 

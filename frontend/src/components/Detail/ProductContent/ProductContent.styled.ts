@@ -18,7 +18,6 @@ const Wrapper = styled.div`
 `;
 
 const Left = styled.div`
-  box-sizing: border-box;
   float: left;
   width: 150px;
   height: 100%;
@@ -31,7 +30,6 @@ const Img = styled.img`
 `;
 
 const Right = styled.div`
-  box-sizing: border-box;
   width: 70%;
   height: auto;
   padding-top: 55px;
@@ -41,7 +39,6 @@ const Right = styled.div`
 `;
 
 const Country = styled.div`
-  box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
 `;
@@ -83,10 +80,8 @@ const ABVText = styled.span`
 `;
 
 const StarRate = styled.div`
-  box-sizing: border-box;
   display: inline-block;
   margin: 5px 0 0;
-  padding: 0;
   vertical-align: middle;
 `;
 
@@ -99,11 +94,9 @@ const StarRateText = styled.p`
 
 
 const Content = styled.div`
-  box-sizing: border-box;
   margin: 10px 0 0;
   font-size: 1rem;
   letter-spacing: 0.05em;
-  
 `;
 
 

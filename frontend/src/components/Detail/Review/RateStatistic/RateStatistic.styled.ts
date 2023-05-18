@@ -2,16 +2,13 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 const Container = styled.div`
-  margin: 0;
   padding: 150px 0 0;
 `;
 
 const Wrapper = styled.div`
-  box-sizing: border-box;
   border: 1px solid #9C94D055;
   width: 85%;
-  margin: 0 0 0 30px;
-  padding: 0;
+  margin-left: 30px;
 
   @media (max-width: 980px) { width: 84%; }
 `;
@@ -25,17 +22,12 @@ const Top = styled.div`
 `;
 
 const AverageRate = styled.div`
-  margin: 0;
   font-size: 1.5rem;
 `;
 
-const StarRate = styled.div`
-  margin: 0;
-`;
+const StarRate = styled.div``;
 
-const TotalRate = styled.div`
-  margin: 0;
-`;
+const TotalRate = styled.div``;
 
 const Span = styled.span`
   color: #bb2649;
@@ -73,8 +65,6 @@ const Star = styled.div`
 
 const StarWrapper = styled.div`
   display: inline-block;
-  margin: 0;
-  padding: 0;
 `;
 
 const img = css`
@@ -92,7 +82,6 @@ const StarImg = styled.img`
 `;
 
 const Graph = styled.div`
-  box-sizing: border-box;
   float: left;
   width: 58%;
 
@@ -102,7 +91,6 @@ const Graph = styled.div`
 
 
 const TempGraph = styled.div`
-  box-sizing: border-box;
   width: 100%;
   height: 20px;
   margin: 8px 0;
@@ -115,10 +103,8 @@ const TempGraph = styled.div`
 `;
 
 const Count = styled.div`
-  box-sizing: border-box;
   float: right;
   width: 17%;
-  margin: 0;
   padding-top: 5px;
 
   @media (max-width: 1800px) { padding-top: 3px; }
