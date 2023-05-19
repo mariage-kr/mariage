@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
 
     steps:
       - name: Checkout Repository 🚚
@@ -18,13 +21,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+          cache: yarn
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install Dependencies By Package.json 🏗
-        run: cd frontend && npm ci
+        run: npm ci
 
       - name: Jest Test ✅
-        run: cd frontend && npm run test
+        run: npm run test
 
-    #   - name: Webpack Build
-    #     run: cd frontend && npm run build
-    #     원인 분석 후 수정할 예정, 현재 PNG 파일을 처리하지 못함
+      - name: Webpack Build
+        env:
+          CI: false
+        run: npm run build
