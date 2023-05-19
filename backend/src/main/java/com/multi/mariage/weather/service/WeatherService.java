@@ -1,7 +1,9 @@
 package com.multi.mariage.weather.service;
 
+import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.domain.WeatherRepository;
+import com.multi.mariage.weather.dto.response.WeatherInfoResponse;
 import com.multi.mariage.weather.exception.WeatherErrorCode;
 import com.multi.mariage.weather.exception.WeatherException;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import java.util.TimeZone;
 @Service
 public class WeatherService {
     private static final String PATTERN = "yyyy-MM-dd HH";
+    private final ImageService imageService;
     private final WeatherRepository weatherRepository;
     @Value("${open.weather.key}")
     private String key;
@@ -131,5 +134,16 @@ public class WeatherService {
         dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 
         return LocalDateTime.parse(dateFormat.format(date), formatter);
+    }
+
+    public WeatherInfoResponse findInfo() {
+        Weather latestWeather = findLatestWeather();
+        String imageUrl = imageService.getImageUrl(latestWeather.getValue().getImagePath());
+
+        return WeatherInfoResponse.builder()
+                .weather(latestWeather.getValue().getName())
+                .temp(latestWeather.getTemp())
+                .imageUrl(imageUrl)
+                .build();
     }
 }
