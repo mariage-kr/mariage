@@ -3,6 +3,7 @@ import review from '@/assets/lottie/review.json';
 
 const style = {
   width: '10%',
+  minWidth: '45px',
   maxHeight: '3rem',
 };
 

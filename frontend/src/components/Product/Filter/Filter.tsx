@@ -49,67 +49,108 @@ function Filter({ count, categories }: FilterProps) {
     setOption({ ...option, level: selectLevelRange });
   };
 
+  const region = [{ name: '국내' }, { name: '해외' }];
+
   return (
     <S.Container>
-      <p>조회한 상품 개수는 {count}개 입니다.</p>
+      <S.Count>
+        조회한 상품 개수는 <S.Color>{count}개</S.Color> 입니다.
+      </S.Count>
       <S.FilterWrap>
-        <h4>필터</h4>
         <S.CategoryWrap>
-          <p>상위 카테고리</p>
-          {categories.map(
-            (category: DrinkRegionCategoryType, index: number) => (
-              <div key={index}>
-                {category.categories.map(
-                  (upperCategory: DrinkUpperCategoryType, index: number) => (
-                    <S.Category
-                      key={index}
-                      onClick={() =>
-                        handleUpperCategoryClick(
-                          upperCategory.value,
-                          category.region,
-                        )
-                      }
-                    >
-                      {category.region} {upperCategory.name}
-                    </S.Category>
-                  ),
-                )}
-              </div>
-            ),
-          )}
-          <p>하위 카테고리</p>
-          {categories.map(
-            (category: DrinkRegionCategoryType, index: number) => (
-              <div key={index}>
-                {category.categories
-                  .filter(
-                    (upperCategory: DrinkUpperCategoryType) =>
-                      upperCategory.value === selectedUpperCategory,
-                  )
-                  .map(
-                    (
-                      upperCategory: DrinkUpperCategoryType,
-                      upperIndex: number,
-                    ) => (
-                      <div key={upperIndex}>
-                        {upperCategory.subCategories.map(
-                          (
-                            lowerCategory: DrinkLowerCategoryType,
-                            lowerIndex: number,
-                          ) => (
-                            <S.Category key={lowerIndex}>
-                              {lowerCategory.name}
-                            </S.Category>
-                          ),
-                        )}
-                      </div>
-                    ),
-                  )}
-              </div>
-            ),
-          )}
+          <S.UpperCategory>
+            <S.CategoryTitle>상위 카테고리</S.CategoryTitle>
+            <S.Domestic>
+              <S.p>국내</S.p>
+              {categories
+                .filter(category => category.region === '국내')
+                .map((category: DrinkRegionCategoryType, index: number) => (
+                  <div key={index}>
+                    {category.categories.map(
+                      (
+                        upperCategory: DrinkUpperCategoryType,
+                        index: number,
+                      ) => (
+                        <S.Category
+                          key={index}
+                          onClick={() =>
+                            handleUpperCategoryClick(
+                              upperCategory.value,
+                              category.region,
+                            )
+                          }
+                        >
+                          {upperCategory.name}
+                        </S.Category>
+                      ),
+                    )}
+                  </div>
+                ))}
+            </S.Domestic>
+            <S.Overseas>
+              <S.p>해외</S.p>
+              {categories
+                .filter(category => category.region === '해외')
+                .map((category: DrinkRegionCategoryType, index: number) => (
+                  <div key={index}>
+                    {category.categories.map(
+                      (
+                        upperCategory: DrinkUpperCategoryType,
+                        index: number,
+                      ) => (
+                        <S.Category
+                          key={index}
+                          onClick={() =>
+                            handleUpperCategoryClick(
+                              upperCategory.value,
+                              category.region,
+                            )
+                          }
+                        >
+                          {upperCategory.name}
+                        </S.Category>
+                      ),
+                    )}
+                  </div>
+                ))}
+            </S.Overseas>
+          </S.UpperCategory>
+          <S.LowerCategory>
+            <S.CategoryTitle>하위 카테고리</S.CategoryTitle>
+            {categories.map(
+              (category: DrinkRegionCategoryType, index: number) => (
+                <div key={index}>
+                  {category.categories
+                    .filter(
+                      (upperCategory: DrinkUpperCategoryType) =>
+                        upperCategory.value === selectedUpperCategory,
+                    )
+                    .map(
+                      (
+                        upperCategory: DrinkUpperCategoryType,
+                        upperIndex: number,
+                      ) => (
+                        <div key={upperIndex}>
+                          {upperCategory.subCategories.map(
+                            (
+                              lowerCategory: DrinkLowerCategoryType,
+                              lowerIndex: number,
+                            ) => (
+                              <S.Category key={lowerIndex}>
+                                {lowerCategory.name}
+                              </S.Category>
+                            ),
+                          )}
+                        </div>
+                      ),
+                    )}
+                </div>
+              ),
+            )}
+          </S.LowerCategory>
         </S.CategoryWrap>
         <S.RangeWrap>
+          <S.h4>필터</S.h4>
           <S.Star>
             별점
             <RangeMultiSlider_F
@@ -123,7 +164,6 @@ function Filter({ count, categories }: FilterProps) {
               }
             />
           </S.Star>
-
           <S.ABV>
             알코올 도수(%, ABV)
             <RangeMultiSlider_F
