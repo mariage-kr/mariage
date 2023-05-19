@@ -1,13 +1,13 @@
 package com.multi.mariage.weather.domain;
 
 public enum Value {
-    THUNDERSTORM("뇌우", "thunderstorm."),
-    DRIZZLE("이슬비", "rain."),
-    RAIN("비", "rain"),
-    SNOW("눈", "snow"),
-    CLEAR("맑음", "clear"),
-    CLOUDS("흐림", "clouds"),
-    ETC("기타", "etc");
+    THUNDERSTORM("뇌우", "thunderstorm.png"),
+    DRIZZLE("이슬비", "rain.png"),
+    RAIN("비", "rain.png"),
+    SNOW("눈", "snow.png"),
+    CLEAR("맑음", "clear.png"),
+    CLOUDS("흐림", "clouds.png"),
+    ETC("기타", "etc.png");
 
     private final String name;
     private final String imageName;
