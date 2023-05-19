@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
-@Transactional
+@Transactional( readOnly = true )
 @RequiredArgsConstructor
 @Service
 public class ReviewHashtagService {
@@ -34,10 +35,16 @@ public class ReviewHashtagService {
         return reviewHashtagRepository.save(reviewHashtag);
     }
 
+    public ReviewHashtag findById(Long reviewHashtagId) {
+        Optional<ReviewHashtag> reviewHashtag = reviewHashtagRepository.findById(reviewHashtagId);
+        return reviewHashtag.orElse(null);
+    }
 
-    public boolean removeHashtagFromReview(Long reviewId, Long hashtagId) {
-        ReviewHashtag reviewHashtag = reviewHashtagRepository.findById(reviewId, hashtagId);
-        if (reviewHashtag != null) {
+    @Transactional
+    public boolean removeHashtagFromReview(Long reviewHashtagId) {
+        Optional<ReviewHashtag> reviewHashtagOptional = reviewHashtagRepository.findById(reviewHashtagId);
+        if (reviewHashtagOptional.isPresent()) {
+            ReviewHashtag reviewHashtag = reviewHashtagOptional.get();
             reviewHashtag.removeHashtag();
             reviewHashtagRepository.delete(reviewHashtag);
             return true;

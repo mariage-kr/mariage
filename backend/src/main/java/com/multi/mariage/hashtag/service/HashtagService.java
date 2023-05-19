@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -28,14 +29,24 @@ public class HashtagService {
 
     @Transactional
     public List<Hashtag> findHashTagsByList(List<String> list) {
-        List<Hashtag> hashtags = list.stream()
-                .map(this::findByName)
-                .toList();
+        List<Hashtag> hashtags = new ArrayList<>();
 
-        // reviewHashTags의 크기가 0인 경우 Hashtag 삭제
-        hashtags.stream()
-                .filter(hashtag -> hashtag.getReviewHashTags().size() == 0)
-                .forEach(hashtag -> hashtagRepository.delete(hashtag));
+        for (String name : list) {
+            Hashtag hashtag = findByName(name);
+            hashtags.add(hashtag);
+        }
+
+        // Remove hashtags with no associated reviewHashTags
+        List<Hashtag> removeHashtag = new ArrayList<>();
+        for (Hashtag hashtag : hashtags) {
+            if (hashtag.getReviewHashTags().size() == 0) {
+                removeHashtag.add(hashtag);
+            }
+        }
+
+        for (Hashtag hashtagsToRemove : removeHashtag) {
+            hashtagRepository.delete(hashtagsToRemove);
+        }
 
         return hashtags;
     }
