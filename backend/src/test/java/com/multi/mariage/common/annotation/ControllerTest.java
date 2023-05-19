@@ -15,7 +15,6 @@ import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
-import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
@@ -53,7 +52,6 @@ public abstract class ControllerTest {
     protected ProductModifyService productModifyService;
     @Autowired
     protected StorageService storageService;
-
     @Autowired
     protected ReviewModifyService reviewModifyService;
 
@@ -76,7 +74,6 @@ public abstract class ControllerTest {
     }
 
     protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture, Long imageId, Long productId, Long memberId) {
-
         return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, imageId));
     }
 }

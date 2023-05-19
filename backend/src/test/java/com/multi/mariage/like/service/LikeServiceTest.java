@@ -2,7 +2,6 @@ package com.multi.mariage.like.service;
 
 import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
-import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
@@ -14,6 +13,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class LikeServiceTest extends ServiceTest {
     private Member member;
