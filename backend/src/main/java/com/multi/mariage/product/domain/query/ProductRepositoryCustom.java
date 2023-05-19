@@ -6,5 +6,11 @@ import java.util.List;
 
 public interface ProductRepositoryCustom {
     List<Product> searchProductByName(String name);
-    List<Product> findTotal(int pageSize);
+
+    List<Product> findWeek(int size);
+
+    List<Product> findMonth(int size);
+
+    List<Product> findTotal(int size);
+
 }

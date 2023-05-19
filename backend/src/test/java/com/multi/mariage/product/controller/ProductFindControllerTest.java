@@ -21,11 +21,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ProductFindControllerTest extends ControllerTest {
 
-    @DisplayName("전체기간 동안 가장많이 리뷰가 달린 제품들을 추천한다.")
+    @DisplayName("전체기간 동안 가장많이 리뷰가 작성된 제품들을 추천한다.")
     @Test
-    void 전체기간_동안_가장많이_리뷰가_달린_제품들을_추천한다() throws Exception {
+    void 전체기간_동안_가장많이_리뷰가_작성된_제품들을_추천한다() throws Exception {
 
-        int pageSize = 1;
+        int size = 1;
 
         Member member = saveMember();
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
@@ -33,7 +33,65 @@ class ProductFindControllerTest extends ControllerTest {
         saveReview(member, ReviewFixture.참이슬_과자, product, image2);
 
         mockMvc.perform(get("/api/product/recommend/total")
-                        .param("pageSize", String.valueOf(pageSize)))
+                        .param("size", String.valueOf(size)))
+                .andDo(print())
+                .andDo(
+                        document("Product/RecommendByTotal",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("[].productId").description("제품 식별 번호"),
+                                        fieldWithPath("[].productName").description("제품 이름"),
+                                        fieldWithPath("[].productImageUrl").description("제품 사진의 URL"),
+                                        fieldWithPath("[].reviewCount").description("제품 리뷰 개수"),
+                                        fieldWithPath("[].reviewRate").description("제품 리뷰 평균 점수"),
+                                        fieldWithPath("[].country").description("제조국"),
+                                        fieldWithPath("[].countryImageUrl").description("제조국 국기 사진의 URL")
+                                )
+                        )
+                ).andExpect(status().isOk());
+    }
+
+    @DisplayName("한달 동안 가장많이 리뷰가 작성된 제품을 추천한다.")
+    @Test
+    void 한달_동안_가장많이_리뷰가_작성된_제품을_추천한다() throws Exception {
+        int size = 1;
+
+        Member member = saveMember();
+        Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        saveReview(member, ReviewFixture.참이슬_과자, product, image2);
+
+        mockMvc.perform(get("/api/product/recommend/month")
+                        .param("size", String.valueOf(size)))
+                .andDo(print())
+                .andDo(
+                        document("Product/RecommendByTotal",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("[].productId").description("제품 식별 번호"),
+                                        fieldWithPath("[].productName").description("제품 이름"),
+                                        fieldWithPath("[].productImageUrl").description("제품 사진의 URL"),
+                                        fieldWithPath("[].reviewCount").description("제품 리뷰 개수"),
+                                        fieldWithPath("[].reviewRate").description("제품 리뷰 평균 점수"),
+                                        fieldWithPath("[].country").description("제조국"),
+                                        fieldWithPath("[].countryImageUrl").description("제조국 국기 사진의 URL")
+                                )
+                        )
+                ).andExpect(status().isOk());
+    }
+
+    @DisplayName("일주일 동안 가장많이 리뷰가 작성된 제품을 추천한다.")
+    @Test
+    void 일주일_동안_가장많이_리뷰가_작성된_제품을_추천한다() throws Exception {
+        int size = 1;
+
+        Member member = saveMember();
+        Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        saveReview(member, ReviewFixture.참이슬_과자, product, image2);
+
+        mockMvc.perform(get("/api/product/recommend/week")
+                        .param("size", String.valueOf(size)))
                 .andDo(print())
                 .andDo(
                         document("Product/RecommendByTotal",

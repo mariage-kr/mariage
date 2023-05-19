@@ -23,7 +23,7 @@ class ReviewRepositoryTest extends RepositoryTest {
         image = saveImage(ImageFixture.JPEG_IMAGE);
         member = saveMember(MemberFixture.MARI);
         product = saveProduct(ProductFixture.참이슬);
-        weather = saveWeather(WeatherFixture.맑음);
+        weather = saveWeather(WeatherFixture.맑음_현재);
     }
 
     @DisplayName("리뷰를 저장한다.")

@@ -58,8 +58,20 @@ public class ProductFindService {
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
     }
 
-    public List<ProductMainCardResponse> findTotal(int pageSize) {
-        List<Product> products = productRepository.findTotal(pageSize);
+    public List<ProductMainCardResponse> findWeek(int size) {
+        List<Product> products = productRepository.findWeek(size);
+
+        return products.stream().map(this::toProductMainCard).toList();
+    }
+
+    public List<ProductMainCardResponse> findMonth(int size) {
+        List<Product> products = productRepository.findMonth(size);
+
+        return products.stream().map(this::toProductMainCard).toList();
+    }
+
+    public List<ProductMainCardResponse> findTotal(int size) {
+        List<Product> products = productRepository.findTotal(size);
 
         return products.stream().map(this::toProductMainCard).toList();
     }

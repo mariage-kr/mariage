@@ -15,7 +15,9 @@
 - http://localhost:8080/docs/member.html[Member^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
-== 전체 기간 추천 제품 조회
+== 일정 기간 추천 제품 조회
+
+Week, Month, Total 의 내용은 똑같고 `URI` 에만 차이를 보입니다.
 
 === Request
 

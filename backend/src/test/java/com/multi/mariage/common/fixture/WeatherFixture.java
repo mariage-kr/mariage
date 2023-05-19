@@ -5,10 +5,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public enum WeatherFixture {
-    맑음(25.43, 800L, LocalDateTime.of(2023, 5, 17, 23, 0, 0));
+    맑음_현재(25.43, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul"))),
+    맑음_2주전(23.13, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusWeeks(2)),
+    맑음_2달전(21.13, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusMonths(2));
 
     private double temp;
     private Long value;
@@ -24,7 +27,7 @@ public enum WeatherFixture {
         return Weather.builder()
                 .temp(temp)
                 .weatherId(value)
-                .date(date)
+                .date(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), date.getHour(), 0, 0))
                 .build();
     }
 }

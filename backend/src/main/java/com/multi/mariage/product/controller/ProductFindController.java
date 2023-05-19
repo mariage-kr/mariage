@@ -32,9 +32,21 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/product/recommend/week")
+    public ResponseEntity<List<ProductMainCardResponse>> findWeek(@Param("size") int size) {
+        List<ProductMainCardResponse> response = productFindService.findWeek(size);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/recommend/month")
+    public ResponseEntity<List<ProductMainCardResponse>> findMonth(@Param("size") int size) {
+        List<ProductMainCardResponse> response = productFindService.findMonth(size);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/product/recommend/total")
-    public ResponseEntity<List<ProductMainCardResponse>> findTotal(@Param("pageSize") int pageSize) {
-        List<ProductMainCardResponse> response = productFindService.findTotal(pageSize);
+    public ResponseEntity<List<ProductMainCardResponse>> findTotal(@Param("size") int size) {
+        List<ProductMainCardResponse> response = productFindService.findTotal(size);
         return ResponseEntity.ok(response);
     }
 }
