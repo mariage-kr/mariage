@@ -49,8 +49,6 @@ function Filter({ count, categories }: FilterProps) {
     setOption({ ...option, level: selectLevelRange });
   };
 
-  const region = [{ name: '국내' }, { name: '해외' }];
-
   return (
     <S.Container>
       <S.Count>
