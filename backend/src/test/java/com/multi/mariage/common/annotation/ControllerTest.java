@@ -3,15 +3,19 @@ package com.multi.mariage.common.annotation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.auth.service.AuthService;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.category.service.DrinkUpperCategoryService;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
+import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +50,13 @@ public abstract class ControllerTest {
     @Autowired
     protected ProductModifyService productModifyService;
     @Autowired
+    protected ReviewModifyService reviewModifyService;
+    @Autowired
     protected StorageService storageService;
 
-    protected void saveMember() {
+    protected Member saveMember() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
-        memberModifyService.signup(request);
+        return memberModifyService.signup(request);
     }
 
     protected String accessToken(MemberFixture memberFixture) {
@@ -64,5 +70,9 @@ public abstract class ControllerTest {
 
     protected Image saveImage(ImageFixture imageFixture) {
         return storageService.save(imageFixture.toMultipartFile());
+    }
+
+    protected void saveReview(Member member, ReviewFixture reviewFixture, Product product, Image image) {
+        reviewModifyService.save(new AuthMember(member.getId()), reviewFixture.toSaveRequest(product.getId(), image.getId()));
     }
 }

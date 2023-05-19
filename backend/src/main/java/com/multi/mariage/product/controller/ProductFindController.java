@@ -25,13 +25,14 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    /* TODO: 2023/05/19 추후 해당 권한은 관리자만 가능하게 할 예정입니다. */
     @GetMapping("/user/product/info")
     public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
         ProductInfoResponse response = productFindService.findProductInfo(productId);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/total")
+    @GetMapping("/product/recommend/total")
     public ResponseEntity<List<ProductMainCardResponse>> findTotal(@Param("pageSize") int pageSize) {
         List<ProductMainCardResponse> response = productFindService.findTotal(pageSize);
         return ResponseEntity.ok(response);
