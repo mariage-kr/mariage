@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { PairingSelectType } from '@/@types/select';
 import { PairingFoodType } from '@/@types/product';
 
-import trophy from '../../../assets/png/trophyIcon.png';
+import TrophyIcon from '@/assets/png/trophyIcon.png';
 
 import * as S from './Pairing.styled';
 
@@ -32,7 +32,7 @@ function Pairing() {
     <S.Container>
       <S.Wrapper>
         <S.Title css={S.title_left}>
-          <S.TitleIcon src={trophy} />
+          <S.TitleIcon src={TrophyIcon} />
         </S.Title>
         <S.Title css={S.title_right}>페어링 TOP 5</S.Title>
         <S.HashtagFilter>

@@ -4,7 +4,7 @@ import useSelect from '@/hooks/useSelect';
 import { SortType } from '@/@types/select';
 import { FoodCategoryType } from '@/@types/category';
 
-import reviewIcon from '../../../../assets/png/reviewIcon2.png';
+import ReviewIcon from '@/assets/png/reviewIcon.png';
 
 import * as S from './ReviewCategory.styled';
 
@@ -158,7 +158,7 @@ function ReviewCategory() {
     <S.Container>
       <S.Wrapper>
         <S.Title css={S.title_left}>
-          <S.TitleIcon src={reviewIcon} />
+          <S.TitleIcon src={ReviewIcon} />
         </S.Title>
         <S.Title css={S.title_right}>Reviews</S.Title>
         <S.Bottom>
