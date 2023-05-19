@@ -11,6 +11,7 @@ import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ProductFindService {
     private final ImageService imageService;
     private final ProductRepository productRepository;
+    private final WeatherService weatherService;
 
     public ProductFindResponse findProducts() {
         List<ProductsVO> productValues = getProductValues();
@@ -56,6 +58,12 @@ public class ProductFindService {
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+    }
+
+    public List<ProductMainCardResponse> findWeather(int size) {
+        List<Product> products = productRepository.findWeather(size, weatherService.findLatestWeather());
+
+        return products.stream().map(this::toProductMainCard).toList();
     }
 
     public List<ProductMainCardResponse> findWeek(int size) {

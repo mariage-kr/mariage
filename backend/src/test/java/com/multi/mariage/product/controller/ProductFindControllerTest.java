@@ -30,7 +30,7 @@ class ProductFindControllerTest extends ControllerTest {
         Member member = saveMember();
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
-        saveReview(member, ReviewFixture.참이슬_과자, product, image2);
+        saveReview(ReviewFixture.참이슬_과자, image2.getId(), product.getId(), member.getId());
 
         mockMvc.perform(get("/api/product/recommend/total")
                         .param("size", String.valueOf(size)))
@@ -59,7 +59,7 @@ class ProductFindControllerTest extends ControllerTest {
         Member member = saveMember();
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
-        saveReview(member, ReviewFixture.참이슬_과자, product, image2);
+        saveReview(ReviewFixture.참이슬_과자, image2.getId(), product.getId(), member.getId());
 
         mockMvc.perform(get("/api/product/recommend/month")
                         .param("size", String.valueOf(size)))
@@ -88,7 +88,7 @@ class ProductFindControllerTest extends ControllerTest {
         Member member = saveMember();
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
-        saveReview(member, ReviewFixture.참이슬_과자, product, image2);
+        saveReview(ReviewFixture.참이슬_과자, image2.getId(), product.getId(), member.getId());
 
         mockMvc.perform(get("/api/product/recommend/week")
                         .param("size", String.valueOf(size)))
