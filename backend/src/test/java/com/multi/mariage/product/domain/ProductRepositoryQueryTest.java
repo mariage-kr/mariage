@@ -2,13 +2,15 @@ package com.multi.mariage.product.domain;
 
 
 import com.multi.mariage.common.annotation.RepositoryTest;
-import com.multi.mariage.common.fixture.ProductFixture;
+import com.multi.mariage.common.fixture.*;
+import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.storage.domain.Image;
-import com.multi.mariage.storage.repository.StorageRepository;
+import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
@@ -38,5 +40,37 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         List<Product> actual = productRepository.searchProductByName("진로");
 
         assertThat(actual).contains(일품진로);
+    }
+
+    @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품들을 조회한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {2})
+    void 전체기간_동안_가장_많은_리뷰가_달린_제품들을_조회한다(int pageSize) {
+        Member member = saveMember(MemberFixture.MARI);
+        Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        Weather weather = saveWeather(WeatherFixture.맑음);
+        saveReview(ReviewFixture.참이슬_과자, member, 참이슬, image1, weather);
+        saveReview(ReviewFixture.산토리위스키_해산물, member, 산토리_위스키, image2, weather);
+
+        List<Product> actual = productRepository.findTotal(pageSize);
+
+        assertThat(actual).hasSize(pageSize);
+    }
+
+    @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품만 조회한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {2})
+    void 전체기간_동안_리뷰가_달린_제품만_조회한다(int pageSize) {
+        Member member = saveMember(MemberFixture.MARI);
+        Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        Weather weather = saveWeather(WeatherFixture.맑음);
+        saveReview(ReviewFixture.참이슬_과자, member, 참이슬, image1, weather);
+        saveReview(ReviewFixture.참이슬_치킨, member, 참이슬, image2, weather);
+
+        List<Product> actual = productRepository.findTotal(pageSize);
+
+        assertThat(actual).hasSize(1);
     }
 }

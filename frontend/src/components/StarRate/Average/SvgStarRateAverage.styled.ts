@@ -8,13 +8,14 @@ const Container = styled.div`
 
   flex-direction: row;
 
-  width: 100px;
-  height: 20px;
+  width: 120px;
+  height: 25px;
+  margin: 0 auto;
 `;
 
 const Image = css`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 `;
 
 export { Container, Image };

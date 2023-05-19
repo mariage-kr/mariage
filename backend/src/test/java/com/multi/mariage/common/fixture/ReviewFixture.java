@@ -16,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public enum ReviewFixture {
     참이슬_과자(3, "참이슬과 과자를 먹었어요. 짭짜름한 과자랑 먹으니 소주를 싫어는데 잘 먹었습니다!", 5, FoodCategory.SNACK, List.of("과자", "영화")),
-    참이슬_치킨(4, "참이슬과 치킨을 먹었습니다! 집에 맥주가 없어서 참이슬과 먹었는데 은근 어울리고 맛있었습니다! 치킨은 좋아요!", 5, FoodCategory.CHICKEN, List.of("야식"));
+    참이슬_치킨(4, "참이슬과 치킨을 먹었습니다! 집에 맥주가 없어서 참이슬과 먹었는데 은근 어울리고 맛있었습니다! 치킨은 좋아요!", 5, FoodCategory.CHICKEN, List.of("야식")),
+    산토리위스키_해산물(5, "산토리 위스키로 만든 하이볼을 먹었습니다! 해산물과 같이 먹었는데 조화롭게 느꼈으며 또 먹고싶은 조합입니다!", 5, FoodCategory.SEAFOOD, List.of("하이볼", "조개"));
     private int productRate;
     private String content;
     private int foodRate;

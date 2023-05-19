@@ -24,7 +24,9 @@ public class LoaderData {
 
     private static Member 마리;
     private static Product 참이슬;
+    private static Product 처음처럼;
     private static ReviewSaveResponse 참이슬과고기;
+    private static ReviewSaveResponse 처음처럼과고기;
     private final InitMemberService memberService;
     private final InitProductService productService;
     private final InitReviewService reviewService;
@@ -33,7 +35,7 @@ public class LoaderData {
     public void init() {
         memberService.init();
         productService.init();
-//        reviewService.init();
+        reviewService.init();
     }
 
     @RequiredArgsConstructor
@@ -69,7 +71,7 @@ public class LoaderData {
         public void init() {
             imageSetUp();
             참이슬 = productModifyService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
-            productModifyService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
+            처음처럼 = productModifyService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
             productModifyService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
             productModifyService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
             productModifyService.save(ProductFixture.산토리_위스키.toProductSaveRequest(saveImage5.getId()));
@@ -85,8 +87,11 @@ public class LoaderData {
         /* TODO: 2023/05/17 추후 더미데이터를 추가할 예정 */
         public void init() {
             ReviewFixture fixture1 = ReviewFixture.참이슬과_고기;
+            ReviewFixture fixture2 = ReviewFixture.처음처럼과_고기;
             Image image1 = storageRepository.save(new Image(fixture1.getFoodImagePath()));
+            Image image2 = storageRepository.save(new Image(fixture2.getFoodImagePath()));
             참이슬과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture1.toSaveRequest(참이슬.getId(), image1.getId()));
+            처음처럼과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture2.toSaveRequest(처음처럼.getId(), image2.getId()));
         }
     }
 }

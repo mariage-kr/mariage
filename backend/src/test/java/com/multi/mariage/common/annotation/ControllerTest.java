@@ -51,6 +51,8 @@ public abstract class ControllerTest {
     @Autowired
     protected ProductModifyService productModifyService;
     @Autowired
+    protected ReviewModifyService reviewModifyService;
+    @Autowired
     protected StorageService storageService;
     @Autowired
     protected ReviewModifyService reviewModifyService;
