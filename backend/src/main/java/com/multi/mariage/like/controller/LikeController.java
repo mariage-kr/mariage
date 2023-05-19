@@ -20,7 +20,7 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/user/like/save")
-    public ResponseEntity<Void> save(@Authenticated AuthMember authMember, @RequestBody @Valid LikeSaveRequest request) {
+    public ResponseEntity<Void> save(@Authenticated AuthMember authMember, @RequestBody LikeSaveRequest request) {
         likeService.save(authMember, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

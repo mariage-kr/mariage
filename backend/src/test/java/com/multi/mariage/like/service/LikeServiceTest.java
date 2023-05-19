@@ -42,7 +42,7 @@ class LikeServiceTest extends ServiceTest {
         Long reviewId = review.getReviewId();
         reviewFixture = ReviewFixture.참이슬_치킨;
 
-        likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(memberId, reviewId));
+        likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(reviewId));
 
         boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
 

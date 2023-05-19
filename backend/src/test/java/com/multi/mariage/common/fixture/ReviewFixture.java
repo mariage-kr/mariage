@@ -61,10 +61,7 @@ public enum ReviewFixture {
         return hashtags;
     }
 
-    public LikeSaveRequest toSaveLike(Long memberId, Long reviewId) {
-        return LikeSaveRequest.builder()
-                .memberId(memberId)
-                .reviewId(reviewId)
-                .build();
+    public LikeSaveRequest toSaveLike(Long reviewId) {
+        return new LikeSaveRequest(reviewId);
     }
 }
