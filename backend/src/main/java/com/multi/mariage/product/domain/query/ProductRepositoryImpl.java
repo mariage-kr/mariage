@@ -1,6 +1,7 @@
 package com.multi.mariage.product.domain.query;
 
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.weather.domain.Weather;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -28,6 +29,22 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return queryFactory.selectFrom(product)
                 .where(product.name.value.contains(name))
                 .fetch();
+    }
+
+    @Override
+    public List<Product> findWeather(int size, Weather latestWeather) {
+        List<Long> productIdsByWeather = queryFactory.select(product.id)
+                .from(product)
+                .join(product.reviews, review)
+                .join(review.weather, weather)
+                .where(weather.value.eq(latestWeather.getValue()))
+                .groupBy(product.id)
+                .orderBy(product.reviews.size().desc())
+                .offset(0)
+                .limit(size)
+                .fetch();
+
+        return getRecommendProducts(productIdsByWeather);
     }
 
     @Override

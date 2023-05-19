@@ -28,7 +28,7 @@ class LikeRepositoryTest extends RepositoryTest {
         image = saveImage(ImageFixture.JPEG_IMAGE);
         member = saveMember(MemberFixture.MARI);
         product = saveProduct(ProductFixture.일품진로);
-        weather = saveWeather(WeatherFixture.맑음);
+        weather = saveWeather(WeatherFixture.맑음_현재);
         review = saveReview(ReviewFixture.참이슬_치킨, member, product, image, weather);
     }
 

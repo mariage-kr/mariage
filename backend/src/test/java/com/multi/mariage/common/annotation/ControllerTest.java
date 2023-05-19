@@ -54,8 +54,6 @@ public abstract class ControllerTest {
     protected ReviewModifyService reviewModifyService;
     @Autowired
     protected StorageService storageService;
-    @Autowired
-    protected ReviewModifyService reviewModifyService;
 
     protected Member saveMember() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();

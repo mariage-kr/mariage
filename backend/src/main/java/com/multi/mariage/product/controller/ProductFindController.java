@@ -32,6 +32,12 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/product/recommend/weather")
+    public ResponseEntity<List<ProductMainCardResponse>> findWeather(@Param("size") int size) {
+        List<ProductMainCardResponse> response = productFindService.findWeather(size);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/product/recommend/week")
     public ResponseEntity<List<ProductMainCardResponse>> findWeek(@Param("size") int size) {
         List<ProductMainCardResponse> response = productFindService.findWeek(size);
