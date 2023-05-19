@@ -24,8 +24,11 @@ jobs:
       - name: Now Dir
         run: pwd
 
+      - name: Dir list
+        run: ls -al
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm run test
