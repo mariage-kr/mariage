@@ -21,8 +21,8 @@ jobs:
       - name: Change directory to frontend
         run: cd frontend
 
-      - name: Now Dir
-        run: pwd
+      - name: Change directory to frontend2
+        run: cd frontend
 
       - name: Dir list
         run: ls -al
