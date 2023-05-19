@@ -2,16 +2,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const path = require('path');
-
 const webpack = require('webpack');
-
 const dotenv = require('dotenv');
 dotenv.config();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
-  mode: 'development',
+  mode: isProduction ? 'production' : 'development',
+  devtool: isProduction ? 'hidden-source-map' : 'eval',
   entry: path.resolve(__dirname, './src/index.tsx'),
-  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
@@ -58,6 +58,13 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+      minify:
+        process.env.NODE_ENV === 'production'
+          ? {
+              collapseWhitespace: true,
+              removeComments: true,
+            }
+          : false,
     }),
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
