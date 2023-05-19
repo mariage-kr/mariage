@@ -2,7 +2,7 @@ export { default as Wine } from './Wine';
 export { default as Soju } from './Soju';
 export { default as ScrollTop } from './ScrollTop';
 export { default as NoItems } from './NoItems';
-export { default as Clear } from './weather/clear';
+export { default as Clear } from './weather/Clear';
 export { default as Clouds } from './weather/Clouds';
 export { default as Etc } from './weather/Etc';
 export { default as Rain } from './weather/Rain';
