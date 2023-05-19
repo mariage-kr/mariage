@@ -27,12 +27,7 @@ const Container = styled.div`
   }
 
   @media (max-width: 1200px) {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  @media (max-width: 1000px) {
-    padding: 0;
+    justify-content: space-around;
   }
 `;
 
@@ -41,28 +36,18 @@ const Image = styled.div`
   margin: 0 20px;
 
   @media (max-width: 1200px) {
-    width: 43%;
+    width: 40%;
     margin: 0;
-    padding: 0 30px;
-    box-sizing: border-box;
-  }
-
-  @media (max-width: 1000px) {
-    width: 210px;
-    margin: 0 auto;
   }
 `;
 
 const Img = styled.img`
   width: 100%;
-  min-width: 90%;
+  min-width: 90px;
 
   @media (max-width: 1200px) {
-    width: 70%;
-    min-width: 65%;
-  }
-  @media (max-width: 1000px) {
-    width: 100%;
+    width: 75%;
+    min-width: 170px;
   }
 `;
 
@@ -72,14 +57,8 @@ const Content = styled.div`
 
   @media (max-width: 1200px) {
     width: 50%;
-    padding: 0;
-  }
-
-  @media (max-width: 1000px) {
-    display: flex;
-    flex-flow: wrap;
-    width: 80%;
-    margin: 0 auto;
+    padding: 60px 0 0;
+    margin: 80px 0 0;
   }
 `;
 
@@ -113,16 +92,13 @@ const ABV = styled.span`
 const ABVSlide = styled.input`
   width: 80%;
   accent-color: #bb2649;
-
-  @media (max-width: 1000px) {
-    display: none;
-  }
 `;
 
 const p = styled.p`
-  @media (max-width: 1000px) {
-    width: 70%;
-    margin-left: 10px;
+  margin: 10px 0;
+
+  @media (max-width: 1200px) {
+    margin: 10px 0 3px;
   }
 `;
 
@@ -130,8 +106,8 @@ const FoodWrap = styled.ul`
   display: flex;
   padding: 0;
 
-  @media (max-width: 1000px) {
-    width: 50%;
+  @media (max-width: 1200px) {
+    margin: 10px 0;
   }
 `;
 
@@ -153,18 +129,10 @@ const StarWrap = styled.div`
   width: 20%;
 
   @media (max-width: 1200px) {
-    display: flex;
-    width: 50%;
-    margin-right: 7%;
-  }
-
-  @media (max-width: 1000px) {
     position: absolute;
-    bottom: 2.5%;
-    right: 5%;
-    display: block;
-    width: 50%;
-    margin: 0;
+    top: 13%;
+    right: 10%;
+    width: 45%;
   }
 `;
 
@@ -181,11 +149,6 @@ const Star = styled.div`
     display: flex;
     width: 60%;
   }
-
-  @media (max-width: 1000px) {
-    display: block;
-    width: 50%;
-  }
 `;
 
 const StarRateText = styled.p`
@@ -194,7 +157,8 @@ const StarRateText = styled.p`
   font-weight: bold;
 
   @media (max-width: 1200px) {
-    margin: 0 auto;
+    margin: 0;
+    font-size: 2rem;
   }
 `;
 

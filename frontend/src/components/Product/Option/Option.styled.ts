@@ -7,6 +7,11 @@ const Container = styled.div`
   width: 140px;
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 1000px) {
+    left: 0;
+    width: 150px;
+  }
 `;
 
 const Btn = styled.button`
@@ -37,6 +42,12 @@ const Btn = styled.button`
   :focus::before {
     opacity: 1;
     color: #9c94d0;
+  }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    padding-left: 20px;
+    font-size: 1rem;
   }
 `;
 

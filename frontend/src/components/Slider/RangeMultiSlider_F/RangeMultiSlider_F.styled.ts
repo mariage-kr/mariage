@@ -5,8 +5,17 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15vw;
+  width: 250px;
   height: 3vh;
+
+  @media (max-width: 1200px) {
+    max-width: 200px;
+  }
+  @media (max-width: 1000px) {
+    max-width: 300px;
+    margin: 20px auto;
+
+  }
 `;
 
 const Thumb = styled.input`
@@ -16,8 +25,17 @@ const Thumb = styled.input`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 15vw;
+    width: 250px;
+    margin: 0;
     outline: none;
+
+    @media (max-width: 1200px) {
+      max-width: 200px;
+    }
+
+    @media (max-width: 1000px) {
+      max-width: 300px;
+    }
   }
 
   &[type='range']::-webkit-slider-thumb {
@@ -64,7 +82,7 @@ const thumb_zindex5 = (minVal: number, max: number) => css`
 
 const Slider = styled.div`
   position: relative;
-  width: 15vw;
+  width: 100%;
 `;
 
 const Slider_sub = styled.div`
@@ -74,13 +92,13 @@ const Slider_sub = styled.div`
     background-color: #d9d9d9;
     // border: 1px solid #000000;
     width: 100%;
-    height: 1.5vh;
+    height: 5px;
     z-index: 1;
   }
   &:nth-of-type(2) {
     background-color: #bb2649;
     width: 100%;
-    height: 1.5vh;
+    height: 5px;
     z-index: 2;
   }
   &:nth-of-type(3) {
