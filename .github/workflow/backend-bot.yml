@@ -1,0 +1,22 @@
+name: Redis Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: "17"
+
+      - name: Set up Redis
+        uses: docker/setup-redis@v1
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and test
+        run: cd backend && ./gradlew clean build
