@@ -31,9 +31,9 @@ function ProductCard({
           <S.FlagImg src={flagImg} />
           <S.Country>{country}</S.Country>
         </S.CountryWrap>
-        <p>
+        <S.p>
           알코올 도수<S.ABV> {level}</S.ABV>%
-        </p>
+        </S.p>
         <S.ABVSlide type="range" value={level} />
         <S.FoodWrap>
           {hasFood() ? (

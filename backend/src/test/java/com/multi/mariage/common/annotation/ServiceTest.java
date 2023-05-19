@@ -6,12 +6,18 @@ import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
 import com.multi.mariage.hashtag.service.HashtagService;
+import com.multi.mariage.like.domain.Like;
+import com.multi.mariage.like.domain.LikeRepository;
+import com.multi.mariage.like.dto.request.LikeSaveRequest;
+import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
@@ -49,6 +55,9 @@ public abstract class ServiceTest {
     protected StorageService storageService;
     @Autowired
     protected WeatherService weatherService;
+    @Autowired
+    protected LikeService likeService;
+
     /* TODO: 2023/05/18 추후 FindService 로 수정 */
     @Autowired
     protected ReviewRepository reviewRepository;
@@ -56,7 +65,10 @@ public abstract class ServiceTest {
     protected StorageRepository storageRepository;
     @Autowired
     protected WeatherRepository weatherRepository;
-
+    @Autowired
+    protected MemberRepository memberRepository;
+    @Autowired
+    protected LikeRepository likeRepository;
 
     protected Member signup(MemberFixture memberFixture) {
         return memberModifyService.signup(memberFixture.toSignupRequest());

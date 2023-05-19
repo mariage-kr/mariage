@@ -4,9 +4,9 @@ import { css } from '@emotion/react';
 const LinkStyle = css`
   position: relative;
   display: inline-block;
-  width: 100px;
+  width: auto;
+  margin-right: 30px;
   padding: 20px 0;
-  list-style: none;
   text-decoration: none;
   color: inherit;
   transition: all 0.2s;
@@ -14,12 +14,13 @@ const LinkStyle = css`
   &:hover,
   :focus {
     font-weight: bold;
+    text-shadow: 0 0 20px #9c94d033;
   }
 
   &::after {
     position: absolute;
     content: '';
-    bottom: 0;
+    bottom: 15px;
     left: 0;
     width: 100%;
     height: 3px;
@@ -38,9 +39,9 @@ const LinkStyle = css`
 const ActiveTab = css`
   position: relative;
   display: inline-block;
-  width: 100px;
+  width: auto;
+  margin-right: 30px;
   padding: 20px 0;
-  list-style: none;
   text-decoration: none;
   color: inherit;
   transition: all 0.2s;
@@ -48,12 +49,13 @@ const ActiveTab = css`
   &:hover,
   :focus {
     font-weight: bold;
+    text-shadow: 0 0 20px #9c94d033;
   }
 
   &::after {
     position: absolute;
     content: '';
-    bottom: 0;
+    bottom: 15px;
     left: 0px;
     width: 100%;
     height: 3px;
@@ -70,14 +72,11 @@ const ActiveTab = css`
 `;
 
 const Nav = styled.ul`
-  width: 100%;
+  width: 80%;
   margin: 0;
-  padding: 0;
+  padding: 0 10%;
   border-bottom: 1px solid #ddd;
 `;
 
-const Block = styled.div`
-  width: 20%;
-`;
 
-export { LinkStyle, ActiveTab, Nav, Block };
+export { LinkStyle, ActiveTab, Nav };

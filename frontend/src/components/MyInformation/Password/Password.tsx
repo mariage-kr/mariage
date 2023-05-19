@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import useInput from '@/hooks/useInput';
 import { checkValidPassword } from '@/pages/SignUp/Validate';
 import { MEMBER_RULE } from '@/constants/rule';
+import { requestUpdatePassword } from '@/apis/request/member';
+import useAuth from '@/hooks/useAuth';
+import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './Password.styled';
+import { BROWSER_PATH } from '@/constants/path';
 
 function Password() {
   const { value: password, setValue: setPassword } = useInput<string>('');
@@ -14,9 +19,12 @@ function Password() {
   const [isValidConfirmPassword, setIsValidConfirmPassword] =
     useState<boolean>(true);
   const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
+  const { resetAuth } = useAuth();
+  const { resetUserInfo } = useUserInfo();
+  const navigate = useNavigate();
 
   const isNull = (): boolean => {
-    return !(isValidPassword && isValidConfirmPassword);
+    return !isValidPassword && !isValidConfirmPassword;
   };
 
   useEffect(() => {
@@ -26,10 +34,19 @@ function Password() {
 
   const handleChangePassword = () => {
     if (isNull()) {
-      return;
+   
+    requestUpdatePassword(password, newPassword)
+      .then(() => {
+        resetAuth();
+        resetUserInfo();
+        navigate(BROWSER_PATH.LOGIN);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
     }
   };
-
+  
   return (
     <S.Container>
       <S.Label>현재 비밀번호</S.Label>

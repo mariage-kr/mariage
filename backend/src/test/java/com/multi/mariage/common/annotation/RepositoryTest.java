@@ -3,6 +3,8 @@ package com.multi.mariage.common.annotation;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.hashtag.domain.HashtagRepository;
+import com.multi.mariage.like.domain.Like;
+import com.multi.mariage.like.domain.LikeRepository;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.product.domain.Product;
@@ -35,6 +37,8 @@ public abstract class RepositoryTest {
     protected StorageRepository storageRepository;
     @Autowired
     protected WeatherRepository weatherRepository;
+    @Autowired
+    protected LikeRepository likeRepository;
 
     protected Hashtag saveHashtag(String name) {
         Hashtag hashtag = new Hashtag(name);
@@ -73,5 +77,11 @@ public abstract class RepositoryTest {
         Weather weather = weatherFixture.toWeather();
 
         return weatherRepository.save(weather);
+    }
+
+    protected Like saveLike(Member member, Review review) {
+        Like like = new Like(member, review);
+
+        return likeRepository.save(like);
     }
 }
