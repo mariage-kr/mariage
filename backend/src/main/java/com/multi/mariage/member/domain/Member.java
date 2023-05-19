@@ -5,6 +5,7 @@ import com.multi.mariage.member.domain.embedded.Email;
 import com.multi.mariage.member.domain.embedded.Name;
 import com.multi.mariage.member.domain.embedded.Nickname;
 import com.multi.mariage.member.domain.embedded.Password;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -47,9 +48,12 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Like> likes = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Review> reviews = new ArrayList<>();
 
     @Builder
     public Member(LocalDate birth, Email email, Name name, Nickname nickname, Password password) {

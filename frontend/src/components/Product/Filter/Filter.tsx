@@ -1,7 +1,10 @@
 import { useState } from 'react';
+
 import RangeMultiSlider_F from '@/components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
 import { Range } from '@/@types/slider';
+
 import * as S from './Filter.styled';
+
 import {
   DrinkUpperCategoryType,
   DrinkRegionCategoryType,
@@ -20,15 +23,11 @@ type Option = {
 
 function Filter({ count, categories }: FilterProps) {
   const [selectedUpperCategory, setSelectedUpperCategory] = useState<
-    string | undefined
-  >();
-
-  const handleUpperCategoryClick = (
-    categoryValue: string | undefined,
-    categoryRegion: string,
-  ) => {
-    setSelectedUpperCategory(categoryValue);
-  };
+    string | null
+  >(null);
+  const [selectedLowerCategory, setSelectedLowerCategory] = useState<
+    string | null
+  >(null);
 
   const [option, setOption] = useState<Option>({
     rate: {
@@ -40,6 +39,17 @@ function Filter({ count, categories }: FilterProps) {
       min: 0,
     },
   });
+
+  const handleUpperCategoryClick = (category: string | null) => {
+    setSelectedUpperCategory(category);
+    setSelectedLowerCategory(null);
+  };
+
+  const handleLowerCategoryClick = (
+    lowerCategory: DrinkLowerCategoryType,
+  ): void => {
+    setSelectedLowerCategory(lowerCategory.value);
+  };
 
   const changeRateOption = (selectRateRange: Range) => {
     setOption({ ...option, rate: selectRateRange });
@@ -176,6 +186,7 @@ function Filter({ count, categories }: FilterProps) {
             />
           </S.ABV>
         </S.RangeWrap>
+        {/* 필터 적용을 누르면 drinkUpper, drinkLower, minRate, maxRate, minLevel, maxLevel을 Http Param에 담아서 서버로 전송후 새로고침 합니다. */}
         <S.FilterBtn>필터적용</S.FilterBtn>
       </S.FilterWrap>
     </S.Container>

@@ -8,6 +8,10 @@ const style = () => css`
   body {
     font-family: 'IBMPlexSans';
     font-size: 1.1rem;
+    list-style: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   h1 {

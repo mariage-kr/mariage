@@ -39,7 +39,7 @@ function User() {
   useEffect(() => {
     handlerIsLogin();
 
-    if (!accessToken || !refreshToken) {
+    if (!isLogin || !accessToken || !refreshToken) {
       return;
     }
 
@@ -78,6 +78,7 @@ function User() {
   if (isLogin) {
     return (
       <S.Container>
+        <S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink>
         <S.StyledLink to={BROWSER_PATH.MY}>{userInfo?.nickname}님</S.StyledLink>
         <S.TextButton onClick={logout}>로그아웃</S.TextButton>
       </S.Container>

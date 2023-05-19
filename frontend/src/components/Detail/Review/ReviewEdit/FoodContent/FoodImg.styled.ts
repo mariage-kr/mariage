@@ -24,7 +24,6 @@ const BtnWrapper = styled.div`
   width: 35%;
   margin: 15px 0 0 2.5%;
   padding: 5px 2px;
-  box-sizing: border-box;
 `;
 
 const InputImgBtn = styled.button`
@@ -32,7 +31,6 @@ const InputImgBtn = styled.button`
   height: 42px;
   border-radius: 10px;
   border: 1px solid #9c94d044;
-  box-sizing: border-box;
   box-shadow: 0 0 3px #9c94d055;
   background: #fff;
   font-size: 1rem;

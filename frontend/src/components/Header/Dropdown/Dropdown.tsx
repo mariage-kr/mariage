@@ -1,10 +1,24 @@
+import { useEffect } from 'react';
 import {
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
 } from '@/@types/category';
+import { BROWSER_PATH } from '@/constants/path';
 import * as S from './Dropdown.styled';
+import useSearchParam from '@/hooks/useSearchParam';
 
 function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
+  const { value: categoryValue, setValue: setCategoryValue } =
+    useSearchParam(value);
+
+  const handleCategoryClick = (categoryValue: string) => {
+    setCategoryValue(`upper:${categoryValue}`); // 예시: upper:local_soju
+  };
+
+  useEffect(() => {
+    setCategoryValue(`upper:${categoryValue}`);
+  }, []);
+
   return (
     <S.Container>
       <S.Dropdown>
@@ -14,7 +28,17 @@ function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
         <S.DropContent>
           {categories.map(
             (category: HeaderUpperCategoryType, index: number) => {
-              return <S.DropList key={index}>{category.name}</S.DropList>;
+              const categoryValue = category.value.toLowerCase();
+              return (
+                <S.DropList key={index}>
+                  <S.StyledLink
+                    to={`${BROWSER_PATH.PRODUCT}?upper=${categoryValue}`}
+                    onClick={() => handleCategoryClick(categoryValue)}
+                  >
+                    {category.name}
+                  </S.StyledLink>
+                </S.DropList>
+              );
             },
           )}
         </S.DropContent>

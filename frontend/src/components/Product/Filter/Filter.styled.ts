@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type Props = {
+  valid: boolean;
+};
+
 const Container = styled.div`
   width: 100%;
 
@@ -78,16 +82,16 @@ const p = styled.p`
 
 const LowerCategory = styled.div``;
 
-const Category = styled.button`
+const Category = styled.button<Props>`
   width: auto;
   margin: 0 5px 10px 0;
   padding: 5px 10px;
   border: 2px solid #9c94d0;
   border-radius: 30px;
-  background-color: transparent;
+  background-color: ${props => (props.valid ? '#9c94d0' : '#fff')};
+  color: ${props => (props.valid ? '#fff' : '#000')};
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: #9c94d0;
     color: #fff;
   }

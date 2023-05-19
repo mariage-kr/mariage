@@ -1,25 +1,25 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div``;
 
-const Nav = styled.div`
-  border: 1px solid blue;
+const Dropdown = styled.div`
+  float: left;
+  overflow: hidden;
+  transition: all 0.2s;
 
-  display: flex;
-  align-items: center;
-  /* justify-content: space-around; */
+  &:hover div {
+    display: block;
+  }
 `;
 
 const DropBtn = styled.button`
   font-size: 18px;
-  border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 14px 20px;
   background-color: inherit;
-  font-family: inherit;
-  margin: 0;
 `;
 
 const UnderBar = css`
@@ -49,32 +49,21 @@ const UnderBar = css`
   }
 `;
 
-const Dropdown = styled.div`
-  float: left;
-  overflow: hidden;
-  transition: all 0.2s;
-
-  &:hover div {
-    display: block;
-  }
-`;
-
 const DropContent = styled.div`
   display: none;
   position: absolute;
-  top: 75px;
+  top: 80px;
   left: 0;
   z-index: 999;
 
   width: 78%;
-  margin: 0 auto;
-  padding-top: 25px;
-  padding-left: 22%;
+  margin: 0;
+  padding-top: 10px;
+  padding-left: 20.3%;
 
   background-color: #fff;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow:  0px 15px 10px -15px rgba(0, 0, 0, 0.2);
 
-  border: 1px solid #00000050;
   border-top: 0;
   border-radius: 5px;
 
@@ -83,13 +72,15 @@ const DropContent = styled.div`
 
 const DropList = styled.p`
   float: left;
-  color: black;
-
   padding: 12px 16px;
   margin: 10px 0;
-
   display: block;
   text-align: left;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 
   transition: 150ms;
   &:hover {
@@ -98,4 +89,12 @@ const DropList = styled.p`
   }
 `;
 
-export { Container, Nav, UnderBar, Dropdown, DropBtn, DropContent, DropList };
+export {
+  Container,
+  UnderBar,
+  Dropdown,
+  DropBtn,
+  DropContent,
+  DropList,
+  StyledLink,
+};

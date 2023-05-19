@@ -12,3 +12,10 @@ logging:
       apache:
         coyote:
           http11: off
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true

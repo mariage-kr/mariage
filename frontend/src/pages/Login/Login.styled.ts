@@ -6,8 +6,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-  margin: 10vh 0;
+  margin: 10vh 0 0;
 `;
 
 const StyledLink = styled(Link)`
@@ -27,8 +26,7 @@ const Form = styled.form`
   flex-direction: column;
 
   width: 460px;
-
-  padding: 30px;
+  padding: 50px 30px;
   border: 1px solid #0f0f0f50;
   border-radius: 10px;
   box-shadow: 2px 2px 2px #0f0f0f25;
@@ -37,8 +35,7 @@ const Form = styled.form`
 const Input = styled.input`
   width: 460px;
   height: 42px;
-
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
   border: 0;
   border-bottom: 2px solid #00000050;
@@ -68,10 +65,11 @@ const LinkButton = styled.button`
 
   width: 460px;
   height: 52px;
-  margin: 40px 0;
+  margin: 50px 0 0;
 
   color: #9c94d0;
   border: 1px solid #9c94d0;
+  box-shadow: 0px 0px 5px #9c94d077;
   background-color: #ffffff;
 `;
 

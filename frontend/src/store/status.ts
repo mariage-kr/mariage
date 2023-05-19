@@ -8,7 +8,6 @@ import { CategoryType, DrinkRegionCategoryType } from '@/@types/category';
 import { RECOIL_KEY } from '@/constants/key';
 import { UserInfoType } from '@/@types/user';
 
-
 const { persistAtom } = recoilPersist();
 
 const drinkUpperCategoryState = atom<CategoryType[]>({
@@ -23,7 +22,7 @@ const productCategoryState = atom<DrinkRegionCategoryType[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-const userInfoState = atom<UserInfoType>({
+const userInfoState = atom<UserInfoType | undefined>({
   key: RECOIL_KEY.USER_INFO,
   default: undefined,
   effects_UNSTABLE: [persistAtom],

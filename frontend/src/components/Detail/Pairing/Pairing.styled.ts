@@ -13,7 +13,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 95%;
   margin: 0 auto;
-  padding: 0;
   overflow: hidden;
 `;
 
@@ -66,15 +65,14 @@ const Button = styled.button<Select>`
 
 const PairingFood = styled.ul`
   margin: 0 auto;
-  padding: 0;
   text-align: center;
 `;
 
 const Food = styled.li`
   list-style: none;
-  box-sizing: border-box;
   display: inline-block;
   width: 17.2%;
+  padding-top: 1vh;
   overflow: hidden;
   transition: all 0.2s linear;
 
@@ -107,7 +105,6 @@ const FoodImg = styled.img`
 
 const NameRate = styled.div`
   margin: 5px 0 0;
-  padding: 0;
   display: inline-block;
   text-align: center;
   font-size: 1.1rem;
@@ -116,8 +113,6 @@ const NameRate = styled.div`
     display: block;
   }
 `;
-
-const name = css``;
 
 const rate = css`
   margin-left: 15px;
@@ -141,6 +136,5 @@ export {
   Food,
   FoodImg,
   NameRate,
-  name,
   rate,
 };

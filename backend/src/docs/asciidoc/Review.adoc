@@ -1,0 +1,36 @@
+= Review API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/category.html[Category^]
+- http://localhost:8080/docs/category.html[Member^]
+- http://localhost:8080/docs/product.html[Product^]
+- http://localhost:8080/docs/storage.html[Storage^]
+
+== 리뷰 작성
+
+'''
+
+=== Request
+
+include::{snippets}/Review/Save/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/Save/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/Review/Save/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/Save/response-fields.adoc[]

@@ -29,7 +29,6 @@ const Wrapper = styled.div`
 `;
 
 const Inner = styled.div`
-  /* border: 1px solid green; */
   overflow: hidden;
 
   @media (min-width:1920px) { 
@@ -100,10 +99,10 @@ const Right = styled.div`
 `;
 
 const StarRate = styled.div`
-  box-sizing: border-box;
   width: 520px;
   height: auto;
   margin: 0 auto 25px;
+  padding-top: 15px;
   position: relative;
 
   @media (max-width:1919px) { width: 450px; }
@@ -112,11 +111,11 @@ const StarRate = styled.div`
 `;
 
 const ABV = styled.div`
-  box-sizing: border-box;
   width: 520px;
   height: auto;
   margin: 0 auto;
   position: relative;
+  
 
   @media (max-width:1919px) { width: 450px; }
   @media (max-width:1570px) { width: 350px; }
@@ -156,7 +155,6 @@ const Bottom = styled.div`
 const FindButton = styled.button`
   border: 1px solid #9C94D055;
   border-radius: 0.3vw;
-  box-sizing: border-box;
   box-shadow: 0px 0px 5px #9C94D0;
   background-color: #fff;
   width: 120px;

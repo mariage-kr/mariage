@@ -4,9 +4,12 @@ import * as S from './Loading.styled';
 
 function Loading() {
   return (
-    <S.Wrapper>
-      <Wine />
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <Wine />
+      </S.Wrapper>
+      <S.Space></S.Space>
+    </>
   );
 }
 

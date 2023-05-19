@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mock.web.MockMultipartFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -22,7 +21,7 @@ class StorageServiceTest extends ServiceTest {
     @DisplayName("파일을 저장한다.")
     @Test
     void 파일을_저장한다() {
-        ImageSavedResponse actual = saveFile();
+        ImageSavedResponse actual = saveImage(ImageFixture.JPEG_IMAGE);
 
         assertThat(actual).isNotNull();
     }
@@ -30,7 +29,7 @@ class StorageServiceTest extends ServiceTest {
     @DisplayName("파일을 삭제한다.")
     @Test
     void 파일을_삭제한다() {
-        Long imageId = saveFile().getImageId();
+        Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
         Image image = storageRepository.findById(imageId)
                 .orElseThrow(RuntimeException::new);
 
@@ -49,10 +48,5 @@ class StorageServiceTest extends ServiceTest {
         String expected = STORAGE_PATH + fileName;
 
         assertThat(actual).isEqualTo(expected);
-    }
-
-    ImageSavedResponse saveFile() {
-        MockMultipartFile file = ImageFixture.JPEG_IMAGE.toMultipartFile();
-        return storageService.saveFile(file);
     }
 }

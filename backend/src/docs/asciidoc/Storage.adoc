@@ -12,6 +12,8 @@
 - http://localhost:8080/docs/auth.html[Auth^]
 - http://localhost:8080/docs/category.html[Category^]
 - http://localhost:8080/docs/member.html[Member^]
+- http://localhost:8080/docs/product.html[Product^]
+- http://localhost:8080/docs/review.html[Review^]
 
 == 이미지 저장
 

@@ -1,0 +1,31 @@
+= Member API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/category.html[Category^]
+- http://localhost:8080/docs/review.html[Review^]
+- http://localhost:8080/docs/member.html[Member^]
+- http://localhost:8080/docs/storage.html[Storage^]
+
+== 전체 기간 추천 제품 조회
+
+=== Request
+
+include::{snippets}/Product/RecommendByTotal/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/Product/RecommendByTotal/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/RecommendByTotal/response-fields.adoc[]
+

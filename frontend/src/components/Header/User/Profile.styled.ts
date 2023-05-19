@@ -5,7 +5,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
   width: 25%;
 `;
 
@@ -15,7 +14,6 @@ const StyledLink = styled(Link)`
 
   width: auto;
   min-width: 100px;
-
   text-align: end;
 
   &:hover {
@@ -26,9 +24,7 @@ const StyledLink = styled(Link)`
 const TextButton = styled.p`
   width: auto;
   min-width: 100px;
-
   text-align: end;
-
   cursor: pointer;
 `;
 
