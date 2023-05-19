@@ -80,12 +80,10 @@ function Filter({ count, categories }: FilterProps) {
                         index: number,
                       ) => (
                         <S.Category
+                          valid={upperCategory.value === selectedUpperCategory}
                           key={index}
                           onClick={() =>
-                            handleUpperCategoryClick(
-                              upperCategory.value,
-                              category.region,
-                            )
+                            handleUpperCategoryClick(upperCategory.value)
                           }
                         >
                           {upperCategory.name}
@@ -107,12 +105,10 @@ function Filter({ count, categories }: FilterProps) {
                         index: number,
                       ) => (
                         <S.Category
+                          valid={upperCategory.value === selectedUpperCategory}
                           key={index}
                           onClick={() =>
-                            handleUpperCategoryClick(
-                              upperCategory.value,
-                              category.region,
-                            )
+                            handleUpperCategoryClick(upperCategory.value)
                           }
                         >
                           {upperCategory.name}
@@ -144,7 +140,15 @@ function Filter({ count, categories }: FilterProps) {
                               lowerCategory: DrinkLowerCategoryType,
                               lowerIndex: number,
                             ) => (
-                              <S.Category key={lowerIndex}>
+                              <S.Category
+                                valid={
+                                  lowerCategory.value === selectedLowerCategory
+                                }
+                                key={lowerIndex}
+                                onClick={() =>
+                                  handleLowerCategoryClick(lowerCategory)
+                                }
+                              >
                                 {lowerCategory.name}
                               </S.Category>
                             ),
