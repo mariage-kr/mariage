@@ -15,6 +15,7 @@ import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.StorageService;
@@ -53,6 +54,8 @@ public abstract class ControllerTest {
     protected ReviewModifyService reviewModifyService;
     @Autowired
     protected StorageService storageService;
+    @Autowired
+    protected ReviewModifyService reviewModifyService;
 
     protected Member saveMember() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
@@ -72,7 +75,7 @@ public abstract class ControllerTest {
         return storageService.save(imageFixture.toMultipartFile());
     }
 
-    protected void saveReview(Member member, ReviewFixture reviewFixture, Product product, Image image) {
-        reviewModifyService.save(new AuthMember(member.getId()), reviewFixture.toSaveRequest(product.getId(), image.getId()));
+    protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture, Long imageId, Long productId, Long memberId) {
+        return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, imageId));
     }
 }
