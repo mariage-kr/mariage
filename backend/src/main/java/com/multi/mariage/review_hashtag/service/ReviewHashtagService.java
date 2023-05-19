@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class ReviewHashtagService {
@@ -32,5 +32,13 @@ public class ReviewHashtagService {
         reviewHashtag.setReview(review);
 
         return reviewHashtagRepository.save(reviewHashtag);
+    }
+    public void removeHashtag(ReviewHashtag reviewHashtag) {
+        Hashtag hashtag = reviewHashtag.getHashtag();
+
+        if (hashtag != null) {
+            hashtag.getReviewHashTags().remove(reviewHashtag);
+            reviewHashtag.setHashtag(null);
+        }
     }
 }

@@ -26,9 +26,17 @@ public class HashtagService {
         return hashtag.get();
     }
 
+    @Transactional
     public List<Hashtag> findHashTagsByList(List<String> list) {
-        return list.stream()
+        List<Hashtag> hashtags = list.stream()
                 .map(this::findByName)
                 .toList();
+
+        // reviewHashTags의 크기가 0인 경우 Hashtag 삭제
+        hashtags.stream()
+                .filter(hashtag -> hashtag.getReviewHashTags().size() == 0)
+                .forEach(hashtag -> hashtagRepository.delete(hashtag));
+
+        return hashtags;
     }
 }
