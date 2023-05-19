@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import review from '@/assets/lottie/review.json';
+import review from 'assets/lottie/review.json';
 
 const style = {
   width: '10%',

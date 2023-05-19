@@ -1,7 +1,7 @@
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import StarRateAverage from 'components/StarRate/Average/StarRateAverage';
 
 import * as S from './ProductCard.styled';
-import { ProductRecommendType } from '@/@types/product';
+import { ProductRecommendType } from 'types/product';
 
 function ProductCard({
   img,

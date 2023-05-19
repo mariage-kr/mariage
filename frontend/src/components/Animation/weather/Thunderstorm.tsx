@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import thunderstorm from '@/assets/lottie/weather/thunderstorm.json';
+import thunderstorm from 'assets/lottie/weather/thunderstorm.json';
 
 const style = {
   width: '40%',

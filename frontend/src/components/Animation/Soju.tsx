@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import soju from '@/assets/lottie/drunk-bottle.json';
+import soju from 'assets/lottie/drunk-bottle.json';
 
 const style = {
   width: '50%',

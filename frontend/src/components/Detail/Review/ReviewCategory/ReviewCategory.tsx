@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import useSelect from '@/hooks/useSelect';
-import { SortType } from '@/@types/select';
-import { FoodCategoryType } from '@/@types/category';
+import useSelect from 'hooks/useSelect';
+import { SortType } from 'types/select';
+import { FoodCategoryType } from 'types/category';
 
-import ReviewIcon from '@/assets/png/reviewIcon.png';
+import ReviewIcon from 'assets/png/reviewIcon.png';
 
 import * as S from './ReviewCategory.styled';
 

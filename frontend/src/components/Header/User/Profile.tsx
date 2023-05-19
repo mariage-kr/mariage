@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Token } from '@/@types/token';
-import { requestLogout, requestReissue } from '@/apis/request/auth';
-import { requestUserInfo } from '@/apis/request/member';
-import { BROWSER_PATH } from '@/constants/path';
-import useAuth from '@/hooks/useAuth';
+import { requestLogout, requestReissue } from 'apis/request/auth';
+import { requestUserInfo } from 'apis/request/member';
+import { BROWSER_PATH } from 'constants/path';
+import useAuth from 'hooks/useAuth';
+import { Token } from 'types/token';
 
 import * as S from './Profile.styled';
-import useUserInfo from '@/hooks/useUserInfo';
+import useUserInfo from 'hooks/useUserInfo';
 
 function User() {
   const { accessToken, refreshToken, setAuth, resetAuth, removeIsLogin } =

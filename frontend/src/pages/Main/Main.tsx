@@ -1,6 +1,6 @@
-import Recommend from '@/components/Main/Recommend/Recommend';
-import SearchFilter from '@/components/Main/SearchFilter/SearchFilter';
-import Visual from '@/components/Main/Visual/Visual';
+import Recommend from 'components/Main/Recommend/Recommend';
+import SearchFilter from 'components/Main/SearchFilter/SearchFilter';
+import Visual from 'components/Main/Visual/Visual';
 
 import * as S from './Main.styled';
 

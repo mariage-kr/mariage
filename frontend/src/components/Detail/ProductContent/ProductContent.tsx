@@ -1,6 +1,6 @@
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import StarRateAverage from 'components/StarRate/Average/StarRateAverage';
 
-import { ProductContentType } from '@/@types/product';
+import { ProductContentType } from 'types/product';
 
 import * as S from './ProductContent.styled';
 

@@ -1,6 +1,6 @@
 import { axios, axiosWithAccessToken } from '../axios';
-import { API_PATH } from '@/constants/path';
-import { SignupUserType } from '@/@types/user';
+import { API_PATH } from 'constants/path';
+import { SignupUserType } from 'types/user';
 
 const requestSignup = (userData: SignupUserType) => {
   return axios.post(API_PATH.MEMBER.SIGNUP, userData);
@@ -23,8 +23,11 @@ const requestUpdateNickname = (nickname: string) => {
 };
 
 const requestUpdatePassword = (password: string, newPassword: string) => {
-  return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {password, newPassword})
-}
+  return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {
+    password,
+    newPassword,
+  });
+};
 
 export {
   requestSignup,
@@ -32,5 +35,5 @@ export {
   requestUserInfo,
   requestUserProfile,
   requestUpdateNickname,
-  requestUpdatePassword
+  requestUpdatePassword,
 };

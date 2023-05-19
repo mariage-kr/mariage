@@ -8,15 +8,17 @@ const StarRate = () => {
   return (
     <S.Container>
       <S.StarRate>
-      <StarRating
-        count={5}
-        value={rating}
-        edit={true}
-        onChange={value => setRating(value)}
-      />
+        <StarRating
+          count={5}
+          value={rating}
+          edit={true}
+          onChange={value => setRating(value)}
+        />
       </S.StarRate>
       {/* TODO: 페이지에 맞게 스타일 변경 */}
-      <S.StarRateText><S.Text>{rating}</S.Text>점</S.StarRateText>
+      <S.StarRateText>
+        <S.Text>{rating}</S.Text>점
+      </S.StarRateText>
     </S.Container>
   );
 };

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import useImage from '@/hooks/useImage';
+import useImage from 'hooks/useImage';
 import * as S from './FoodImg.styled';
 
 function FoodImg() {

@@ -1,6 +1,6 @@
 import * as S from './NoItems.styled';
 
-import NoItem from '@/components/Animation/NoItems';
+import NoItem from 'components/Animation/NoItems';
 
 function NoItems() {
   return (

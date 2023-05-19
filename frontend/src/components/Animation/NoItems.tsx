@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import noItem from '@/assets/lottie/no-items.json';
+import noItem from 'assets/lottie/no-items.json';
 
 const style = {
   width: '40%',

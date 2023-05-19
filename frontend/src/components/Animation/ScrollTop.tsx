@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import scrollTop from '@/assets/lottie/scrollTop.json';
+import scrollTop from 'assets/lottie/scrollTop.json';
 
 const style = {
   scale: '2',

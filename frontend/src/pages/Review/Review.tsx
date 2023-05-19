@@ -1,4 +1,4 @@
-import ReviewList from '@/components/Review/ReviewList';
+import ReviewList from 'components/Review/ReviewList';
 import * as S from './Review.styled';
 
 function Review() {
@@ -8,16 +8,19 @@ function Review() {
     nickname: '마리아',
     email: 'mariage@google.com',
     reviews: 1042,
-    likes: 12301
+    likes: 12301,
   };
 
   // 이메일 마스킹
-  const email = profileData.email.substring(0, 5) + "***"; 
+  const email = profileData.email.substring(0, 5) + '***';
 
   // 숫자 데이터 콤마 넣기
-  const reviews = profileData.reviews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const likes = profileData.likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  
+  const reviews = profileData.reviews
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const likes = profileData.likes
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <S.Container>
@@ -29,13 +32,15 @@ function Review() {
       </S.TopNav>
       <S.Main>
         <S.Profile>
-          <S.ProfileLeft><S.ProfileImg src={profileData.img}/></S.ProfileLeft>
+          <S.ProfileLeft>
+            <S.ProfileImg src={profileData.img} />
+          </S.ProfileLeft>
           <S.ProfileRight>
             <S.NameEmail css={S.name}>{profileData.nickname}</S.NameEmail>
             <S.NameEmail css={S.email}>#{email}</S.NameEmail>
             <S.Reviews>
               <S.Title>Reviews</S.Title>
-              <S.Count >{reviews}</S.Count>
+              <S.Count>{reviews}</S.Count>
             </S.Reviews>
             <S.Likes>
               <S.Title>Likes</S.Title>
@@ -44,10 +49,10 @@ function Review() {
           </S.ProfileRight>
         </S.Profile>
       </S.Main>
-      <ReviewList/>
-      <ReviewList/>
-      <ReviewList/>
-      <ReviewList/>      
+      <ReviewList />
+      <ReviewList />
+      <ReviewList />
+      <ReviewList />
     </S.Container>
   );
 }

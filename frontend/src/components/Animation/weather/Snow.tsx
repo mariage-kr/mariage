@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import snow from '@/assets/lottie/weather/snow.json';
+import snow from 'assets/lottie/weather/snow.json';
 
 const style = {
   width: '40%',

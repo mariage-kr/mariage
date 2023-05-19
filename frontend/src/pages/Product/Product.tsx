@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
-import Filter from '@/components/Product/Filter/Filter';
-import Option from '@/components/Product/Option/Option';
-import ProductCard from '@/components/Product/ProductCard/ProductCard';
-import NoItems from '@/components/NoItems/NoItems';
+import Filter from 'components/Product/Filter/Filter';
+import Option from 'components/Product/Option/Option';
+import ProductCard from 'components/Product/ProductCard/ProductCard';
+import NoItems from 'components/NoItems/NoItems';
 
-import { PagingType } from '@/@types/paging';
-import { ProductInfoType } from '@/@types/product';
-import { useProductCategory } from '@/hooks/useProductCategory';
-import useSearchParam from '@/hooks/useSearchParam';
+import { PagingType } from 'types/paging';
+import { ProductInfoType } from 'types/product';
+import { useProductCategory } from 'hooks/useProductCategory';
+import useSearchParam from 'hooks/useSearchParam';
 
 import * as S from './Product.styled';
 

@@ -1,12 +1,12 @@
 import { DefaultValue, atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
-import { isLoginProvider } from '@/utils/auth';
-import { isBoolean } from '@/utils/boolean';
-import { CategoryType, DrinkRegionCategoryType } from '@/@types/category';
-import { RECOIL_KEY } from '@/constants/key';
-import { UserInfoType } from '@/@types/user';
+import { accessTokenProvider, refreshTokenProvider } from 'utils/token';
+import { isLoginProvider } from 'utils/auth';
+import { isBoolean } from 'utils/boolean';
+import { CategoryType, DrinkRegionCategoryType } from 'types/category';
+import { RECOIL_KEY } from 'constants/key';
+import { UserInfoType } from 'types/user';
 
 const { persistAtom } = recoilPersist();
 

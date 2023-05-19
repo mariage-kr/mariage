@@ -8,11 +8,11 @@ import {
   Product,
   SignUp,
   Review,
-} from '@/pages/Pages';
+} from 'pages/Pages';
 
 import { Route, Routes as BrowserRoutes } from 'react-router-dom';
 
-import { BROWSER_PATH } from '@/constants/path';
+import { BROWSER_PATH } from 'constants/path';
 
 function Routes() {
   return (

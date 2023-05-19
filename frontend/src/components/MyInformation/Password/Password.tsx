@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import useInput from '@/hooks/useInput';
-import { checkValidPassword } from '@/pages/SignUp/Validate';
-import { MEMBER_RULE } from '@/constants/rule';
-import { requestUpdatePassword } from '@/apis/request/member';
-import useAuth from '@/hooks/useAuth';
-import useUserInfo from '@/hooks/useUserInfo';
+import useInput from 'hooks/useInput';
+import { checkValidPassword } from 'pages/SignUp/Validate';
+import { MEMBER_RULE } from 'constants/rule';
+import { requestUpdatePassword } from 'apis/request/member';
+import useAuth from 'hooks/useAuth';
+import useUserInfo from 'hooks/useUserInfo';
 
 import * as S from './Password.styled';
-import { BROWSER_PATH } from '@/constants/path';
+import { BROWSER_PATH } from 'constants/path';
 
 function Password() {
   const { value: password, setValue: setPassword } = useInput<string>('');
@@ -34,19 +34,18 @@ function Password() {
 
   const handleChangePassword = () => {
     if (isNull()) {
-   
-    requestUpdatePassword(password, newPassword)
-      .then(() => {
-        resetAuth();
-        resetUserInfo();
-        navigate(BROWSER_PATH.LOGIN);
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+      requestUpdatePassword(password, newPassword)
+        .then(() => {
+          resetAuth();
+          resetUserInfo();
+          navigate(BROWSER_PATH.LOGIN);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   };
-  
+
   return (
     <S.Container>
       <S.Label>현재 비밀번호</S.Label>

@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import Error from '@/components/Error/Error';
+import Error from 'components/Error/Error';
 
-import { ReactComponent as Back } from '@/assets/svg/back.svg';
-import { ReactComponent as Home } from '@/assets/svg/home.svg';
-import { BROWSER_PATH } from '@/constants/path';
-import { ERROR_MESSAGE } from '@/constants/message';
+import { ReactComponent as Back } from 'assets/svg/back.svg';
+import { ReactComponent as Home } from 'assets/svg/home.svg';
+import { BROWSER_PATH } from 'constants/path';
+import { ERROR_MESSAGE } from 'constants/message';
 
 import * as S from './NotFound.styled';
 

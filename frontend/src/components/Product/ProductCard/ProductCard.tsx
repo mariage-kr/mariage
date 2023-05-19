@@ -1,7 +1,7 @@
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+import SvgStarRateAverage from 'components/StarRate/Average/SvgStarRateAverage';
 
-import { PairingFoodType, ProductInfoType } from '@/@types/product';
-import Reviewer from '@/components/Animation/Reviewer';
+import { PairingFoodType, ProductInfoType } from 'types/product';
+import Reviewer from 'components/Animation/Reviewer';
 
 import * as S from './ProductCard.styled';
 

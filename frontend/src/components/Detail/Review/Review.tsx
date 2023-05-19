@@ -6,14 +6,14 @@ import RateStatistic from './RateStatistic/RateStatistic';
 import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 
-import editIcon from '@/assets/png/edit.png';
-import { ReviewType } from '@/@types/review';
-import { ProductContentType } from '@/@types/product';
+import editIcon from 'assets/png/edit.png';
+import { ReviewType } from 'types/review';
+import { ProductContentType } from 'types/product';
+import { PagingType } from 'types/paging';
 
 import * as S from './Review.styled';
 
 import reviewsData from './ReviewContent/ReviewsData.json';
-import { PagingType } from '@/@types/paging';
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review(productContent: ProductContentType) {

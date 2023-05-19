@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ScrollTop } from '@/components/Animation';
+import { ScrollTop } from 'components/Animation';
 
 import * as S from './ScrollToTop.styled';
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import RangeMultiSlider_F from '@/components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
-import { Range } from '@/@types/slider';
+import RangeMultiSlider_F from 'components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
+import { Range } from 'types/slider';
 
 import * as S from './Filter.styled';
 
@@ -9,7 +9,7 @@ import {
   DrinkUpperCategoryType,
   DrinkRegionCategoryType,
   DrinkLowerCategoryType,
-} from '@/@types/category';
+} from 'types/category';
 
 type FilterProps = {
   count: number;

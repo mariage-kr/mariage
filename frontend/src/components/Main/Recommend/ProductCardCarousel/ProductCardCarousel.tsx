@@ -3,7 +3,7 @@ import Carousel from 'react-simply-carousel';
 
 import ProductCard from '../ProductCard/ProductCard';
 
-import { ProductRecommendType } from '@/@types/product';
+import { ProductRecommendType } from 'types/product';
 
 import * as S from './ProductCardCarousel.styled';
 

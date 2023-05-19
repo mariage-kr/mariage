@@ -24,9 +24,20 @@ module.exports = {
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.png'],
+    extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      '@': path.resolve(__dirname, './src/'),
+      apis: path.resolve(__dirname, './src/apis'),
+      assets: path.resolve(__dirname, './src/assets'),
+      components: path.resolve(__dirname, './src/components'),
+      constants: path.resolve(__dirname, './src/constants'),
+      hooks: path.resolve(__dirname, './src/hooks'),
+      pages: path.resolve(__dirname, './src/pages'),
+      layout: path.resolve(__dirname, './src/layout'),
+      routes: path.resolve(__dirname, './src/routes'),
+      store: path.resolve(__dirname, './src/store'),
+      styles: path.resolve(__dirname, './src/styles'),
+      types: path.resolve(__dirname, './src/types'),
+      utils: path.resolve(__dirname, './src/utils'),
     },
   },
   module: {

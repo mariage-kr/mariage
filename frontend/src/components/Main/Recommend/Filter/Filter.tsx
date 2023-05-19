@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import useBoolean from '@/hooks/useBoolean';
-import { isLoginProvider } from '@/utils/auth';
-import { isBoolean } from '@/utils/boolean';
+import useBoolean from 'hooks/useBoolean';
+import { isLoginProvider } from 'utils/auth';
+import { isBoolean } from 'utils/boolean';
 
 import * as S from './Filter.styled';
 

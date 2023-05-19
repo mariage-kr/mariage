@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import { PairingSelectType } from '@/@types/select';
-import { PairingFoodType } from '@/@types/product';
+import { PairingSelectType } from 'types/select';
+import { PairingFoodType } from 'types/product';
 
-import TrophyIcon from '@/assets/png/trophyIcon.png';
+import TrophyIcon from 'assets/png/trophyIcon.png';
 
 import * as S from './Pairing.styled';
 

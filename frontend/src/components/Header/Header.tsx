@@ -4,9 +4,9 @@ import Dropdown from './Dropdown/Dropdown';
 import User from './User/Profile';
 import Search from './Search/Search';
 
-import { BROWSER_PATH } from '@/constants/path';
-import { useDrinkUpperCategory } from '@/hooks/useCategory';
-import { CategoryType } from '@/@types/category';
+import { BROWSER_PATH } from 'constants/path';
+import { useDrinkUpperCategory } from 'hooks/useCategory';
+import { CategoryType } from 'types/category';
 
 import * as S from './Header.styled';
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Password from '@/components/MyInformation/Password/Password';
-import Profile from '@/components/MyInformation/Profile/Profile';
+import Password from 'components/MyInformation/Password/Password';
+import Profile from 'components/MyInformation/Profile/Profile';
 
 import * as S from './MyInformation.styled';
 

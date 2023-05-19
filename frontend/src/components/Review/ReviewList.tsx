@@ -1,5 +1,5 @@
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
-import LikeButton from '@/components/Button/Like/Like';
+import SvgStarRateAverage from 'components/StarRate/Average/SvgStarRateAverage';
+import LikeButton from 'components/Button/Like/Like';
 
 import * as S from './ReviewList.styled';
 
@@ -24,15 +24,16 @@ function ReviewList() {
     likeCount: 10,
     foodImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/NEUdCmsFva.png',
     foodName: '돈까스/회/일식',
-    reviewContent: '가격이 저렴해서 대중적이지만 아무래도 저가형 위스키인지라 스트레이트로 마셨을 때 향이 그리 우수하지 못하다. 그러다 보니 하이볼로 만들어 마시는 게 가장 맛있고, 대중적으로 알려진 것 같다. 산토리 위스키 하이볼은 탄산의 맛으로 가볍게 마시는 술이기 때문에 어떤 안주든 다 잘 어울리지만 나는 개인적으로 산토리가 일본 위스키라는 점에서 이자카야 해산물 안주가 특히 잘 어울리는 것 같다.',
+    reviewContent:
+      '가격이 저렴해서 대중적이지만 아무래도 저가형 위스키인지라 스트레이트로 마셨을 때 향이 그리 우수하지 못하다. 그러다 보니 하이볼로 만들어 마시는 게 가장 맛있고, 대중적으로 알려진 것 같다. 산토리 위스키 하이볼은 탄산의 맛으로 가볍게 마시는 술이기 때문에 어떤 안주든 다 잘 어울리지만 나는 개인적으로 산토리가 일본 위스키라는 점에서 이자카야 해산물 안주가 특히 잘 어울리는 것 같다.',
     reviewImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/623HFq9M9q.jpg',
   };
 
   const hashTags = [
-    {id: 1, value: '크리스마스'},
-    {id: 2, value: '데이트'},
-    {id: 3, value: '달달한'},
-  ]
+    { id: 1, value: '크리스마스' },
+    { id: 2, value: '데이트' },
+    { id: 3, value: '달달한' },
+  ];
 
   return (
     <S.Container>
@@ -48,14 +49,18 @@ function ReviewList() {
                 <S.Country css={S.country_left}>
                   <S.FlagImg src={ProductData.flagImg} />
                 </S.Country>
-                <S.Country css={S.country_right}>{ProductData.country}</S.Country>
+                <S.Country css={S.country_right}>
+                  {ProductData.country}
+                </S.Country>
               </S.CountryWrap>
               <S.ABV css={S.media1200}>
                 ABV <S.ABVText>{ProductData.level}</S.ABVText>%
               </S.ABV>
               <S.ProductStarRateWrap css={S.media1200}>
                 <S.ProductStarRate>
-                  <S.ProductStarRateText>{ProductData.rate}</S.ProductStarRateText>
+                  <S.ProductStarRateText>
+                    {ProductData.rate}
+                  </S.ProductStarRateText>
                 </S.ProductStarRate>
                 <S.ProductStarRate>
                   {/* TODO: 평균 별점 */}
@@ -115,7 +120,9 @@ function ReviewList() {
             </S.Food>
             <S.Content>
               <S.ReviewText>
-                <S.ReviewContentText>{ReviewData.reviewContent}</S.ReviewContentText>
+                <S.ReviewContentText>
+                  {ReviewData.reviewContent}
+                </S.ReviewContentText>
                 {hashTags.map(tag => (
                   <S.HashTag>#{tag.value}</S.HashTag>
                 ))}

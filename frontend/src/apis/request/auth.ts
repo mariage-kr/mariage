@@ -1,7 +1,7 @@
 import { axios, axiosWithAccessToken } from '../axios';
-import { API_PATH } from '@/constants/path';
-import { Token } from '@/@types/token';
-import { LoginUserType } from '@/@types/user';
+import { API_PATH } from 'constants/path';
+import { Token } from 'types/token';
+import { LoginUserType } from 'types/user';
 
 const requestLogin = (userData: LoginUserType) => {
   return axios.post(API_PATH.AUTH.LOGIN, userData);

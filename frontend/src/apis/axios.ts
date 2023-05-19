@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import { accessTokenProvider } from '@/utils/token';
+import { accessTokenProvider } from 'utils/token';
 
 const baseURL = process.env.BASE_URL;
 

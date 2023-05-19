@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { requestUserInfo } from '@/apis/request/member';
-import { requestLogin } from '@/apis/request/auth';
-import { Token } from '@/@types/token';
-import useAuth from '@/hooks/useAuth';
-import useUserInfo from '@/hooks/useUserInfo';
-import { BROWSER_PATH } from '@/constants/path';
+import { requestUserInfo } from 'apis/request/member';
+import { requestLogin } from 'apis/request/auth';
+import { Token } from 'types/token';
+import useAuth from 'hooks/useAuth';
+import useUserInfo from 'hooks/useUserInfo';
+import { BROWSER_PATH } from 'constants/path';
 
 import * as S from './Login.styled';
 

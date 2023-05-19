@@ -1,7 +1,7 @@
-import LikeButton from '@/components/Button/Like/Like';
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+import LikeButton from 'components/Button/Like/Like';
+import SvgStarRateAverage from 'components/StarRate/Average/SvgStarRateAverage';
 
-import { ReviewType } from '@/@types/review';
+import { ReviewType } from 'types/review';
 
 import * as S from './ReviewContent.styled';
 

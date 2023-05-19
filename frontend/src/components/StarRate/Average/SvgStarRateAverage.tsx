@@ -6,7 +6,7 @@ import {
   Rating067,
   Rating089,
   Rating100,
-} from '@/assets/svg/SVG';
+} from 'assets/svg/SVG';
 
 import * as S from './SvgStarRateAverage.styled';
 

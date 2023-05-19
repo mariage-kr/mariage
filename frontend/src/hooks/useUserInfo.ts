@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { UserInfoType } from '@/@types/user';
-import { userInfoState } from '@/store/status';
+import { UserInfoType } from 'types/user';
+import { userInfoState } from 'store/status';
 
 function useUserInfo() {
   const [userInfo, setUserInfo] = useRecoilState<UserInfoType | undefined>(

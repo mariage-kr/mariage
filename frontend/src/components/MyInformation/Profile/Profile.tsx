@@ -4,13 +4,13 @@ import {
   requestUserInfo,
   requestUpdateNickname,
   requestUserProfile,
-} from '@/apis/request/member';
-import useImage from '@/hooks/useImage';
-import useInput from '@/hooks/useInput';
-import { UserProfileType } from '@/@types/user';
+} from 'apis/request/member';
+import useImage from 'hooks/useImage';
+import useInput from 'hooks/useInput';
+import { UserProfileType } from 'types/user';
 
 import * as S from './Profile.styled';
-import useUserInfo from '@/hooks/useUserInfo';
+import useUserInfo from 'hooks/useUserInfo';
 
 function Profile() {
   const {
@@ -44,7 +44,6 @@ function Profile() {
     getMyInfo();
   }, []);
 
-
   /* 사진 변경 */
   // const {
   //   value: Image,
@@ -58,7 +57,6 @@ function Profile() {
   // const onClickUpdateBtn = () => {
   //   imageInput.current!.click();
   // };
-
 
   /* 닉네임 변경 */
   const updateNickname = async () => {
@@ -93,7 +91,7 @@ function Profile() {
             {/* <S.UpdateImg src={preview} css={Image == null ? S.updateImg1 : S.updateImg2}/> */}
           </S.ImgWrap>
         </S.ProfileImage>
-      
+
         <S.Info>
           <S.Name>
             {userProfile?.nickname} <S.Email>{userProfile?.email}</S.Email>
@@ -110,24 +108,22 @@ function Profile() {
             <S.Btn type={'button'} /*onClick={onClickUpdateBtn}*/>
               사진변경
             </S.Btn>
-            <S.Btn type={'button'}>
-              삭제
-            </S.Btn>
+            <S.Btn type={'button'}>삭제</S.Btn>
           </form>
         </S.Info>
       </S.Profile>
       <S.NicknameWrap>
         <S.Label>닉네임 변경</S.Label>
-          <S.Nickname
-            type="text"
-            id="nickname"
-            value={nickname}
-            placeholder="변경할 닉네임을 입력해 주세요."
-            onChange={setNickname}
-          />
-          <S.BtnSubmit type="submit" onClick={updateNickname}>
-            닉네임 변경
-          </S.BtnSubmit>
+        <S.Nickname
+          type="text"
+          id="nickname"
+          value={nickname}
+          placeholder="변경할 닉네임을 입력해 주세요."
+          onChange={setNickname}
+        />
+        <S.BtnSubmit type="submit" onClick={updateNickname}>
+          닉네임 변경
+        </S.BtnSubmit>
       </S.NicknameWrap>
     </S.Container>
   );

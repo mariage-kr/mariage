@@ -1,6 +1,6 @@
 import { axios } from '../axios';
-import { CategoryType, DrinkRegionCategoryType } from '@/@types/category';
-import { API_PATH } from '@/constants/path';
+import { CategoryType, DrinkRegionCategoryType } from 'types/category';
+import { API_PATH } from 'constants/path';
 
 interface requestDataType {
   category: CategoryType[];

@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import etc from '@/assets/lottie/weather/etc.json';
+import etc from 'assets/lottie/weather/etc.json';
 
 const style = {
   width: '40%',

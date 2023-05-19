@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import clear from '@/assets/lottie/weather/clear.json';
+import clear from 'assets/lottie/weather/clear.json';
 
 const style = {
   width: '125px',

@@ -1,8 +1,8 @@
-import { ProductContentType } from '@/@types/product';
+import { ProductContentType } from 'types/product';
 
-import ProductContent from '@/components/Detail/ProductContent/ProductContent';
-import Pairing from '@/components/Detail/Pairing/Pairing';
-import Review from '@/components/Detail/Review/Review';
+import ProductContent from 'components/Detail/ProductContent/ProductContent';
+import Pairing from 'components/Detail/Pairing/Pairing';
+import Review from 'components/Detail/Review/Review';
 
 import * as S from './Detail.styled';
 

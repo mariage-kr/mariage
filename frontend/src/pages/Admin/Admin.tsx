@@ -3,31 +3,31 @@ import { useEffect, useState } from 'react';
 import {
   requestCountry,
   requestDrinkLowerCategory,
-} from '@/apis/request/category';
-import { requestSaveImage } from '@/apis/request/storage';
+} from 'apis/request/category';
+import { requestSaveImage } from 'apis/request/storage';
 import {
   requestProductInfo,
   requestSaveProduct,
   requestUpdateProduct,
-} from '@/apis/request/product';
+} from 'apis/request/product';
 
-import { COUNTRY_TYPE } from '@/constants/category';
+import { COUNTRY_TYPE } from 'constants/category';
 
-import useInput from '@/hooks/useInput';
-import useSelect from '@/hooks/useSelect';
-import useImage from '@/hooks/useImage';
-import useSearchParam from '@/hooks/useSearchParam';
-import useLevel from '@/hooks/useLevel';
+import useInput from 'hooks/useInput';
+import useSelect from 'hooks/useSelect';
+import useImage from 'hooks/useImage';
+import useSearchParam from 'hooks/useSearchParam';
+import useLevel from 'hooks/useLevel';
 
-import { ImageIdType } from '@/@types/id';
-import { ProductModifyInfoType } from '@/@types/product';
+import { ImageIdType } from 'types/id';
+import { ProductModifyInfoType } from 'types/product';
 import {
   DrinkCategoryResponseType,
   DrinkRegionCategoryType,
   DrinkUpperCategoryType,
   DrinkLowerCategoryType,
   CountryType,
-} from '@/@types/category';
+} from 'types/category';
 
 import * as S from './Admin.styled';
 

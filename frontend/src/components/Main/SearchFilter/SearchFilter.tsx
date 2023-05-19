@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import SelectBox from './SelectBox/SelectBox';
-import RangeMultiSlider_M_Star from '@/components/Slider/RangeMultiSlider_M/RangeMultiSlider_M_Star';
-import RangeMultiSlider_M_ABV from '@/components/Slider/RangeMultiSlider_M/RangeMultiSlider_M_ABV';
+import RangeMultiSlider_M_Star from 'components/Slider/RangeMultiSlider_M/RangeMultiSlider_M_Star';
+import RangeMultiSlider_M_ABV from 'components/Slider/RangeMultiSlider_M/RangeMultiSlider_M_ABV';
 
 import * as S from './SearchFilter.styled';
-import { Range } from '@/@types/slider';
+import { Range } from 'types/slider';
 
 type Option = {
   region: string;

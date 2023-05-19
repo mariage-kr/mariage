@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import * as S from './Like.styled';
 
-import { Like } from '../../../assets/svg/SVG';
+import { Like } from 'assets/svg/SVG';
+
+import * as S from './Like.styled';
 
 interface LikeButtonProps {
   liked: boolean;
@@ -25,6 +26,6 @@ function LikeButton({ liked, likeCount, onClick }: LikeButtonProps) {
       </S.Container>
     </S.Button>
   );
-};
+}
 
 export default LikeButton;

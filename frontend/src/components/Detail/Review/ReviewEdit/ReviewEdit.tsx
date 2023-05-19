@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import StarRate from '@/components/StarRate/Common/StarRate';
+import StarRate from 'components/StarRate/Common/StarRate';
 import FoodCategory from './FoodContent/FoodCategory';
 import FoodImg from './FoodContent/FoodImg';
 import HashTag from './HashTag/HashTag';
