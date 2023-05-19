@@ -6,6 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types"
+    ],
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "module": "commonjs",
@@ -21,6 +25,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+  },
+  "include": [
+    "src/**/*"
+  ],
 }
