@@ -1,0 +1,36 @@
+name: Mariage FE.BOT 🤖
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout Repository 🚚
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 🔨
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install Dependencies By Package.json 🏗
+        run: npm ci
+
+      - name: Jest Test ✅
+        run: npm run test
+
+      - name: Webpack Build
+        env:
+          CI: false
+        run: npm run build
