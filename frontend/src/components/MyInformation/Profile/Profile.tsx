@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import {
   requestUserInfo,
@@ -44,6 +44,22 @@ function Profile() {
     getMyInfo();
   }, []);
 
+
+  /* 사진 변경 */
+  // const {
+  //   value: Image,
+  //   setValue: setImage,
+  //   preview,
+  // } = useImage<File | null>(null);
+
+  // const imageInput = useRef<HTMLInputElement>(null);
+
+  // //버튼 클릭시 input태그에 클릭이벤트 적용
+  // const onClickUpdateBtn = () => {
+  //   imageInput.current!.click();
+  // };
+
+
   /* 닉네임 변경 */
   const updateNickname = async () => {
     const getUserInfo = async () => {
@@ -70,10 +86,14 @@ function Profile() {
   return (
     <S.Container>
       <S.Profile>
-        <S.Image>
-          <p>프로필 사진</p>
-          <S.ProfileImg src={userProfile?.imagePath} />
-        </S.Image>
+        <S.ProfileImage>
+          <S.Text>프로필 사진</S.Text>
+          <S.ImgWrap>
+            <S.Img src={userProfile?.imagePath} />
+            {/* <S.UpdateImg src={preview} css={Image == null ? S.updateImg1 : S.updateImg2}/> */}
+          </S.ImgWrap>
+        </S.ProfileImage>
+      
         <S.Info>
           <S.Name>
             {userProfile?.nickname} <S.Email>{userProfile?.email}</S.Email>
@@ -82,31 +102,32 @@ function Profile() {
           <form encType="multipart/form-data">
             <S.ImageInput
               type="file"
-              accept="image/jpg, image/jpeg, image/png"
+              accept="image/*"
               onChange={setImage}
               title={'프로필 수정'}
+              // ref={imageInput}
             />
-            <button type={'button'} css={S.BtnStyle}>
+            <S.Btn type={'button'} /*onClick={onClickUpdateBtn}*/>
               사진변경
-            </button>
-            <button type={'button'} css={S.BtnStyle}>
+            </S.Btn>
+            <S.Btn type={'button'}>
               삭제
-            </button>
+            </S.Btn>
           </form>
         </S.Info>
       </S.Profile>
       <S.NicknameWrap>
         <S.Label>닉네임 변경</S.Label>
-        <S.Nickname
-          type="text"
-          id="nickname"
-          value={nickname}
-          placeholder="변경할 닉네임을 입력해 주세요."
-          onChange={setNickname}
-        />
-        <S.BtnSubmit type="submit" onClick={updateNickname}>
-          닉네임 변경
-        </S.BtnSubmit>
+          <S.Nickname
+            type="text"
+            id="nickname"
+            value={nickname}
+            placeholder="변경할 닉네임을 입력해 주세요."
+            onChange={setNickname}
+          />
+          <S.BtnSubmit type="submit" onClick={updateNickname}>
+            닉네임 변경
+          </S.BtnSubmit>
       </S.NicknameWrap>
     </S.Container>
   );

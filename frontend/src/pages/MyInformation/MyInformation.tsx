@@ -12,7 +12,6 @@ function MyInformation() {
   return (
     <>
       <S.Nav>
-        <S.Block></S.Block>
         <Link
           to="./"
           css={tabMenu === 0 ? S.ActiveTab : S.LinkStyle}

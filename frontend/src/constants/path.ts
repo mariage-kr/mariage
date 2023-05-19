@@ -17,6 +17,7 @@ const API_PATH = {
     INFO: '/api/user/members/info',
     NICKNAME: '/api/user/members/nickname',
     PROFILE: '/api/user/members/profile',
+    PASSWORD: '/api/user/members/password',
   },
   PRODUCT: {
     SAVE: '/api/user/product/save',
