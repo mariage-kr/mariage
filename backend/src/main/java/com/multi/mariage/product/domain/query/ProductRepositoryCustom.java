@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ProductRepositoryCustom {
     List<Product> searchProductByName(String name);
-    List<Product> findTotal();
+    List<Product> findTotal(int pageSize);
 }

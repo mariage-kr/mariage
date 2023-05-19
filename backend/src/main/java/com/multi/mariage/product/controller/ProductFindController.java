@@ -32,8 +32,8 @@ public class ProductFindController {
     }
 
     @GetMapping("/product/total")
-    public ResponseEntity<List<ProductMainCardResponse>> findTotal() {
-        List<ProductMainCardResponse> response = productFindService.findTotal();
+    public ResponseEntity<List<ProductMainCardResponse>> findTotal(@Param("pageSize") int pageSize) {
+        List<ProductMainCardResponse> response = productFindService.findTotal(pageSize);
         return ResponseEntity.ok(response);
     }
 }

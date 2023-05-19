@@ -58,8 +58,8 @@ public class ProductFindService {
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
     }
 
-    public List<ProductMainCardResponse> findTotal() {
-        List<Product> products = productRepository.findTotal();
+    public List<ProductMainCardResponse> findTotal(int pageSize) {
+        List<Product> products = productRepository.findTotal(pageSize);
 
         return products.stream().map(this::toProductMainCard).toList();
     }

@@ -26,12 +26,12 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     /* https://velog.io/@cksdnr066/WARN-firstResultmaxResults-specified-with-collection-fetch-applying-in-memory */
     @Override
-    public List<Product> findTotal() {
+    public List<Product> findTotal(int pageSize) {
         List<Long> productIds = queryFactory.select(product.id)
                 .from(product)
                 .orderBy(product.reviews.size().desc())
                 .offset(0)
-                .limit(25)
+                .limit(pageSize)
                 .fetch();
 
         return queryFactory.selectFrom(product)
