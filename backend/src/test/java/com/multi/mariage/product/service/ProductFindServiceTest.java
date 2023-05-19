@@ -1,10 +1,7 @@
 package com.multi.mariage.product.service;
 
 import com.multi.mariage.common.annotation.ServiceTest;
-import com.multi.mariage.common.fixture.ImageFixture;
-import com.multi.mariage.common.fixture.MemberFixture;
-import com.multi.mariage.common.fixture.ProductFixture;
-import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
@@ -53,7 +50,7 @@ class ProductFindServiceTest extends ServiceTest {
     @DisplayName("전체기간_동안_가장_많은_리뷰가_달린_제품들을_추천한다")
     @ParameterizedTest
     @ValueSource(ints = {2})
-    void 전체기간_동안_가장_많은_리뷰가_달린_제품들을_추천한다(int pageSize) {
+    void 전체기간_동안_가장_많은_리뷰가_달린_제품들을_추천한다(int size) {
         // given
         Member member = signup(MemberFixture.MARI);
         Image savedImage2 = storageRepository.save(new Image(ProductFixture.산토리_위스키.getImageName()));
@@ -62,16 +59,16 @@ class ProductFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.산토리위스키_해산물, member.getId(), product.getId(), savedImage2.getId());
 
         // when
-        List<ProductMainCardResponse> actual = productFindService.findTotal(pageSize);
+        List<ProductMainCardResponse> actual = productFindService.findTotal(size);
 
         // then
-        assertThat(actual).hasSize(pageSize);
+        assertThat(actual).hasSize(size);
     }
 
     @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품만 추천한다.")
     @ParameterizedTest
     @ValueSource(ints = {2})
-    void 전체기간_동안_가장_많은_리뷰가_달린_제품만_추천한다(int pageSize) {
+    void 전체기간_동안_가장_많은_리뷰가_달린_제품만_추천한다(int size) {
         // given
         Member member = signup(MemberFixture.MARI);
         Image savedImage2 = storageRepository.save(new Image(ImageFixture.JPEG_IMAGE.getOriginFileName()));
@@ -79,9 +76,49 @@ class ProductFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.참이슬_치킨, member.getId(), 참이슬.getId(), savedImage2.getId());
 
         // when
-        List<ProductMainCardResponse> actual = productFindService.findTotal(pageSize);
+        List<ProductMainCardResponse> actual = productFindService.findTotal(size);
 
         // then
+        assertThat(actual).hasSize(1);
+    }
+
+    @DisplayName("일주일 동안 가장 많은 리뷰가 달린 제품을 추천한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {2})
+    void 일주일_동안_가장_많은_리뷰가_달린_제품을_추천한다(int size) {
+        /* given */
+        Member member = signup(MemberFixture.MARI);
+        saveReview(ReviewFixture.참이슬_과자, member.getId(), 참이슬.getId(), savedImage1.getId());
+
+        Image savedImage2 = storageRepository.save(new Image(ProductFixture.산토리_위스키.getImageName()));
+        Product product = productModifyService.save(ProductFixture.산토리_위스키.toProductSaveRequest(savedImage2.getId()));
+        reviewRepository.save(ReviewFixture.산토리위스키_해산물.toReview(member, product,
+                savedImage2, weatherRepository.save(WeatherFixture.맑음_2주전.toWeather())));
+
+        /* when */
+        List<ProductMainCardResponse> actual = productFindService.findWeek(size);
+
+        /* then */
+        assertThat(actual).hasSize(1);
+    }
+
+    @DisplayName("한달 동안 가장 많은 리뷰가 달린 제품을 추천한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {2})
+    void 한달_동안_가장_많은_리뷰가_달린_제품을_추천한다(int size) {
+        /* given */
+        Member member = signup(MemberFixture.MARI);
+        saveReview(ReviewFixture.참이슬_과자, member.getId(), 참이슬.getId(), savedImage1.getId());
+
+        Image savedImage2 = storageRepository.save(new Image(ProductFixture.산토리_위스키.getImageName()));
+        Product product = productModifyService.save(ProductFixture.산토리_위스키.toProductSaveRequest(savedImage2.getId()));
+        reviewRepository.save(ReviewFixture.산토리위스키_해산물.toReview(member, product,
+                savedImage2, weatherRepository.save(WeatherFixture.맑음_2달전.toWeather())));
+
+        /* when */
+        List<ProductMainCardResponse> actual = productFindService.findMonth(size);
+
+        /* then */
         assertThat(actual).hasSize(1);
     }
 }

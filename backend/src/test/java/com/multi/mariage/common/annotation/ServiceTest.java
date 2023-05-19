@@ -19,6 +19,7 @@ import com.multi.mariage.review_hashtag.service.ReviewHashtagService;
 import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.repository.StorageRepository;
 import com.multi.mariage.storage.service.StorageService;
+import com.multi.mariage.weather.domain.WeatherRepository;
 import com.multi.mariage.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,6 +54,9 @@ public abstract class ServiceTest {
     protected ReviewRepository reviewRepository;
     @Autowired
     protected StorageRepository storageRepository;
+    @Autowired
+    protected WeatherRepository weatherRepository;
+
 
     protected Member signup(MemberFixture memberFixture) {
         return memberModifyService.signup(memberFixture.toSignupRequest());
