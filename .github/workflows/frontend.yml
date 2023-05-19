@@ -18,23 +18,14 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Change directory to frontend
-        run: cd frontend
-
-      - name: Change directory to frontend2
-        run: cd frontend
-
-      - name: Dir list
-        run: ls -al
-
       - name: Install dependencies
-        run: npm ci
+        run: cd frontend && npm ci
 
       - name: Run tests
-        run: npm run test
+        run: cd frontend && npm run test
 
       - name: Run Build
-        run: npm run build
+        run: cd frontend && npm run build
 
       - name: Run Start
-        run: npm run start
+        run: cd frontend && npm run start
