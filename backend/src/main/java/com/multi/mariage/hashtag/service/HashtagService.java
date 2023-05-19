@@ -26,6 +26,7 @@ public class HashtagService {
         return hashtag.get();
     }
 
+    @Transactional
     public List<Hashtag> findHashTagsByList(List<String> list) {
         return list.stream()
                 .map(this::findByName)
