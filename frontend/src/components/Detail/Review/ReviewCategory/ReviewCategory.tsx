@@ -4,7 +4,7 @@ import useSelect from '@/hooks/useSelect';
 import { SortType } from '@/@types/select';
 import { FoodCategoryType } from '@/@types/category';
 
-import reviewIcon from '../../../../assets/png/reviewIcon2.png';
+import reviewIcon from '@/assets/png/reviewIcon2.png';
 
 import * as S from './ReviewCategory.styled';
 
