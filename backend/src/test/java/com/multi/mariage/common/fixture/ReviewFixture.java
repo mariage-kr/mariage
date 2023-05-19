@@ -1,6 +1,7 @@
 package com.multi.mariage.common.fixture;
 
 import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
@@ -58,5 +59,12 @@ public enum ReviewFixture {
 
     public List<String> getHashtags() {
         return hashtags;
+    }
+
+    public LikeSaveRequest toSaveLike(Long memberId, Long reviewId) {
+        return LikeSaveRequest.builder()
+                .memberId(memberId)
+                .reviewId(reviewId)
+                .build();
     }
 }
