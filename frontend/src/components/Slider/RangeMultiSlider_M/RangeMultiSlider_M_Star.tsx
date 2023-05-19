@@ -87,8 +87,8 @@ function RangeMultiSlider_M_Star({
         <S.Slider>
           <S.Slider_sub css={S.slider_sub12}></S.Slider_sub>
           <S.Slider_sub css={S.slider_sub12} ref={range}></S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{minVal / 10}</S.Slider_sub>
-          <S.Slider_sub css={S.slider_sub34}>{maxVal / 10}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{minVal}</S.Slider_sub>
+          <S.Slider_sub css={S.slider_sub34}>{maxVal}</S.Slider_sub>
         </S.Slider>
       </S.Container>
     </>
