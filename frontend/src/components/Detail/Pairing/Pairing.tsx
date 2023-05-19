@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { PairingSelectType } from '@/@types/select';
 import { PairingFoodType } from '@/@types/product';
-import trophy from '../../../../assets/png/trophyIcon.png';
+import trophy from '../../../assets/png/trophyIcon.png';
 
 import * as S from './Pairing.styled';
 
