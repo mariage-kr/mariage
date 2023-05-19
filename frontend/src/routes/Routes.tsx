@@ -8,7 +8,6 @@ import {
   Product,
   SignUp,
   Review,
-  Test /* TODO: 개발때만 사용 */,
 } from '@/pages/Pages';
 
 import { Route, Routes as BrowserRoutes } from 'react-router-dom';
@@ -26,8 +25,6 @@ function Routes() {
       <Route path={BROWSER_PATH.LOGIN} element={<Login />} />
       <Route path={BROWSER_PATH.SIGN_UP} element={<SignUp />} />
       <Route path={BROWSER_PATH.REVIEW} element={<Review />} />
-      <Route path={BROWSER_PATH.TEST} element={<Test />} />
-      {/* TODO: 개발때만 사용 */}
       <Route path={'*'} element={<NotFound />} />
     </BrowserRoutes>
   );
