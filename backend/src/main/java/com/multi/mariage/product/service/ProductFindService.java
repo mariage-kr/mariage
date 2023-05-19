@@ -1,12 +1,15 @@
 package com.multi.mariage.product.service;
 
+import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
+import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductsVO;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,5 +56,34 @@ public class ProductFindService {
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+    }
+
+    public List<ProductMainCardResponse> findTotal() {
+        List<Product> products = productRepository.findTotal();
+
+        return products.stream().map(this::toProductMainCard).toList();
+    }
+
+    private ProductMainCardResponse toProductMainCard(Product product) {
+        List<Review> reviews = product.getReviews();
+        Country country = product.getCountry();
+
+        return ProductMainCardResponse.builder()
+                .productId(product.getId())
+                .productName(product.getName())
+                .productImageUrl(imageService.getImageUrl(product.getImage().getName()))
+                .reviewCount(reviews.size())
+                .reviewRate(getReviewAverageRate(reviews))
+                .country(country.getCountry())
+                .countryImageUrl(imageService.getImageUrl(country.getFlagName()))
+                .build();
+    }
+
+    private double getReviewAverageRate(List<Review> reviews) {
+        long totalRate = 0L;
+        for (Review review : reviews) {
+            totalRate += review.getProductRate();
+        }
+        return Math.round((double) totalRate / reviews.size());
     }
 }
