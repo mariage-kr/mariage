@@ -24,7 +24,7 @@ module.exports = {
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.png'],
     alias: {
       '@': path.resolve(__dirname, './src/'),
     },
