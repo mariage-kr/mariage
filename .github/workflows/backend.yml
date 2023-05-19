@@ -1,0 +1,41 @@
+name: Mariage BE-Bot 🤖
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: "17"
+
+      - name: Change directory to backend
+        run: cd backend
+
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+
+      - name: Set up H2 Database
+        run: |
+          mkdir -p ${{ github.workspace }}/data/h2
+          docker run -d \
+            -p 1521:1521 \
+            -v ${{ github.workspace }}/data/h2:/opt/h2-data \
+            --name h2 \
+            --rm \
+            oscarfonts/h2
+
+      - name: Set up Redis
+        uses: redis-actions/setup-redis@v1
+
+      - name: Run Tests
+        run: ./gradlew test --no-daemon

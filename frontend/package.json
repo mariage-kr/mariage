@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open",
+    "dev": "webpack-dev-server  --mode=development --open --hot --progress",
+    "build": "webpack --mode=production --progress",
+    "start": "webpack --mode=development --progress",
     "test": "jest"
   },
   "keywords": [],
