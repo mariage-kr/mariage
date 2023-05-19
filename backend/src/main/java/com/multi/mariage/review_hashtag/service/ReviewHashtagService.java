@@ -33,12 +33,16 @@ public class ReviewHashtagService {
 
         return reviewHashtagRepository.save(reviewHashtag);
     }
-    public void removeHashtag(ReviewHashtag reviewHashtag) {
-        Hashtag hashtag = reviewHashtag.getHashtag();
 
-        if (hashtag != null) {
-            hashtag.getReviewHashTags().remove(reviewHashtag);
-            reviewHashtag.setHashtag(null);
+
+    public boolean removeHashtagFromReview(Long reviewId, Long hashtagId) {
+        ReviewHashtag reviewHashtag = reviewHashtagRepository.findById(reviewId, hashtagId);
+        if (reviewHashtag != null) {
+            reviewHashtag.removeHashtag();
+            reviewHashtagRepository.delete(reviewHashtag);
+            return true;
+        } else {
+            return false;
         }
     }
 }
