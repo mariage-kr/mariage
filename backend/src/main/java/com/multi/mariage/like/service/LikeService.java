@@ -27,7 +27,7 @@ public class LikeService {
 
         Member member = memberFindService.findById(authMember.getId());
         Review review = reviewFindService.findById(request.getReviewId());
-        validateMemberAlreadyLiked(authMember.getId(), request.getReviewId());
+        validateReviewAlreadyLiked(authMember.getId(), request.getReviewId());
 
         Like like = Like.builder()
                 .member(member)
@@ -36,7 +36,7 @@ public class LikeService {
 
         likeRepository.save(like);
     }
-    private void validateMemberAlreadyLiked(Long memberId, Long reviewId) {
+    private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {
         boolean isExist = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
         if (isExist) {
             throw new LikeException(LikeErrorCode.REVIEW_ALREADY_LIKED);
