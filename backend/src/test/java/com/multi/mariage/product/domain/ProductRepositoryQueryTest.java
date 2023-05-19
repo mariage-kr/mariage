@@ -42,10 +42,10 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         assertThat(actual).contains(일품진로);
     }
 
-    @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품들을 추천한다.")
+    @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품들을 조회한다.")
     @ParameterizedTest
     @ValueSource(ints = {2})
-    void 전체기간_동안_가장_많은_리뷰가_달린_제품들을_추천한다(int pageSize) {
+    void 전체기간_동안_가장_많은_리뷰가_달린_제품들을_조회한다(int pageSize) {
         Member member = saveMember(MemberFixture.MARI);
         Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
@@ -58,10 +58,10 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         assertThat(actual).hasSize(pageSize);
     }
 
-    @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품만 추천한다.")
+    @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품만 조회한다.")
     @ParameterizedTest
     @ValueSource(ints = {2})
-    void 전체기간_동안_리뷰가_달린_제품만_추천한다(int pageSize) {
+    void 전체기간_동안_리뷰가_달린_제품만_조회한다(int pageSize) {
         Member member = saveMember(MemberFixture.MARI);
         Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
