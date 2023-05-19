@@ -20,7 +20,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-@Profile("dev")
+//@Profile("dev")
 public class LoaderData {
 
     private final InitMemberService memberService;
