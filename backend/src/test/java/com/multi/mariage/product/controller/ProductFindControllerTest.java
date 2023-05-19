@@ -25,7 +25,7 @@ class ProductFindControllerTest extends ControllerTest {
     @Test
     void 전체기간_동안_가장많이_리뷰가_달린_제품들을_추천한다() throws Exception {
 
-        int pageSize = 1;
+        int size = 1;
 
         Member member = saveMember();
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
@@ -33,7 +33,7 @@ class ProductFindControllerTest extends ControllerTest {
         saveReview(member, ReviewFixture.참이슬_과자, product, image2);
 
         mockMvc.perform(get("/api/product/recommend/total")
-                        .param("pageSize", String.valueOf(pageSize)))
+                        .param("size", String.valueOf(size)))
                 .andDo(print())
                 .andDo(
                         document("Product/RecommendByTotal",
