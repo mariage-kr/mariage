@@ -27,7 +27,7 @@ jobs:
       - name: Start Redis Server 🚀
         run: sudo service redis-server start
 
-      - name: Create application-database.yml 🔨
+      - name: Create Test Setting 🔨
         run: |
           echo "spring:" >> src/test/resources/security/application-database.yml
           echo "  data:" >> src/test/resources/security/application-database.yml
@@ -35,8 +35,6 @@ jobs:
           echo "      host: ${{ secrets.REDIS_HOST }}" >> src/test/resources/security/application-database.yml
           echo "      port: ${{ secrets.REDIS_PORT }}" >> src/test/resources/security/application-database.yml
 
-      - name: Create application-openWeatherMap.yml 🔨
-        run: |
           echo "open:" >> src/test/resources/security/application-openWeatherMap.yml
           echo "  weather:" >> src/test/resources/security/application-openWeatherMap.yml
           echo "    q: \"${{ secrets.OPEN_WEATHER_API_Q }}\"" >> src/test/resources/security/application-openWeatherMap.yml
@@ -44,20 +42,15 @@ jobs:
           echo "    units: \"${{ secrets.OPEN_WEATHER_API_UNITS }}\"" >> src/test/resources/security/application-openWeatherMap.yml
           echo "    key: \"${{ secrets.OPEN_WEATHER_API_KEY }}\"" >> src/test/resources/security/application-openWeatherMap.yml
 
-      - name: Create application-path.yml 🔨
-        run: |
           echo "url: \"${{ secrets.CLIENT_URL }}\"" >> src/test/resources/security/application-path.yml
           echo "fileDir: \"${{ secrets.STORAGE_FILEDIR }}\"" >> src/test/resources/security/application-path.yml
           echo "jwt:" >> src/test/resources/security/application-path.yml
           echo "  secret: \"${{ secrets.JWT_SECRET }}\"" >> src/test/resources/security/application-path.yml
           echo "storagePath: \"${{ secrets.STORAGE_PATH }}\"" >> src/test/resources/security/application-path.yml
 
-      - name: Create Storage Directory 🔨
-        run: |
           echo "${{ secrets.CREATE_STORAGE_DIR }}"
 
-      - name: Grant execute permission for gradlew 🔨
-        run: chmod +x gradlew
+          echo "chmod +x gradlew"
 
       - name: Run Spring Boot Tests 🧪
         run: ./gradlew clean test
