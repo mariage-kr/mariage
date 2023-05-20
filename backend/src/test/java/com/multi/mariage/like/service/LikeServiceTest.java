@@ -50,4 +50,20 @@ class LikeServiceTest extends ServiceTest {
 
         Assertions.assertThat(expected).isTrue();
     }
+
+    @DisplayName("리뷰의 좋아요를 취소한다.")
+    @Test
+    void 리뷰의_좋아요를_취소한다() {
+
+        Long memberId = member.getId();
+        Long reviewId = review.getReviewId();
+        reviewFixture = ReviewFixture.참이슬_치킨;
+
+        likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(reviewId));
+        likeService.remove(new AuthMember(memberId), reviewFixture.toRemoveLike(reviewId));
+
+        boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
+
+        Assertions.assertThat(expected).isFalse();
+    }
 }

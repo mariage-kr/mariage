@@ -40,10 +40,8 @@ public class LikeService {
 
     @Transactional
     public void remove(AuthMember authMember, LikeRemoveRequest request) {
-        Member member = memberFindService.findById(authMember.getId());
-        Review review = reviewFindService.findById(request.getReviewId());
 
-        Like like = likeRepository.findByMemberAndReview(member.getId(), review.getId())
+        Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), request.getReviewId())
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
         likeRepository.delete(like);
