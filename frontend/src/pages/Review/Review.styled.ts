@@ -5,8 +5,7 @@ const Container = styled.div``;
 
 const TopNav = styled.div`
   border-bottom: 1px solid #9c94d055;
-  padding: 0 10%;
-  height: 80px;
+  padding: 20px 10%;
 `;
 
 const NavWrapper = styled.div`

@@ -11,9 +11,17 @@ type PropsType = {
   country: string;
   name: string;
   level: number;
+  onClickToggleModal: () => void;
 };
 
-function ReviewEdit({ id, flagImg, country, name, level }: PropsType) {
+function ReviewEdit({
+  id,
+  flagImg,
+  country,
+  name,
+  level,
+  onClickToggleModal,
+}: PropsType) {
   // 버튼 클릭 이벤트
   const [content, setContent] = useState();
   const [category, setCategory] = useState<string | null>(null);
@@ -91,7 +99,7 @@ function ReviewEdit({ id, flagImg, country, name, level }: PropsType) {
           </S.HashTag>
           <S.FinalBtn>
             <S.Cancel>
-              <S.CancelBtn>취소</S.CancelBtn>
+              <S.CancelBtn onClick={onClickToggleModal}>취소</S.CancelBtn>
             </S.Cancel>
             <S.Submit>
               <S.SubmitBtn>적용</S.SubmitBtn>

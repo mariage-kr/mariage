@@ -46,7 +46,10 @@ function Review(productContent: ProductContentType) {
       <S.ReviewEdit>
         {isOpenModal && (
           <ReviewEditModal onClickToggleModal={onClickToggleModal}>
-            <ReviewEdit {...productContent} />
+            <ReviewEdit
+              {...productContent}
+              onClickToggleModal={onClickToggleModal}
+            />
           </ReviewEditModal>
         )}
       </S.ReviewEdit>

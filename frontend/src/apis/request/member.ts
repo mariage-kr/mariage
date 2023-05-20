@@ -22,10 +22,15 @@ const requestUpdateNickname = (nickname: string) => {
   return axiosWithAccessToken.patch(API_PATH.MEMBER.NICKNAME, nickname);
 };
 
+const requestUpdatePassword = (password: string, newPassword: string) => {
+  return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {password, newPassword})
+}
+
 export {
   requestSignup,
   requestUserNickname,
   requestUserInfo,
   requestUserProfile,
   requestUpdateNickname,
+  requestUpdatePassword
 };

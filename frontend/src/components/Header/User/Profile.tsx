@@ -78,17 +78,21 @@ function User() {
   if (isLogin) {
     return (
       <S.Container>
-        <S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink>
-        <S.StyledLink to={BROWSER_PATH.MY}>{userInfo?.nickname}님</S.StyledLink>
-        <S.TextButton onClick={logout}>로그아웃</S.TextButton>
+        <S.Wrapper>
+          <S.Wrap><S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink></S.Wrap>
+          <S.Wrap><S.StyledLink to={BROWSER_PATH.MY}>{userInfo?.nickname}님</S.StyledLink></S.Wrap>
+          <S.Wrap><S.TextButton onClick={logout}>로그아웃</S.TextButton></S.Wrap>
+        </S.Wrapper>
       </S.Container>
     );
   }
 
   return (
     <S.Container>
-      <S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink>
-      <S.StyledLink to={BROWSER_PATH.SIGN_UP}>회원가입</S.StyledLink>
+      <S.Wrapper2>
+        <S.Wrap><S.StyledLink to={BROWSER_PATH.LOGIN}>로그인</S.StyledLink></S.Wrap>
+        <S.Wrap><S.StyledLink to={BROWSER_PATH.SIGN_UP}>회원가입</S.StyledLink></S.Wrap>
+      </S.Wrapper2>
     </S.Container>
   );
 }

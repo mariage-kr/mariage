@@ -2,20 +2,23 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
   height: 100px;
+  padding: 0 10%;
   border-bottom: 1px solid #00000033;
 `;
 
 const Logo = styled.div`
-  display: flex;
-  width: 10%;
-  min-width: 144px;
+  float: left;
+  width: 15%;
+  height: 100%;
+  box-sizing: border-box;
   position: relative;
-  align-items: center;
-  justify-content: center;
 
+  @media (max-width:1400px) { width: 17%; }
+  @media (max-width:1250px) { width: 18%; }
+  @media (max-width:1160px) { width: 20%; }
+  @media (max-width:1065px) { width: 22%; }
+  
   @keyframes animate {
   0%,
   100% {
@@ -51,7 +54,7 @@ const Logo = styled.div`
 const Header = styled.h1`
   color: #fff;
   position: absolute;
-  top: -10%;
+  top: -10px;
   left: 0;
   text-shadow: 1px 1px 10px #9c94d033;
   font-size: 2.7rem;
@@ -67,10 +70,13 @@ const Header = styled.h1`
 `; 
 
 const Nav = styled.div`
-  display: flex;
-  align-items: center;
-  width: 15%;
-  min-width: 192px;
+  float: left;
+  width: 20%;
+  min-width: 160px;
+  margin-top: 20px;
+  box-sizing: border-box;
+
+  @media (max-width:1160px) { width: 15%; }
 `;
 
 const Profile = styled.div`
@@ -81,6 +87,26 @@ const Profile = styled.div`
   min-width: 144px;
 `;
 
+const SearchArea = styled.div`
+  float: left;
+  width: 30%;
+  min-width: 220px;
+  margin-top: 25px;
+  box-sizing: border-box;
+
+  @media (max-width:1065px) { width: 28%; }
+`;
+
+const UserArea = styled.div`
+  float: right;
+  width: 25%;
+  margin-top: 20px;
+  box-sizing: border-box;
+
+  @media (max-width:1310px) { width: 30%; }
+  @media (max-width:1005px) { width: 28%; }
+`;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -88,4 +114,4 @@ const StyledLink = styled(Link)`
   min-width: 100px;
 `;
 
-export { Container, Logo, Header, Nav, Profile, StyledLink };
+export { Container, Logo, Header, Nav, Profile, SearchArea, UserArea, StyledLink };

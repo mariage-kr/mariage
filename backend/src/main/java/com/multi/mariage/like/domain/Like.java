@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "likes")
+@Table(name = "liked")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

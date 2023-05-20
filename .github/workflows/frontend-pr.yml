@@ -1,0 +1,59 @@
+name: Mariage FE.BOT 🤖
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout Repository 🚚
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 🔨
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install Dependencies By Package.json 🏗
+        run: npm ci
+
+      - name: Jest Test ✅
+        run: npm run test
+
+      - name: Webpack Start ⭐
+        env:
+          CI: false
+        run: npm run start
+
+      - name: Get PR URL 🛒
+        id: pr_info
+        run: |
+          pr_url="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
+          echo "::set-output name=pr_url::$pr_url"
+
+      - name: Get Commit URL 🛒
+        id: commit_info
+        run: |
+          commit_url="https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          echo "::set-output name=commit_url::$commit_url"
+
+      - name: Send Result to Discord 📩
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#48f442"
+          username: "Mariage FE.BOT 🤖"
+          message: |
+            Frontend Pull Request CI Test 📜
+            Status : [**${{ job.status }}**]
+            Pull Request : ${{ steps.pr_info.outputs.pr_url }}
+            Commit : ${{ steps.commit_info.outputs.commit_url }}
