@@ -33,29 +33,22 @@ jobs:
           CI: false
         run: npm run start
 
-      - name: Get PR URL 🛒
-        id: pr_info
+      - name: Get URL 🛒
         run: |
-          pr_url="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
-          echo "::set-output name=pr_url::$pr_url"
-
-      - name: Get Commit URL 🛒
-        id: commit_info
-        run: |
-          commit_url="https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          echo "::set-output name=commit_url::$commit_url"
+          echo "PR_URL=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Send Result to Discord 📩
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#48f442"
+          color: ${{ job.status == 'success' && '#48f442' || '#f44242' }}
           username: "Mariage FE.BOT 🤖"
           message: |
             Frontend Pull Request[#${{ github.event.pull_request.number }}] CI Test 📜
             Status : [**${{ job.status }}**]
-            Pull Request : ${{ steps.pr_info.outputs.pr_url }}
-            Commit : ${{ steps.commit_info.outputs.commit_url }}
+            Pull Request : ${{ env.PR_URL }}
+            Commit : ${{ env.COMMIT_URL }}
 
     if: ${{ contains(github.event.pull_request.labels.*.name, '🖼︎ front-end') }}

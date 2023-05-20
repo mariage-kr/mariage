@@ -1,0 +1,74 @@
+name: Mariage BE.BOT 🤖
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: Checkout Repository 🚚
+        uses: actions/checkout@v3
+
+      - name: Setup JDK 17 🔨
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Install Redis 📦
+        run: sudo apt-get install redis-server
+
+      - name: Start Redis Server 🚀
+        run: sudo service redis-server start
+
+      - name: Create Test Setting 🔨
+        run: |
+          echo "spring:" >> src/test/resources/security/application-database.yml
+          echo "  data:" >> src/test/resources/security/application-database.yml
+          echo "    redis:" >> src/test/resources/security/application-database.yml
+          echo "      host: ${{ secrets.REDIS_HOST }}" >> src/test/resources/security/application-database.yml
+          echo "      port: ${{ secrets.REDIS_PORT }}" >> src/test/resources/security/application-database.yml
+
+          echo "open:" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "  weather:" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    q: \"${{ secrets.OPEN_WEATHER_API_Q }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    lang: \"${{ secrets.OPEN_WEATHER_API_LANG }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    units: \"${{ secrets.OPEN_WEATHER_API_UNITS }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    key: \"${{ secrets.OPEN_WEATHER_API_KEY }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+
+          echo "url: \"${{ secrets.CLIENT_URL }}\"" >> src/test/resources/security/application-path.yml
+          echo "fileDir: \"${{ secrets.STORAGE_FILEDIR }}\"" >> src/test/resources/security/application-path.yml
+          echo "jwt:" >> src/test/resources/security/application-path.yml
+          echo "  secret: \"${{ secrets.JWT_SECRET }}\"" >> src/test/resources/security/application-path.yml
+          echo "storagePath: \"${{ secrets.STORAGE_PATH }}\"" >> src/test/resources/security/application-path.yml
+
+          echo "${{ secrets.CREATE_STORAGE_DIR }}"
+
+          echo "chmod +x gradlew"
+
+      - name: Run Spring Boot Tests 🧪
+        run: ./gradlew clean test
+
+      - name: Get URL 🛒
+        run: |
+          echo "REPO_URL=$(curl -s "https://api.github.com/repos/${{ github.repository }}" | jq -r .html_url)" >> $GITHUB_ENV
+          echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Send Result to Discord 📩
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: ${{ job.status == 'success' && '#48f442' || '#f44242' }}
+          username: "Mariage BE.BOT 🤖"
+          message: |
+            Frontend Main Branch CI Test 📜
+            Status : [**${{ job.status }}**]
+            Repository : ${{ env.REPO_URL }}
+            Commit : ${{ env.COMMIT_URL }}
