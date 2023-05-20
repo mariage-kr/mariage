@@ -1,4 +1,4 @@
-name: Mariage FE.BOT 🤖
+name: Mariage BE.BOT 🤖
 
 on:
   pull_request:
@@ -21,16 +21,19 @@ jobs:
           java-version: 17
           distribution: temurin
 
-      - name: PWD
-        run: pwd
-
       - name: Install Redis 📦
         run: sudo apt-get install redis-server
 
       - name: Start Redis Server 🚀
         run: sudo service redis-server start
 
-      - name: Get PR URL 🛒
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Spring Boot Tests 🧪
+        run: ./gradlew clean test
+
+      - name: Get Pull Request URL 🛒
         id: pr_info
         run: |
           pr_url="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
@@ -48,9 +51,9 @@ jobs:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#48f442"
-          username: "Mariage FE.BOT 🤖"
+          username: "Mariage BE.BOT 🤖"
           message: |
-            Frontend Pull Request[#${{ github.event.pull_request.number }}] CI Test 📜
+            Backend Pull Request[#${{ github.event.pull_request.number }}] CI Test 📜
             Status : [**${{ job.status }}**]
             Pull Request : ${{ steps.pr_info.outputs.pr_url }}
             Commit : ${{ steps.commit_info.outputs.commit_url }}
