@@ -1,0 +1,58 @@
+name: Mariage FE.BOT 🤖
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: Checkout Repository 🚚
+        uses: actions/checkout@v3
+
+      - name: Setup JDK 17 🔨
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: PWD
+        run: pwd
+
+      - name: Install Redis 📦
+        run: sudo apt-get install redis-server
+
+      - name: Start Redis Server 🚀
+        run: sudo service redis-server start
+
+      - name: Get PR URL 🛒
+        id: pr_info
+        run: |
+          pr_url="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
+          echo "::set-output name=pr_url::$pr_url"
+
+      - name: Get Commit URL 🛒
+        id: commit_info
+        run: |
+          commit_url="https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          echo "::set-output name=commit_url::$commit_url"
+
+      - name: Send Result to Discord 📩
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#48f442"
+          username: "Mariage FE.BOT 🤖"
+          message: |
+            Frontend Pull Request[#${{ github.event.pull_request.number }}] CI Test 📜
+            Status : [**${{ job.status }}**]
+            Pull Request : ${{ steps.pr_info.outputs.pr_url }}
+            Commit : ${{ steps.commit_info.outputs.commit_url }}
+
+    if: ${{ contains(github.event.pull_request.labels.*.name, '🌱 back-end') }}
