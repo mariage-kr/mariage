@@ -58,7 +58,7 @@ jobs:
           color: "#48f442"
           username: "Mariage FE.BOT 🤖"
           message: |
-            Frontend Main Branch CI 테스트 📜
+            Frontend Main Branch CI Test 📜
             Status : [**${{ job.status }}**]
             Repository : ${{ steps.repo_info.outputs.repository_url }}
             Commit : ${{ steps.commit_info.outputs.commit_url }}
