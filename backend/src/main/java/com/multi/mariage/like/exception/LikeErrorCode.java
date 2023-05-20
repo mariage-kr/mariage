@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public enum LikeErrorCode implements ErrorCode {
-    REVIEW_ALREADY_LIKED(400, "Like_01", "이미 좋아요한 리뷰입니다.");
+    REVIEW_ALREADY_LIKED(400, "Like_01", "이미 좋아요한 리뷰입니다."),
+    REVIEW_NOT_LIKED(404, "Like_02", "좋아요한 리뷰가 아닙니다.");
     private int statusCode;
     private String errorCode;
     private String message;
