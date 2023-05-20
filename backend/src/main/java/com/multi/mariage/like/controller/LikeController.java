@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class LikeController {
     private final LikeService likeService;
 
-    @PostMapping("/user/review/like/add")
-    public ResponseEntity<Void> like(@Authenticated AuthMember authMember, @RequestBody LikeSaveRequest request) {
+    @PostMapping("/user/review/like/save")
+    public ResponseEntity<Void> save(@Authenticated AuthMember authMember, @RequestBody LikeSaveRequest request) {
         likeService.save(authMember, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
