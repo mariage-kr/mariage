@@ -54,6 +54,6 @@ jobs:
           username: "Mariage FE.BOT 🤖"
           message: |
             Frontend Pull Request CI 테스트 📜
-            CI Status        : ${{ job.status }}
-            Pull Request URL : [URL](${{ steps.pr_info.outputs.pr_url }})
-            Commit URL       : [URL](${{ steps.commit_info.outputs.commit_url }})
+            Status : [**${{ job.status }}**]
+            Pull Request : (${{ steps.pr_info.outputs.pr_url }}
+            Commit : ${{ steps.commit_info.outputs.commit_url }}

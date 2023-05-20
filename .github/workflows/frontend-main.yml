@@ -59,6 +59,6 @@ jobs:
           username: "Mariage FE.BOT 🤖"
           message: |
             Frontend Main Branch CI 테스트 📜
-            CI Status      : ${{ job.status }}
-            Repository URL : [URL](${{ steps.repo_info.outputs.repository_url }})
-            Commit URL     : [URL](${{ steps.commit_info.outputs.commit_url }})
+            Status : [**${{ job.status }}**]
+            Repository : ${{ steps.repo_info.outputs.repository_url }}
+            Commit : ${{ steps.commit_info.outputs.commit_url }}
