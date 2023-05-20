@@ -53,6 +53,7 @@ jobs:
           color: "#48f442"
           username: "Mariage FE.BOT 🤖"
           message: |
-            프론트엔드 CI 결과: ${{ job.status }}
-            PR : (${{ steps.pr_info.outputs.pr_url }})
-            커밋 : ${{ steps.commit_info.outputs.commit_url }}
+            Frontend Pull Request CI 테스트 📜
+            CI Status        : ${{ job.status }}
+            Pull Request URL : [URL](${{ steps.pr_info.outputs.pr_url }})
+            Commit URL       : [URL](${{ steps.commit_info.outputs.commit_url }})

@@ -58,6 +58,7 @@ jobs:
           color: "#48f442"
           username: "Mariage FE.BOT 🤖"
           message: |
-            프론트엔드 CI 결과: ${{ job.status }}
-            저장소: ${{ steps.repo_info.outputs.repository_url }}
-            커밋 : ${{ steps.commit_info.outputs.commit_url }}
+            Frontend Main Branch CI 테스트 📜
+            CI Status      : ${{ job.status }}
+            Repository URL : [URL](${{ steps.repo_info.outputs.repository_url }})
+            Commit URL     : [URL](${{ steps.commit_info.outputs.commit_url }})
