@@ -67,8 +67,8 @@ function SearchFilter() {
               <S.FilterTitle css={S.FilterTitle2}>별점</S.FilterTitle>
               <S.RangeMultiSlider>
                 <RangeMultiSlider_M_Star
-                  min={0}
-                  max={50}
+                  min={1}
+                  max={5}
                   onChange={({ min, max }: { min: number; max: number }) =>
                     changeRateOption({
                       max: max,

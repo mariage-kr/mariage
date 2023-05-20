@@ -3,30 +3,30 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   border-top: 1px solid #00000033;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0.5vh 10% 0;
-  text-align: center;
+  height: 100px;
+  padding: 0 10%;
+  overflow: hidden;
 `;
 
 const FLogo = styled.div`
-  width: 100%;
-  text-align: left;
+  width: 20%;
+  float: left;
+  margin-top: 25px;
   overflow: hidden;
+  box-sizing: border-box;
 `;
 
 const LogoText = styled.h2`
   width: auto;
   color: #000;
   float: left;
+  margin: 4px 0 0;
 `;
 
 const Icon = styled.div`
   width: 35px;
   height: 35px;
   float: left;
-  margin-top: 17px;
   margin-left: -7px;
 `;
 
@@ -37,9 +37,13 @@ const IconImg = styled.img`
 `;
 
 const Member = styled.p`
-  width: 80vw;
+  width: 80%;
+  float: right;
   margin: 0 auto;
   font-size: 1rem;
+  text-align: center;
+  margin-top: 25px;
+  box-sizing: border-box;
 `;
 
 const StyledLink = styled(Link)`

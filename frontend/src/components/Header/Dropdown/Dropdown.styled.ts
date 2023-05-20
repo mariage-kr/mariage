@@ -18,8 +18,12 @@ const DropBtn = styled.button`
   font-size: 18px;
   outline: none;
   color: black;
-  padding: 14px 20px;
+  padding: 20px;
   background-color: inherit;
+
+  @media (max-width:1160px) { padding: 20px 15px; }
+  @media (max-width:1005px) { padding: 20px 13px; font-size: 1rem;}
+
 `;
 
 const UnderBar = css`
@@ -53,21 +57,23 @@ const DropContent = styled.div`
   display: none;
   position: absolute;
   top: 80px;
-  left: 0;
+  left: -10px;
   z-index: 999;
 
-  width: 78%;
+  width: 100%;
   margin: 0;
   padding-top: 10px;
-  padding-left: 20.3%;
+  padding-left: 22.5vw;
 
   background-color: #fff;
   box-shadow:  0px 15px 10px -15px rgba(0, 0, 0, 0.2);
-
-  border-top: 0;
   border-radius: 5px;
-
   cursor: pointer;
+
+  @media (max-width:1400px) { padding-left: 24.5vw; }
+  @media (max-width:1250px) { padding-left: 25.5vw; }
+  @media (max-width:1160px) { padding-left: 26.7vw; }
+  @media (max-width:1065px) { padding-left: 28.5vw; }
 `;
 
 const DropList = styled.p`
