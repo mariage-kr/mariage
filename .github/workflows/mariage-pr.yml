@@ -7,11 +7,11 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, '🌱 back-end') }}
     defaults:
       run:
         working-directory: ./backend
 
-    if: ${{ contains(github.event.pull_request.labels.*.name, '🌱 back-end') }}
     steps:
       - name: Checkout Repository 🚚
         uses: actions/checkout@v3
@@ -58,11 +58,11 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, '🖼︎ front-end') }}
     defaults:
       run:
         working-directory: ./frontend
 
-    if: ${{ contains(github.event.pull_request.labels.*.name, '🖼︎ front-end') }}
     steps:
       - name: Checkout Repository 🚚
         uses: actions/checkout@v3
