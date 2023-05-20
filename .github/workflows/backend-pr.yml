@@ -27,6 +27,38 @@ jobs:
       - name: Start Redis Server 🚀
         run: sudo service redis-server start
 
+      - name: Create application-database.yml 🔨
+        run: |
+          echo "spring:" >> src/test/resources/security/application-database.yml
+          echo "  data:" >> src/test/resources/security/application-database.yml
+          echo "    redis:" >> src/test/resources/security/application-database.yml
+          echo "      host: ${{ secrets.REDIS_HOST }}" >> src/test/resources/security/application-database.yml
+          echo "      port: ${{ secrets.REDIS_PORT }}" >> src/test/resources/security/application-database.yml
+
+      - name: Create application-openWeatherMap.yml
+        run: |
+          echo "open:" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "  weather:" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    q: \"${{ secrets.OPEN_WEATHER_API_Q }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    lang: \"${{ secrets.OPEN_WEATHER_API_LANG }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    units: \"${{ secrets.OPEN_WEATHER_API_UNITS }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+          echo "    key: \"${{ secrets.OPEN_WEATHER_API_KEY }}\"" >> src/test/resources/security/application-openWeatherMap.yml
+
+      - name: Create application-path.yml
+        run: |
+          echo "url: \"${{ secrets.CLIENT_URL }}\"" >> src/test/resources/security/application-path.yml
+          echo "fileDir: \"${{ secrets.STORAGE_FILEDIR }}\"" >> src/test/resources/security/application-path.yml
+          echo "jwt:" >> src/test/resources/security/application-path.yml
+          echo "  secret: \"${{ secrets.JWT_SECRET }}\"" >> src/test/resources/security/application-path.yml
+          echo "storagePath: \"${{ secrets.STORAGE_PATH }}\"" >> src/test/resources/security/application-path.yml
+
+      - name: Create Storage Directory
+        run: |
+          mkdir -p /home/runner/work/mariage/mariage/storage
+
+      - name: list
+        run: ls -al
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -50,7 +82,7 @@ jobs:
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#48f442"
+          color: ${{ job.status == 'success' && '#48f442' || '#f44242' }}
           username: "Mariage BE.BOT 🤖"
           message: |
             Backend Pull Request[#${{ github.event.pull_request.number }}] CI Test 📜
