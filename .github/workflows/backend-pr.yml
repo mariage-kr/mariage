@@ -55,14 +55,9 @@ jobs:
       - name: Run Spring Boot Tests 🧪
         run: ./gradlew clean test
 
-      - name: Get Pull Request URL 🛒
-        id: pr_info
+      - name: Get URL 🛒
         run: |
           echo "PR_URL=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-
-      - name: Get Commit URL 🛒
-        id: commit_info
-        run: |
           echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Send Result to Discord 📩

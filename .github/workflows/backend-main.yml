@@ -1,7 +1,7 @@
 name: Mariage BE.BOT 🤖
 
 on:
-  pull_request:
+  push:
     branches: [main]
 
 jobs:
@@ -55,17 +55,10 @@ jobs:
       - name: Run Spring Boot Tests 🧪
         run: ./gradlew clean test
 
-      - name: Get Repository URL 🛒
-        id: repo_info
+      - name: Get URL 🛒
         run: |
-          repo_url=$(curl -s "https://api.github.com/repos/${{ github.repository }}" | jq -r .html_url)
-          echo "::set-output name=repository_url::$repo_url"
-
-      - name: Get Commit URL 🛒
-        id: commit_info
-        run: |
-          commit_url="https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          echo "::set-output name=commit_url::$commit_url"
+          echo "REPO_URL=$(curl -s "https://api.github.com/repos/${{ github.repository }}" | jq -r .html_url)" >> $GITHUB_ENV
+          echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Send Result to Discord 📩
         uses: appleboy/discord-action@master
@@ -77,5 +70,5 @@ jobs:
           message: |
             Frontend Main Branch CI Test 📜
             Status : [**${{ job.status }}**]
-            Repository : ${{ steps.repo_info.outputs.repository_url }}
-            Commit : ${{ steps.commit_info.outputs.commit_url }}
+            Repository : ${{ env.REPO_URL }}
+            Commit : ${{ env.COMMIT_URL }}
