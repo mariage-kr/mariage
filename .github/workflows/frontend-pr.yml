@@ -31,7 +31,7 @@ jobs:
       - name: Webpack Start ⭐
         env:
           CI: false
-        run: npm run Start
+        run: npm run start
 
       - name: Get PR URL 🛒
         id: pr_info
