@@ -43,16 +43,17 @@ public class LikeService {
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), request.getReviewId())
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
-        Review review = like.getReview();
-        Member member = like.getMember();
-
-        if (review != null) {
-            review.getLikes().remove(like);
-        }
-        if (member != null) {
-            member.getLikes().remove(like);
-        }
         likeRepository.delete(like);
+
+        Review reviewLike = like.getReview();
+        Member memberLike = like.getMember();
+
+        if (reviewLike != null) {
+            reviewLike.getLikes().remove(like);
+        }
+        if (memberLike != null) {
+            memberLike.getLikes().remove(like);
+        }
     }
 
     private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {

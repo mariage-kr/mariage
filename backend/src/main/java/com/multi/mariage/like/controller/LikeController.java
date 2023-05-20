@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class LikeController {
     private final LikeService likeService;
 
-    @PostMapping("/user/like/save")
-    public ResponseEntity<Void> save(@Authenticated AuthMember authMember, @RequestBody LikeSaveRequest request) {
+    @PostMapping("/user/review/like/add")
+    public ResponseEntity<Void> like(@Authenticated AuthMember authMember, @RequestBody LikeSaveRequest request) {
         likeService.save(authMember, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/user/like/remove")
-    public ResponseEntity<Void> remove(@Authenticated AuthMember authMember, @RequestBody LikeRemoveRequest request) {
+    @DeleteMapping("/user/review/like/cancel")
+    public ResponseEntity<Void> cancel(@Authenticated AuthMember authMember, @RequestBody LikeRemoveRequest request) {
         likeService.remove(authMember, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
