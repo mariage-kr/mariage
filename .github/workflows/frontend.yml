@@ -34,3 +34,12 @@ jobs:
         env:
           CI: false
         run: npm run build
+
+      - name: Send Result to Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#48f442"
+          username: "Mariage FE.BOT 🤖"
+          message: "실행 결과 : ${{job.status}}"
