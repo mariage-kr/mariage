@@ -9,6 +9,7 @@ import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.service.MemberFindService;
@@ -54,6 +55,8 @@ public abstract class ControllerTest {
     protected ReviewModifyService reviewModifyService;
     @Autowired
     protected StorageService storageService;
+    @Autowired
+    protected LikeService likeService;
 
     protected Member saveMember() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
