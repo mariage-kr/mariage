@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -47,5 +49,14 @@ class LikeRepositoryTest extends RepositoryTest {
         boolean expected = likeRepository.existsByMemberIdAndReviewId(member.getId(), review.getId());
 
         Assertions.assertThat(expected).isTrue();
+    }
+
+    @DisplayName("좋아요를 조회한다")
+    @Test
+    void 좋아요를_조회한다() {
+        saveLike(member, review);
+        Optional<Like> expected = likeRepository.findByMemberIdAndReviewId(member.getId(), review.getId());
+
+        assertThat(expected).isPresent();
     }
 }
