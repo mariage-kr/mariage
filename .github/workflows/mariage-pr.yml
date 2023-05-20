@@ -1,4 +1,4 @@
-name: Mariage BOT 🤖
+name: Mariage PR BOT 🤖
 
 on:
   pull_request:
