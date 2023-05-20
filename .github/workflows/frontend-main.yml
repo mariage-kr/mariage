@@ -36,7 +36,7 @@ jobs:
       - name: Webpack Build ⭐
         env:
           CI: false
-        run: npm run Build
+        run: npm run build
 
       - name: Get Repository URL 🛒
         id: repo_info

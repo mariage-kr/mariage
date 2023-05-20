@@ -57,3 +57,5 @@ jobs:
             Status : [**${{ job.status }}**]
             Pull Request : ${{ steps.pr_info.outputs.pr_url }}
             Commit : ${{ steps.commit_info.outputs.commit_url }}
+
+    if: ${{ contains(github.event.pull_request.labels.*.name, '🖼︎ front-end') }}
