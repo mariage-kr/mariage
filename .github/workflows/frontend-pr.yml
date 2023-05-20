@@ -53,7 +53,9 @@ jobs:
           color: "#48f442"
           username: "Mariage FE.BOT 🤖"
           message: |
-            Frontend Pull Request CI Test 📜
+            Frontend Pull Request[#${{ github.event.pull_request.number }}] CI Test 📜
             Status : [**${{ job.status }}**]
             Pull Request : ${{ steps.pr_info.outputs.pr_url }}
             Commit : ${{ steps.commit_info.outputs.commit_url }}
+
+    if: ${{ contains(github.event.pull_request.labels.*.name, '🖼︎ front-end') }}
