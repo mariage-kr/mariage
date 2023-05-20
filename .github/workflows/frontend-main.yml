@@ -60,4 +60,4 @@ jobs:
           message: |
             프론트엔드 CI 결과: ${{ job.status }}
             저장소: ${{ steps.repo_info.outputs.repository_url }}
-            커밋: [${{ github.sha }}](${{ steps.commit_info.outputs.commit_url }})
+            커밋 : ${{ steps.commit_info.outputs.commit_url }}

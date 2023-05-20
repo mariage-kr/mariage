@@ -54,5 +54,5 @@ jobs:
           username: "Mariage FE.BOT 🤖"
           message: |
             프론트엔드 CI 결과: ${{ job.status }}
-            PR: [${{ github.event.pull_request.number }}](${{ steps.pr_info.outputs.pr_url }})
-            커밋: [${{ github.sha }}](${{ steps.commit_info.outputs.commit_url }})
+            PR : (${{ steps.pr_info.outputs.pr_url }})
+            커밋 : ${{ steps.commit_info.outputs.commit_url }}
