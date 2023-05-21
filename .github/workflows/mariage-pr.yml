@@ -22,10 +22,11 @@ jobs:
           java-version: 17
           distribution: temurin
 
-      - name: Install & Start Redis Server 🚀
-        run: |
-          echo "sudo apt-get install redis-server"
-          echo "sudo service redis-server start"
+      - name: Install Redis 📦
+        run: sudo apt-get install redis-server
+
+      - name: Start Redis Server 🚀
+        run: sudo service redis-server start
 
       - name: Create Test Setting 🔨
         run: |
@@ -125,6 +126,6 @@ jobs:
           username: "Mariage BOT 🤖"
           message: |
             [${{ env.COMMIT_MESSAGE }}] CI Result 📜
-            Status : [**Failed**]
+            Status : [**Failure**]
             Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
