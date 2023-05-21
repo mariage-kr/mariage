@@ -110,7 +110,7 @@ jobs:
           username: "Mariage BOT 🤖"
           message: |
             [#${{ github.event.pull_request.number }}] CI Result 📜
-            Status : ["**Success**"]
+            Status : [**Success**]
             Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
 

@@ -108,7 +108,7 @@ jobs:
           username: "Mariage BOT 🤖"
           message: |
             Main Branch CI Result 📜
-            Status : ["**Success**"]
+            Status : [**Success**]
             Repository : ${{ env.REPO_URL }}
             Commit : ${{ env.COMMIT_URL }}
 
