@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -81,22 +82,12 @@ public class LikeService {
     }
 
     private boolean isLikeExistsInMember(Member member, Long likeId) {
-        List<Like> likes = member.getLikes();
-        for (Like like : likes) {
-            if (like.getId().equals(likeId)) {
-                return true;
-            }
-        }
-        return false;
+        return member.getLikes().stream()
+                .anyMatch(like -> like.getId().equals(likeId));
     }
 
     private boolean isLikeExistsInReview(Review review, Long likeId) {
-        List<Like> likes = review.getLikes();
-        for (Like like : likes) {
-            if (like.getId().equals(likeId)) {
-                return true;
-            }
-        }
-        return false;
+        return review.getLikes().stream()
+                .anyMatch(like -> like.getId().equals(likeId));
     }
 }
