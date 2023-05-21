@@ -59,4 +59,13 @@ class LikeRepositoryTest extends RepositoryTest {
 
         assertThat(expected).isPresent();
     }
+
+    @DisplayName("해당 리뷰에 대한 좋아요의 개수를 확인한다")
+    @Test
+    void 해당_리뷰에_대한_좋아요의_개수를_확인한다() {
+        saveLike(member, review);
+        int expected = likeRepository.countByReviewId(review.getId());
+
+        assertThat(expected).isEqualTo(1);
+    }
 }
