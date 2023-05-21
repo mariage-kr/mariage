@@ -37,9 +37,9 @@ public class LikeService {
 
         likeRepository.save(like);
 
-        member.getLikes().add(like);
+        like.setMember(member);
         validateLikeNotExistsInMember(member, like.getId());
-        review.getLikes().add(like);
+        like.setReview(review);
         validateLikeNotExistsInReview(review, like.getId());
     }
 
