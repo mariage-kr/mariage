@@ -40,8 +40,8 @@ public class LikeService {
         likeRepository.save(like);
         member.getLikes().add(like);
         review.getLikes().add(like);
-        validateLikeExistsInMember(member, like.getId());
-        validateLikeExistsInReview(review, like.getId());
+        validateLikeNotExistsInMember(member, like.getId());
+        validateLikeNotExistsInReview(review, like.getId());
     }
 
     @Transactional
@@ -66,14 +66,14 @@ public class LikeService {
         }
     }
 
-    private void validateLikeExistsInMember(Member member, Long likeId) {
+    private void validateLikeNotExistsInMember(Member member, Long likeId) {
         boolean isExist = isLikeExistsInMember(member, likeId);
         if (!isExist) {
             throw new LikeException(LikeErrorCode.LIKE_NOT_FOUND_IN_MEMBER);
         }
     }
 
-    private void validateLikeExistsInReview(Review review, Long likeId) {
+    private void validateLikeNotExistsInReview(Review review, Long likeId) {
         boolean isExist = isLikeExistsInReview(review, likeId);
         if (!isExist) {
             throw new LikeException(LikeErrorCode.LIKE_NOT_FOUND_IN_REVIEW);
