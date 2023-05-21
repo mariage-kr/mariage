@@ -53,13 +53,13 @@ class LikeControllerTest extends ControllerTest {
         LikeSaveRequest likeSaveRequest = new LikeSaveRequest(reviewSaveResponse.getReviewId());
         String content = objectMapper.writeValueAsString(likeSaveRequest);
 
-        mockMvc.perform(post("/api/user/review/like/save")
+        mockMvc.perform(post("/api/user/review/like")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN)
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andDo(
-                        document("Like/Save",
+                        document("Like/Like",
                                 preprocessRequest(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("reviewId").description("리뷰 식별자")
@@ -77,7 +77,7 @@ class LikeControllerTest extends ControllerTest {
         LikeRemoveRequest likeRemoveRequest = new LikeRemoveRequest(reviewSaveResponse.getReviewId());
         String content = objectMapper.writeValueAsString(likeRemoveRequest);
 
-        mockMvc.perform(delete("/api/user/review/like/cancel")
+        mockMvc.perform(delete("/api/user/review/like")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN)
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -89,6 +89,6 @@ class LikeControllerTest extends ControllerTest {
                                         fieldWithPath("reviewId").description("리뷰 식별자")
                                 )
                         )
-                ).andExpect(MockMvcResultMatchers.status().isCreated());
+                ).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
