@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  backend:
+  Backend_CI:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.pull_request.labels.*.name, '🌱 back-end') }}
     defaults:
@@ -56,7 +56,7 @@ jobs:
       - name: Run Spring Boot Tests 🧪
         run: ./gradlew clean test
 
-  frontend:
+  Frontend_CI:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.pull_request.labels.*.name, '🖼︎ front-end') }}
     defaults:
@@ -71,7 +71,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
           cache-dependency-path: "**/package-lock.json"
 
       - name: Install Dependencies By Package.json 🏗
@@ -90,18 +89,19 @@ jobs:
           CI: false
         run: npm run build
 
-  send-message:
-    needs: [backend, frontend]
+  Send_CI_Result:
+    if: always()
+    needs: [Backend_CI, Frontend_CI]
     runs-on: ubuntu-latest
 
     steps:
       - name: Get URL 🛒
         run: |
-          echo "REPO_URL=$(curl -s "https://api.github.com/repos/${{ github.repository }}" | jq -r .html_url)" >> $GITHUB_ENV
+          echo "PR_URL=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Send Success Result to Discord 📩
-        if: ${{ needs.backend.result == 'success' || needs.frontend.result == 'success' }}
+        if: ${{ needs.Backend_CI.result == 'success' && needs.Frontend_CI.result == 'success' }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -109,13 +109,13 @@ jobs:
           color: "#48f442"
           username: "Mariage BOT 🤖"
           message: |
-            Mariage Pull Request CI Test 📜
-            Status : ["**Success**"]
-            Repository : ${{ env.REPO_URL }}
+            [#${{ github.event.pull_request.number }}] CI Result 📜
+            Status : [**Success**]
+            Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
 
       - name: Send Failed Result to Discord 📩
-        if: ${{ needs.backend.result != 'success' || needs.frontend.result != 'success' }}
+        if: ${{ needs.Backend_CI.result != 'success' || needs.Frontend_CI.result != 'success' }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -123,7 +123,7 @@ jobs:
           color: "#f44242"
           username: "Mariage BOT 🤖"
           message: |
-            Mariage Pull Request CI Test 📜
-            Status : [**Failed**]
-            Repository : ${{ env.REPO_URL }}
+            [#${{ github.event.pull_request.number }}] CI Result 📜
+            Status : [**Failure**]
+            Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
