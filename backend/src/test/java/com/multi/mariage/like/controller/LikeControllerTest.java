@@ -91,7 +91,4 @@ class LikeControllerTest extends ControllerTest {
                         )
                 ).andExpect(MockMvcResultMatchers.status().isCreated());
     }
-    void likeReview(AuthMember authMember, LikeSaveRequest request) {
-        likeService.save(authMember, request);
-    }
 }

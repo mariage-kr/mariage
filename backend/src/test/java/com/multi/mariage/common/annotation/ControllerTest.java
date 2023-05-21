@@ -9,6 +9,7 @@ import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
@@ -78,5 +79,8 @@ public abstract class ControllerTest {
 
     protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture, Long imageId, Long productId, Long memberId) {
         return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, imageId));
+    }
+    protected void likeReview(AuthMember authMember, LikeSaveRequest request) {
+        likeService.save(authMember, request);
     }
 }

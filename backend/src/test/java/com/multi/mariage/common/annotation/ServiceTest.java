@@ -6,9 +6,7 @@ import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
 import com.multi.mariage.hashtag.service.HashtagService;
-import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.like.domain.LikeRepository;
-import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
@@ -32,6 +30,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Transactional
 @SpringBootTest
@@ -88,5 +88,8 @@ public abstract class ServiceTest {
                                             Long productId,
                                             Long foodImageId) {
         return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
+    }
+    protected int findReviewLike(Long reviewId){
+      return likeRepository.countByReviewId(reviewId);
     }
 }

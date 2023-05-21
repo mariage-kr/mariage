@@ -5,20 +5,29 @@ import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.storage.domain.Image;
 import org.assertj.core.api.Assertions;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LikeServiceTest extends ServiceTest {
     private Member member;
+    private Member user1;
+    private Member user2;
     private ReviewSaveResponse review;
     private Product product;
     private ReviewFixture reviewFixture;
@@ -32,6 +41,8 @@ class LikeServiceTest extends ServiceTest {
         Image foodImage = storageRepository.save(image2);
 
         member = signup(MemberFixture.MARI);
+        user1 = signup(MemberFixture.SURI);
+        user2 = signup(MemberFixture.HARI);
         product = saveProduct(ProductFixture.참이슬, productImage.getId());
         review = saveReview(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), foodImage.getId());
     }
@@ -55,15 +66,48 @@ class LikeServiceTest extends ServiceTest {
     @Test
     void 리뷰의_좋아요를_취소한다() {
 
-        Long memberId = member.getId();
+        Long userId1 = user1.getId();
         Long reviewId = review.getReviewId();
         reviewFixture = ReviewFixture.참이슬_치킨;
 
-        likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(reviewId));
-        likeService.remove(new AuthMember(memberId), reviewFixture.toRemoveLike(reviewId));
+        likeService.save(new AuthMember(userId1), reviewFixture.toSaveLike(reviewId));
+        likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
 
-        boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
+        boolean expected = likeRepository.existsByMemberIdAndReviewId(userId1, reviewId);
 
         Assertions.assertThat(expected).isFalse();
+    }
+
+    @DisplayName("사용자가 리뷰의 좋아요를 취소할 때 사용자의 리스트에서도 삭제되는지 확인한다.")
+    @Test
+    void 사용자가_리뷰의_좋아요를_취소할_때_사용자의_리스트에서도_삭제되는지_확인한다() {
+
+        Long userId1 = user1.getId();
+        Long reviewId = review.getReviewId();
+        reviewFixture = ReviewFixture.참이슬_치킨;
+
+        likeService.save(new AuthMember(userId1), reviewFixture.toSaveLike(reviewId));
+        likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
+
+        int expectedUser = user1.getLikes().size();
+        Assertions.assertThat(expectedUser).isEqualTo(0);
+    }
+
+    @DisplayName("사용자가 리뷰의 좋아요를 취소할 때 리뷰가 받은 좋아요도 삭제되는지 확인한다.")
+    @Test
+    void 사용자가_리뷰의_좋아요를_취소할_때_리뷰가_받은_좋아요도_삭제되는지_확인한다() {
+
+        Long userId1 = user1.getId();
+        Long userId2 = user2.getId();
+        Long reviewId = review.getReviewId();
+        reviewFixture = ReviewFixture.참이슬_치킨;
+
+        likeService.save(new AuthMember(userId1), reviewFixture.toSaveLike(reviewId));
+        likeService.save(new AuthMember(userId2), reviewFixture.toSaveLike(reviewId));
+        likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
+
+        int likeCount = findReviewLike(reviewId);
+
+        Assertions.assertThat(likeCount).isEqualTo(1);
     }
 }
