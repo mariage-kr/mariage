@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  backend:
+  Backend_CI:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -55,7 +55,7 @@ jobs:
       - name: Run Spring Boot Tests 🧪
         run: ./gradlew clean test
 
-  frontend:
+  Frontend_CI:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -88,8 +88,8 @@ jobs:
           CI: false
         run: npm run build
 
-  send-message:
-    needs: [backend, frontend]
+  Send_CI_Result:
+    needs: [Backend_CI, Frontend_CI]
     runs-on: ubuntu-latest
 
     steps:
@@ -108,7 +108,7 @@ jobs:
           color: "#48f442"
           username: "Mariage BOT 🤖"
           message: |
-            [${{env.COMMIT_MESSAGE}}] CI Result 📜
+            [${{ env.COMMIT_MESSAGE }}] CI Result 📜
             Status : ["**Success**"]
             Repository : ${{ env.REPO_URL }}
             Commit : ${{ env.COMMIT_URL }}
@@ -122,7 +122,7 @@ jobs:
           color: "#f44242"
           username: "Mariage BOT 🤖"
           message: |
-            [${{env.COMMIT_MESSAGE}}] CI Result 📜
+            [${{ env.COMMIT_MESSAGE }}] CI Result 📜
             Status : [**Failed**]
             Repository : ${{ env.REPO_URL }}
             Commit : ${{ env.COMMIT_URL }}
