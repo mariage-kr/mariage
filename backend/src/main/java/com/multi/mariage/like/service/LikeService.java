@@ -38,8 +38,8 @@ public class LikeService {
         likeRepository.save(like);
 
         member.getLikes().add(like);
-        review.getLikes().add(like);
         validateLikeNotExistsInMember(member, like.getId());
+        review.getLikes().add(like);
         validateLikeNotExistsInReview(review, like.getId());
     }
 
@@ -55,7 +55,9 @@ public class LikeService {
         Review review = like.getReview();
 
         member.getLikes().remove(like);
+        validateLikeExistsInMember(member, like.getId());
         review.getLikes().remove(like);
+        validateLikeExistsInReview(review, like.getId());
     }
 
     private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {
@@ -66,26 +68,34 @@ public class LikeService {
     }
 
     private void validateLikeNotExistsInMember(Member member, Long likeId) {
-        boolean isExist = isLikeExistsInMember(member, likeId);
+        boolean isExist = member.getLikes().stream()
+                .anyMatch(like -> like.getId().equals(likeId));
         if (!isExist) {
             throw new LikeException(LikeErrorCode.LIKE_NOT_FOUND_IN_MEMBER);
         }
     }
 
     private void validateLikeNotExistsInReview(Review review, Long likeId) {
-        boolean isExist = isLikeExistsInReview(review, likeId);
+        boolean isExist = review.getLikes().stream()
+                .anyMatch(like -> like.getId().equals(likeId));
         if (!isExist) {
             throw new LikeException(LikeErrorCode.LIKE_NOT_FOUND_IN_REVIEW);
         }
     }
 
-    private boolean isLikeExistsInMember(Member member, Long likeId) {
-        return member.getLikes().stream()
+    private void validateLikeExistsInMember(Member member, Long likeId) {
+        boolean isExist = member.getLikes().stream()
                 .anyMatch(like -> like.getId().equals(likeId));
+        if (isExist) {
+            throw new LikeException(LikeErrorCode.LIKE_NOT_CANCELED_IN_MEMBER);
+        }
     }
 
-    private boolean isLikeExistsInReview(Review review, Long likeId) {
-        return review.getLikes().stream()
+    private void validateLikeExistsInReview(Review review, Long likeId) {
+        boolean isExist = review.getLikes().stream()
                 .anyMatch(like -> like.getId().equals(likeId));
+        if (isExist) {
+            throw new LikeException(LikeErrorCode.LIKE_NOT_CANCELED_IN_REVIEW);
+        }
     }
 }
