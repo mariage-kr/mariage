@@ -26,9 +26,7 @@ jobs:
         run: |
           echo "sudo apt-get install redis-server"
           echo "sudo service redis-server start"
-        # run: sudo service redis-server start
 
-      # - name: Start Redis Server 🚀
       - name: Create Test Setting 🔨
         run: |
           echo "spring:" >> src/test/resources/security/application-database.yml
@@ -97,6 +95,7 @@ jobs:
 
     steps:
       - name: Get URL 🛒
+        if: true
         run: |
           echo "PR_URL=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
