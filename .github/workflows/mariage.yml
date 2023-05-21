@@ -99,7 +99,7 @@ jobs:
           echo "COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})" >> $GITHUB_ENV
 
       - name: Send Success Result to Discord 📩
-        if: ${{ needs.backend.result == 'success' && needs.frontend.result == 'success' }}
+        if: ${{ needs.Backend_CI.result == 'success' && needs.Frontend_CI.result == 'success' }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -107,13 +107,13 @@ jobs:
           color: "#48f442"
           username: "Mariage BOT 🤖"
           message: |
-            [${{ env.COMMIT_MESSAGE }}] CI Result 📜
+            Main Branch CI Result 📜
             Status : ["**Success**"]
             Repository : ${{ env.REPO_URL }}
             Commit : ${{ env.COMMIT_URL }}
 
       - name: Send Failed Result to Discord 📩
-        if: ${{ needs.backend.result != 'success' || needs.frontend.result != 'success' }}
+        if: ${{ needs.Backend_CI.result != 'success' || needs.Frontend_CI.result != 'success' }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -121,7 +121,7 @@ jobs:
           color: "#f44242"
           username: "Mariage BOT 🤖"
           message: |
-            [${{ env.COMMIT_MESSAGE }}] CI Result 📜
+            Main Branch CI Result 📜
             Status : [**Failure**]
             Repository : ${{ env.REPO_URL }}
             Commit : ${{ env.COMMIT_URL }}

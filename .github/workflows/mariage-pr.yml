@@ -123,7 +123,7 @@ jobs:
           color: "#f44242"
           username: "Mariage BOT 🤖"
           message: |
-            [${{ env.COMMIT_MESSAGE }}] CI Result 📜
+            [#${{ github.event.pull_request.number }}] CI Result 📜
             Status : [**Failure**]
             Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
