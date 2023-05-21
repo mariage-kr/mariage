@@ -15,9 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -39,6 +36,7 @@ public class LikeService {
                 .build();
 
         likeRepository.save(like);
+
         member.getLikes().add(like);
         review.getLikes().add(like);
         validateLikeNotExistsInMember(member, like.getId());

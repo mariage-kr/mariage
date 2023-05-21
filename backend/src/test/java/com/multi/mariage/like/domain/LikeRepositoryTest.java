@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class LikeRepositoryTest extends RepositoryTest {
 
     private Member member;
+    private Member member2;
     private Product product;
     private Image image;
     private Review review;
@@ -29,6 +30,7 @@ class LikeRepositoryTest extends RepositoryTest {
     void setUp() {
         image = saveImage(ImageFixture.JPEG_IMAGE);
         member = saveMember(MemberFixture.MARI);
+        member2 = saveMember(MemberFixture.SURI);
         product = saveProduct(ProductFixture.일품진로);
         weather = saveWeather(WeatherFixture.맑음_현재);
         review = saveReview(ReviewFixture.참이슬_치킨, member, product, image, weather);
@@ -64,8 +66,9 @@ class LikeRepositoryTest extends RepositoryTest {
     @Test
     void 해당_리뷰에_대한_좋아요의_개수를_확인한다() {
         saveLike(member, review);
+        saveLike(member2, review);
         int expected = likeRepository.countByReviewId(review.getId());
 
-        assertThat(expected).isEqualTo(1);
+        assertThat(expected).isEqualTo(2);
     }
 }
