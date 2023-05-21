@@ -92,10 +92,10 @@ jobs:
   Send_CI_Result:
     needs: [Backend_CI, Frontend_CI]
     runs-on: ubuntu-latest
+    if: ${{ needs.Backend_CI.result != 'failure' && needs.Frontend_CI.result != 'failure' }}
 
     steps:
       - name: Get URL 🛒
-        if: true
         run: |
           echo "PR_URL=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
