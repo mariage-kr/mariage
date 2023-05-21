@@ -97,8 +97,9 @@ jobs:
     steps:
       - name: Get URL 🛒
         run: |
-          echo "REPO_URL=$(curl -s "https://api.github.com/repos/${{ github.repository }}" | jq -r .html_url)" >> $GITHUB_ENV
+          echo "PR_URL=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           echo "COMMIT_URL=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
+          echo "COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})" >> $GITHUB_ENV
 
       - name: Send Success Result to Discord 📩
         if: ${{ needs.backend.result == 'success' || needs.frontend.result == 'success' }}
@@ -109,9 +110,9 @@ jobs:
           color: "#48f442"
           username: "Mariage BOT 🤖"
           message: |
-            Mariage Pull Request CI Test 📜
+            [${{env.COMMIT_MESSAGE}}] CI Result 📜
             Status : ["**Success**"]
-            Repository : ${{ env.REPO_URL }}
+            Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
 
       - name: Send Failed Result to Discord 📩
@@ -123,7 +124,7 @@ jobs:
           color: "#f44242"
           username: "Mariage BOT 🤖"
           message: |
-            Mariage Pull Request CI Test 📜
+            [${{env.COMMIT_MESSAGE}}] CI Result 📜
             Status : [**Failed**]
-            Repository : ${{ env.REPO_URL }}
+            Pull Request : ${{ env.PR_URL }}
             Commit : ${{ env.COMMIT_URL }}
