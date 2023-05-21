@@ -35,12 +35,12 @@ class LikeServiceTest extends ServiceTest {
         Image productImage = storageRepository.save(image1);
         Image foodImage = storageRepository.save(image2);
 
-        member = signup(MemberFixture.MARI);
-        user1 = signup(MemberFixture.SURI);
-        user2 = signup(MemberFixture.HARI);
-        user3 = signup(MemberFixture.DORI);
-        product = saveProduct(ProductFixture.참이슬, productImage.getId());
-        review = saveReview(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), foodImage.getId());
+        member = signup(MemberFixture.MARI);    // 리뷰를 작성한 사용자
+        user1 = signup(MemberFixture.SURI);     // 일반 사용자1
+        user2 = signup(MemberFixture.HARI);     // 일반 사용자2
+        user3 = signup(MemberFixture.DORI);     // 일반 사용자3
+        product = saveProduct(ProductFixture.참이슬, productImage.getId());    // 리뷰가 작성된 제품
+        review = saveReview(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), foodImage.getId());  // 제품에 대한 리뷰
     }
 
     @DisplayName("리뷰의 좋아요를 누른다.")
@@ -79,7 +79,7 @@ class LikeServiceTest extends ServiceTest {
     void 사용자가_리뷰의_좋아요를_취소할_때_사용자의_리스트에서도_삭제되는지_확인한다() {
 
         Long userId1 = user1.getId();
-        Long userId2=user2.getId();
+        Long userId2 = user2.getId();
         Long reviewId = review.getReviewId();
         reviewFixture = ReviewFixture.참이슬_치킨;
 
