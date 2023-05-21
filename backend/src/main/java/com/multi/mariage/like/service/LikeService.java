@@ -46,11 +46,11 @@ public class LikeService {
 
         likeRepository.delete(like);
 
-        Review review = like.getReview();
         Member member = like.getMember();
+        Review review = like.getReview();
 
-        review.getLikes().remove(like);
         member.getLikes().remove(like);
+        review.getLikes().remove(like);
     }
 
     private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {

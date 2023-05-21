@@ -7,6 +7,7 @@ import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
 import com.multi.mariage.storage.domain.Image;
 import org.assertj.core.api.Assertions;
@@ -77,15 +78,18 @@ class LikeServiceTest extends ServiceTest {
     @Test
     void 사용자가_리뷰의_좋아요를_취소할_때_사용자의_리스트에서도_삭제되는지_확인한다() {
 
-        Long memberId = user1.getId();
+        Long userId1 = user1.getId();
+        Long userId2=user2.getId();
         Long reviewId = review.getReviewId();
         reviewFixture = ReviewFixture.참이슬_치킨;
 
-        likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(reviewId));
-        likeService.remove(new AuthMember(memberId), reviewFixture.toRemoveLike(reviewId));
+        likeService.save(new AuthMember(userId1), reviewFixture.toSaveLike(reviewId));
+        likeService.save(new AuthMember(userId2), reviewFixture.toSaveLike(reviewId));
+        likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
 
-        int expected = user1.getLikes().size();
-        Assertions.assertThat(expected).isEqualTo(0);
+        int expected = user2.getLikes().size();
+        Assertions.assertThat(expected).isEqualTo(1);
+
     }
 
     @DisplayName("사용자가 리뷰의 좋아요를 취소할 때 리뷰가 받은 좋아요도 삭제되는지 확인한다.")
@@ -103,8 +107,12 @@ class LikeServiceTest extends ServiceTest {
         likeService.save(new AuthMember(userId3), reviewFixture.toSaveLike(reviewId));
         likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
 
-        int expected = findReviewLike(reviewId);
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
 
+        int reviewLike = findReviewLike(reviewId);
+        int expected = review.getLikes().size();
+
+        Assertions.assertThat(reviewLike).isEqualTo(2);
         Assertions.assertThat(expected).isEqualTo(2);
     }
 }
