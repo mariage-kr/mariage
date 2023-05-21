@@ -71,7 +71,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
           cache-dependency-path: "**/package-lock.json"
 
       - name: Install Dependencies By Package.json 🏗
@@ -93,7 +92,6 @@ jobs:
   Send_CI_Result:
     needs: [Backend_CI, Frontend_CI]
     runs-on: ubuntu-latest
-    if: ${{ needs.Backend_CI.result != 'failure' && needs.Frontend_CI.result != 'failure' }}
 
     steps:
       - name: Get URL 🛒
