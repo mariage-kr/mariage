@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductReviewsResponse {
-    private List<ProductReviewVO> reviews;
+    private List<ProductReviewVO> contents;
     private int pageNumber;
     private Long totalCount;
     private int pageSize;
@@ -20,8 +20,9 @@ public class ProductReviewsResponse {
     private boolean isLastPage;
 
     @Builder
-    public ProductReviewsResponse(List<ProductReviewVO> reviews, int pageNumber, Long totalCount, int pageSize, int totalPages, boolean isFirstPage, boolean isLastPage) {
-        this.reviews = reviews;
+    public ProductReviewsResponse(List<ProductReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
+                                  int totalPages, boolean isFirstPage, boolean isLastPage) {
+        this.contents = contents;
         this.pageNumber = pageNumber;
         this.totalCount = totalCount;
         this.pageSize = pageSize;

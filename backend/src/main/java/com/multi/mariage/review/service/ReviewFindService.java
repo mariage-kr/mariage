@@ -15,13 +15,15 @@ import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
 import com.multi.mariage.storage.service.ImageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class ReviewFindService {
     private final ReviewRepository reviewRepository;
@@ -39,21 +41,24 @@ public class ReviewFindService {
                 .pageNumber(pageNumber)
                 .build();
 
-        /* TODO: 2023/05/22 해당 제품의 리뷰 정보를 페이징해서 가져오기 */
-        List<Review> reviews = reviewRepository.findReviewByProductId(cond);
+        List<Review> reviews = reviewRepository.findReviewsByProductId(cond);
+
+        for (Review review : reviews) {
+            System.out.println("review " + review);
+        }
 
         List<ProductReviewVO> reviewVOList = getProductReviewList(reviews);
+        Long totalCount = reviewRepository.findReviewsCountByProductId(productId);
+        int totalPages = getTotalPages(pageSize, totalCount);
 
         return ProductReviewsResponse.builder()
                 .reviews(reviewVOList)
                 .pageSize(pageSize)
+                .totalCount(totalCount)
                 .pageNumber(pageNumber)
-                /* TODO: 2023/05/22 전체 페이지 구하기 */
-                .totalPages(1)
-                /* TODO: 2023/05/22 시작 페이지 인지 */
-                .isFirstPage(true)
-                /* TODO: 2023/05/22 마지막 페이지 인지 */
-                .isLastPage(true)
+                .totalPages(totalPages)
+                .isFirstPage(isFirstPage(pageNumber))
+                .isLastPage(isLastPage(pageNumber, totalPages))
                 .build();
     }
 
@@ -86,7 +91,8 @@ public class ReviewFindService {
         return ProductReviewMemberVO.builder()
                 .id(reviewWriter.getId())
                 .nickname(reviewWriter.getNickname())
-                .img(imageService.getImageUrl(reviewWriter.getImage().getName()))
+                .img("http://localhost:8080/image/profile.png")
+//                .img(imageService.getImageUrl(reviewWriter.getImage().getName()))
                 .build();
     }
 
@@ -115,5 +121,17 @@ public class ReviewFindService {
                 /* TODO: 2023/05/22 로그인한 유저이면 좋아요 정보를 얻어 오기 */
                 .isLiked(false)
                 .build();
+    }
+
+    private int getTotalPages(int pageSize, double totalCount) {
+        return (int) Math.ceil(totalCount / pageSize);
+    }
+
+    private boolean isFirstPage(int pageNumber) {
+        return pageNumber == 1;
+    }
+
+    private boolean isLastPage(int pageNumber, int totalPages) {
+        return pageNumber >= totalPages;
     }
 }

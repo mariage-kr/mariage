@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewFindController {
     private final ReviewFindService reviewFindService;
 
-    @GetMapping("/review/product/{productId}/{memberId}")
+    @GetMapping("/review/product/{productId}")
     public ResponseEntity<ProductReviewsResponse> findReviewsByProductId(@PathVariable("productId") Long productId,
-                                                                         @PathVariable("memberId") @Nullable Long memberId,
+                                                                         @Param("memberId") @Nullable Long memberId,
                                                                          @Param("pageNumber") int pageNumber,
                                                                          @Param("pageSize") int pageSize) {
         ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, memberId,pageNumber, pageSize);
