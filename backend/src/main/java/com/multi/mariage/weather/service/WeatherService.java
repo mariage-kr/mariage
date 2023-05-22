@@ -141,7 +141,7 @@ public class WeatherService {
         Weather latestWeather = findLatestWeather();
 
         return WeatherInfoResponse.builder()
-                .weather(latestWeather.getValue().getName())
+                .weather(latestWeather.getValue().name().toLowerCase())
                 .temp(latestWeather.getTemp())
                 .build();
     }
