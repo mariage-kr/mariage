@@ -3,6 +3,7 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.dto.response.ProductContentResponse;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
@@ -55,6 +56,15 @@ public class ProductFindService {
         return ProductInfoResponse.from(product, imageUrl);
     }
 
+    public ProductContentResponse findProductContent(Long productId) {
+        Product product = findById(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+        List<Review> reviews = product.getReviews();
+        double reviewRate = getReviewAverageRate(reviews);
+
+        return ProductContentResponse.from(product, imageUrl, reviewRate);
+    }
+
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
@@ -94,7 +104,7 @@ public class ProductFindService {
                 .productImageUrl(imageService.getImageUrl(product.getImage().getName()))
                 .reviewCount(reviews.size())
                 .reviewRate(getReviewAverageRate(reviews))
-                .country(country.getCountry())
+                .country(country.getValue())
                 .countryImageUrl(imageService.getImageUrl(country.getFlagName()))
                 .build();
     }

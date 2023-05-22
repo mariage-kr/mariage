@@ -43,7 +43,7 @@ public class ProductsVO {
                 .info(product.getInfo())
                 .upperCategory(upperCategory.getName())
                 .lowerCategory(lowerCategory.getName())
-                .country(country.getCountry())
+                .country(country.getValue())
                 .imageId(product.getImage().getId())
                 .imageUrl(imageUrl)
                 .build();

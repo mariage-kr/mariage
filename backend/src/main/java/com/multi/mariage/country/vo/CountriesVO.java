@@ -23,7 +23,7 @@ public class CountriesVO {
     public static CountriesVO from(Country country) {
         return CountriesVO.builder()
                 .id(country.getId())
-                .name(country.getCountry())
+                .name(country.getValue())
                 .value(country)
                 .build();
     }

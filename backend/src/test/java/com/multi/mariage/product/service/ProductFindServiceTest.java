@@ -5,6 +5,7 @@ import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.response.ProductContentResponse;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.vo.ProductsVO;
@@ -29,7 +30,6 @@ class ProductFindServiceTest extends ServiceTest {
 
         savedImage1 = storageRepository.save(image);
         ProductSaveRequest saveRequest = ProductFixture.참이슬.toProductSaveRequest(savedImage1.getId());
-
         참이슬 = productModifyService.save(saveRequest);
     }
 
@@ -45,6 +45,17 @@ class ProductFindServiceTest extends ServiceTest {
             assertThat(actual.getId()).isNotNull();
             assertThat(actual.getName()).isNotEmpty();
         }
+    }
+
+    @DisplayName("상세페이지의 제품 정보를 조회한다.")
+    @Test
+    void 상세페이지의_제품_정보를_조회한다() {
+        Image image = new Image(ProductFixture.산토리_위스키.getImageName());
+        Image 산토리_위스키_이미지 = storageRepository.save(image);
+        Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
+        Long productId = 산토리_위스키.getId();
+        ProductContentResponse response = productFindService.findProductContent(productId);
+        assertThat(response).isNotNull();
     }
 
     @DisplayName("전체기간_동안_가장_많은_리뷰가_달린_제품들을_추천한다")
