@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
+  position: relative;
   height: auto;
   margin: 0 auto;
 `;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Filter from './Filter/Filter';
+import Weather from './Weather/Weather';
 import ProductCardCarousel from './ProductCardCarousel/ProductCardCarousel';
 
 import * as S from './Recommend.styled';
@@ -16,6 +17,7 @@ const Recommend = () => {
   return (
     <S.Container>
       <Filter />
+      <Weather />
       <ProductCardCarousel />
     </S.Container>
   );
