@@ -136,6 +136,7 @@ public class WeatherService {
         return LocalDateTime.parse(dateFormat.format(date), formatter);
     }
 
+    @Transactional
     public WeatherInfoResponse findInfo() {
         Weather latestWeather = findLatestWeather();
         String imageUrl = imageService.getImageUrl(latestWeather.getValue().getImagePath());
