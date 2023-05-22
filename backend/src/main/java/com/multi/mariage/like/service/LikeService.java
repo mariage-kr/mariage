@@ -54,9 +54,9 @@ public class LikeService {
         Member member = like.getMember();
         Review review = like.getReview();
 
-        member.removeLike(member, like);
+        member.removeLike(like);
         validateLikeExistsInMember(member, like.getId());
-        review.removeLike(review, like);
+        review.removeLike(like);
         validateLikeExistsInReview(review, like.getId());
     }
 

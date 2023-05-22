@@ -78,8 +78,8 @@ public class Member {
         this.password = password;
     }
 
-    public void removeLike(Member member, Like like) {
-        member.getLikes().remove(like);
+    public void removeLike(Like like) {
+        this.likes.remove(like);
     }
 
     /* Embedded Getter */
