@@ -96,4 +96,8 @@ public class Review {
     public void changeImage(Image image) {
         this.image = image;
     }
+
+    public void removeLike(Review review, Like like) {
+        review.getLikes().remove(like);
+    }
 }
