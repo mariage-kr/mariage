@@ -71,7 +71,7 @@ public class LikeService {
         boolean isExist = member.getLikes().stream()
                 .anyMatch(like -> like.getId().equals(likeId));
         if (!isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_FOUND_IN_MEMBER);
+            throw new LikeException(LikeErrorCode.LIKE_NOT_EXIST_IN_MEMBER);
         }
     }
 
@@ -79,7 +79,7 @@ public class LikeService {
         boolean isExist = review.getLikes().stream()
                 .anyMatch(like -> like.getId().equals(likeId));
         if (!isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_FOUND_IN_REVIEW);
+            throw new LikeException(LikeErrorCode.LIKE_NOT_EXIST_IN_REVIEW);
         }
     }
 
