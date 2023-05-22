@@ -1,6 +1,7 @@
 package com.multi.mariage.common.fixture;
 
 import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.like.dto.request.LikeRemoveRequest;
 import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
@@ -64,5 +65,9 @@ public enum ReviewFixture {
 
     public LikeSaveRequest toSaveLike(Long reviewId) {
         return new LikeSaveRequest(reviewId);
+    }
+
+    public LikeRemoveRequest toRemoveLike(Long reviewId) {
+        return new LikeRemoveRequest(reviewId);
     }
 }

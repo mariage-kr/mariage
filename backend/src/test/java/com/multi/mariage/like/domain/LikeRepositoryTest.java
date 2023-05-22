@@ -12,12 +12,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class LikeRepositoryTest extends RepositoryTest {
 
     private Member member;
+    private Member member2;
     private Product product;
     private Image image;
     private Review review;
@@ -27,6 +30,7 @@ class LikeRepositoryTest extends RepositoryTest {
     void setUp() {
         image = saveImage(ImageFixture.JPEG_IMAGE);
         member = saveMember(MemberFixture.MARI);
+        member2 = saveMember(MemberFixture.SURI);
         product = saveProduct(ProductFixture.일품진로);
         weather = saveWeather(WeatherFixture.맑음_현재);
         review = saveReview(ReviewFixture.참이슬_치킨, member, product, image, weather);
@@ -47,5 +51,24 @@ class LikeRepositoryTest extends RepositoryTest {
         boolean expected = likeRepository.existsByMemberIdAndReviewId(member.getId(), review.getId());
 
         Assertions.assertThat(expected).isTrue();
+    }
+
+    @DisplayName("좋아요를 조회한다")
+    @Test
+    void 좋아요를_조회한다() {
+        saveLike(member, review);
+        Optional<Like> expected = likeRepository.findByMemberIdAndReviewId(member.getId(), review.getId());
+
+        assertThat(expected).isPresent();
+    }
+
+    @DisplayName("해당 리뷰에 대한 좋아요의 개수를 확인한다")
+    @Test
+    void 해당_리뷰에_대한_좋아요의_개수를_확인한다() {
+        saveLike(member, review);
+        saveLike(member2, review);
+        int expected = likeRepository.countByReviewId(review.getId());
+
+        assertThat(expected).isEqualTo(2);
     }
 }

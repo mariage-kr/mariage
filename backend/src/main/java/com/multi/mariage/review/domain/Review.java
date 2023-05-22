@@ -48,7 +48,7 @@ public class Review {
     @JoinColumn(name = "weather_id", nullable = false)
     private Weather weather;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private List<Like> likes = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
@@ -95,5 +95,9 @@ public class Review {
     /* 비즈니스 로직 */
     public void changeImage(Image image) {
         this.image = image;
+    }
+
+    public void removeLike(Like like) {
+        this.likes.remove(like);
     }
 }
