@@ -33,9 +33,9 @@ const Right = styled.div`
   width: 70%;
   height: auto;
   padding-top: 55px;
+  float: left;
 
-  @media (max-width:1520px) { width: 80%; }
-  @media (max-width:1320px) { width: 90%; }
+  @media (max-width:1520px) { width: 75%; }
 `;
 
 const Country = styled.div`

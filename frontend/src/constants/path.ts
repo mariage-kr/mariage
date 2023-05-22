@@ -25,6 +25,9 @@ const API_PATH = {
     UPDATE: '/api/user/product/update',
     IMAGE: '/api/user/product/image',
   },
+  REVIEW: {
+    PRODUCT: '/api/review/product'
+  },
   STORAGE: '/api/user/storage/image',
 };
 
