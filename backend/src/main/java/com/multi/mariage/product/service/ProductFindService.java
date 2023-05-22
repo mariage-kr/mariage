@@ -3,6 +3,7 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.dto.response.ProductContentResponse;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
@@ -10,6 +11,7 @@ import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.service.ReviewFindService;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +30,7 @@ public class ProductFindService {
     private final ImageService imageService;
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
+    private final ReviewFindService reviewFindService;
 
     public ProductFindResponse findProducts() {
         List<ProductsVO> productValues = getProductValues();
@@ -53,6 +57,15 @@ public class ProductFindService {
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
         return ProductInfoResponse.from(product, imageUrl);
+    }
+
+    public ProductContentResponse findProductContent(Long productId) {
+        Product product = findById(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+        List<Review> reviews = product.getReviews();
+        double reviewRate = getReviewAverageRate(reviews);
+
+        return ProductContentResponse.from(product, imageUrl, reviewRate);
     }
 
     public Product findById(Long id) {
@@ -94,7 +107,7 @@ public class ProductFindService {
                 .productImageUrl(imageService.getImageUrl(product.getImage().getName()))
                 .reviewCount(reviews.size())
                 .reviewRate(getReviewAverageRate(reviews))
-                .country(country.getCountry())
+                .country(country.getValue())
                 .countryImageUrl(imageService.getImageUrl(country.getFlagName()))
                 .build();
     }

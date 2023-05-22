@@ -14,13 +14,13 @@ public enum Country {
     CHINA(4, "중국", "china");
 
     private int id;
-    private String country;
+    private String value;
     private String flagName;
 
 
-    Country(int id, String country, String flagName) {
+    Country(int id, String value, String flagName) {
         this.id = id;
-        this.country = country;
+        this.value = value;
         this.flagName = flagName;
     }
 }
