@@ -115,7 +115,7 @@ jobs:
             Commit : ${{ env.COMMIT_URL }}
 
       - name: Send Failed Result to Discord 📩
-        if: ${{ needs.Backend_CI.result != 'success' || needs.Frontend_CI.result != 'success' }}
+        if: ${{ needs.Backend_CI.result == 'failure' || needs.Frontend_CI.result == 'failure' }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
