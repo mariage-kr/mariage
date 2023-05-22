@@ -1,6 +1,7 @@
 package com.multi.mariage.review.vo.product;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ public class ProductReviewMemberVO {
     private String nickname;
     private String img;
 
+    @Builder
     public ProductReviewMemberVO(Long id, String nickname, String img) {
         this.id = id;
         this.nickname = nickname;

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewFindController {
     private final ReviewFindService reviewFindService;
 
-    @GetMapping("/review/product")
-    public ResponseEntity<ProductReviewsResponse> findReviewsByProductId(@Param("productId") Long productId,
-                                                                         @Param("pageSize") int pageSize,
+    @GetMapping("/review/product/{productId}/{memberId}")
+    public ResponseEntity<ProductReviewsResponse> findReviewsByProductId(@PathVariable("productId") Long productId,
+                                                                         @PathVariable("memberId") @Nullable Long memberId,
                                                                          @Param("pageNumber") int pageNumber,
-                                                                         @Param("memberId") @Nullable Long memberId) {
-        ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, pageSize, pageNumber, memberId);
+                                                                         @Param("pageSize") int pageSize) {
+        ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, memberId,pageNumber, pageSize);
         return ResponseEntity.ok(response);
     }
 }
