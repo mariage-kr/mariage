@@ -29,15 +29,15 @@ public class HashtagService {
 
     @Transactional
     public List<Hashtag> findHashTagsByList(List<String> list) {
-        List<Hashtag> hashtags = new ArrayList<>();
-
-        for (String name : list) {
-            Hashtag hashtag = findByName(name);
-            hashtags.add(hashtag);
+        return list.stream()
+                .map(this::findByName)
+                .toList();
         }
 
-        // Remove hashtags with no associated reviewHashTags
-        List<Hashtag> removeHashtag = new ArrayList<>();
+        // 해시태그가 0되면 해시태그 자체를 지우기
+        public List<Hashtag> removeHashtagFromList(List<Hashtag> hashtags) {
+            List<Hashtag> removeHashtag = new ArrayList<>();
+
         for (Hashtag hashtag : hashtags) {
             if (hashtag.getReviewHashTags().size() == 0) {
                 removeHashtag.add(hashtag);
