@@ -1,5 +1,7 @@
 package com.multi.mariage.review.vo.product;
 
+import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.review.domain.Review;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +15,19 @@ public class ProductReviewFoodVO {
     private int rate;
 
     @Builder
-    public ProductReviewFoodVO(int id, String name, int rate) {
+    private ProductReviewFoodVO(int id, String name, int rate) {
         this.id = id;
         this.name = name;
         this.rate = rate;
+    }
+
+    public static ProductReviewFoodVO from(Review review) {
+        FoodCategory foodCategory = review.getFoodCategory();
+
+        return ProductReviewFoodVO.builder()
+                .id(foodCategory.getId())
+                .name(foodCategory.getName())
+                .rate(review.getFoodRate())
+                .build();
     }
 }

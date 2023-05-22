@@ -19,7 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,19 +43,14 @@ public class ReviewFindService {
                 .pageSize(pageSize)
                 .pageNumber(pageNumber)
                 .build();
-
         List<Review> reviews = reviewRepository.findReviewsByProductId(cond);
-
-        for (Review review : reviews) {
-            System.out.println("review " + review);
-        }
-
-        List<ProductReviewVO> reviewVOList = getProductReviewList(reviews);
         Long totalCount = reviewRepository.findReviewsCountByProductId(productId);
+
+        List<ProductReviewVO> reviewVOList = getProductReviewList(reviews, memberId);
         int totalPages = getTotalPages(pageSize, totalCount);
 
         return ProductReviewsResponse.builder()
-                .reviews(reviewVOList)
+                .contents(reviewVOList)
                 .pageSize(pageSize)
                 .totalCount(totalCount)
                 .pageNumber(pageNumber)
@@ -62,13 +60,13 @@ public class ReviewFindService {
                 .build();
     }
 
-    private List<ProductReviewVO> getProductReviewList(List<Review> reviews) {
+    private List<ProductReviewVO> getProductReviewList(List<Review> reviews, Long memberId) {
         return reviews.stream()
                 .map(review -> getProductReview(review,
                         getProductReviewMemberFrom(review),
                         getProductReviewContentFrom(review),
-                        getProductReviewFoodFrom(review),
-                        getProductReviewLikeFrom(review)))
+                        ProductReviewFoodVO.from(review),
+                        getProductReviewLikeFrom(review, memberId)))
                 .toList();
     }
 
@@ -88,18 +86,18 @@ public class ReviewFindService {
 
     private ProductReviewMemberVO getProductReviewMemberFrom(Review review) {
         Member reviewWriter = review.getMember();
+        String imageName = reviewWriter.getImage() != null ? reviewWriter.getImage().getName() : "profile.png";
+
         return ProductReviewMemberVO.builder()
                 .id(reviewWriter.getId())
                 .nickname(reviewWriter.getNickname())
-                .img("http://localhost:8080/image/profile.png")
-//                .img(imageService.getImageUrl(reviewWriter.getImage().getName()))
+                .img(imageService.getImageUrl(imageName))
                 .build();
     }
 
     private ProductReviewContentVO getProductReviewContentFrom(Review review) {
         return ProductReviewContentVO.builder()
-                /* TODO: 2023/05/22 날짜의 형식을 변경 */
-                .date(review.getDate().toString())
+                .date(convertToLocalDateFormat(review.getDate()))
                 .rate(review.getProductRate())
                 .content(review.getContent())
                 .img(imageService.getImageUrl(review.getImage().getName()))
@@ -107,19 +105,18 @@ public class ReviewFindService {
                 .build();
     }
 
-    private ProductReviewFoodVO getProductReviewFoodFrom(Review review) {
-        return ProductReviewFoodVO.builder()
-                .id(review.getFoodCategory().getId())
-                .name(review.getFoodCategory().getName())
-                .rate(review.getFoodRate())
-                .build();
+    private String convertToLocalDateFormat(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일");
+        return date.format(formatter);
     }
 
-    private ProductReviewLikeVO getProductReviewLikeFrom(Review review) {
+    private ProductReviewLikeVO getProductReviewLikeFrom(Review review, Long memberId) {
+        boolean isLiked = review.getLikes().stream()
+                .anyMatch(like -> Objects.equals(like.getMember().getId(), memberId));
+
         return ProductReviewLikeVO.builder()
                 .count(review.getLikes().size())
-                /* TODO: 2023/05/22 로그인한 유저이면 좋아요 정보를 얻어 오기 */
-                .isLiked(false)
+                .isLiked(isLiked)
                 .build();
     }
 
