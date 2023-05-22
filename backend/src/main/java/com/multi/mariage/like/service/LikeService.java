@@ -49,8 +49,6 @@ public class LikeService {
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), request.getReviewId())
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
-        likeRepository.delete(like);
-
         Member member = like.getMember();
         Review review = like.getReview();
 
@@ -58,6 +56,8 @@ public class LikeService {
         validateLikeExistsInMember(member, like.getId());
         review.removeLike(like);
         validateLikeExistsInReview(review, like.getId());
+
+        likeRepository.delete(like);
     }
 
     private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {
