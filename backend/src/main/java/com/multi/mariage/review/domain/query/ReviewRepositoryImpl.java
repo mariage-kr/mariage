@@ -1,7 +1,9 @@
 package com.multi.mariage.review.domain.query;
 
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -23,12 +25,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
     @Override
     public List<Review> findReviewsByProductId(ReviewsPagingCond cond) {
-        List<Long> reviewIds = queryFactory.select(review.id)
-                .from(review)
-                .where(review.product.id.eq(cond.getProductId()))
-                .offset(getOffset(cond))
-                .limit(cond.getPageSize())
-                .fetch();
+        List<Long> reviewIds = getPagingReviewIds(cond);
 
         return queryFactory.selectFrom(review)
                 .join(review.weather, weather).fetchJoin()
@@ -36,7 +33,27 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(review.image, image).fetchJoin()
                 .leftJoin(review.likes, like).fetchJoin()
                 .where(review.id.in(reviewIds))
+                .orderBy(review.id.desc())
                 .fetch();
+    }
+
+    private List<Long> getPagingReviewIds(ReviewsPagingCond cond) {
+        JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
+                .from(review)
+                .where(review.product.id.eq(cond.getProductId()))
+                .offset(getOffset(cond))
+                .limit(cond.getPageSize());
+
+        OrderSpecifier<Integer> sortOption = sortOption(cond.getSort());
+        if (sortOption != null) {
+            reviewIdsQuery = reviewIdsQuery.orderBy(sortOption);
+        }
+
+        return reviewIdsQuery.fetch();
+    }
+
+    private OrderSpecifier<Integer> sortOption(String sort) {
+        return sort.toUpperCase().equals(Sort.LIKED.name()) ? review.likes.size().desc() : null;
     }
 
     private long getOffset(ReviewsPagingCond cond) {
