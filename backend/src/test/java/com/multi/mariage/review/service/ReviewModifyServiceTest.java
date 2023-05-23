@@ -7,7 +7,7 @@ import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

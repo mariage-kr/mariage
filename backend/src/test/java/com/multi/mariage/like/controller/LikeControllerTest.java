@@ -10,7 +10,7 @@ import com.multi.mariage.like.dto.request.LikeRemoveRequest;
 import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.storage.domain.Image;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

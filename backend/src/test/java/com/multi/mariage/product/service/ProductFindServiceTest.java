@@ -8,7 +8,9 @@ import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.response.ProductContentResponse;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.ProductReviewStatsResponse;
 import com.multi.mariage.product.vo.ProductsVO;
+import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.domain.Image;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -131,5 +133,24 @@ class ProductFindServiceTest extends ServiceTest {
 
         /* then */
         assertThat(actual).hasSize(1);
+    }
+
+    @DisplayName("상세페이지의 제품에 대한 리뷰 별점 통계 정보를 조회한다.")
+    @Test
+    void 상세페이지의_제품에_대한_리뷰_별점_통계_정보를_조회한다() {
+        Image image = new Image(ProductFixture.산토리_위스키.getImageName());
+        Image 산토리_위스키_이미지 = storageRepository.save(image);
+        Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
+        Long productId = 산토리_위스키.getId();
+
+        ProductReviewStatsResponse response = productFindService.findProductReviewStats(productId);
+        assertThat(response).isNotNull();
+
+        List<ReviewRateVO> vo = response.getPercentageList();
+
+        for (ReviewRateVO actual : vo) {
+            assertThat(actual.getPercentage()).isNotNull();
+            assertThat(actual.getReviewRate()).isNotNull();
+        }
     }
 }

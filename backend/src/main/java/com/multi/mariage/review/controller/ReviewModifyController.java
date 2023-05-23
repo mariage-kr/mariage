@@ -3,7 +3,7 @@ package com.multi.mariage.review.controller;
 import com.multi.mariage.auth.annotation.Authenticated;
 import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
-import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
