@@ -31,6 +31,7 @@ public class LoaderData {
     private static ReviewSaveResponse 참이슬과고기2;
     private static ReviewSaveResponse 처음처럼과고기;
     private static ReviewSaveResponse 처음처럼과피자;
+    private static ReviewSaveResponse 처음처럼과피자2;
     private static ReviewSaveResponse 처음처럼과치킨;
     private static ReviewSaveResponse 처음처럼과회;
     private final InitMemberService memberService;
@@ -98,6 +99,7 @@ public class LoaderData {
             ReviewFixture fixture3 = ReviewFixture.처음처럼과_피자;
             ReviewFixture fixture4 = ReviewFixture.처음처럼과_치킨;
             ReviewFixture fixture5 = ReviewFixture.처음처럼과_회;
+            ReviewFixture fixture6 = ReviewFixture.처음처럼과_피자2;
             /* TODO: 2023/05/23 추후 Service 로 수정 */
             Image image1 = storageRepository.save(new Image(fixture1.getFoodImagePath()));
             Image image2 = storageRepository.save(new Image(fixture2.getFoodImagePath()));
@@ -107,6 +109,7 @@ public class LoaderData {
             참이슬과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture1.toSaveRequest(참이슬.getId(), image1.getId()));
             처음처럼과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture2.toSaveRequest(처음처럼.getId(), image2.getId()));
             처음처럼과피자 = reviewModifyService.save(new AuthMember(마리.getId()), fixture3.toSaveRequest(처음처럼.getId(), image3.getId()));
+            처음처럼과피자2 = reviewModifyService.save(new AuthMember(수리.getId()), fixture6.toSaveRequest(처음처럼.getId(), image1.getId()));
             처음처럼과치킨 = reviewModifyService.save(new AuthMember(마리.getId()), fixture4.toSaveRequest(처음처럼.getId(), image4.getId()));
             처음처럼과회 = reviewModifyService.save(new AuthMember(마리.getId()), fixture5.toSaveRequest(처음처럼.getId(), image5.getId()));
         }

@@ -7,24 +7,24 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class PairingFoodsVO {
+public class PairingFoodRatesVO {
     private int id; // 음식 id
-    private String imageUrl;    // 음식 이미지 url
+    //    private String imageUrl;    // 음식 이미지 url
     private String name;    // 음식 이름
     private double rate;    // 음식에 대한 평균평점
 
     @Builder
-    private PairingFoodsVO(int id, String imageUrl, String name, double rate) {
+    private PairingFoodRatesVO(int id, String name, double rate) {
         this.id = id;
-        this.imageUrl = imageUrl;
+//        this.imageUrl = imageUrl;
         this.name = name;
         this.rate = rate;
     }
 
-    public static PairingFoodsVO from(int id, String imageUrl, String name, double rate) {
-        return PairingFoodsVO.builder()
+    public static PairingFoodRatesVO from(int id, String name, double rate) {
+        return PairingFoodRatesVO.builder()
                 .id(id)
-                .imageUrl(imageUrl)
+//                .imageUrl(imageUrl)
                 .name(name)
                 .rate(rate)
                 .build();

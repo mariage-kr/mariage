@@ -2,7 +2,8 @@ package com.multi.mariage.product.controller;
 
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
-import com.multi.mariage.product.vo.FoodCountsVO;
+import com.multi.mariage.product.vo.PairingFoodCountsVO;
+import com.multi.mariage.product.vo.PairingFoodRatesVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
@@ -67,10 +68,17 @@ public class ProductFindController {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
         return ResponseEntity.ok(response);
     }
-// TODO: json 확인용이므로 최종 controller 정리 시 삭제
-    @GetMapping("/product/detail/food/{id}")
-    public ResponseEntity<List<FoodCountsVO>> getFoodsByReviewCount(@PathVariable Long id) {
-        List<FoodCountsVO> response = productFindService.getFoodsByReviewCount(id);
+
+    // TODO: json 확인용이므로 최종 controller 정리 시 삭제
+    @GetMapping("/product/detail/food/count/{id}")
+    public ResponseEntity<List<PairingFoodCountsVO>> getFoodsByReviewCount(@PathVariable Long id) {
+        List<PairingFoodCountsVO> response = productFindService.findFoodsByReviewCount(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/detail/food/rate/{id}")
+    public ResponseEntity<List<PairingFoodRatesVO>> getFoodsByReviewRate(@PathVariable Long id) {
+        List<PairingFoodRatesVO> response = productFindService.findFoodsByReviewRate(id);
         return ResponseEntity.ok(response);
     }
 }
