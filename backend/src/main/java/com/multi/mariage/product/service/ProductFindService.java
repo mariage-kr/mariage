@@ -1,6 +1,7 @@
 package com.multi.mariage.product.service;
 
 import com.multi.mariage.country.domain.Country;
+import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.condition.RecommendCond;
@@ -9,44 +10,31 @@ import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductDetailVO;
+import com.multi.mariage.product.vo.filter.ProductCountryFilterVO;
+import com.multi.mariage.product.vo.filter.ProductFilterVO;
+import com.multi.mariage.product.vo.filter.ProductReviewFilterVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class ProductFindService {
+public class ProductFindService extends PagingUtil {
     private final ImageService imageService;
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
 
-    private static void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
-        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
-            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
-            int percentage = (int) Math.round((double) count / reviewCount * 100);
-            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
-        }
-    }
-
-    private static Map<Integer, Integer> getRateCounts(List<Review> reviews) {
-        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
-        for (Review review : reviews) {
-            int reviewRate = review.getProductRate();
-            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
-        }
-        return reviewRateCounts;
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
     }
 
     public ProductFindResponse findProducts() {
@@ -56,13 +44,6 @@ public class ProductFindService {
                 .product(productValues)
                 .length(productValues.size())
                 .build();
-    }
-
-    public ProductInfoResponse findProductInfo(Long productId) {
-        Product product = findById(productId);
-        String imageUrl = imageService.getImageUrl(product.getImage().getName());
-
-        return ProductInfoResponse.from(product, imageUrl);
     }
 
     public ProductContentResponse findProductContent(Long productId) {
@@ -77,11 +58,6 @@ public class ProductFindService {
         List<ReviewRateVO> percentageList = getReviewPercentages(productId);
 
         return ProductReviewStatsResponse.from(product, percentageList);
-    }
-
-    public Product findById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
     }
 
     public List<ProductMainCardResponse> findWeather(int size) {
@@ -127,6 +103,35 @@ public class ProductFindService {
                 .toList();
     }
 
+    public ProductFilterResponse findByFilter(ProductFindByFilterRequest cond) {
+        List<ProductFilterVO> products = productRepository.findProductsByFilter(cond)
+                .stream()
+                .map(this::from)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        /* TODO: 2023/05/24 카운터 쿼리 */
+
+        return ProductFilterResponse.builder()
+                .contents(products)
+//                .totalCount()
+                .pageSize(cond.getPageSize())
+//                .totalPages()
+                .isFirstPage(isFirstPage(cond.getPageNumber()))
+//                .isLastPage()
+                .build();
+    }
+
+    private ProductFilterVO from(Product product) {
+        return ProductFilterVO.builder()
+                .id(product.getId())
+                .imageUrl(imageService.getImageUrl(product.getImage().getName()))
+                .name(product.getName())
+                .level(product.getLevel())
+                .country(ProductCountryFilterVO.from(product))
+                .review(ProductReviewFilterVO.from(product))
+                .build();
+    }
+
     public List<ReviewRateVO> getReviewPercentages(Long productId) {
         Product product = findById(productId);
         List<Review> reviews = product.getReviews();
@@ -139,7 +144,27 @@ public class ProductFindService {
         return percentageList;
     }
 
-    public void findByFilter(ProductFindByFilterRequest cond) {
-        productRepository.findProductsByFilter(cond);
+    private Map<Integer, Integer> getRateCounts(List<Review> reviews) {
+        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
+        for (Review review : reviews) {
+            int reviewRate = review.getProductRate();
+            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
+        }
+        return reviewRateCounts;
+    }
+
+    private void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
+        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
+            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
+            int percentage = (int) Math.round((double) count / reviewCount * 100);
+            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
+        }
+    }
+
+    public ProductInfoResponse findProductInfo(Long productId) {
+        Product product = findById(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
+        return ProductInfoResponse.from(product, imageUrl);
     }
 }

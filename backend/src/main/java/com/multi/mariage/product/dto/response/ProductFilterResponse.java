@@ -6,10 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductFilterResponse {
-    private ProductFilterVO contents;
+    private List<ProductFilterVO> contents;
     private int pageNumber;
     private Long totalCount;
     private int pageSize;
@@ -18,7 +20,8 @@ public class ProductFilterResponse {
     private boolean isLastPage;
 
     @Builder
-    public ProductFilterResponse(ProductFilterVO contents, int pageNumber, Long totalCount, int pageSize, int totalPages, boolean isFirstPage, boolean isLastPage) {
+    public ProductFilterResponse(List<ProductFilterVO> contents, int pageNumber, Long totalCount, int pageSize,
+                                 int totalPages, boolean isFirstPage, boolean isLastPage) {
         this.contents = contents;
         this.pageNumber = pageNumber;
         this.totalCount = totalCount;

@@ -41,9 +41,9 @@ public class ProductFindController {
     }
 
     @GetMapping("/product/find/filter")
-    public ResponseEntity<Void> findProductsByFilter(ProductFindByFilterRequest cond) {
-        productFindService.findByFilter(cond);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ProductFilterResponse> findProductsByFilter(ProductFindByFilterRequest cond) {
+        ProductFilterResponse response = productFindService.findByFilter(cond);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/product/detail/{id}")

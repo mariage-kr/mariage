@@ -85,6 +85,12 @@ public class Product {
         return (double) totalReviewRate / reviews.size();
     }
 
+    public void changeTotalReviewRate(int score) {
+        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. */
+        totalReviewRate += score;
+        avgReviewRate = (double) totalReviewRate / reviews.size();
+    }
+
     public void update(ProductUpdateRequest request) {
         this.name = Name.of(request.getName());
         this.info = Info.of(request.getInfo());
@@ -101,9 +107,7 @@ public class Product {
         return info.getValue();
     }
 
-    public void changeTotalReviewRate(int score) {
-        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. */
-        totalReviewRate += score;
-        avgReviewRate = (double) totalReviewRate / reviews.size();
+    public double getLevel() {
+        return this.level.getValue();
     }
 }

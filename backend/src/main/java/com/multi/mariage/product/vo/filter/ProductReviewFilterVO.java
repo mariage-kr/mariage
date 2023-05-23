@@ -1,5 +1,6 @@
 package com.multi.mariage.product.vo.filter;
 
+import com.multi.mariage.product.domain.Product;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +10,18 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductReviewFilterVO {
     private double reviewRate;
-    private double reviewCount;
+    private int reviewCount;
 
     @Builder
-    public ProductReviewFilterVO(double reviewRate, double reviewCount) {
+    private ProductReviewFilterVO(double reviewRate, int reviewCount) {
         this.reviewRate = reviewRate;
         this.reviewCount = reviewCount;
+    }
+
+    public static ProductReviewFilterVO from(Product product) {
+        return ProductReviewFilterVO.builder()
+                .reviewRate(product.getAvgReviewRate())
+                .reviewCount(product.getReviews().size())
+                .build();
     }
 }

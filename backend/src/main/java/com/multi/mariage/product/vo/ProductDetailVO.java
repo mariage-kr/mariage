@@ -39,7 +39,7 @@ public class ProductDetailVO {
         return ProductDetailVO.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .level(product.getLevel().getValue())
+                .level(product.getLevel())
                 .info(product.getInfo())
                 .upperCategory(upperCategory.getName())
                 .lowerCategory(lowerCategory.getName())

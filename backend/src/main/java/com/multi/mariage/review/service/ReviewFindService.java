@@ -1,9 +1,11 @@
 package com.multi.mariage.review.service;
 
 
+import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
@@ -14,7 +16,6 @@ import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
-import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.storage.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class ReviewFindService {
+public class ReviewFindService extends PagingUtil {
     private final ReviewRepository reviewRepository;
     private final ImageService imageService;
 
@@ -133,17 +134,5 @@ public class ReviewFindService {
                 .map(ReviewHashtag::getHashtag)
                 .map(Hashtag::getName)
                 .toList();
-    }
-
-    private int getTotalPages(int pageSize, double totalCount) {
-        return (int) Math.ceil(totalCount / pageSize);
-    }
-
-    private boolean isFirstPage(int pageNumber) {
-        return pageNumber == 1;
-    }
-
-    private boolean isLastPage(int pageNumber, int totalPages) {
-        return pageNumber >= totalPages;
     }
 }
