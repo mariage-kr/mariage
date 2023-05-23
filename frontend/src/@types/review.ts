@@ -4,6 +4,7 @@ type ReviewType = {
   content: ReviewContentType;
   like: ReviewLikeType;
   food: ReviewFoodType;
+  hashtags: string[];
 };
 
 type ReviewMemberType = {
