@@ -24,9 +24,11 @@ import org.springframework.stereotype.Component;
 public class LoaderData {
 
     private static Member 마리;
+    private static Member 수리;
     private static Product 참이슬;
     private static Product 처음처럼;
     private static ReviewSaveResponse 참이슬과고기;
+    private static ReviewSaveResponse 참이슬과고기2;
     private static ReviewSaveResponse 처음처럼과고기;
     private static ReviewSaveResponse 처음처럼과피자;
     private static ReviewSaveResponse 처음처럼과치킨;
@@ -49,6 +51,7 @@ public class LoaderData {
 
         public void init() {
             마리 = memberService.signup(MemberFixture.MARI.toSignupRequest());
+            수리 = memberService.signup(MemberFixture.SURI.toSignupRequest());
         }
     }
 
@@ -95,6 +98,7 @@ public class LoaderData {
             ReviewFixture fixture3 = ReviewFixture.처음처럼과_피자;
             ReviewFixture fixture4 = ReviewFixture.처음처럼과_치킨;
             ReviewFixture fixture5 = ReviewFixture.처음처럼과_회;
+            /* TODO: 2023/05/23 추후 Service 로 수정 */
             Image image1 = storageRepository.save(new Image(fixture1.getFoodImagePath()));
             Image image2 = storageRepository.save(new Image(fixture2.getFoodImagePath()));
             Image image3 = storageRepository.save(new Image(fixture3.getFoodImagePath()));

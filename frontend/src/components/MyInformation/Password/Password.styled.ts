@@ -37,7 +37,7 @@ const Input = styled.input`
     box-shadow: 2px 2px 5px #9c94d077;
   }
 
-  &:nth-child(1) {
+  &:nth-of-type(1) {
     margin: 0 auto 20px;
   }
 `;

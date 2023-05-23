@@ -10,12 +10,10 @@ import lombok.NoArgsConstructor;
 public class WeatherInfoResponse {
     private String weather;
     private double temp;
-    private String imageUrl;
 
     @Builder
-    public WeatherInfoResponse(String weather, double temp, String imageUrl) {
+    public WeatherInfoResponse(String weather, double temp) {
         this.weather = weather;
         this.temp = temp;
-        this.imageUrl = imageUrl;
     }
 }

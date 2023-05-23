@@ -136,14 +136,13 @@ public class WeatherService {
         return LocalDateTime.parse(dateFormat.format(date), formatter);
     }
 
+    @Transactional
     public WeatherInfoResponse findInfo() {
         Weather latestWeather = findLatestWeather();
-        String imageUrl = imageService.getImageUrl(latestWeather.getValue().getImagePath());
 
         return WeatherInfoResponse.builder()
-                .weather(latestWeather.getValue().getName())
+                .weather(latestWeather.getValue().name().toLowerCase())
                 .temp(latestWeather.getTemp())
-                .imageUrl(imageUrl)
                 .build();
     }
 }

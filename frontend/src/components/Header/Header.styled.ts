@@ -17,7 +17,7 @@ const Logo = styled.div`
   @media (max-width:1400px) { width: 17%; }
   @media (max-width:1250px) { width: 18%; }
   @media (max-width:1160px) { width: 20%; }
-  @media (max-width:1065px) { width: 22%; }
+  @media (max-width:1065px) { width: 21%; }
   
   @keyframes animate {
   0%,
@@ -59,11 +59,11 @@ const Header = styled.h1`
   text-shadow: 1px 1px 10px #9c94d033;
   font-size: 2.7rem;
 
-  &:nth-child(1) {
+  &:nth-of-type(1) {
     color: transparent;
     -webkit-text-stroke: 2px #9c94d055;
   }
-  &:nth-child(2) {
+  &:nth-of-type(2) {
     color: #9c94d0;
     animation: animate 4s ease-in-out infinite;
   }
@@ -73,7 +73,7 @@ const Nav = styled.div`
   float: left;
   width: 20%;
   min-width: 160px;
-  margin-top: 20px;
+  margin-top: 25px;
   box-sizing: border-box;
 
   @media (max-width:1160px) { width: 15%; }
@@ -95,16 +95,19 @@ const SearchArea = styled.div`
   box-sizing: border-box;
 
   @media (max-width:1065px) { width: 28%; }
+  @media (max-width:1030px) { width: 27%; }
 `;
 
 const UserArea = styled.div`
   float: right;
   width: 25%;
-  margin-top: 20px;
+  margin-top: 25px;
   box-sizing: border-box;
 
-  @media (max-width:1310px) { width: 30%; }
+  @media (max-width:1385px) { width: 30%; }
+  @media (max-width:1030px) { width: 31%; }
   @media (max-width:1005px) { width: 28%; }
+  @media (max-width:985px) { width: 29%; }
 `;
 
 const StyledLink = styled(Link)`
