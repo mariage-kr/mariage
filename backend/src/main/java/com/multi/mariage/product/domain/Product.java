@@ -36,9 +36,8 @@ public class Product {
 
     @Embedded
     private Info info;
-    /* TODO: 2023/05/24 리뷰의 점수는 0점 미만으로 될 수 없다 */
-    private Long reviewScore = 0L;
-
+    private Long totalReviewRate = 0L;
+    private double avgReviewRate = 0.0D;
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
@@ -76,6 +75,10 @@ public class Product {
     }
 
     /* 비즈니스 로직 */
+    public double getReviewAvgRate() {
+        return (double) totalReviewRate / reviews.size();
+    }
+
     public void update(ProductUpdateRequest request) {
         this.name = Name.of(request.getName());
         this.info = Info.of(request.getInfo());
@@ -92,7 +95,9 @@ public class Product {
         return info.getValue();
     }
 
-    public void changeReviewScore(int score) {
-        this.reviewScore += score;
+    public void changeTotalReviewRate(int score) {
+        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. */
+        totalReviewRate += score;
+        avgReviewRate = (double) totalReviewRate / reviews.size();
     }
 }

@@ -85,8 +85,9 @@ public class Review {
     }
 
     public void setProduct(Product product) {
-        product.getReviews().add(this);
         this.product = product;
+        product.getReviews().add(this);
+        product.changeTotalReviewRate(productRate);
     }
 
     public void setMember(Member member) {

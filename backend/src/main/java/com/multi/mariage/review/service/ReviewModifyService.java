@@ -45,7 +45,6 @@ public class ReviewModifyService {
         review.setProduct(product);
         review.setWeather(weather);
         review.changeImage(image);
-        product.changeReviewScore(request.getProductRate());
 
         Review savedReview = reviewRepository.save(review);
         return new ReviewSaveResponse(savedReview.getId());

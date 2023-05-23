@@ -98,7 +98,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
-                /* TODO: 2023/05/23 별점 사이 Product 객체에 ReviewRate 평균 필요 */
                 .orderBy(sortOption(cond.getSort()))
                 .offset(getOffset(cond.getPageNumber(), cond.getPageSize()))
                 .limit(cond.getPageSize())
@@ -129,7 +128,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             return product.reviews.size().desc();
         }
         if (sort.equals(RATE)) {
-            /* TODO: 2023/05/23 평균 별점 순으로 내림차순 */
+            return product.avgReviewRate.desc();
         }
         return null;
     }
