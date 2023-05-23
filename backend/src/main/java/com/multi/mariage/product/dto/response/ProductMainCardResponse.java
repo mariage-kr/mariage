@@ -14,17 +14,17 @@ public class ProductMainCardResponse {
     private int reviewCount;
     private double reviewRate;
     private String country;
-    private String countryImageUrl;
+    private int countryId;
 
     @Builder
     public ProductMainCardResponse(Long productId, String productName, String productImageUrl, int reviewCount,
-                                   double reviewRate, String country, String countryImageUrl) {
+                                   double reviewRate, String country, int countryId) {
         this.productId = productId;
         this.productName = productName;
         this.productImageUrl = productImageUrl;
         this.reviewCount = reviewCount;
         this.reviewRate = reviewRate;
         this.country = country;
-        this.countryImageUrl = countryImageUrl;
+        this.countryId = countryId;
     }
 }
