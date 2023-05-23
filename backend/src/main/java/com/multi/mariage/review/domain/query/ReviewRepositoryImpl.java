@@ -36,6 +36,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(review.image, image).fetchJoin()
                 .leftJoin(review.likes, like).fetchJoin()
                 .where(review.id.in(reviewIds))
+                .orderBy(review.id.desc())
                 .fetch();
     }
 
