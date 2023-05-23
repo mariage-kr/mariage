@@ -72,7 +72,7 @@ class ProductFindControllerTest extends ControllerTest {
                                         fieldWithPath("[].reviewCount").description("제품 리뷰 개수"),
                                         fieldWithPath("[].reviewRate").description("제품 리뷰 평균 점수"),
                                         fieldWithPath("[].country").description("제조국"),
-                                        fieldWithPath("[].countryImageUrl").description("제조국 국기 사진의 URL")
+                                        fieldWithPath("[].countryId").description("제조국 식별 번호")
                                 )
                         )
                 ).andExpect(status().isOk());
@@ -101,7 +101,7 @@ class ProductFindControllerTest extends ControllerTest {
                                         fieldWithPath("[].reviewCount").description("제품 리뷰 개수"),
                                         fieldWithPath("[].reviewRate").description("제품 리뷰 평균 점수"),
                                         fieldWithPath("[].country").description("제조국"),
-                                        fieldWithPath("[].countryImageUrl").description("제조국 국기 사진의 URL")
+                                        fieldWithPath("[].countryId").description("제조국 식별 번호")
                                 )
                         )
                 ).andExpect(status().isOk());
@@ -130,7 +130,7 @@ class ProductFindControllerTest extends ControllerTest {
                                         fieldWithPath("[].reviewCount").description("제품 리뷰 개수"),
                                         fieldWithPath("[].reviewRate").description("제품 리뷰 평균 점수"),
                                         fieldWithPath("[].country").description("제조국"),
-                                        fieldWithPath("[].countryImageUrl").description("제조국 국기 사진의 URL")
+                                        fieldWithPath("[].countryId").description("제조국 식별 번호")
                                 )
                         )
                 ).andExpect(status().isOk());
