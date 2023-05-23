@@ -10,6 +10,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -20,6 +21,7 @@ import static com.multi.mariage.review.domain.QReview.review;
 import static com.multi.mariage.storage.domain.QImage.image;
 import static com.multi.mariage.weather.domain.QWeather.weather;
 
+@Slf4j
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private static final String WEEK = "week".toLowerCase();
     private static final String MONTH = "month".toLowerCase();
@@ -98,14 +100,26 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
-                .orderBy(sortOption(cond.getSort()))
                 .offset(getOffset(cond.getPageNumber(), cond.getPageSize()))
                 .limit(cond.getPageSize())
                 .fetch();
 
         return queryFactory.selectFrom(product)
+                .join(product.image, image).fetchJoin()
+                .leftJoin(product.reviews, review).fetchJoin()
                 .where(product.id.in(productIds))
+                .orderBy(sortOption(cond.getSort()))
                 .fetch();
+    }
+
+    @Override
+    public Long countProductWithFilter(ProductFindByFilterRequest cond) {
+        return queryFactory.select(product.count())
+                .from(product)
+                .where(equalsUpperCategory(cond.getUpperCategory()))
+                .where(equalsLowerCategory(cond.getLowerCategory()))
+                .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
+                .fetchFirst();
     }
 
     private BooleanExpression equalsUpperCategory(DrinkUpperCategory upperCategory) {

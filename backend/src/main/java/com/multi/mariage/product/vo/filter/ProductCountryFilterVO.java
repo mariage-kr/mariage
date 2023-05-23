@@ -4,10 +4,11 @@ import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
+@Data
 public class ProductCountryFilterVO {
     private int countryId;
     private String country;

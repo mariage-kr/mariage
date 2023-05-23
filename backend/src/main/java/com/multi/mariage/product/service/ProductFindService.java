@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -104,32 +103,33 @@ public class ProductFindService extends PagingUtil {
     }
 
     public ProductFilterResponse findByFilter(ProductFindByFilterRequest cond) {
-        List<ProductFilterVO> products = productRepository.findProductsByFilter(cond)
-                .stream()
-                .map(this::from)
-                .collect(Collectors.toCollection(LinkedList::new));
+        List<Product> products = productRepository.findProductsByFilter(cond);
+        List<ProductFilterVO> contents = getContentsByFilter(products);
 
-        /* TODO: 2023/05/24 카운터 쿼리 */
+        Long totalCount = productRepository.countProductWithFilter(cond);
+        int totalPages = getTotalPages(cond.getPageSize(), totalCount);
 
         return ProductFilterResponse.builder()
-                .contents(products)
-//                .totalCount()
+                .contents(contents)
+                .pageNumber(cond.getPageNumber())
+                .totalCount(totalCount)
                 .pageSize(cond.getPageSize())
-//                .totalPages()
+                .totalPages(totalPages)
                 .isFirstPage(isFirstPage(cond.getPageNumber()))
-//                .isLastPage()
+                .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
                 .build();
     }
 
-    private ProductFilterVO from(Product product) {
-        return ProductFilterVO.builder()
-                .id(product.getId())
-                .imageUrl(imageService.getImageUrl(product.getImage().getName()))
-                .name(product.getName())
-                .level(product.getLevel())
-                .country(ProductCountryFilterVO.from(product))
-                .review(ProductReviewFilterVO.from(product))
-                .build();
+    private List<ProductFilterVO> getContentsByFilter(List<Product> products) {
+        List<ProductFilterVO> contents = new LinkedList<>();
+        for (Product product : products) {
+            String imageUrl = imageService.getImageUrl(product.getImage().getName());
+            ProductFilterVO content = ProductFilterVO.from(product, imageUrl,
+                    ProductCountryFilterVO.from(product),
+                    ProductReviewFilterVO.from(product));
+            contents.add(content);
+        }
+        return contents;
     }
 
     public List<ReviewRateVO> getReviewPercentages(Long productId) {
