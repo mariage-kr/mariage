@@ -10,9 +10,11 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
+import static com.multi.mariage.hashtag.domain.QHashtag.hashtag;
 import static com.multi.mariage.like.domain.QLike.like;
 import static com.multi.mariage.member.domain.QMember.member;
 import static com.multi.mariage.review.domain.QReview.review;
+import static com.multi.mariage.review_hashtag.domain.QReviewHashtag.reviewHashtag;
 import static com.multi.mariage.storage.domain.QImage.image;
 import static com.multi.mariage.weather.domain.QWeather.weather;
 
@@ -32,6 +34,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .join(review.member, member).fetchJoin()
                 .leftJoin(review.image, image).fetchJoin()
                 .leftJoin(review.likes, like).fetchJoin()
+                .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
+                .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
                 .where(review.id.in(reviewIds))
                 .orderBy(review.id.desc())
                 .fetch();

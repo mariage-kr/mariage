@@ -6,8 +6,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,7 +22,7 @@ public class Hashtag {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "hashtag")
-    private List<ReviewHashtag> reviewHashTags = new ArrayList<>();
+    private Set<ReviewHashtag> reviewHashTags = new HashSet<>();
 
     public Hashtag(String name) {
         this.name = name;

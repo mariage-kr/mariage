@@ -4,13 +4,12 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import { ReviewType } from '@/@types/review';
 
 import * as S from './ReviewContent.styled';
+import useUserInfo from '@/hooks/useUserInfo';
 
 function ReviewContent(review: ReviewType) {
-  const hashTags = [
-    { id: 1, value: '크리스마스' },
-    { id: 2, value: '데이트' },
-    { id: 3, value: '달달한' },
-  ];
+  const { userInfo } = useUserInfo();
+
+  const memberId: number | undefined = userInfo?.id;
 
   return (
     <S.Container>
@@ -30,22 +29,23 @@ function ReviewContent(review: ReviewType) {
                 />
               </S.RateDate>
               <S.RateDate>
-                <S.Date>{review.content.data}</S.Date>
+                <S.Date>{review.content.date}</S.Date>
               </S.RateDate>
             </S.Profile>
           </S.TopLeft>
           <S.TopRight>
-            {/* TODO: 리뷰의 작성한 유저의 ID와 자신의 ID가 동일 할 시 보이게 */}
-            <S.BtnWrap>
-              {/* TODO: 수정 모달창으로 할지 고민 */}
-              <S.Btn css={S.updateBtn}>수정</S.Btn>
-              {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
-              <S.Btn css={S.deleteBtn}>삭제</S.Btn>
-            </S.BtnWrap>
+            {memberId === review.member.id && (
+              <S.BtnWrap>
+                {/* TODO: 수정 모달창으로 할지 고민 */}
+                <S.Btn css={S.updateBtn}>수정</S.Btn>
+                {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
+                <S.Btn css={S.deleteBtn}>삭제</S.Btn>
+              </S.BtnWrap>
+            )}
             <S.Like>
               <LikeButton
-                liked={review.like.isLiked}
-                likeCount={review.like.likeCount}
+                liked={review.like.liked}
+                likeCount={review.like.count}
                 /* TODO: 추후 AXIOS 함수로 수정 */
                 onClick={() => console.log('추후 axios 함수가 필요합니다')}
               />
@@ -54,7 +54,8 @@ function ReviewContent(review: ReviewType) {
         </S.Top>
         <S.Bottom>
           <S.Food>
-            <S.FoodImg src={review.food.img} />
+            {/* todo: 추후 이미지 컴포넌트로 대체 */}
+            {/* <S.FoodImg src={review.food.id} /> */}
             <S.FoodName>{review.food.name}</S.FoodName>
             <S.ReviewRateText>
               궁합별점 &nbsp;&nbsp;&nbsp;
@@ -66,8 +67,8 @@ function ReviewContent(review: ReviewType) {
               <S.ReviewContentText>
                 {review.content.content}
               </S.ReviewContentText>
-              {hashTags.map(tag => (
-                <S.HashTag>#{tag.value}</S.HashTag>
+              {review.hashtags.map((hashtag: string) => (
+                <S.HashTag>#{hashtag}</S.HashTag>
               ))}
             </S.ReviewText>
             {review.content.img && (

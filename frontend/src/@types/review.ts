@@ -4,6 +4,7 @@ type ReviewType = {
   content: ReviewContentType;
   like: ReviewLikeType;
   food: ReviewFoodType;
+  hashtags: string[];
 };
 
 type ReviewMemberType = {
@@ -13,21 +14,22 @@ type ReviewMemberType = {
 };
 
 type ReviewContentType = {
-  data: string;
+  date: string;
   rate: number;
   content: string;
   img: string;
+  weather: string;
 };
 
 type ReviewLikeType = {
-  isLiked: boolean;
-  likeCount: number;
+  liked: boolean;
+  count: number;
 };
 
 type ReviewFoodType = {
+  id: number;
   name: string;
   rate: number;
-  img: string;
 };
 
 type ReviewSaveType = {

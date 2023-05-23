@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductReviewVO {
@@ -17,13 +19,16 @@ public class ProductReviewVO {
     private ProductReviewContentVO content;
     private ProductReviewLikeVO like;
     private ProductReviewFoodVO food;
+    private List<String> hashtags;
 
     @Builder
-    public ProductReviewVO(Long id, ProductReviewMemberVO member, ProductReviewContentVO content, ProductReviewLikeVO like, ProductReviewFoodVO food) {
+    public ProductReviewVO(Long id, ProductReviewMemberVO member, ProductReviewContentVO content,
+                           ProductReviewLikeVO like, ProductReviewFoodVO food, List<String> hashtags) {
         this.id = id;
         this.member = member;
         this.content = content;
         this.like = like;
         this.food = food;
+        this.hashtags = hashtags;
     }
 }
