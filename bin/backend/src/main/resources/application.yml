@@ -1,0 +1,11 @@
+spring:
+  config:
+    import:
+      - security/application-database.yml
+      - security/application-openWeatherMap.yml
+      - security/application-path.yml
+      - application-logging.yml
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop

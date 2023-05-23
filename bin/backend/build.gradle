@@ -1,0 +1,109 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.6'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
+}
+
+configurations {
+    asciidoctorExt
+}
+
+group = 'com.multi'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'org.projectlombok:lombok:1.18.26'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    /* Database */
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    runtimeOnly 'com.h2database:h2'
+    /* Security */
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    /* JWT */
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+    /* Querydsl */
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    /* Open API */
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    /* p6spy */
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+    /* Spring Rest Docs */
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+/* Querydsl Start */
+def generated = 'src/main/generated'
+
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+sourceSets {
+    main.java.srcDirs += [generated]
+}
+
+clean {
+    delete file(generated)
+}
+/* Querydsl End */
+
+/* RestDocs Start */
+tasks.named('test') {
+    useJUnitPlatform()
+
+    outputs.dir snippetsDir
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+asciidoctor {
+    forkOptions {
+        jvmArgs('--add-opens', 'java.base/sun.nio.ch=ALL-UNNAMED',
+                '--add-opens', 'java.base/java.io=ALL-UNNAMED')
+    }
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    dependsOn test
+    baseDirFollowsSourceFile()
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs/*')
+}
+
+bootJar {
+    dependsOn asciidoctor
+
+    copy {
+        from "${asciidoctor.outputDir}"
+        into file("src/main/resources/static/docs")
+    }
+
+    copy {
+        from file("src/main/resources/static")
+        into file("build/resources/main/static")
+    }
+}
+/* RestDocs End */

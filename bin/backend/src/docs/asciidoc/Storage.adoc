@@ -1,0 +1,35 @@
+= Storage API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== API 목록
+
+'''
+
+- http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/category.html[Category^]
+- http://localhost:8080/docs/member.html[Member^]
+- http://localhost:8080/docs/review.html[Review^]
+
+== 이미지 저장
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Storage/Save/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Storage/Save/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Storage/Save/response-fields.adoc
