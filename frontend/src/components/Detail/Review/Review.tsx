@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import ReviewCategory from './ReviewCategory/ReviewCategory';
 import ReviewContent from './ReviewContent/ReviewContent';
@@ -8,18 +7,14 @@ import RateStatistic from './RateStatistic/RateStatistic';
 import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 
+import useUserInfo from '@/hooks/useUserInfo';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { ProductContentType } from '@/@types/product';
 import { getDetailReviews } from '@/apis/request/review';
 import editIcon from '@/assets/png/edit.png';
-import { API_PATH } from '@/constants/path';
 
 import * as S from './Review.styled';
-
-import reviewsData from './ReviewContent/ReviewsData.json';
-
-import useUserInfo from '@/hooks/useUserInfo';
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review(productContent: ProductContentType) {
@@ -47,7 +42,6 @@ function Review(productContent: ProductContentType) {
 
     await getDetailReviews(productId, memberId, page, 'liked')
       .then((fetchReviews: PagingType<ReviewType>) => {
-        console.log(fetchReviews);
         setReviews(prevReviews => [...prevReviews, ...fetchReviews.contents]);
         setHasMore(fetchReviews.lastPage === false);
       })
@@ -59,23 +53,6 @@ function Review(productContent: ProductContentType) {
       });
   }, []);
 
-  useEffect(() => {
-    fetchReview(userInfo?.id);
-  }, []);
-
-  /* 무한스크롤 */
-  const getFetchData = useCallback(async () => {
-    try {
-      const response = await axios.get(API_PATH.REVIEW.PRODUCT);
-      const data: PagingType<ReviewType> = response.data;
-      setReviews(prevResult => [...prevResult, ...data.contents]);
-      setHasMore(data.lastPage === false);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
-    }
-  }, [page]);
-
   const infiniteScroll = useCallback(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop ===
@@ -86,11 +63,16 @@ function Review(productContent: ProductContentType) {
   }, []);
 
   useEffect(() => {
+    fetchReview(userInfo?.id);
+  }, []);
+
+  // TODO:
+  useEffect(() => {
     if (hasMore && !isLoading) {
       setIsLoading(true);
-      getFetchData();
+      // getFetchData();
     }
-  }, [hasMore, isLoading, getFetchData]);
+  }, [hasMore, isLoading]);
 
   useEffect(() => {
     window.addEventListener('scroll', infiniteScroll);

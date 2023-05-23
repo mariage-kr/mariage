@@ -1,6 +1,5 @@
 package com.multi.mariage.review.vo.product;
 
-import com.multi.mariage.weather.domain.Weather;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;

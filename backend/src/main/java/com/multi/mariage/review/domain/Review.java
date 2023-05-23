@@ -17,7 +17,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,7 +54,7 @@ public class Review {
     private List<Like> likes = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
-    private List<ReviewHashtag> reviewHashtags = new ArrayList<>();
+    private Set<ReviewHashtag> reviewHashtags = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "food_category_id")

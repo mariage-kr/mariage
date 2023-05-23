@@ -1,10 +1,10 @@
 package com.multi.mariage.review.service;
 
 
+import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
 import com.multi.mariage.review.dto.resonse.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
@@ -14,6 +14,7 @@ import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
+import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
 import com.multi.mariage.storage.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +71,8 @@ public class ReviewFindService {
                         getProductReviewMemberFrom(review),
                         getProductReviewContentFrom(review),
                         ProductReviewFoodVO.from(review),
-                        getProductReviewLikeFrom(review, memberId)))
+                        getProductReviewLikeFrom(review, memberId),
+                        getHashtags(review)))
                 .toList();
     }
 
@@ -78,13 +80,15 @@ public class ReviewFindService {
                                              ProductReviewMemberVO memberVO,
                                              ProductReviewContentVO contentVO,
                                              ProductReviewFoodVO foodVO,
-                                             ProductReviewLikeVO likeVO) {
+                                             ProductReviewLikeVO likeVO,
+                                             List<String> hashtags) {
         return ProductReviewVO.builder()
                 .id(review.getId())
                 .member(memberVO)
                 .content(contentVO)
                 .food(foodVO)
                 .like(likeVO)
+                .hashtags(hashtags)
                 .build();
     }
 
@@ -122,6 +126,13 @@ public class ReviewFindService {
                 .count(review.getLikes().size())
                 .isLiked(isLiked)
                 .build();
+    }
+
+    private List<String> getHashtags(Review review) {
+        return review.getReviewHashtags().stream()
+                .map(ReviewHashtag::getHashtag)
+                .map(Hashtag::getName)
+                .toList();
     }
 
     private int getTotalPages(int pageSize, double totalCount) {
