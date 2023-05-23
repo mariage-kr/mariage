@@ -7,56 +7,69 @@ import {
   Rain,
   Snow,
   ThunderStorm,
-  Cloudy,
-  SandDust,
+  Clouds,
+  Etc,
 } from '@/components/Animation/Weather';
 
 interface WeatherData {
-  condition: string;
-  temperature: number;
+  weather: string;
+  name: string;
+  temp: number;
 }
-
-const weatherComponents = [
-  { condition: 'sunny', components: Sunny },
-  { condition: 'rain', components: Rain },
-  { condition: 'snow', components: Snow },
-  { condition: 'thunderStorm', components: ThunderStorm },
-  { condition: 'cloudy', components: Cloudy },
-  { condition: 'sandDust', components: SandDust },
-];
 
 function Weather() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   useEffect(() => {
-    const fetchWeatherData = async () => {
-      try {
-        const response = await axios.get('/api/weather/info');
-        setWeatherData(response.data);
-      } catch (error) {
-        console.error('날씨 데이터를 가져올 수 없습니다.', error);
-      }
+    const fetchWeatherData = () => {
+      axios
+        .get('/api/weather/info')
+        .then(response => {
+          setWeatherData({ ...response.data });
+          console.log(response);
+        })
+        .catch(error => {
+          console.error('날씨 정보를 가져올 수 없습니다.', error);
+        });
     };
 
     fetchWeatherData();
   }, []);
+  console.log(weatherData);
+
+  const getWeatherComponent = (weather: string) => {
+    const lowerCaseWeather = weather.toLowerCase();
+
+    switch (lowerCaseWeather) {
+      case 'clear':
+        return <Sunny />;
+      case 'rain':
+        return <Rain />;
+      case 'drizzle':
+        return <Rain />;
+      case 'snow':
+        return <Snow />;
+      case 'thunderstorm':
+        return <ThunderStorm />;
+      case 'clouds':
+        return <Clouds />;
+      default:
+        return <Etc />;
+    }
+  };
 
   return (
     <S.Container>
       <S.WeatherWrap>
         {weatherData && (
           <>
-            {weatherData.condition === 'sunny' && <Sunny />}
-            {weatherData.condition === 'rain' && <Rain />}
-            {weatherData.condition === 'snow' && <Snow />}
-            {weatherData.condition === 'thunderStorm' && <ThunderStorm />}
-            {weatherData.condition === 'cloudy' && <Cloudy />}
-            {weatherData.condition === 'sandDust' && <SandDust />}
-            <S.Temperature>{weatherData.temperature} °C</S.Temperature>
+            {getWeatherComponent(weatherData.weather)}
+            <div>
+              <S.Temperature>{weatherData.temp} °</S.Temperature>
+              <S.Name>{weatherData.name} </S.Name>
+            </div>
           </>
         )}
-        {/* <Sunny/>
-        <S.Temperature>맑음</S.Temperature> */}
       </S.WeatherWrap>
     </S.Container>
   );
