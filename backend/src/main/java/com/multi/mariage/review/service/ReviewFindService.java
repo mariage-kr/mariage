@@ -4,6 +4,7 @@ package com.multi.mariage.review.service;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
+import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
 import com.multi.mariage.review.dto.resonse.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
@@ -37,12 +38,15 @@ public class ReviewFindService {
                 .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
     }
 
-    public ProductReviewsResponse findReviewsByProductId(Long productId, Long memberId, int pageNumber, int pageSize) {
+    public ProductReviewsResponse findReviewsByProductId(Long productId, Long memberId,
+                                                         int pageNumber, int pageSize, String sort) {
         ReviewsPagingCond cond = ReviewsPagingCond.builder()
                 .productId(productId)
                 .pageSize(pageSize)
                 .pageNumber(pageNumber)
+                .sort(sort)
                 .build();
+
         List<Review> reviews = reviewRepository.findReviewsByProductId(cond);
         Long totalCount = reviewRepository.findReviewsCountByProductId(productId);
 
