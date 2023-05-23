@@ -9,11 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class WeatherInfoResponse {
     private String weather;
+    private String name;
     private double temp;
 
     @Builder
-    public WeatherInfoResponse(String weather, double temp) {
+    public WeatherInfoResponse(String weather, String name, double temp) {
         this.weather = weather;
+        this.name = name;
         this.temp = temp;
     }
 }
