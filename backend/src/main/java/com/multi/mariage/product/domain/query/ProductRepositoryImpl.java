@@ -1,6 +1,7 @@
 package com.multi.mariage.product.domain.query;
 
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.product.dto.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -57,6 +58,22 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     @Override
     public List<Product> findMonth(int size) {
         List<Long> productIds = getProductIdsByDate(size, MONTH);
+
+        return getRecommendProducts(productIds);
+    }
+
+    @Override
+    public List<Product> findDate(RecommendCond cond) {
+        List<Long> productIds = queryFactory.select(product.id)
+                .from(product)
+                .join(product.reviews, review)
+                .join(review.weather, weather)
+                .where(betweenRangeDate(cond.getOption()))
+                .groupBy(product.id)
+                .orderBy(product.reviews.size().desc())
+                .offset(0)
+                .limit(cond.getSize())
+                .fetch();
 
         return getRecommendProducts(productIds);
     }

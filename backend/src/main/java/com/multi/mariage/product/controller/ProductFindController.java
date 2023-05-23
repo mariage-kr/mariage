@@ -61,6 +61,13 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/product/recommend")
+    public ResponseEntity<List<ProductMainCardResponse>> findRecommendProducts(@Param("size") int size,
+                                                                               @Param("option") String option) {
+        List<ProductMainCardResponse> response = productFindService.findRecommendProducts(size, option);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/product/detail/stats/{id}")
     public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);

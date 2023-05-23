@@ -1,6 +1,7 @@
 package com.multi.mariage.product.domain.query;
 
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.product.dto.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public interface ProductRepositoryCustom {
     List<Product> findMonth(int size);
 
     List<Product> findTotal(int size);
+    List<Product> findDate(RecommendCond cond);
 
 }
