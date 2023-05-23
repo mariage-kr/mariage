@@ -36,6 +36,8 @@ public class Product {
 
     @Embedded
     private Info info;
+    /* TODO: 2023/05/24 리뷰의 점수는 0점 미만으로 될 수 없다 */
+    private Long reviewScore = 0L;
 
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
@@ -88,5 +90,9 @@ public class Product {
 
     public String getInfo() {
         return info.getValue();
+    }
+
+    public void changeReviewScore(int score) {
+        this.reviewScore += score;
     }
 }
