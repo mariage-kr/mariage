@@ -11,11 +11,6 @@ public interface ProductRepositoryCustom {
 
     List<Product> findWeather(int size, Weather latestWeather);
 
-    List<Product> findWeek(int size);
-
-    List<Product> findMonth(int size);
-
-    List<Product> findTotal(int size);
     List<Product> findDate(RecommendCond cond);
 
 }

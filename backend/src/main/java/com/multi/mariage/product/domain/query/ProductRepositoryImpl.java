@@ -48,20 +48,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return getRecommendProducts(productIdsByWeather);
     }
 
-    @Override
-    public List<Product> findWeek(int size) {
-        List<Long> productIds = getProductIdsByDate(size, WEEK);
-
-        return getRecommendProducts(productIds);
-    }
-
-    @Override
-    public List<Product> findMonth(int size) {
-        List<Long> productIds = getProductIdsByDate(size, MONTH);
-
-        return getRecommendProducts(productIds);
-    }
-
+    /* https://velog.io/@cksdnr066/WARN-firstResultmaxResults-specified-with-collection-fetch-applying-in-memory */
     @Override
     public List<Product> findDate(RecommendCond cond) {
         List<Long> productIds = queryFactory.select(product.id)
@@ -78,19 +65,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return getRecommendProducts(productIds);
     }
 
-    private List<Long> getProductIdsByDate(int size, String cond) {
-        return queryFactory.select(product.id)
-                .from(product)
-                .join(product.reviews, review)
-                .join(review.weather, weather)
-                .where(betweenRangeDate(cond))
-                .groupBy(product.id)
-                .orderBy(product.reviews.size().desc())
-                .offset(0)
-                .limit(size)
-                .fetch();
-    }
-
     private BooleanExpression betweenRangeDate(String cond) {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         if (cond.equals(WEEK)) {
@@ -100,19 +74,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             return weather.date.between(now.minusMonths(1), now);
         }
         return null;
-    }
-
-    /* https://velog.io/@cksdnr066/WARN-firstResultmaxResults-specified-with-collection-fetch-applying-in-memory */
-    @Override
-    public List<Product> findTotal(int size) {
-        List<Long> productIds = queryFactory.select(product.id)
-                .from(product)
-                .orderBy(product.reviews.size().desc())
-                .offset(0)
-                .limit(size)
-                .fetch();
-
-        return getRecommendProducts(productIds);
     }
 
     private List<Product> getRecommendProducts(List<Long> productIds) {

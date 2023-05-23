@@ -94,24 +94,6 @@ public class ProductFindService {
         return products.stream().map(this::toProductMainCard).toList();
     }
 
-    public List<ProductMainCardResponse> findWeek(int size) {
-        List<Product> products = productRepository.findWeek(size);
-
-        return products.stream().map(this::toProductMainCard).toList();
-    }
-
-    public List<ProductMainCardResponse> findMonth(int size) {
-        List<Product> products = productRepository.findMonth(size);
-
-        return products.stream().map(this::toProductMainCard).toList();
-    }
-
-    public List<ProductMainCardResponse> findTotal(int size) {
-        List<Product> products = productRepository.findTotal(size);
-
-        return products.stream().map(this::toProductMainCard).toList();
-    }
-
     public List<ProductMainCardResponse> findRecommendProducts(int size, String option) {
         RecommendCond cond = RecommendCond.builder()
                 .size(size)
@@ -119,7 +101,8 @@ public class ProductFindService {
                 .build();
 
         List<Product> products = productRepository.findDate(cond);
-        return null;
+
+        return products.stream().map(this::toProductMainCard).toList();
     }
 
     private ProductMainCardResponse toProductMainCard(Product product) {
