@@ -8,7 +8,7 @@ import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
-import com.multi.mariage.product.vo.ProductsVO;
+import com.multi.mariage.product.vo.ProductDetailVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
@@ -50,7 +50,7 @@ public class ProductFindService {
     }
 
     public ProductFindResponse findProducts() {
-        List<ProductsVO> productValues = getProductValues();
+        List<ProductDetailVO> productValues = getProductValues();
 
         return ProductFindResponse.builder()
                 .product(productValues)
@@ -116,13 +116,13 @@ public class ProductFindService {
                 .build();
     }
 
-    private List<ProductsVO> getProductValues() {
+    private List<ProductDetailVO> getProductValues() {
         List<Product> products = productRepository.findAll();
 
         return products.stream()
                 .map(product -> {
                     String imageUrl = imageService.getImageUrl(product.getImage().getName());
-                    return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
+                    return ProductDetailVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
                 })
                 .toList();
     }

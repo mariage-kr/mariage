@@ -103,10 +103,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .limit(cond.getPageSize())
                 .fetch();
 
-        return queryFactory.select(product)
-                .from(product)
-                .leftJoin(product.reviews).fetchJoin()
-                /* TODO: 2023/05/23 음식에 대한 평균 별점이 필요 */
+        return queryFactory.selectFrom(product)
                 .where(product.id.in(productIds))
                 .fetch();
     }

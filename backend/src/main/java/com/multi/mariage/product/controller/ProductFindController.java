@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -24,25 +27,6 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/find/filter")
-    public ResponseEntity<Void> findProductsByFilter(ProductFindByFilterRequest cond) {
-        productFindService.findByFilter(cond);
-        return ResponseEntity.ok().build();
-    }
-
-    /* TODO: 2023/05/19 추후 해당 권한은 관리자만 가능하게 할 예정입니다. */
-    @GetMapping("/user/product/info")
-    public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
-        ProductInfoResponse response = productFindService.findProductInfo(productId);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/product/detail/{id}")
-    public ResponseEntity<ProductContentResponse> findProductContentById(@PathVariable Long id) {
-        ProductContentResponse response = productFindService.findProductContent(id);
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/product/recommend/weather")
     public ResponseEntity<List<ProductMainCardResponse>> findWeather(@Param("size") int size) {
         List<ProductMainCardResponse> response = productFindService.findWeather(size);
@@ -56,9 +40,28 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/product/find/filter")
+    public ResponseEntity<Void> findProductsByFilter(ProductFindByFilterRequest cond) {
+        productFindService.findByFilter(cond);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/product/detail/{id}")
+    public ResponseEntity<ProductContentResponse> findProductContentById(@PathVariable Long id) {
+        ProductContentResponse response = productFindService.findProductContent(id);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/product/detail/stats/{id}")
     public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
+        return ResponseEntity.ok(response);
+    }
+
+    /* TODO: 2023/05/19 추후 해당 권한은 관리자만 가능하게 할 예정입니다. */
+    @GetMapping("/user/product/info")
+    public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
+        ProductInfoResponse response = productFindService.findProductInfo(productId);
         return ResponseEntity.ok(response);
     }
 }

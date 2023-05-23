@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ProductsVO {
+public class ProductDetailVO {
     private Long id;
     private String name;
     private double level;
@@ -23,7 +23,7 @@ public class ProductsVO {
     private String imageUrl;
 
     @Builder
-    private ProductsVO(Long id, String name, double level, String info, String upperCategory, String lowerCategory, String country, Long imageId, String imageUrl) {
+    private ProductDetailVO(Long id, String name, double level, String info, String upperCategory, String lowerCategory, String country, Long imageId, String imageUrl) {
         this.id = id;
         this.name = name;
         this.level = level;
@@ -35,8 +35,8 @@ public class ProductsVO {
         this.imageUrl = imageUrl;
     }
 
-    public static ProductsVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country, String imageUrl) {
-        return ProductsVO.builder()
+    public static ProductDetailVO from(Product product, DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, Country country, String imageUrl) {
+        return ProductDetailVO.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .level(product.getLevel().getValue())
