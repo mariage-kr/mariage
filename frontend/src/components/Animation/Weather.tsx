@@ -9,7 +9,14 @@ import etc from '@/assets/lottie/weather/etc.json';
 const style = {
   width: '20%',
   minWidth: '120px',
-  backgroundColor: '#9c94d070',
+};
+
+const backgroundStyle = {
+  width: '20%',
+  minWidth: '120px',
+  padding: '10px',
+  boxSizing: 'border-box' as const,
+  backgroundColor: '#00000030',
   borderRadius: '50%',
 };
 
@@ -17,17 +24,17 @@ export function Sunny() {
   return <Lottie animationData={sunny} style={style} />;
 }
 export function Rain() {
-  return <Lottie animationData={rain} style={style} />;
+  return <Lottie animationData={rain} style={backgroundStyle} />;
 }
 export function Snow() {
-  return <Lottie animationData={snow} style={style} />;
+  return <Lottie animationData={snow} style={backgroundStyle} />;
 }
 export function ThunderStorm() {
-  return <Lottie animationData={thunderStorm} style={style} />;
+  return <Lottie animationData={thunderStorm} style={backgroundStyle} />;
 }
 export function Clouds() {
-  return <Lottie animationData={clouds} style={style} />;
+  return <Lottie animationData={clouds} style={backgroundStyle} />;
 }
 export function Etc() {
-  return <Lottie animationData={etc} style={style} />;
+  return <Lottie animationData={etc} style={backgroundStyle} />;
 }
