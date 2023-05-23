@@ -142,6 +142,7 @@ public class WeatherService {
 
         return WeatherInfoResponse.builder()
                 .weather(latestWeather.getValue().name().toLowerCase())
+                .name(latestWeather.getValue().getName())
                 .temp(latestWeather.getTemp())
                 .build();
     }
