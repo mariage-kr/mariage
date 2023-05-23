@@ -1,10 +1,11 @@
-import LikeButton from '@/components/Button/Like/Like';
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 
+import LikeButton from '@/components/Button/Like/Like';
 import { ReviewType } from '@/@types/review';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
-import useUserInfo from '@/hooks/useUserInfo';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
@@ -56,6 +57,7 @@ function ReviewContent(review: ReviewType) {
           <S.Food>
             {/* todo: 추후 이미지 컴포넌트로 대체 */}
             {/* <S.FoodImg src={review.food.id} /> */}
+            <FoodCategoryImg id={review.food.id} />
             <S.FoodName>{review.food.name}</S.FoodName>
             <S.ReviewRateText>
               궁합별점 &nbsp;&nbsp;&nbsp;
