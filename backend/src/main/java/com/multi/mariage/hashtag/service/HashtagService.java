@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class HashtagService {
 
         // 해시태그가 0되면 해시태그 자체를 지우기
         public List<Hashtag> removeHashtagFromList(List<Hashtag> hashtags) {
-            List<Hashtag> removeHashtag = new ArrayList<>();
+            List<Hashtag> removeHashtag = new LinkedList<>();
 
         for (Hashtag hashtag : hashtags) {
             if (hashtag.getReviewHashTags().size() == 0) {

@@ -12,11 +12,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 class ReviewHashtagServiceTest extends ServiceTest {
 
     private Long reviewId;
     private ReviewFixture reviewFixture;
     private ReviewHashtagService reviewHashtagService;
+    private Review review;
 
     @BeforeEach
     void setUp() {
@@ -25,13 +29,11 @@ class ReviewHashtagServiceTest extends ServiceTest {
         Member member = signup(MemberFixture.MARI);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
         Product product = saveProduct(ProductFixture.참이슬, imageId);
-        HashTag hashtag1 = new HashTag("태그1");
-        HashTag hashtag2 = new HashTag("태그2");
 
+        reviewFixture.addHashTag(new HashTag("태그1"));
+        reviewFixture.addHashTag(new HashTag("태그2"));
         reviewId = saveReview(reviewFixture, member.getId(), product.getId(), imageId).getReviewId();
 
-        reviewFixture.addHashTag(hashtag1);
-        reviewFixture.addHashTag(hashtag2);
     }
 
     @DisplayName("해시태그와 리뷰의 연관관계를 저장한다.")
@@ -44,18 +46,19 @@ class ReviewHashtagServiceTest extends ServiceTest {
         reviewHashtagService.saveAll(reviewFixture.getHashtags(), review);
     }
 
-    @DisplayName("해시태그와 리뷰의 연관관계를 삭제한다.(리뷰의 해시태그를 삭제한다.)")
+    @DisplayName("해시태그와 리뷰의 연관관계를 삭제한다.")
     @Test
-    void removeHashtagFromReview() {
-        List<String> hashtagsToRemove = Arrays.asList("태그1");
+    void 해시태그와_리뷰의_연관관계를_삭제한다() {
+
+        List<String> hashtagsToRemove = new LinkedList<>(Arrays.asList("태그1"));
 
         List<HashTag> existingHashTags = review.getHashTags();
         List<HashTag> tagsToRemove = reviewHashtagService.findHashTagsByList(hashtagsToRemove);
 
-        // 리뷰에 이미 존재하는 해시태그 목록에서 일치하는 해시태그만 제거합니다.
+        // 리뷰에 이미 존재하는 해시태그 목록에서 일치하는 해시태그만 제거
         existingHashTags.removeAll(tagsToRemove);
 
-        // 리뷰의 해시태그 목록에서 삭제된 해시태그가 존재하는지 확인합니다.
+        // 리뷰의 해시태그 목록에서 삭제된 해시태그가 존재하는지 확인
         List<HashTag> updatedHashTags = review.getHashTags();
 
         assertThat(updatedHashTags).doesNotContainAnyElementsOf(tagsToRemove);
