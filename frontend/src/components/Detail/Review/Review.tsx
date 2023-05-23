@@ -16,10 +16,13 @@ import { API_PATH } from '@/constants/path';
 import * as S from './Review.styled';
 
 import reviewsData from './ReviewContent/ReviewsData.json';
+import { getDetailReviews } from '@/apis/request/review';
+import { useParams } from 'react-router-dom';
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review(productContent: ProductContentType) {
   /* 무한스크롤 */
+  const param = useParams();
   const [result, setResult] = useState<ReviewType[]>([]);
   // const [item, setItem] = useState<ReviewType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -34,6 +37,11 @@ function Review(productContent: ProductContentType) {
   }, [isOpenModal]);
 
   // const data: PagingType<ReviewType> = reviewsData;
+
+  const fetchReview = useCallback(async () => {
+    const productId: number = Number.parseInt(param.id!);
+    console.log(getDetailReviews(productId, 1, 1, 'liked'));
+  }, []);
 
   /* 무한스크롤 */
   const getFetchData = useCallback(async () => {

@@ -19,7 +19,9 @@ function Routes() {
     <BrowserRoutes>
       <Route path={BROWSER_PATH.BASE} element={<Main />} />
       <Route path={BROWSER_PATH.ADMIN} element={<Admin />} />
-      <Route path={BROWSER_PATH.DETAIL} element={<Detail />} />
+      <Route path={BROWSER_PATH.DETAIL}>
+        <Route path={':id'} element={<Detail />} />
+      </Route>
       <Route path={BROWSER_PATH.MY} element={<MyInformation />} />
       <Route path={BROWSER_PATH.PRODUCT} element={<Product />} />
       <Route path={BROWSER_PATH.LOGIN} element={<Login />} />

@@ -13,4 +13,8 @@ const MEMBER_RULE = {
   },
 };
 
-export { MEMBER_RULE };
+const PAGING = {
+  PAGE_SIZE: 5,
+};
+
+export { MEMBER_RULE, PAGING };
