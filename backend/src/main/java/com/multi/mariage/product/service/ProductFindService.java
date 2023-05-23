@@ -3,6 +3,7 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.dto.RecommendCond;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
@@ -93,20 +94,13 @@ public class ProductFindService {
         return products.stream().map(this::toProductMainCard).toList();
     }
 
-    public List<ProductMainCardResponse> findWeek(int size) {
-        List<Product> products = productRepository.findWeek(size);
+    public List<ProductMainCardResponse> findRecommendDate(int size, String option) {
+        RecommendCond cond = RecommendCond.builder()
+                .size(size)
+                .option(option)
+                .build();
 
-        return products.stream().map(this::toProductMainCard).toList();
-    }
-
-    public List<ProductMainCardResponse> findMonth(int size) {
-        List<Product> products = productRepository.findMonth(size);
-
-        return products.stream().map(this::toProductMainCard).toList();
-    }
-
-    public List<ProductMainCardResponse> findTotal(int size) {
-        List<Product> products = productRepository.findTotal(size);
+        List<Product> products = productRepository.findDate(cond);
 
         return products.stream().map(this::toProductMainCard).toList();
     }

@@ -1,6 +1,7 @@
 package com.multi.mariage.product.domain.query;
 
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.product.dto.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -47,31 +48,21 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return getRecommendProducts(productIdsByWeather);
     }
 
+    /* https://velog.io/@cksdnr066/WARN-firstResultmaxResults-specified-with-collection-fetch-applying-in-memory */
     @Override
-    public List<Product> findWeek(int size) {
-        List<Long> productIds = getProductIdsByDate(size, WEEK);
-
-        return getRecommendProducts(productIds);
-    }
-
-    @Override
-    public List<Product> findMonth(int size) {
-        List<Long> productIds = getProductIdsByDate(size, MONTH);
-
-        return getRecommendProducts(productIds);
-    }
-
-    private List<Long> getProductIdsByDate(int size, String cond) {
-        return queryFactory.select(product.id)
+    public List<Product> findDate(RecommendCond cond) {
+        List<Long> productIds = queryFactory.select(product.id)
                 .from(product)
                 .join(product.reviews, review)
                 .join(review.weather, weather)
-                .where(betweenRangeDate(cond))
+                .where(betweenRangeDate(cond.getOption()))
                 .groupBy(product.id)
                 .orderBy(product.reviews.size().desc())
                 .offset(0)
-                .limit(size)
+                .limit(cond.getSize())
                 .fetch();
+
+        return getRecommendProducts(productIds);
     }
 
     private BooleanExpression betweenRangeDate(String cond) {
@@ -83,19 +74,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             return weather.date.between(now.minusMonths(1), now);
         }
         return null;
-    }
-
-    /* https://velog.io/@cksdnr066/WARN-firstResultmaxResults-specified-with-collection-fetch-applying-in-memory */
-    @Override
-    public List<Product> findTotal(int size) {
-        List<Long> productIds = queryFactory.select(product.id)
-                .from(product)
-                .orderBy(product.reviews.size().desc())
-                .offset(0)
-                .limit(size)
-                .fetch();
-
-        return getRecommendProducts(productIds);
     }
 
     private List<Product> getRecommendProducts(List<Long> productIds) {

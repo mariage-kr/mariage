@@ -1,8 +1,5 @@
 package com.multi.mariage.product.dto.response;
 
-import com.multi.mariage.category.domain.DrinkLowerCategory;
-import com.multi.mariage.category.domain.DrinkUpperCategory;
-import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import lombok.AccessLevel;
 import lombok.Data;
