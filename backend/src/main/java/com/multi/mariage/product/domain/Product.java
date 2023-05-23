@@ -2,6 +2,7 @@ package com.multi.mariage.product.domain;
 
 import com.multi.mariage.category.domain.DrinkLowerCategory;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
+import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.embedded.Info;
 import com.multi.mariage.product.domain.embedded.Level;
@@ -16,7 +17,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,6 +43,9 @@ public class Product {
     private double avgReviewRate = 0.0D;
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<Food> foods = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "upper_category_id", nullable = false)

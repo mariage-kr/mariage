@@ -14,8 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class FoodCategoryServiceTest extends ServiceTest {
 
-    FoodCategoryService foodCategoryService = new FoodCategoryService();
-
     @DisplayName("카테고리를 조회한다.")
     @Test
     void 카테고리를_조회한다() {

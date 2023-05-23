@@ -1,6 +1,7 @@
 package com.multi.mariage.common.annotation;
 
 import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
@@ -34,6 +35,8 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("test")
 public abstract class ServiceTest {
+    @Autowired
+    protected FoodCategoryService foodCategoryService;
     @Autowired
     protected HashtagService hashtagService;
     @Autowired

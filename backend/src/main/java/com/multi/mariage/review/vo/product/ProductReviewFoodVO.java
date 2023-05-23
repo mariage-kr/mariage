@@ -22,7 +22,7 @@ public class ProductReviewFoodVO {
     }
 
     public static ProductReviewFoodVO from(Review review) {
-        FoodCategory foodCategory = review.getFoodCategory();
+        FoodCategory foodCategory = review.getFoodCategory().getFoodCategory();
 
         return ProductReviewFoodVO.builder()
                 .id(foodCategory.getId())

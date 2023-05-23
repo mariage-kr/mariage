@@ -1,6 +1,6 @@
 package com.multi.mariage.review.domain;
 
-import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
@@ -55,16 +55,15 @@ public class Review {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
     private Set<ReviewHashtag> reviewHashtags = new HashSet<>();
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "food_category_id")
-    private FoodCategory foodCategory;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_category_id")
+    private Food foodCategory;
 
     @Builder
-    public Review(int productRate, String content, int foodRate, FoodCategory foodCategory) {
+    public Review(int productRate, String content, int foodRate) {
         this.productRate = productRate;
         this.content = content;
         this.foodRate = foodRate;
-        this.foodCategory = foodCategory;
         this.date = LocalDate.now(ZoneId.of("Asia/Seoul"));
     }
 
@@ -73,7 +72,6 @@ public class Review {
                 .productRate(request.getProductRate())
                 .content(request.getContent())
                 .foodRate(request.getFoodRate())
-                .foodCategory(request.getFoodCategory())
                 .build();
     }
 
@@ -92,6 +90,12 @@ public class Review {
     public void setMember(Member member) {
         member.getReviews().add(this);
         this.member = member;
+    }
+
+    public void setFoodCategory(Food foodCategory) {
+        this.foodCategory = foodCategory;
+        foodCategory.getReviews().add(this);
+        foodCategory.changeTotalFoodRate(foodRate);
     }
 
     /* 비즈니스 로직 */
