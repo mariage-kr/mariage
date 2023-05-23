@@ -61,7 +61,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(size);
@@ -83,7 +83,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);
@@ -107,7 +107,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);
@@ -131,7 +131,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);

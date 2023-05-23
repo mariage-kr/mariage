@@ -1,7 +1,6 @@
 package com.multi.mariage.review.dto;
 
 
-import com.multi.mariage.review.domain.Sort;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;

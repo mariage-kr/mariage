@@ -1,17 +1,17 @@
 package com.multi.mariage.product.controller;
 
+import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +22,12 @@ public class ProductFindController {
     public ResponseEntity<ProductFindResponse> findProducts() {
         ProductFindResponse response = productFindService.findProducts();
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/find/filter")
+    public ResponseEntity<Void> findProductsByFilter(ProductFindByFilterRequest cond) {
+        productFindService.findByFilter(cond);
+        return ResponseEntity.ok().build();
     }
 
     /* TODO: 2023/05/19 추후 해당 권한은 관리자만 가능하게 할 예정입니다. */

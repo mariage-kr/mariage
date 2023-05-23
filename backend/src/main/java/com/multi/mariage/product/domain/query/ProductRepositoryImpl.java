@@ -1,7 +1,10 @@
 package com.multi.mariage.product.domain.query;
 
+import com.multi.mariage.category.domain.DrinkLowerCategory;
+import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.condition.RecommendCond;
+import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.weather.domain.Weather;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -33,7 +36,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<Product> findWeather(int size, Weather latestWeather) {
+    public List<Product> findRecommendProductsByWeather(int size, Weather latestWeather) {
         List<Long> productIdsByWeather = queryFactory.select(product.id)
                 .from(product)
                 .join(product.reviews, review)
@@ -50,7 +53,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     /* https://velog.io/@cksdnr066/WARN-firstResultmaxResults-specified-with-collection-fetch-applying-in-memory */
     @Override
-    public List<Product> findDate(RecommendCond cond) {
+    public List<Product> findRecommendProductsByDate(RecommendCond cond) {
         List<Long> productIds = queryFactory.select(product.id)
                 .from(product)
                 .join(product.reviews, review)
@@ -83,5 +86,27 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(product.id.in(productIds))
                 .orderBy(product.name.value.asc())
                 .fetch();
+    }
+
+    @Override
+    public List<Product> findProductsByFilter(ProductFindByFilterRequest cond) {
+        queryFactory.select(product.id)
+                .from(product)
+                .where(equalsUpperCategory(cond.getUpperCategory()))
+                .where(equalsLowerCategory(cond.getLowerCategory()))
+                /* TODO: 2023/05/23 별점 */
+                /* TODO: 2023/05/23 도수 */
+                /* TODO: 2023/05/23 정렬 */
+                /* TODO: 2023/05/23 페이징 */
+                .fetch();
+        return null;
+    }
+
+    private BooleanExpression equalsUpperCategory(DrinkUpperCategory upperCategory) {
+        return upperCategory != null ? product.upperCategory.eq(upperCategory) : null;
+    }
+
+    private BooleanExpression equalsLowerCategory(DrinkLowerCategory lowerCategory) {
+        return lowerCategory != null ? product.lowerCategory.eq(lowerCategory) : null;
     }
 }
