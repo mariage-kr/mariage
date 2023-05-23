@@ -1,9 +1,6 @@
 package com.multi.mariage.product.controller;
 
-import com.multi.mariage.product.dto.response.ProductContentResponse;
-import com.multi.mariage.product.dto.response.ProductFindResponse;
-import com.multi.mariage.product.dto.response.ProductInfoResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -61,6 +58,12 @@ public class ProductFindController {
     @GetMapping("/product/recommend/total")
     public ResponseEntity<List<ProductMainCardResponse>> findTotal(@Param("size") int size) {
         List<ProductMainCardResponse> response = productFindService.findTotal(size);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/detail/stats/{id}")
+    public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
+        ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
         return ResponseEntity.ok(response);
     }
 }

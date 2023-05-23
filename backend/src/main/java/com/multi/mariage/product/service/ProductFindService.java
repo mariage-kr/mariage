@@ -3,14 +3,12 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
-import com.multi.mariage.product.dto.response.ProductContentResponse;
-import com.multi.mariage.product.dto.response.ProductFindResponse;
-import com.multi.mariage.product.dto.response.ProductInfoResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -64,6 +62,17 @@ public class ProductFindService {
 
         return ProductContentResponse.from(product, imageUrl, reviewRate);
     }
+
+    public ProductReviewStatsResponse findProductReviewStats(Long productId) {
+        Product product = findById(productId);      // 제품
+        List<Review> reviews = product.getReviews();    // 제품에 대한 리뷰들
+        double reviewAverageRate = getReviewAverageRate(reviews);  // 제품에 대한 리뷰들의 평균 점수
+
+        int reviewCount = reviews.size();
+        List<ReviewRateVO> percentageList = getReviewPercentages(productId);
+        return ProductReviewStatsResponse.from(product, reviewAverageRate, reviewCount, percentageList);
+    }
+
 
     public Product findById(Long id) {
         return productRepository.findById(id)
@@ -115,5 +124,34 @@ public class ProductFindService {
             totalRate += review.getProductRate();
         }
         return Math.round((double) totalRate / reviews.size());
+    }
+
+    public List<ReviewRateVO> getReviewPercentages(Long productId) {
+        Product product = findById(productId);
+        List<Review> reviews = product.getReviews();
+        int reviewCount = reviews.size();
+
+        Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
+        List<ReviewRateVO> percentageList = new ArrayList<>();
+        getPercentage(reviewCount, reviewRateCounts, percentageList);
+
+        return percentageList;
+    }
+
+    private static void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
+        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
+            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
+            int percentage = (int) Math.round((double) count / reviewCount * 100);
+            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
+        }
+    }
+
+    private static Map<Integer, Integer> getRateCounts(List<Review> reviews) {
+        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
+        for (Review review : reviews) {
+            int reviewRate = review.getProductRate();
+            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
+        }
+        return reviewRateCounts;
     }
 }

@@ -9,7 +9,7 @@ import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
-import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review_hashtag.service.ReviewHashtagService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;

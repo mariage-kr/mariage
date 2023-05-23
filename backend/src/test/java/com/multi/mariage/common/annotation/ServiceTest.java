@@ -15,9 +15,8 @@ import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
-import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.review_hashtag.service.ReviewHashtagService;
 import com.multi.mariage.storage.dto.response.ImageSavedResponse;
@@ -30,8 +29,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Transactional
 @SpringBootTest

@@ -8,7 +8,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
-import com.multi.mariage.review.dto.resonse.ReviewSaveResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -28,6 +28,9 @@ public class LoaderData {
     private static Product 처음처럼;
     private static ReviewSaveResponse 참이슬과고기;
     private static ReviewSaveResponse 처음처럼과고기;
+    private static ReviewSaveResponse 처음처럼과피자;
+    private static ReviewSaveResponse 처음처럼과치킨;
+    private static ReviewSaveResponse 처음처럼과회;
     private final InitMemberService memberService;
     private final InitProductService productService;
     private final InitReviewService reviewService;
@@ -89,10 +92,19 @@ public class LoaderData {
         public void init() {
             ReviewFixture fixture1 = ReviewFixture.참이슬과_고기;
             ReviewFixture fixture2 = ReviewFixture.처음처럼과_고기;
+            ReviewFixture fixture3 = ReviewFixture.처음처럼과_피자;
+            ReviewFixture fixture4 = ReviewFixture.처음처럼과_치킨;
+            ReviewFixture fixture5 = ReviewFixture.처음처럼과_회;
             Image image1 = storageRepository.save(new Image(fixture1.getFoodImagePath()));
             Image image2 = storageRepository.save(new Image(fixture2.getFoodImagePath()));
+            Image image3 = storageRepository.save(new Image(fixture3.getFoodImagePath()));
+            Image image4 = storageRepository.save(new Image(fixture4.getFoodImagePath()));
+            Image image5 = storageRepository.save(new Image(fixture5.getFoodImagePath()));
             참이슬과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture1.toSaveRequest(참이슬.getId(), image1.getId()));
             처음처럼과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture2.toSaveRequest(처음처럼.getId(), image2.getId()));
+            처음처럼과피자 = reviewModifyService.save(new AuthMember(마리.getId()), fixture3.toSaveRequest(처음처럼.getId(), image3.getId()));
+            처음처럼과치킨 = reviewModifyService.save(new AuthMember(마리.getId()), fixture4.toSaveRequest(처음처럼.getId(), image4.getId()));
+            처음처럼과회 = reviewModifyService.save(new AuthMember(마리.getId()), fixture5.toSaveRequest(처음처럼.getId(), image5.getId()));
         }
     }
 }
