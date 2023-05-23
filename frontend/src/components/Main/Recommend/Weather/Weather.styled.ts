@@ -13,16 +13,16 @@ const WeatherWrap = styled.div`
 `;
 
 const Temperature = styled.p`
-  margin: 10px 20px;
+  width: 120px;
+  margin: 10px;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
 `;
 const Name = styled.p`
-  margin: 0 20px;
+  margin: 0 15px;
   font-size: 1.1rem;
   font-weight: 600;
-  text-align: center;
 `;
 
 export { Container, WeatherWrap, Temperature, Name };
