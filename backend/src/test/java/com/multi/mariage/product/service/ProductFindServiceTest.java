@@ -72,7 +72,7 @@ class ProductFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.산토리위스키_해산물, member.getId(), product.getId(), savedImage2.getId());
 
         // when
-        List<ProductMainCardResponse> actual = productFindService.findTotal(size);
+        List<ProductMainCardResponse> actual = productFindService.findRecommendDate(size, "total");
 
         // then
         assertThat(actual).hasSize(size);
@@ -89,7 +89,7 @@ class ProductFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.참이슬_치킨, member.getId(), 참이슬.getId(), savedImage2.getId());
 
         // when
-        List<ProductMainCardResponse> actual = productFindService.findTotal(size);
+        List<ProductMainCardResponse> actual = productFindService.findRecommendDate(size, "total");
 
         // then
         assertThat(actual).hasSize(1);
@@ -109,7 +109,7 @@ class ProductFindServiceTest extends ServiceTest {
                 savedImage2, weatherRepository.save(WeatherFixture.맑음_2주전.toWeather())));
 
         /* when */
-        List<ProductMainCardResponse> actual = productFindService.findWeek(size);
+        List<ProductMainCardResponse> actual = productFindService.findRecommendDate(size, "week");
 
         /* then */
         assertThat(actual).hasSize(1);
@@ -129,7 +129,7 @@ class ProductFindServiceTest extends ServiceTest {
                 savedImage2, weatherRepository.save(WeatherFixture.맑음_2달전.toWeather())));
 
         /* when */
-        List<ProductMainCardResponse> actual = productFindService.findMonth(size);
+        List<ProductMainCardResponse> actual = productFindService.findRecommendDate(size, "month");
 
         /* then */
         assertThat(actual).hasSize(1);

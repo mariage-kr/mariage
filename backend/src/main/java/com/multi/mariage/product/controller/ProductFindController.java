@@ -46,7 +46,7 @@ public class ProductFindController {
     @GetMapping("/product/recommend/date")
     public ResponseEntity<List<ProductMainCardResponse>> findRecommendProducts(@Param("size") int size,
                                                                                @Param("option") String option) {
-        List<ProductMainCardResponse> response = productFindService.findRecommendProducts(size, option);
+        List<ProductMainCardResponse> response = productFindService.findRecommendDate(size, option);
         return ResponseEntity.ok(response);
     }
 

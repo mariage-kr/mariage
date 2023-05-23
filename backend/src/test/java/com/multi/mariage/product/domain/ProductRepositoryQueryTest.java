@@ -4,6 +4,7 @@ package com.multi.mariage.product.domain;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.product.dto.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,8 +55,13 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬, saveImage(ImageFixture.JPEG_IMAGE), weather);
         saveReview(ReviewFixture.산토리위스키_해산물, 마리, 산토리_위스키, saveImage(ImageFixture.JPEG_IMAGE2), weather);
 
+        RecommendCond cond = RecommendCond.builder()
+                .size(size)
+                .option("total")
+                .build();
+
         /* When */
-        List<Product> actual = productRepository.findTotal(size);
+        List<Product> actual = productRepository.findDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(size);
@@ -71,8 +77,13 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬, saveImage(ImageFixture.JPEG_IMAGE), weather);
         saveReview(ReviewFixture.참이슬_치킨, 마리, 참이슬, saveImage(ImageFixture.JPEG_IMAGE2), weather);
 
+        RecommendCond cond = RecommendCond.builder()
+                .size(size)
+                .option("month")
+                .build();
+
         /* When */
-        List<Product> actual = productRepository.findTotal(size);
+        List<Product> actual = productRepository.findDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);
@@ -90,8 +101,13 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 saveImage(ImageFixture.JPEG_IMAGE2),
                 saveWeather(WeatherFixture.맑음_2주전));
 
+        RecommendCond cond = RecommendCond.builder()
+                .size(size)
+                .option("week")
+                .build();
+
         /* When */
-        List<Product> actual = productRepository.findWeek(size);
+        List<Product> actual = productRepository.findDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);
@@ -109,8 +125,13 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 saveImage(ImageFixture.JPEG_IMAGE2),
                 saveWeather(WeatherFixture.맑음_2달전));
 
+        RecommendCond cond = RecommendCond.builder()
+                .size(size)
+                .option("month")
+                .build();
+
         /* When */
-        List<Product> actual = productRepository.findWeek(size);
+        List<Product> actual = productRepository.findDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);

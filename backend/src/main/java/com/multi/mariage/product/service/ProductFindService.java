@@ -94,7 +94,7 @@ public class ProductFindService {
         return products.stream().map(this::toProductMainCard).toList();
     }
 
-    public List<ProductMainCardResponse> findRecommendProducts(int size, String option) {
+    public List<ProductMainCardResponse> findRecommendDate(int size, String option) {
         RecommendCond cond = RecommendCond.builder()
                 .size(size)
                 .option(option)
