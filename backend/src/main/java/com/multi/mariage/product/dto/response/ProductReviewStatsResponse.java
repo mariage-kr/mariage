@@ -12,14 +12,12 @@ import java.util.List;
 @Data
 public class ProductReviewStatsResponse {
     private Long productId;
-    private String productName;
     private double reviewAverageRate;
     private int reviewCount;
     private List<ReviewRateVO> percentageList;
 
     public ProductReviewStatsResponse(Product product, double reviewAverageRate, int reviewCount, List<ReviewRateVO> percentageList) {
         this.productId = product.getId();
-        this.productName = product.getName();
         this.reviewAverageRate = reviewAverageRate;
         this.reviewCount = reviewCount;
         this.percentageList = percentageList;
