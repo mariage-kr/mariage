@@ -28,7 +28,6 @@ import java.util.*;
 @Service
 public class ProductFindService {
     private final ImageService imageService;
-    private final StorageService storageService;
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
 
@@ -192,7 +191,7 @@ public class ProductFindService {
         }
         Collections.sort(foodCountList, Comparator.comparingInt(PairingFoodCountsVO::getCount).reversed());    // 리뷰가 많은 순 정렬
 
-        return foodCountList.subList(0, Math.min(foodCountList.size(), 5));     // 리뷰가 많은 순 top 5
+        return foodCountList.subList(0, 5);     // 리뷰가 많은 순 top 5
     }
 
     public List<PairingFoodRatesVO> findFoodsByReviewRate(Long productId) {    // 리뷰 점수 순
@@ -221,7 +220,7 @@ public class ProductFindService {
 
         Collections.sort(foodCountList, Comparator.comparingDouble(PairingFoodRatesVO::getRate).reversed());
 
-        return foodCountList.subList(0, Math.min(foodCountList.size(), 5));
+        return foodCountList.subList(0, 5);
     }
 
     private static Map<FoodCategory, Integer> getFoodRates(List<Review> reviews) {
