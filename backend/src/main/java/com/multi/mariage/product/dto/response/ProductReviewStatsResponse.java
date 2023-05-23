@@ -23,7 +23,8 @@ public class ProductReviewStatsResponse {
         this.percentageList = percentageList;
     }
 
-    public static ProductReviewStatsResponse from(Product product, double reviewAverageRate, int reviewCount, List<ReviewRateVO> percentageList) {
-        return new ProductReviewStatsResponse(product, reviewAverageRate, reviewCount, percentageList);
+    public static ProductReviewStatsResponse from(Product product, List<ReviewRateVO> percentageList) {
+        return new ProductReviewStatsResponse(product, product.getAvgReviewRate(), product.getReviews().size(),
+                percentageList);
     }
 }

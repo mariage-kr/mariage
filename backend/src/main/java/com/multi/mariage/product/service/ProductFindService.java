@@ -68,20 +68,15 @@ public class ProductFindService {
     public ProductContentResponse findProductContent(Long productId) {
         Product product = findById(productId);
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
-        List<Review> reviews = product.getReviews();
-        double reviewRate = getReviewAverageRate(reviews);
 
-        return ProductContentResponse.from(product, imageUrl, reviewRate);
+        return ProductContentResponse.from(product, imageUrl, product.getAvgReviewRate());
     }
 
     public ProductReviewStatsResponse findProductReviewStats(Long productId) {
         Product product = findById(productId);
-        List<Review> reviews = product.getReviews();
-        double reviewAverageRate = getReviewAverageRate(reviews);
-
-        int reviewCount = reviews.size();
         List<ReviewRateVO> percentageList = getReviewPercentages(productId);
-        return ProductReviewStatsResponse.from(product, reviewAverageRate, reviewCount, percentageList);
+
+        return ProductReviewStatsResponse.from(product, percentageList);
     }
 
     public Product findById(Long id) {
@@ -115,7 +110,7 @@ public class ProductFindService {
                 .productName(product.getName())
                 .productImageUrl(imageService.getImageUrl(product.getImage().getName()))
                 .reviewCount(reviews.size())
-                .reviewRate(getReviewAverageRate(reviews))
+                .reviewRate(product.getAvgReviewRate())
                 .country(country.getValue())
                 .countryId(country.getId())
                 .build();
@@ -130,14 +125,6 @@ public class ProductFindService {
                     return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
                 })
                 .toList();
-    }
-
-    private double getReviewAverageRate(List<Review> reviews) {
-        long totalRate = 0L;
-        for (Review review : reviews) {
-            totalRate += review.getProductRate();
-        }
-        return Math.round((double) totalRate / reviews.size());
     }
 
     public List<ReviewRateVO> getReviewPercentages(Long productId) {
