@@ -1,15 +1,19 @@
 package com.multi.mariage.product.service;
 
+import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
+import com.multi.mariage.product.vo.FoodCountsVO;
+import com.multi.mariage.product.vo.PairingFoodsVO;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +28,7 @@ import java.util.*;
 @Service
 public class ProductFindService {
     private final ImageService imageService;
+    private final StorageService storageService;
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
 
@@ -106,6 +111,8 @@ public class ProductFindService {
                 .build();
     }
 
+
+
     private List<ProductsVO> getProductValues() {
         List<Product> products = productRepository.findAll();
 
@@ -152,5 +159,38 @@ public class ProductFindService {
             reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
         }
         return reviewRateCounts;
+    }
+
+    private static Map<FoodCategory, Integer> getFoodCounts(List<Review> reviews) { // 음식별 리뷰의 개수
+        Map<FoodCategory, Integer> foodCounts = new HashMap<>();
+        for (Review review : reviews) {
+            FoodCategory food = review.getFoodCategory();
+            foodCounts.put(food, foodCounts.getOrDefault(food, 0) + 1);
+        }
+        return foodCounts;
+    }
+
+    public List<FoodCountsVO> getFoodCountList(Long productId) {
+        Product product = findById(productId);
+        List<Review> reviews = product.getReviews();
+
+        Map<FoodCategory, Integer> foodCounts = getFoodCounts(reviews);
+        List<FoodCountsVO> foodCountList = new ArrayList<>();
+        List<FoodCategory> foodCategories = Arrays.asList(FoodCategory.values());
+
+        for (FoodCategory foodCategory : foodCategories) {
+            String food = String.valueOf(foodCategory.getName());
+            int count = foodCounts.getOrDefault(foodCategory, 0);
+            foodCountList.add(FoodCountsVO.from(food, count));
+        }
+        Collections.sort(foodCountList, Comparator.comparingInt(FoodCountsVO::getCount).reversed());    // 리뷰가 많은 순 정렬
+
+        return foodCountList.subList(0, Math.min(foodCountList.size(), 5));     // 리뷰가 많은 순 top 5
+    }
+
+    public List<FoodCountsVO> getFoodsByReviewCount(Long productId) {
+        Product product = findById(productId);
+        List<FoodCountsVO> foodCountList = getFoodCountList(product.getId());
+        return foodCountList;
     }
 }
