@@ -66,7 +66,7 @@ function Review(productContent: ProductContentType) {
     fetchReview(userInfo?.id);
   }, []);
 
-  // TODO:
+  // TODO: 무한스크롤
   useEffect(() => {
     if (hasMore && !isLoading) {
       setIsLoading(true);

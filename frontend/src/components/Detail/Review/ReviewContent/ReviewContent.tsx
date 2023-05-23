@@ -4,8 +4,13 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import { ReviewType } from '@/@types/review';
 
 import * as S from './ReviewContent.styled';
+import useUserInfo from '@/hooks/useUserInfo';
 
 function ReviewContent(review: ReviewType) {
+  const { userInfo } = useUserInfo();
+
+  const memberId: number | undefined = userInfo?.id;
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -29,13 +34,14 @@ function ReviewContent(review: ReviewType) {
             </S.Profile>
           </S.TopLeft>
           <S.TopRight>
-            {/* TODO: 리뷰의 작성한 유저의 ID와 자신의 ID가 동일 할 시 보이게 */}
-            <S.BtnWrap>
-              {/* TODO: 수정 모달창으로 할지 고민 */}
-              <S.Btn css={S.updateBtn}>수정</S.Btn>
-              {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
-              <S.Btn css={S.deleteBtn}>삭제</S.Btn>
-            </S.BtnWrap>
+            {memberId === review.member.id && (
+              <S.BtnWrap>
+                {/* TODO: 수정 모달창으로 할지 고민 */}
+                <S.Btn css={S.updateBtn}>수정</S.Btn>
+                {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
+                <S.Btn css={S.deleteBtn}>삭제</S.Btn>
+              </S.BtnWrap>
+            )}
             <S.Like>
               <LikeButton
                 liked={review.like.liked}
