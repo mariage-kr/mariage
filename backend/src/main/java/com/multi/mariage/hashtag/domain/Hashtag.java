@@ -1,6 +1,6 @@
 package com.multi.mariage.hashtag.domain;
 
-import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
+import com.multi.mariage.review.domain.ReviewHashtag;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

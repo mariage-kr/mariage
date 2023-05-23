@@ -14,7 +14,7 @@ import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
-import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
+import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.storage.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

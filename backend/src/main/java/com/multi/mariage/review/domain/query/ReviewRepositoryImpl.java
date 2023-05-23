@@ -14,7 +14,7 @@ import static com.multi.mariage.hashtag.domain.QHashtag.hashtag;
 import static com.multi.mariage.like.domain.QLike.like;
 import static com.multi.mariage.member.domain.QMember.member;
 import static com.multi.mariage.review.domain.QReview.review;
-import static com.multi.mariage.review_hashtag.domain.QReviewHashtag.reviewHashtag;
+import static com.multi.mariage.review.domain.QReviewHashtag.reviewHashtag;
 import static com.multi.mariage.storage.domain.QImage.image;
 import static com.multi.mariage.weather.domain.QWeather.weather;
 
