@@ -7,15 +7,15 @@ import RateStatistic from './RateStatistic/RateStatistic';
 import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 
-import editIcon from '@/assets/png/edit.png';
+import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { ProductContentType } from '@/@types/product';
+import editIcon from '@/assets/png/edit.png';
+import { API_PATH } from '@/constants/path';
 
 import * as S from './Review.styled';
 
 import reviewsData from './ReviewContent/ReviewsData.json';
-import { PagingType } from '@/@types/paging';
-import { API_PATH } from '@/constants/path';
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review(productContent: ProductContentType) {
@@ -41,14 +41,18 @@ function Review(productContent: ProductContentType) {
       const response = await axios.get(API_PATH.REVIEW.PRODUCT);
       const data: PagingType<ReviewType> = response.data;
       setResult(prevResult => [...prevResult, ...data.content]);
-      setHasMore(data.isLastPage === false); 
+      setHasMore(data.lastPage === false);
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching reviews:', error);
-    }  }, [page]);
+    }
+  }, [page]);
 
   const infiniteScroll = useCallback(() => {
-    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
       setPage(prevPage => prevPage + 1);
     }
   }, []);
@@ -64,7 +68,6 @@ function Review(productContent: ProductContentType) {
     window.addEventListener('scroll', infiniteScroll);
     return () => window.removeEventListener('scroll', infiniteScroll);
   }, [infiniteScroll]);
-
 
   return (
     <S.Container>

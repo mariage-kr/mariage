@@ -4,8 +4,8 @@ type PagingType<T> = {
   totalCount: number;
   pageSize: number;
   totalPages: number;
-  isFirstPage: boolean;
-  isLastPage: boolean;
+  firstPage: boolean;
+  lastPage: boolean;
 };
 
 export { PagingType };

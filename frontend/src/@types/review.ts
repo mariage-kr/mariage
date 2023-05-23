@@ -17,17 +17,18 @@ type ReviewContentType = {
   rate: number;
   content: string;
   img: string;
+  weather: string;
 };
 
 type ReviewLikeType = {
-  isLiked: boolean;
-  likeCount: number;
+  liked: boolean;
+  count: number;
 };
 
 type ReviewFoodType = {
+  id: number;
   name: string;
   rate: number;
-  img: string;
 };
 
 type ReviewSaveType = {
