@@ -25,5 +25,4 @@ public class ReviewModifyController {
         ReviewSaveResponse response = reviewModifyService.save(authMember, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
 }

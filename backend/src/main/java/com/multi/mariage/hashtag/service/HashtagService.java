@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
  import java.util.List;
  import java.util.Optional;
+ import java.util.Iterator;
  import java.util.LinkedList;
 
 @Transactional(readOnly = true)
@@ -27,7 +28,7 @@ public class HashtagService {
         return hashtag.get();
     }
 
-     @Transactional
+
      public List<Hashtag> findHashTagsByList(List<String> list) {
            return list.stream()
                  .map(this::findByName)
@@ -35,18 +36,20 @@ public class HashtagService {
          }
 
          // 해시태그가 0되면 해시태그 자체를 지우기
-         public List<Hashtag> removeHashtagFromList(List<Hashtag> hashtags) {
+    @Transactional
+    public List<Hashtag> removeHashtagFromList(List<Hashtag> hashtags) {
              List<Hashtag> removeHashtag = new LinkedList<>();
 
-         for (Hashtag hashtag : hashtags) {
-             if (hashtag.getReviewHashTags().size() == 0) {
-                 removeHashtag.add(hashtag);
-             }
-         }
+        Iterator<Hashtag> iterator = hashtags.iterator();
+        while (iterator.hasNext()) {
+            Hashtag hashtag = iterator.next();
+            if (hashtag.getReviewHashTags().size() == 0) {
+                iterator.remove();
+                removeHashtag.add(hashtag);
+            }
+        }
 
-         for (Hashtag hashtagsToRemove : removeHashtag) {
-             hashtagRepository.delete(hashtagsToRemove);
-         }
+        hashtagRepository.deleteAll(removeHashtag);
 
          return hashtags;
      }

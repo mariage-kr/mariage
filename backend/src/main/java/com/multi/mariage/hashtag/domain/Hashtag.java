@@ -26,9 +26,7 @@ public class Hashtag {
 
 
     public Hashtag(String name) {
-
         this.name = name;
-
         }
     }
 

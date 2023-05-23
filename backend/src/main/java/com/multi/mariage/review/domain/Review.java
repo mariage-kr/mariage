@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -98,9 +99,13 @@ public class Review {
         this.image = image;
     }
 
-     public void removeHashtags() {
-         for (ReviewHashtag reviewHashtag : reviewHashtags) {
-             reviewHashtag.removeHashtag();
-         }
-     }
- }
+    public void removeHashtags(List<String> hashtagsToRemove) {
+        Iterator<ReviewHashtag> iterator = reviewHashtags.iterator();
+        while (iterator.hasNext()) {
+            ReviewHashtag reviewHashtag = iterator.next();
+            if (hashtagsToRemove.contains(reviewHashtag.getHashtag().getId())) {
+                reviewHashtag.removeHashtag();
+                iterator.remove();
+            }
+        }
+    }

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  import java.util.List;
  import java.util.Optional;
 
-@Transactional( readOnly = true )
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class ReviewHashtagService {
@@ -41,15 +41,12 @@ public class ReviewHashtagService {
      }
 
      @Transactional
-     public boolean removeHashtagFromReview(Long reviewHashtagId) {
+     public void removeHashtagFromReview(Long reviewHashtagId) {
          Optional<ReviewHashtag> reviewHashtagOptional = reviewHashtagRepository.findById(reviewHashtagId);
          if (reviewHashtagOptional.isPresent()) {
              ReviewHashtag reviewHashtag = reviewHashtagOptional.get();
              reviewHashtag.removeHashtag();
              reviewHashtagRepository.delete(reviewHashtag);
-             return true;
-         } else {
-             return false;
          }
      }
 }
