@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 const Container = styled.div`
   width: 80%;
-  height: 30vh;
+  height: 280px;
   margin: 0 10% 5vh;
   border: 1px solid #9c94d066;
   border-radius: 10px;
@@ -16,20 +16,20 @@ const Container = styled.div`
   }
 
   @media (max-width: 1200px) { 
-    height: 60vh;
+    height: 400px;
   }
 `;
 
 const Wrapper = styled.div`
   width: 96%;
-  height: 26vh;
-  margin: 2vh auto;
+  height: 240px;
+  margin: 20px auto;
   overflow: hidden;
 
   @media (max-width: 1200px) { 
-    height: auto;
+    height: 350px;
     position: relative;
-    margin: 3vh auto;
+    margin: 20px auto;
   }
 `;
 
@@ -57,6 +57,7 @@ const ProductLeft = styled.div`
   height: 100%;
   text-align: center;
 
+  @media (max-width: 1500px) {  width: 30%; }
   @media (max-width: 1200px) { 
     width: 15%;
     height: 300px;
@@ -77,19 +78,18 @@ const ProductRight = styled.div`
   box-sizing: border-box;
   float: right;
   width: 75%;
-  height: 15vh;
+  height: 160px;
   font-size: 1rem;
-  margin-top: 7vh;
+  margin-top: 50px;
   position: relative;
 
-  @media (max-width: 1700px) { margin-top: 6vh; height: 16vh; }
-  @media (max-width: 1600px) { margin-top: 5vh; height: 18vh; }
-  @media (max-width: 1400px) { margin-top: 4vh; height: 20vh; }
-  @media (max-width: 1300px) { margin-top: 3.5vh; height: 21vh; }
+  @media (max-width: 1700px) { margin-top: 45px; }
+  @media (max-width: 1500px) {  width: 70%; }
+  @media (max-width: 1300px) {  margin-top: 40px; }
   @media (max-width: 1200px) { 
     width: 82%;
-    height: 50vh;
-    margin-top: 3vh;
+    height: 100px;
+    margin-top: 20px;
   }
 `;
 
@@ -103,7 +103,7 @@ const SubWrap = styled.div`
   bottom: 0;
   width: 100%;
 
-  @media (max-width: 1200px) { top: 5vh; }
+  @media (max-width: 1200px) { top: 40px; }
 `;
 
 const CountryWrap = styled.div``;
@@ -169,6 +169,10 @@ const media1200 = css`
     float: left; 
     width: 25%; 
   }
+  @media (max-width: 1010px) { 
+    float: left; 
+    width: 28%; 
+  }
 `;
 
 const Right = styled.div`
@@ -185,9 +189,9 @@ const Right = styled.div`
     float: none;
     width: 82%;
     position: absolute;
-    top: 17vh;
+    top: 125px;
     right: 0;
-    padding: 3vh 0 0 0;
+    padding: 25px 0 0 0;
   }
 `;
 
@@ -341,7 +345,7 @@ const Content = styled.div`
   margin: 0 0.5% 0 0;
   padding: 0;
   overflow-y: auto;
-  height: 15vh;
+  height: 145px;
 
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
@@ -355,7 +359,7 @@ const Content = styled.div`
   @media (max-width: 1510px) { width: 84.5%; }
   @media (max-width: 1300px) { width: 84%; }
   @media (max-width: 1250px) { width: 83.5%; }
-  @media (max-width: 1200px) { height: 20vh;}
+  @media (max-width: 1200px) { height: 120px;}
 `;
 
 const ReviewText = styled.div`
