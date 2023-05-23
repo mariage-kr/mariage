@@ -30,7 +30,7 @@ function ReviewContent(review: ReviewType) {
                 />
               </S.RateDate>
               <S.RateDate>
-                <S.Date>{review.content.data}</S.Date>
+                <S.Date>{review.content.date}</S.Date>
               </S.RateDate>
             </S.Profile>
           </S.TopLeft>
@@ -44,8 +44,8 @@ function ReviewContent(review: ReviewType) {
             </S.BtnWrap>
             <S.Like>
               <LikeButton
-                liked={review.like.isLiked}
-                likeCount={review.like.likeCount}
+                liked={review.like.liked}
+                likeCount={review.like.count}
                 /* TODO: 추후 AXIOS 함수로 수정 */
                 onClick={() => console.log('추후 axios 함수가 필요합니다')}
               />
@@ -54,7 +54,8 @@ function ReviewContent(review: ReviewType) {
         </S.Top>
         <S.Bottom>
           <S.Food>
-            <S.FoodImg src={review.food.img} />
+            {/* todo: 추후 이미지 컴포넌트로 대체 */}
+            {/* <S.FoodImg src={review.food.id} /> */}
             <S.FoodName>{review.food.name}</S.FoodName>
             <S.ReviewRateText>
               궁합별점 &nbsp;&nbsp;&nbsp;

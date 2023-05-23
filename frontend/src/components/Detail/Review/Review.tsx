@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import ReviewCategory from './ReviewCategory/ReviewCategory';
@@ -10,24 +11,25 @@ import ReviewEdit from './ReviewEdit/ReviewEdit';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { ProductContentType } from '@/@types/product';
+import { getDetailReviews } from '@/apis/request/review';
 import editIcon from '@/assets/png/edit.png';
 import { API_PATH } from '@/constants/path';
 
 import * as S from './Review.styled';
 
 import reviewsData from './ReviewContent/ReviewsData.json';
-import { getDetailReviews } from '@/apis/request/review';
-import { useParams } from 'react-router-dom';
+
+import useUserInfo from '@/hooks/useUserInfo';
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review(productContent: ProductContentType) {
-  /* 무한스크롤 */
-  const param = useParams();
-  const [result, setResult] = useState<ReviewType[]>([]);
-  // const [item, setItem] = useState<ReviewType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const productId: number = Number.parseInt(useParams().id!);
+  const { userInfo } = useUserInfo();
+
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   /* 리뷰작성 모달창 띄우는 클릭 이벤트 */
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -36,11 +38,29 @@ function Review(productContent: ProductContentType) {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-  // const data: PagingType<ReviewType> = reviewsData;
+  const fetchReview = useCallback(async (userId: number | undefined) => {
+    let memberId: number | null = null;
 
-  const fetchReview = useCallback(async () => {
-    const productId: number = Number.parseInt(param.id!);
-    console.log(getDetailReviews(productId, 1, 1, 'liked'));
+    if (userId !== undefined) {
+      memberId = userId;
+    }
+
+    await getDetailReviews(productId, memberId, page, 'liked')
+      .then((fetchReviews: PagingType<ReviewType>) => {
+        console.log(fetchReviews);
+        setReviews(prevReviews => [...prevReviews, ...fetchReviews.contents]);
+        setHasMore(fetchReviews.lastPage === false);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchReview(userInfo?.id);
   }, []);
 
   /* 무한스크롤 */
@@ -48,7 +68,7 @@ function Review(productContent: ProductContentType) {
     try {
       const response = await axios.get(API_PATH.REVIEW.PRODUCT);
       const data: PagingType<ReviewType> = response.data;
-      setResult(prevResult => [...prevResult, ...data.content]);
+      setReviews(prevResult => [...prevResult, ...data.contents]);
       setHasMore(data.lastPage === false);
       setIsLoading(false);
     } catch (error) {
@@ -81,7 +101,7 @@ function Review(productContent: ProductContentType) {
     <S.Container>
       <S.Left>
         <ReviewCategory />
-        {result.map((review: ReviewType) => {
+        {reviews.map((review: ReviewType) => {
           return <ReviewContent key={review.id} {...review} />;
         })}
       </S.Left>

@@ -1,5 +1,5 @@
 type PagingType<T> = {
-  content: T[];
+  contents: T[];
   pageNumber: number;
   totalCount: number;
   pageSize: number;

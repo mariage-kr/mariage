@@ -13,7 +13,7 @@ type ReviewMemberType = {
 };
 
 type ReviewContentType = {
-  data: string;
+  date: string;
   rate: number;
   content: string;
   img: string;

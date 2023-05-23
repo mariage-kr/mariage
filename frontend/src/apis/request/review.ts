@@ -1,6 +1,8 @@
 import { axios } from '../axios';
+
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
+
 import { API_PATH } from '@/constants/path';
 import { PAGING } from '@/constants/rule';
 
@@ -21,9 +23,6 @@ const getDetailReviews = (
     })
     .then(response => {
       return response.data;
-    })
-    .catch(error => {
-      console.log(error);
     });
 };
 
