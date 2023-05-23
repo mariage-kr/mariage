@@ -6,7 +6,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
-import com.multi.mariage.review.dto.resonse.ProductReviewsResponse;
+import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.review.vo.ProductReviewVO;
