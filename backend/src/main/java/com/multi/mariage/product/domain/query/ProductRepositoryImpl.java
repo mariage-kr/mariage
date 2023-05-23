@@ -6,6 +6,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.weather.domain.Weather;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -22,6 +23,8 @@ import static com.multi.mariage.weather.domain.QWeather.weather;
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private static final String WEEK = "week".toLowerCase();
     private static final String MONTH = "month".toLowerCase();
+    private static final String RATE = "rate".toLowerCase();
+    private static final String REVIEW_COUNT = "count".toLowerCase();
     private final JPAQueryFactory queryFactory;
 
     public ProductRepositoryImpl(EntityManager em) {
@@ -90,16 +93,23 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     @Override
     public List<Product> findProductsByFilter(ProductFindByFilterRequest cond) {
-        queryFactory.select(product.id)
+        List<Long> productIds = queryFactory.select(product.id)
                 .from(product)
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
-                /* TODO: 2023/05/23 별점 */
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
-                /* TODO: 2023/05/23 정렬 */
-                /* TODO: 2023/05/23 페이징 */
+                /* TODO: 2023/05/23 별점 사이 Product 객체에 ReviewRate 평균 필요 */
+                .orderBy(sortOption(cond.getSort()))
+                .offset(getOffset(cond.getPageNumber(), cond.getPageSize()))
+                .limit(cond.getPageSize())
                 .fetch();
-        return null;
+
+        return queryFactory.select(product)
+                .from(product)
+                .leftJoin(product.reviews).fetchJoin()
+                /* TODO: 2023/05/23 음식에 대한 평균 별점이 필요 */
+                .where(product.id.in(productIds))
+                .fetch();
     }
 
     private BooleanExpression equalsUpperCategory(DrinkUpperCategory upperCategory) {
@@ -114,4 +124,17 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return product.level.value.between(minLevel, maxLevel);
     }
 
+    private OrderSpecifier<? extends Number> sortOption(String sort) {
+        if (sort.equals(REVIEW_COUNT)) {
+            return product.reviews.size().desc();
+        }
+        if (sort.equals(RATE)) {
+            /* TODO: 2023/05/23 평균 별점 순으로 내림차순 */
+        }
+        return null;
+    }
+
+    private int getOffset(int pageNumber, int pageSize) {
+        return (pageNumber - 1) * pageSize;
+    }
 }
