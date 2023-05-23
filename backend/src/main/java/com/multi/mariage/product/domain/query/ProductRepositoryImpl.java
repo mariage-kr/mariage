@@ -95,7 +95,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 /* TODO: 2023/05/23 별점 */
-                /* TODO: 2023/05/23 도수 */
+                .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
                 /* TODO: 2023/05/23 정렬 */
                 /* TODO: 2023/05/23 페이징 */
                 .fetch();
@@ -109,4 +109,9 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private BooleanExpression equalsLowerCategory(DrinkLowerCategory lowerCategory) {
         return lowerCategory != null ? product.lowerCategory.eq(lowerCategory) : null;
     }
+
+    private BooleanExpression betweenRangeLevel(int minLevel, int maxLevel) {
+        return product.level.value.between(minLevel, maxLevel);
+    }
+
 }
