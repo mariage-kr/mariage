@@ -1,7 +1,7 @@
 package com.multi.mariage.product.domain.query;
 
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.product.dto.RecommendCond;
+import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 
 import java.util.List;

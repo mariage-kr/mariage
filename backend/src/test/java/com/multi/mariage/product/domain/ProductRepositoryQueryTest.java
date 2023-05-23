@@ -4,7 +4,7 @@ package com.multi.mariage.product.domain;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
-import com.multi.mariage.product.dto.RecommendCond;
+import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

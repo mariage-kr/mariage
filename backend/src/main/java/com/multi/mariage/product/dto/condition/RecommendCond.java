@@ -1,4 +1,4 @@
-package com.multi.mariage.product.dto;
+package com.multi.mariage.product.dto.condition;
 
 import lombok.AccessLevel;
 import lombok.Builder;

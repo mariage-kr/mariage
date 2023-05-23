@@ -3,7 +3,7 @@ package com.multi.mariage.product.service;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
-import com.multi.mariage.product.dto.RecommendCond;
+import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
