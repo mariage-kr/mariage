@@ -10,20 +10,20 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ProductReviewStatsResponse {
+public class ProductReviewStatsVO {
     private Long productId;
     private double reviewAverageRate;
     private int reviewCount;
     private List<ReviewRateVO> percentageList;
 
-    public ProductReviewStatsResponse(Product product, double reviewAverageRate, int reviewCount, List<ReviewRateVO> percentageList) {
+    public ProductReviewStatsVO(Product product, double reviewAverageRate, int reviewCount, List<ReviewRateVO> percentageList) {
         this.productId = product.getId();
         this.reviewAverageRate = reviewAverageRate;
         this.reviewCount = reviewCount;
         this.percentageList = percentageList;
     }
 
-    public static ProductReviewStatsResponse from(Product product, double reviewAverageRate, int reviewCount, List<ReviewRateVO> percentageList) {
-        return new ProductReviewStatsResponse(product, reviewAverageRate, reviewCount, percentageList);
+    public static ProductReviewStatsVO from(Product product, double reviewAverageRate, int reviewCount, List<ReviewRateVO> percentageList) {
+        return new ProductReviewStatsVO(product, reviewAverageRate, reviewCount, percentageList);
     }
 }

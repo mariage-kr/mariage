@@ -13,7 +13,6 @@ import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
-import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,25 +44,6 @@ public class ProductFindService {
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
         return ProductInfoResponse.from(product, imageUrl);
-    }
-
-    public ProductContentResponse findProductContent(Long productId) {
-        Product product = findById(productId);
-        String imageUrl = imageService.getImageUrl(product.getImage().getName());
-        List<Review> reviews = product.getReviews();
-        double reviewRate = getReviewAverageRate(reviews);
-
-        return ProductContentResponse.from(product, imageUrl, reviewRate);
-    }
-
-    public ProductReviewStatsResponse findProductReviewStats(Long productId) {
-        Product product = findById(productId);
-        List<Review> reviews = product.getReviews();
-        double reviewAverageRate = getReviewAverageRate(reviews);
-
-        int reviewCount = reviews.size();
-        List<ReviewRateVO> percentageList = getReviewPercentages(productId);
-        return ProductReviewStatsResponse.from(product, reviewAverageRate, reviewCount, percentageList);
     }
 
     public Product findById(Long id) {
@@ -110,8 +90,6 @@ public class ProductFindService {
                 .build();
     }
 
-
-
     private List<ProductsVO> getProductValues() {
         List<Product> products = productRepository.findAll();
 
@@ -129,110 +107,5 @@ public class ProductFindService {
             totalRate += review.getProductRate();
         }
         return Math.round((double) totalRate / reviews.size());
-    }
-
-    public List<ReviewRateVO> getReviewPercentages(Long productId) {
-        Product product = findById(productId);
-        List<Review> reviews = product.getReviews();
-        int reviewCount = reviews.size();
-
-        Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
-        List<ReviewRateVO> percentageList = new ArrayList<>();
-        getPercentage(reviewCount, reviewRateCounts, percentageList);
-
-        return percentageList;
-    }
-
-    private static void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
-        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
-            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
-            int percentage = (int) Math.round((double) count / reviewCount * 100);
-            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
-        }
-    }
-
-    private static Map<Integer, Integer> getRateCounts(List<Review> reviews) {
-        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
-        for (Review review : reviews) {
-            int reviewRate = review.getProductRate();
-            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
-        }
-        return reviewRateCounts;
-    }
-
-    public List<PairingFoodCountsVO> findFoodsByReviewCount(Long productId) {    // 리뷰 개수
-        Product product = findById(productId);
-        List<PairingFoodCountsVO> foodCountList = getFoodCountList(product.getId());
-        return foodCountList;
-    }
-
-    private static Map<FoodCategory, Integer> getFoodCounts(List<Review> reviews) { // 음식별 리뷰의 개수
-        Map<FoodCategory, Integer> foodCounts = new HashMap<>();
-        for (Review review : reviews) {
-            FoodCategory food = review.getFoodCategory();   // 리뷰의 음식 카테고리 확인
-            foodCounts.put(food, foodCounts.getOrDefault(food, 0) + 1);
-        }
-        return foodCounts;
-    }
-
-    public List<PairingFoodCountsVO> getFoodCountList(Long productId) {     // 리뷰가 많은 순으로 페어링 음식 조회
-        Product product = findById(productId);
-        List<Review> reviews = product.getReviews();
-
-        Map<FoodCategory, Integer> foodCounts = getFoodCounts(reviews);
-        List<PairingFoodCountsVO> foodCountList = new ArrayList<>();
-
-        for (FoodCategory foodCategory : FoodCategory.values()) {
-            int id = foodCategory.getId();
-//            String imageUrl = imageService.getImageUrl(foodCategory.getImage().getName());
-            String name = String.valueOf(foodCategory.getName());
-            int count = foodCounts.getOrDefault(foodCategory, 0);
-            foodCountList.add(PairingFoodCountsVO.from(id, name, count));
-        }
-        Collections.sort(foodCountList, Comparator.comparingInt(PairingFoodCountsVO::getCount).reversed());    // 리뷰가 많은 순 정렬
-
-        return foodCountList.subList(0, 5);     // 리뷰가 많은 순 top 5
-    }
-
-    public List<PairingFoodRatesVO> findFoodsByReviewRate(Long productId) {    // 리뷰 점수 순
-        Product product = findById(productId);
-        List<PairingFoodRatesVO> foodCountList = getFoodRateList(product.getId());
-        return foodCountList;
-    }
-
-    public List<PairingFoodRatesVO> getFoodRateList(Long productId) {     // 리뷰 점수가 높은 순으로 페어링 음식 조회
-        Product product = findById(productId);
-        List<Review> reviews = product.getReviews();
-
-        Map<FoodCategory, Integer> foodCounts = getFoodCounts(reviews);
-        Map<FoodCategory, Integer> foodRates = getFoodRates(reviews);
-
-        List<PairingFoodRatesVO> foodCountList = new ArrayList<>();
-
-        for (FoodCategory foodCategory : FoodCategory.values()) {
-            int id = foodCategory.getId();
-            String name = foodCategory.getName();
-            int count = foodCounts.getOrDefault(foodCategory, 0);
-
-            double rate = count > 0 ? (double) foodRates.getOrDefault(foodCategory, 0) / count : 0.0;
-            foodCountList.add(PairingFoodRatesVO.from(id, name, rate));
-        }
-
-        Collections.sort(foodCountList, Comparator.comparingDouble(PairingFoodRatesVO::getRate).reversed());
-
-        return foodCountList.subList(0, 5);
-    }
-
-    private static Map<FoodCategory, Integer> getFoodRates(List<Review> reviews) {
-        Map<FoodCategory, Integer> foodRates = new HashMap<>();
-
-        for (Review review : reviews) {
-            int foodRate = review.getFoodRate();
-            FoodCategory foodCategory = review.getFoodCategory();
-
-            foodRates.put(foodCategory, foodRates.getOrDefault(foodCategory, 0) + foodRate);
-
-        }
-        return foodRates;
     }
 }

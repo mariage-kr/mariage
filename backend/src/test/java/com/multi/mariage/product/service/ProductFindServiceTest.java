@@ -5,10 +5,10 @@ import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
-import com.multi.mariage.product.dto.response.ProductContentResponse;
+import com.multi.mariage.product.dto.response.ProductContentVO;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
-import com.multi.mariage.product.dto.response.ProductReviewStatsResponse;
+import com.multi.mariage.product.dto.response.ProductReviewStatsVO;
 import com.multi.mariage.product.vo.ProductsVO;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.domain.Image;
@@ -56,7 +56,7 @@ class ProductFindServiceTest extends ServiceTest {
         Image 산토리_위스키_이미지 = storageRepository.save(image);
         Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
         Long productId = 산토리_위스키.getId();
-        ProductContentResponse response = productFindService.findProductContent(productId);
+        ProductContentVO response = productFindService.findProductContent(productId);
         assertThat(response).isNotNull();
     }
 
@@ -143,7 +143,7 @@ class ProductFindServiceTest extends ServiceTest {
         Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
         Long productId = 산토리_위스키.getId();
 
-        ProductReviewStatsResponse response = productFindService.findProductReviewStats(productId);
+        ProductReviewStatsVO response = productFindService.findProductReviewStats(productId);
         assertThat(response).isNotNull();
 
         List<ReviewRateVO> vo = response.getPercentageList();

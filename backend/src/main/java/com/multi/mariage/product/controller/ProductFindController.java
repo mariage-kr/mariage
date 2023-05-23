@@ -1,6 +1,7 @@
 package com.multi.mariage.product.controller;
 
 import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.service.ProductDetailFindService;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.vo.PairingFoodCountsVO;
 import com.multi.mariage.product.vo.PairingFoodRatesVO;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 public class ProductFindController {
     private final ProductFindService productFindService;
+    private final ProductDetailFindService productDetailFindService;
 
     @GetMapping("/product/find")
     public ResponseEntity<ProductFindResponse> findProducts() {
@@ -33,9 +35,9 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/detail/{id}")
-    public ResponseEntity<ProductContentResponse> findProductContentById(@PathVariable Long id) {
-        ProductContentResponse response = productFindService.findProductContent(id);
+    @GetMapping("/product/detail/content/{id}")
+    public ResponseEntity<ProductContentVO> findProductContentById(@PathVariable Long id) {
+        ProductContentVO response = productDetailFindService.findProductContent(id);
         return ResponseEntity.ok(response);
     }
 
@@ -64,21 +66,27 @@ public class ProductFindController {
     }
 
     @GetMapping("/product/detail/stats/{id}")
-    public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
-        ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
+    public ResponseEntity<ProductReviewStatsVO> findProductReviewStatsById(@PathVariable Long id) {
+        ProductReviewStatsVO response = productDetailFindService.findProductReviewStats(id);
         return ResponseEntity.ok(response);
     }
 
     // TODO: json 확인용이므로 최종 controller 정리 시 삭제
     @GetMapping("/product/detail/food/count/{id}")
     public ResponseEntity<List<PairingFoodCountsVO>> getFoodsByReviewCount(@PathVariable Long id) {
-        List<PairingFoodCountsVO> response = productFindService.findFoodsByReviewCount(id);
+        List<PairingFoodCountsVO> response = productDetailFindService.findFoodsByReviewCount(id);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/product/detail/food/rate/{id}")
     public ResponseEntity<List<PairingFoodRatesVO>> getFoodsByReviewRate(@PathVariable Long id) {
-        List<PairingFoodRatesVO> response = productFindService.findFoodsByReviewRate(id);
+        List<PairingFoodRatesVO> response = productDetailFindService.findFoodsByReviewRate(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/detail/{id}")
+    public ResponseEntity<ProductContentVO> findProductDetailPageById(@PathVariable Long id) {
+        ProductContentVO response = productDetailFindService.findProductContent(id);
         return ResponseEntity.ok(response);
     }
 }

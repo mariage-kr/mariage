@@ -1,8 +1,5 @@
 package com.multi.mariage.product.dto.response;
 
-import com.multi.mariage.category.domain.DrinkLowerCategory;
-import com.multi.mariage.category.domain.DrinkUpperCategory;
-import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.Product;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -10,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ProductContentResponse {
+public class ProductContentVO {
     private Long id;
     private Long imageId;
     private String imageUrl;
@@ -21,7 +18,7 @@ public class ProductContentResponse {
     private int countryId;
     private String country;
 
-    private ProductContentResponse(Product product, String imageUrl, double reviewRate) {
+    private ProductContentVO(Product product, String imageUrl, double reviewRate) {
         this.id = product.getId();
         this.imageId = product.getImage().getId();
         this.imageUrl = imageUrl;
@@ -33,7 +30,7 @@ public class ProductContentResponse {
         this.country = product.getCountry().getValue();
     }
 
-    public static ProductContentResponse from(Product product, String imageUrl, double reviewRate) {
-        return new ProductContentResponse(product, imageUrl, reviewRate);
+    public static ProductContentVO from(Product product, String imageUrl, double reviewRate) {
+        return new ProductContentVO(product, imageUrl, reviewRate);
     }
 }
