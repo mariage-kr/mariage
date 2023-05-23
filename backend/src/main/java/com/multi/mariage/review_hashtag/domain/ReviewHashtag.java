@@ -1,7 +1,7 @@
 package com.multi.mariage.review_hashtag.domain;
 
-import com.multi.mariage.hashtag.domain.Hashtag;
-import com.multi.mariage.review.domain.Review;
+ import com.multi.mariage.hashtag.domain.Hashtag;
+ import com.multi.mariage.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -36,11 +36,11 @@ public class ReviewHashtag {
         this.review = review;
     }
 
-    public void removeHashtag() {
-        if (hashtag != null) {
-            hashtag.getReviewHashTags().remove(this);
-            hashtag = null;
-        }
-        //여기서는 해당 리뷰의 해시태그만 지우기 때문에(해시태그 값 자체를 지우는 것이 아닌) null로 만듦.
-    }
+     public void removeHashtag() {
+         if (hashtag != null) {
+             hashtag.getReviewHashTags().remove(this);
+             hashtag = null;
+         }
+         //여기서는 해당 리뷰의 해시태그만 지우기 때문에(해시태그 값 자체를 지우는 것이 아닌) null로 만듦.
+     }
 }
