@@ -36,17 +36,6 @@ public class ProductFindService {
                 .build();
     }
 
-    private List<ProductsVO> getProductValues() {
-        List<Product> products = productRepository.findAll();
-
-        return products.stream()
-                .map(product -> {
-                    String imageUrl = imageService.getImageUrl(product.getImage().getName());
-                    return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
-                })
-                .toList();
-    }
-
     public ProductInfoResponse findProductInfo(Long productId) {
         Product product = findById(productId);
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
@@ -64,15 +53,14 @@ public class ProductFindService {
     }
 
     public ProductReviewStatsResponse findProductReviewStats(Long productId) {
-        Product product = findById(productId);      // 제품
-        List<Review> reviews = product.getReviews();    // 제품에 대한 리뷰들
-        double reviewAverageRate = getReviewAverageRate(reviews);  // 제품에 대한 리뷰들의 평균 점수
+        Product product = findById(productId);
+        List<Review> reviews = product.getReviews();
+        double reviewAverageRate = getReviewAverageRate(reviews);
 
         int reviewCount = reviews.size();
         List<ReviewRateVO> percentageList = getReviewPercentages(productId);
         return ProductReviewStatsResponse.from(product, reviewAverageRate, reviewCount, percentageList);
     }
-
 
     public Product findById(Long id) {
         return productRepository.findById(id)
@@ -116,6 +104,17 @@ public class ProductFindService {
                 .country(country.getValue())
                 .countryImageUrl(imageService.getImageUrl(country.getFlagName()))
                 .build();
+    }
+
+    private List<ProductsVO> getProductValues() {
+        List<Product> products = productRepository.findAll();
+
+        return products.stream()
+                .map(product -> {
+                    String imageUrl = imageService.getImageUrl(product.getImage().getName());
+                    return ProductsVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
+                })
+                .toList();
     }
 
     private double getReviewAverageRate(List<Review> reviews) {
