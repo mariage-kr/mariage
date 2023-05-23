@@ -16,7 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +29,23 @@ public class ProductFindService {
     private final ImageService imageService;
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
+
+    private static void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
+        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
+            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
+            int percentage = (int) Math.round((double) count / reviewCount * 100);
+            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
+        }
+    }
+
+    private static Map<Integer, Integer> getRateCounts(List<Review> reviews) {
+        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
+        for (Review review : reviews) {
+            int reviewRate = review.getProductRate();
+            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
+        }
+        return reviewRateCounts;
+    }
 
     public ProductFindResponse findProducts() {
         List<ProductsVO> productValues = getProductValues();
@@ -102,7 +122,7 @@ public class ProductFindService {
                 .reviewCount(reviews.size())
                 .reviewRate(getReviewAverageRate(reviews))
                 .country(country.getValue())
-                .countryImageUrl(imageService.getImageUrl(country.getFlagName()))
+                .countryId(country.getId())
                 .build();
     }
 
@@ -135,22 +155,5 @@ public class ProductFindService {
         getPercentage(reviewCount, reviewRateCounts, percentageList);
 
         return percentageList;
-    }
-
-    private static void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
-        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
-            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
-            int percentage = (int) Math.round((double) count / reviewCount * 100);
-            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
-        }
-    }
-
-    private static Map<Integer, Integer> getRateCounts(List<Review> reviews) {
-        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
-        for (Review review : reviews) {
-            int reviewRate = review.getProductRate();
-            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
-        }
-        return reviewRateCounts;
     }
 }
