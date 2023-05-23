@@ -42,7 +42,7 @@ public enum Country {
 
     private int id;
     private String value;
-    
+
     Country(int id, String value) {
         this.id = id;
         this.value = value;
