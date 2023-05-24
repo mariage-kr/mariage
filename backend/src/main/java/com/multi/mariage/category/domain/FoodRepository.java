@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface FoodRepository extends JpaRepository<Food, Long>, FoodRepositoryCustom {
-    Optional<Food> findByFoodCategoryAndProduct(FoodCategory foodCategory, Product product);
+    Optional<Food> findByCategoryAndProduct(FoodCategory foodCategory, Product product);
 }

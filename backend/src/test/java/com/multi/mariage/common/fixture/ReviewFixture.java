@@ -38,7 +38,6 @@ public enum ReviewFixture {
                 .productRate(productRate)
                 .content(content)
                 .foodRate(foodRate)
-//                .foodCategory(foodCategory)
                 .build();
         review.setMember(member);
         review.setProduct(product);
@@ -69,5 +68,9 @@ public enum ReviewFixture {
 
     public LikeRemoveRequest toRemoveLike(Long reviewId) {
         return new LikeRemoveRequest(reviewId);
+    }
+
+    public FoodCategory getFoodCategory() {
+        return foodCategory;
     }
 }

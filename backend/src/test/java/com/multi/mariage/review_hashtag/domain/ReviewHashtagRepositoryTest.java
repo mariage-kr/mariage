@@ -33,7 +33,7 @@ class ReviewHashtagRepositoryTest extends RepositoryTest {
         product = saveProduct(ProductFixture.참이슬);
         image = saveImage(ImageFixture.JPEG_IMAGE);
         weather = saveWeather(WeatherFixture.맑음_현재);
-        review = saveReview(참이슬과자, member, product, image, weather);
+        review = saveReview(참이슬과자, member, product, saveFood(참이슬과자, product), image, weather);
         hashtag = saveHashtag(참이슬과자.getHashtags().get(0));
     }
 
