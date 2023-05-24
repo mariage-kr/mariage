@@ -1,5 +1,7 @@
 package com.multi.mariage.common.annotation;
 
+import com.multi.mariage.category.domain.Food;
+import com.multi.mariage.category.domain.FoodRepository;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.hashtag.domain.HashtagRepository;
@@ -10,8 +12,8 @@ import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.review.domain.Review;
-import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.domain.ReviewHashtagRepository;
+import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import com.multi.mariage.weather.domain.Weather;
@@ -23,6 +25,8 @@ import org.springframework.test.context.ActiveProfiles;
 @DataJpaTest
 @ActiveProfiles("test")
 public abstract class RepositoryTest {
+    @Autowired
+    protected FoodRepository foodRepository;
     @Autowired
     protected HashtagRepository hashtagRepository;
     @Autowired
@@ -61,8 +65,10 @@ public abstract class RepositoryTest {
         return productRepository.save(product);
     }
 
-    protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Image image, Weather weather) {
+    protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Food food, Image image,
+                                Weather weather) {
         Review review = reviewFixture.toReview(member, product, image, weather);
+        review.setFoodCategory(food);
 
         return reviewRepository.save(review);
     }
@@ -83,5 +89,12 @@ public abstract class RepositoryTest {
         Like like = new Like(member, review);
 
         return likeRepository.save(like);
+    }
+
+    protected Food saveFood(ReviewFixture reviewFixture, Product product) {
+        Food food = new Food(reviewFixture.getFoodCategory());
+        food.setProduct(product);
+
+        return foodRepository.save(food);
     }
 }

@@ -51,9 +51,12 @@ class ProductRepositoryQueryTest extends RepositoryTest {
     void 전체기간_동안_가장_많은_리뷰가_달린_제품들을_조회한다(int size) {
         /* Given */
         Weather weather = saveWeather(WeatherFixture.맑음_현재);
-
-        saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬, saveImage(ImageFixture.JPEG_IMAGE), weather);
-        saveReview(ReviewFixture.산토리위스키_해산물, 마리, 산토리_위스키, saveImage(ImageFixture.JPEG_IMAGE2), weather);
+        saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬,
+                saveFood(ReviewFixture.참이슬_치킨, 참이슬),
+                saveImage(ImageFixture.JPEG_IMAGE), weather);
+        saveReview(ReviewFixture.산토리위스키_해산물, 마리, 산토리_위스키,
+                saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키),
+                saveImage(ImageFixture.JPEG_IMAGE2), weather);
 
         RecommendCond cond = RecommendCond.builder()
                 .size(size)
@@ -74,8 +77,12 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         /* Given */
         Weather weather = saveWeather(WeatherFixture.맑음_현재);
 
-        saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬, saveImage(ImageFixture.JPEG_IMAGE), weather);
-        saveReview(ReviewFixture.참이슬_치킨, 마리, 참이슬, saveImage(ImageFixture.JPEG_IMAGE2), weather);
+        saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬,
+                saveFood(ReviewFixture.참이슬_과자, 참이슬),
+                saveImage(ImageFixture.JPEG_IMAGE), weather);
+        saveReview(ReviewFixture.참이슬_치킨, 마리, 참이슬,
+                saveFood(ReviewFixture.참이슬_치킨, 참이슬),
+                saveImage(ImageFixture.JPEG_IMAGE2), weather);
 
         RecommendCond cond = RecommendCond.builder()
                 .size(size)
@@ -95,9 +102,11 @@ class ProductRepositoryQueryTest extends RepositoryTest {
     void 일주일_동안_가장_많은_리뷰가_달린_제품을_조회한다(int size) {
         /* Given */
         saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬,
+                saveFood(ReviewFixture.참이슬_과자, 참이슬),
                 saveImage(ImageFixture.JPEG_IMAGE),
                 saveWeather(WeatherFixture.맑음_현재));
         saveReview(ReviewFixture.산토리위스키_해산물, 마리, 산토리_위스키,
+                saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키),
                 saveImage(ImageFixture.JPEG_IMAGE2),
                 saveWeather(WeatherFixture.맑음_2주전));
 
@@ -119,9 +128,11 @@ class ProductRepositoryQueryTest extends RepositoryTest {
     void 한달_동안_가장_많은_리뷰가_달린_제품을_조회한다(int size) {
         /* Given */
         saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬,
+                saveFood(ReviewFixture.참이슬_과자, 참이슬),
                 saveImage(ImageFixture.JPEG_IMAGE),
                 saveWeather(WeatherFixture.맑음_현재));
         saveReview(ReviewFixture.산토리위스키_해산물, 마리, 산토리_위스키,
+                saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키),
                 saveImage(ImageFixture.JPEG_IMAGE2),
                 saveWeather(WeatherFixture.맑음_2달전));
 

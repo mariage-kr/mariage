@@ -1,5 +1,6 @@
 package com.multi.mariage.like.domain;
 
+import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
@@ -14,8 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LikeRepositoryTest extends RepositoryTest {
 
@@ -31,9 +31,10 @@ class LikeRepositoryTest extends RepositoryTest {
         image = saveImage(ImageFixture.JPEG_IMAGE);
         member = saveMember(MemberFixture.MARI);
         member2 = saveMember(MemberFixture.SURI);
-        product = saveProduct(ProductFixture.일품진로);
+        product = saveProduct(ProductFixture.참이슬);
         weather = saveWeather(WeatherFixture.맑음_현재);
-        review = saveReview(ReviewFixture.참이슬_치킨, member, product, image, weather);
+        Food food = saveFood(ReviewFixture.참이슬_치킨, product);
+        review = saveReview(ReviewFixture.참이슬_치킨, member, product, food, image, weather);
     }
 
     @DisplayName("좋아요를 저장한다")
