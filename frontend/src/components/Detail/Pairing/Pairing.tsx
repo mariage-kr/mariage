@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PairingSelectType } from '@/@types/select';
 import { PairingFoodType } from '@/@types/product';
 import trophy from '@/assets/png/trophy.png';
+import NoFoodRank from '@/components/NoFoodRank/NoFoodRanking';
 
 import * as S from './Pairing.styled';
 
@@ -27,6 +28,10 @@ function Pairing() {
     });
   };
 
+  const lengthIsZero = (): boolean => {
+    return pairing.foods.length === 0;
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -49,13 +54,17 @@ function Pairing() {
           </S.Button>
         </S.HashtagFilter>
         <S.PairingFood>
-          {pairing.foods.map((food: PairingFoodType) => (
-            <S.Food key={food.id}>
-              <S.FoodImg src={food.img} />
-              <S.NameRate>{food.name}</S.NameRate>
-              <S.NameRate css={S.rate}>{food.rate}</S.NameRate>
-            </S.Food>
-          ))}
+          {lengthIsZero() ? (
+            <NoFoodRank />
+          ) : (
+            pairing.foods.map((food: PairingFoodType) => (
+              <S.Food key={food.id}>
+                <S.FoodImg src={food.img} />
+                <S.NameRate>{food.name}</S.NameRate>
+                <S.NameRate css={S.rate}>{food.rate}</S.NameRate>
+              </S.Food>
+            ))
+          )}
         </S.PairingFood>
       </S.Wrapper>
     </S.Container>

@@ -1,13 +1,14 @@
 import * as S from './NoReviews.styled';
 
-import NoReview from '@/components/Animation/NoReviews';
+// import NoReview from '@/components/Animation/NoReviews';
+import { ReactComponent as NoReview } from '@/assets/svg/no-reviews.svg';
 
 function NoReviews() {
   return (
     <S.Container>
       <NoReview />
       <S.TextWrap>
-        <p>아직 아무도 리뷰를 남기지 않았어요!</p>
+        <p>리뷰가 텅 비었어요</p>
       </S.TextWrap>
     </S.Container>
   );
