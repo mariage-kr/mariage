@@ -1,6 +1,5 @@
 package com.multi.mariage.product.controller;
 
-import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
@@ -59,8 +58,13 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
     @GetMapping("/product/detail/food/rate/{id}")
-    public ResponseEntity<ProductReviewRankCountResponse> findFoodRateRankingById(@PathVariable Long id) {
-        ProductReviewRankCountResponse response = productFindService.findRankingByReviewRate(id);
+    public ResponseEntity<ProductReviewRankRateResponse> findFoodRateRankingById(@PathVariable Long id) {
+        ProductReviewRankRateResponse response = productFindService.findRankingByReviewRate(id);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/product/detail/food/count/{id}")
+    public ResponseEntity<ProductReviewRankCountResponse> findFoodCountRankingById(@PathVariable Long id) {
+        ProductReviewRankCountResponse response = productFindService.findRankingByReviewCount(id);
         return ResponseEntity.ok(response);
     }
 

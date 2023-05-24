@@ -8,5 +8,5 @@ public interface FoodRepositoryCustom {
 
     List<Food> findByProductId(Long productId, int size);
 
-    List<Food> findByProductIdSortByCount(Long productId, int size);
+    List<Food> findByReviewCount(Long productId, int size);
 }

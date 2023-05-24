@@ -1,7 +1,6 @@
 package com.multi.mariage.product.service;
 
 import com.multi.mariage.category.domain.Food;
-import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.global.utils.PagingUtil;
@@ -122,7 +121,7 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
-    public ProductReviewRankCountResponse findRankingByReviewRate(Long productId) {
+    public ProductReviewRankRateResponse findRankingByReviewRate(Long productId) {
         Product product = findById(productId);
         int size = 5;
         List<Food> foodList = foodCategoryService.findFoodsByProduct(product, size);    // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
@@ -133,7 +132,22 @@ public class ProductFindService extends PagingUtil {
             foodRateList.add(foodRateVO);
         }
 
-        ProductReviewRankCountResponse response = ProductReviewRankCountResponse.from(product, foodRateList);
+        ProductReviewRankRateResponse response = ProductReviewRankRateResponse.from(product, foodRateList);
+        return response;
+    }
+
+    public ProductReviewRankCountResponse findRankingByReviewCount(Long productId) {
+        Product product = findById(productId);
+
+        List<Food> foodList = foodCategoryService.findFoodsSortingCountByProduct(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
+        List<FoodCountVO> foodCountList = new ArrayList<>();
+
+        for (Food food : foodList) {
+            FoodCountVO foodCountVO = FoodCountVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size());
+            foodCountList.add(foodCountVO);
+        }
+
+        ProductReviewRankCountResponse response = ProductReviewRankCountResponse.from(product, foodCountList);
         return response;
     }
 
