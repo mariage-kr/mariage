@@ -28,7 +28,7 @@ class ProductFindControllerTest extends ControllerTest {
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
         Long productId = product.getId();
 
-        mockMvc.perform(get("/api/product/detail/" + productId))
+        mockMvc.perform(get("/api/product/detail/content/" + productId))
                 .andDo(print())
                 .andDo(document("Product/Detail",
                                 preprocessResponse(prettyPrint()),

@@ -84,9 +84,9 @@ public class Product {
     }
 
     public void changeTotalReviewRate(int score) {
-        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. */
+        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. 0 미만이 되면 에러가 나오도록 예외처리 */
         totalReviewRate += score;
-        avgReviewRate = (double) totalReviewRate / reviews.size();
+        avgReviewRate = Math.round(((double) totalReviewRate / reviews.size()) * 10) / 10.0;
     }
 
     public void update(ProductUpdateRequest request) {
