@@ -4,7 +4,7 @@ package com.multi.mariage.product.domain;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
-import com.multi.mariage.product.dto.RecommendCond;
+import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,7 +61,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(size);
@@ -83,7 +83,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);
@@ -107,7 +107,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);
@@ -131,7 +131,7 @@ class ProductRepositoryQueryTest extends RepositoryTest {
                 .build();
 
         /* When */
-        List<Product> actual = productRepository.findDate(cond);
+        List<Product> actual = productRepository.findRecommendProductsByDate(cond);
 
         /* Then */
         assertThat(actual).hasSize(1);

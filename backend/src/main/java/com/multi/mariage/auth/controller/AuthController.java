@@ -1,11 +1,11 @@
 package com.multi.mariage.auth.controller;
 
 import com.multi.mariage.auth.annotation.Authenticated;
-import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.auth.dto.request.LoginRequest;
 import com.multi.mariage.auth.dto.request.ReissueRequest;
 import com.multi.mariage.auth.dto.response.TokenResponse;
 import com.multi.mariage.auth.service.AuthService;
+import com.multi.mariage.auth.vo.AuthMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,6 @@ public class AuthController {
 
     @PostMapping("/auth/reissue")
     public ResponseEntity<TokenResponse> reissue(@RequestBody ReissueRequest request) {
-        log.info("Controller Start");
         TokenResponse response = authService.reissue(request);
         return ResponseEntity.ok(response);
     }

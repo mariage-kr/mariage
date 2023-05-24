@@ -1,6 +1,6 @@
 package com.multi.mariage.product.dto.response;
 
-import com.multi.mariage.product.vo.ProductsVO;
+import com.multi.mariage.product.vo.ProductDetailVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -11,16 +11,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductFindResponse {
-    private List<ProductsVO> product;
+    private List<ProductDetailVO> product;
     private int length;
 
     @Builder
-    private ProductFindResponse(List<ProductsVO> product, int length) {
+    private ProductFindResponse(List<ProductDetailVO> product, int length) {
         this.product = product;
         this.length = length;
     }
 
-    public static ProductFindResponse from(List<ProductsVO> product) {
+    public static ProductFindResponse from(List<ProductDetailVO> product) {
         return ProductFindResponse.builder()
                 .product(product)
                 .length(product.size())

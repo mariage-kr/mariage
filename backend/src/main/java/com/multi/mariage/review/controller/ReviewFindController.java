@@ -1,6 +1,6 @@
 package com.multi.mariage.review.controller;
 
-import com.multi.mariage.review.dto.resonse.ProductReviewsResponse;
+import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.service.ReviewFindService;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;

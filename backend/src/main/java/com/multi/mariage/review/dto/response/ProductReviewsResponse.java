@@ -1,4 +1,4 @@
-package com.multi.mariage.review.dto.resonse;
+package com.multi.mariage.review.dto.response;
 
 import com.multi.mariage.review.vo.ProductReviewVO;
 import lombok.AccessLevel;

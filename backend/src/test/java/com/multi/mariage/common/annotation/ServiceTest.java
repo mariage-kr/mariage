@@ -1,6 +1,7 @@
 package com.multi.mariage.common.annotation;
 
 import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
@@ -18,7 +19,7 @@ import com.multi.mariage.product.service.ProductModifyService;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
-import com.multi.mariage.review_hashtag.service.ReviewHashtagService;
+import com.multi.mariage.review.service.ReviewHashtagService;
 import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.repository.StorageRepository;
 import com.multi.mariage.storage.service.StorageService;
@@ -34,6 +35,8 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("test")
 public abstract class ServiceTest {
+    @Autowired
+    protected FoodCategoryService foodCategoryService;
     @Autowired
     protected HashtagService hashtagService;
     @Autowired

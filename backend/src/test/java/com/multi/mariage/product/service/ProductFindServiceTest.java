@@ -9,7 +9,7 @@ import com.multi.mariage.product.dto.response.ProductContentResponse;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.dto.response.ProductReviewStatsResponse;
-import com.multi.mariage.product.vo.ProductsVO;
+import com.multi.mariage.product.vo.ProductDetailVO;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.domain.Image;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,9 +41,9 @@ class ProductFindServiceTest extends ServiceTest {
         ProductFindResponse response = productFindService.findProducts();
 
         assertThat(response).isNotNull();
-        List<ProductsVO> vo = response.getProduct();
+        List<ProductDetailVO> vo = response.getProduct();
 
-        for (ProductsVO actual : vo) {
+        for (ProductDetailVO actual : vo) {
             assertThat(actual.getId()).isNotNull();
             assertThat(actual.getName()).isNotEmpty();
         }
