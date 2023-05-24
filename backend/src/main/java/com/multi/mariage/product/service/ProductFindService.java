@@ -124,9 +124,11 @@ public class ProductFindService extends PagingUtil {
         List<ProductFilterVO> contents = new LinkedList<>();
         for (Product product : products) {
             String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
             ProductFilterVO content = ProductFilterVO.from(product, imageUrl,
                     ProductCountryFilterVO.from(product),
-                    ProductReviewFilterVO.from(product));
+                    ProductReviewFilterVO.from(product),
+                    null);
             contents.add(content);
         }
         return contents;

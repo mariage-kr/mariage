@@ -35,7 +35,10 @@ public class FoodCategoryService {
     public Food findProductWithCategory(FoodCategory foodCategory, Product product) {
         Optional<Food> foodOptional = foodRepository.findByFoodCategoryAndProduct(foodCategory, product);
         if (foodOptional.isPresent()) {
-            return foodOptional.get();
+            Food food = foodOptional.get();
+            food.setProduct(product);
+
+            return food;
         }
 
         Food food = new Food(foodCategory);

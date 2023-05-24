@@ -45,7 +45,7 @@ public class Product {
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
-    private Set<Food> foods = new HashSet<>();
+    private List<Food> foods = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "upper_category_id", nullable = false)
