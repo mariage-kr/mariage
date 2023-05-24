@@ -7,7 +7,7 @@ function NoFoodRanking() {
     <S.Container>
       <NoFoodRank />
       <S.TextWrap>
-        <p>아직 TOP 5가 없어요!</p>
+        <p>아직 궁합 음식이 없어요!</p>
       </S.TextWrap>
     </S.Container>
   );
