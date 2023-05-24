@@ -5,11 +5,9 @@ import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
-import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.dto.request.MemberSignupRequest;
 import com.multi.mariage.member.dto.request.UpdateNicknameRequest;
 import com.multi.mariage.member.dto.request.UpdatePasswordRequest;
-import com.multi.mariage.member.dto.response.MyInfoResponse;
 import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.dto.response.UpdateNicknameResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
@@ -22,8 +20,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.Optional;
@@ -32,16 +28,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberServiceTest extends ServiceTest {
-    @Value("${storagePath}")
-    private String STORAGE_PATH;
-
-    @Autowired
-    private MemberFindService memberService;
-
-    @Autowired
-    private MemberRepository memberRepository;
-
+class MemberModifyServiceTest extends ServiceTest {
     private Member member;
 
     @BeforeEach
@@ -115,33 +102,6 @@ class MemberServiceTest extends ServiceTest {
                 .hasMessageContaining(MemberErrorCode.SIGNUP_INVALID_EMAIL.getMessage());
     }
 
-    @DisplayName("회원 정보를 조회한다.")
-    @Test
-    void 회원_정보를_조회한다() {
-        AuthMember authMember = convertMember(member);
-
-        MyInfoResponse actual = memberService.findMemberProfile(authMember);
-
-        assertAll(
-                () -> assertThat(actual).isNotNull(),
-                () -> assertThat(actual.getBirth()).isEqualTo(member.getBirth()),
-                () -> assertThat(actual.getEmail()).isEqualTo(member.getEmail()),
-                () -> assertThat(actual.getNickname()).isEqualTo(member.getNickname())
-        );
-    }
-
-    @DisplayName("회원의 프로필 사진이 존재하지 않으면 기본 사진을 가져온다.")
-    @Test
-    void 회원의_프로필_사진이_존재하지_않으면_기본_사진을_가져온다() {
-        AuthMember authMember = convertMember(member);
-
-        MyInfoResponse actual = memberService.findMemberProfile(authMember);
-
-        assertThat(actual.getImagePath()).isEqualTo(STORAGE_PATH + "profile.png");
-        System.out.println(actual.getImagePath());
-    }
-
-
     AuthMember convertMember(Member member) {
         return new AuthMember(member.getId());
     }
@@ -153,20 +113,10 @@ class MemberServiceTest extends ServiceTest {
         return memberModifyService.updateImage(authMember, file);
     }
 
-    @DisplayName("회원의 별칭을 조회한다.")
-    @Test
-    void 회원의_별칭을_조회한다() {
-        AuthMember authMember = convertMember(member);
-        String expected = MemberFixture.MARI.toSignupRequest().getNickname();
-
-        String actual = memberService.findMemberInfo(authMember).getNickname();
-
-        assertThat(actual).isEqualTo(expected);
-    }
-
     @DisplayName("비밀번호 수정 테스트")
     @Nested
     class PasswordTest {
+
         static Stream<Arguments> Data() {
             String password = MemberFixture.MARI.toSignupRequest().getPassword();
             return Stream.of(
@@ -201,5 +151,6 @@ class MemberServiceTest extends ServiceTest {
                     .isInstanceOf(MemberException.class)
                     .hasMessageContaining(message);
         }
+
     }
 }

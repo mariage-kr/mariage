@@ -25,9 +25,9 @@ public class LikeService {
 
     @Transactional
     public void save(AuthMember authMember, LikeSaveRequest request) {
-
         Member member = memberFindService.findById(authMember.getId());
         Review review = reviewFindService.findById(request.getReviewId());
+
         validateReviewAlreadyLiked(authMember.getId(), request.getReviewId());
 
         Like like = Like.builder()
@@ -35,17 +35,14 @@ public class LikeService {
                 .review(review)
                 .build();
 
-        likeRepository.save(like);
-
         like.setMember(member);
-        validateLikeNotExistsInMember(member, like.getId());
         like.setReview(review);
-        validateLikeNotExistsInReview(review, like.getId());
+
+        likeRepository.save(like);
     }
 
     @Transactional
     public void remove(AuthMember authMember, LikeRemoveRequest request) {
-
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), request.getReviewId())
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
@@ -53,9 +50,7 @@ public class LikeService {
         Review review = like.getReview();
 
         member.removeLike(like);
-        validateLikeExistsInMember(member, like.getId());
         review.removeLike(like);
-        validateLikeExistsInReview(review, like.getId());
 
         likeRepository.delete(like);
     }
@@ -64,38 +59,6 @@ public class LikeService {
         boolean isExist = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
         if (isExist) {
             throw new LikeException(LikeErrorCode.REVIEW_ALREADY_LIKED);
-        }
-    }
-
-    private void validateLikeNotExistsInMember(Member member, Long likeId) {
-        boolean isExist = member.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (!isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_EXIST_IN_MEMBER);
-        }
-    }
-
-    private void validateLikeNotExistsInReview(Review review, Long likeId) {
-        boolean isExist = review.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (!isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_EXIST_IN_REVIEW);
-        }
-    }
-
-    private void validateLikeExistsInMember(Member member, Long likeId) {
-        boolean isExist = member.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_CANCELED_IN_MEMBER);
-        }
-    }
-
-    private void validateLikeExistsInReview(Review review, Long likeId) {
-        boolean isExist = review.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_CANCELED_IN_REVIEW);
         }
     }
 }

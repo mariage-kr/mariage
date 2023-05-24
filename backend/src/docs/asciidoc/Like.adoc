@@ -16,3 +16,41 @@
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
+
+== [POST] 좋아요 등록
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Like/Like/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Like/Like/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/Like/Like/http-response.adoc[]
+
+== [DELETE] 좋아요 취소
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Like/Cancel/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Like/Cancel/request-fields.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Like/Cancel/http-response.adoc[]
