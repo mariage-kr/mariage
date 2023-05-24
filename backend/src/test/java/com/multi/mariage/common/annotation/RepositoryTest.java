@@ -11,7 +11,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review_hashtag.domain.ReviewHashtagRepository;
+import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
 import com.multi.mariage.weather.domain.Weather;

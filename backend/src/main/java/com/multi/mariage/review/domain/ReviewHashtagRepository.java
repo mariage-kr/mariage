@@ -1,4 +1,4 @@
-package com.multi.mariage.review_hashtag.domain;
+package com.multi.mariage.review.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -2,6 +2,7 @@ package com.multi.mariage.product.domain;
 
 import com.multi.mariage.category.domain.DrinkLowerCategory;
 import com.multi.mariage.category.domain.DrinkUpperCategory;
+import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.product.domain.embedded.Info;
 import com.multi.mariage.product.domain.embedded.Level;
@@ -16,7 +17,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,9 +39,13 @@ public class Product {
 
     @Embedded
     private Info info;
-
+    private Long totalReviewRate = 0L;
+    private double avgReviewRate = 0.0D;
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<Food> foods = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "upper_category_id", nullable = false)
@@ -74,6 +81,16 @@ public class Product {
     }
 
     /* 비즈니스 로직 */
+    public double getReviewAvgRate() {
+        return (double) totalReviewRate / reviews.size();
+    }
+
+    public void changeTotalReviewRate(int score) {
+        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. */
+        totalReviewRate += score;
+        avgReviewRate = (double) totalReviewRate / reviews.size();
+    }
+
     public void update(ProductUpdateRequest request) {
         this.name = Name.of(request.getName());
         this.info = Info.of(request.getInfo());
@@ -88,5 +105,9 @@ public class Product {
 
     public String getInfo() {
         return info.getValue();
+    }
+
+    public double getLevel() {
+        return this.level.getValue();
     }
 }

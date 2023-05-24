@@ -23,7 +23,7 @@ public class ProductInfoResponse {
     private ProductInfoResponse(Product product, String imageUrl) {
         this.name = String.valueOf(product.getName());
         this.info = String.valueOf(product.getInfo());
-        this.level = product.getLevel().getValue();
+        this.level = product.getLevel();
         this.country = product.getCountry();
         this.upperCategory = product.getUpperCategory();
         this.lowerCategory = product.getLowerCategory();

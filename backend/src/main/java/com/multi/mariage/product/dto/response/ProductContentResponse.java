@@ -23,7 +23,7 @@ public class ProductContentResponse {
         this.imageId = product.getImage().getId();
         this.imageUrl = imageUrl;
         this.name = String.valueOf(product.getName());
-        this.level = product.getLevel().getValue();
+        this.level = product.getLevel();
         this.reviewRate = reviewRate;
         this.info = String.valueOf(product.getInfo());
         this.countryId = product.getCountry().getId();

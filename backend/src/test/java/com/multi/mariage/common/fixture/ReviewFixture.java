@@ -38,7 +38,7 @@ public enum ReviewFixture {
                 .productRate(productRate)
                 .content(content)
                 .foodRate(foodRate)
-                .foodCategory(foodCategory)
+//                .foodCategory(foodCategory)
                 .build();
         review.setMember(member);
         review.setProduct(product);
