@@ -1,5 +1,7 @@
 package com.multi.mariage.product.service;
 
+import com.multi.mariage.category.domain.Food;
+import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.product.domain.Product;
@@ -12,6 +14,7 @@ import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductDetailVO;
 import com.multi.mariage.product.vo.filter.ProductCountryFilterVO;
 import com.multi.mariage.product.vo.filter.ProductFilterVO;
+import com.multi.mariage.product.vo.filter.ProductFoodFilterVO;
 import com.multi.mariage.product.vo.filter.ProductReviewFilterVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.vo.ReviewRateVO;
@@ -30,6 +33,7 @@ public class ProductFindService extends PagingUtil {
     private final ImageService imageService;
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
+    private final FoodCategoryService foodCategoryService;
 
     public Product findById(Long id) {
         return productRepository.findById(id)
@@ -125,10 +129,13 @@ public class ProductFindService extends PagingUtil {
         for (Product product : products) {
             String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
+            List<Food> foods = foodCategoryService.findFoodsByProduct(product, 3);
+            List<ProductFoodFilterVO> foodList = foods.stream().map(ProductFoodFilterVO::from).toList();
+
             ProductFilterVO content = ProductFilterVO.from(product, imageUrl,
                     ProductCountryFilterVO.from(product),
                     ProductReviewFilterVO.from(product),
-                    null);
+                    foodList);
             contents.add(content);
         }
         return contents;

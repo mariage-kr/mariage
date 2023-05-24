@@ -46,4 +46,8 @@ public class FoodCategoryService {
 
         return foodRepository.save(food);
     }
+
+    public List<Food> findFoodsByProduct(Product product, int size) {
+        return foodRepository.findByProductId(product.getId(), size);
+    }
 }
