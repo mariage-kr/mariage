@@ -17,15 +17,27 @@
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
-== 일정 기간 추천 제품 조회
+== [GET] 일정 기간 추천 제품 조회
+
+'''
 
 Week, Month, Total 의 내용은 똑같고 `URI` 에만 차이를 보입니다.
 
+`option` 은 3가지가 있습니다.
+
+1. `week` : 일주일
+2. `month` : 한달
+3. `total` : 전체
+
 === Request
+
+'''
 
 include::{snippets}/Product/RecommendByTotal/http-request.adoc[]
 
 === Response
+
+'''
 
 include::{snippets}/Product/RecommendByTotal/http-response.adoc[]
 
