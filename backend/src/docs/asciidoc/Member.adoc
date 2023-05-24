@@ -17,7 +17,7 @@
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
-== 회원가입
+== [POST] 회원가입
 
 '''
 
@@ -37,79 +37,7 @@ include::{snippets}/Member/Signup/request-fields.adoc[]
 
 include::{snippets}/Member/Signup/http-response.adoc[]
 
-== 회원 정보 조회
-
-'''
-
-=== Request
-
-'''
-
-include::{snippets}/Member/FindMemberInfo/http-request.adoc[]
-
-=== Response
-
-'''
-
-include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
-
-==== Fields
-
-include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
-
-== 회원 정보 조회
-
-'''
-
-=== Request
-
-'''
-
-include::{snippets}/Member/FindMemberInfo/http-request.adoc[]
-
-=== Response
-
-'''
-
-include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
-
-==== Fields
-
-include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
-
-== 회원 프로필 사진 삭제
-
-'''
-
-=== Request
-
-'''
-
-include::{snippets}/Member/RemoveImage/http-request.adoc[]
-
-=== Response
-
-'''
-
-include::{snippets}/Member/RemoveImage/http-response.adoc[]
-
-== 회원 탈퇴
-
-'''
-
-=== Request
-
-'''
-
-include::{snippets}/Member/Withdraw/http-request.adoc[]
-
-=== Response
-
-'''
-
-include::{snippets}/Member/Withdraw/http-response.adoc[]
-
-== 회원 프로필 사진 변경
+== [POST] 회원 프로필 사진 변경
 
 '''
 
@@ -129,7 +57,27 @@ include::{snippets}/Member/UpdateImage/http-response.adoc[]
 
 include::{snippets}/Member/UpdateImage/response-fields.adoc
 
-== 회원 닉네임 변경
+== [GET] 회원 정보 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Member/FindMemberInfo/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
+
+== [PATCH] 회원 닉네임 변경
 
 '''
 
@@ -153,7 +101,7 @@ include::{snippets}/Member/UpdateNickname/http-response.adoc[]
 
 include::{snippets}/Member/UpdateNickname/response-fields.adoc
 
-== 회원 비밀번호 변경
+== [PATCH] 회원 비밀번호 변경
 
 '''
 
@@ -167,9 +115,40 @@ include::{snippets}/Member/UpdatePassword/http-request.adoc[]
 
 include::{snippets}/Member/UpdatePassword/request-fields.adoc[]
 
-
 === Response
 
 '''
 
 include::{snippets}/Member/UpdatePassword/http-response.adoc[]
+
+== [DELETE] 회원 프로필 사진 삭제
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Member/RemoveImage/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Member/RemoveImage/http-response.adoc[]
+
+== [DELETE] 회원 탈퇴
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Member/Withdraw/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Member/Withdraw/http-response.adoc[]

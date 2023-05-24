@@ -17,7 +17,7 @@
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
-== 제조국 조회
+== [GET] 제조국 조회
 
 '''
 
