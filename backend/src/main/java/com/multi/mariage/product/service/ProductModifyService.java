@@ -56,7 +56,7 @@ public class ProductModifyService {
         }
     }
 
-    public void update(ProductUpdateRequest request) {
+    public Product update(ProductUpdateRequest request) {
         Image image = imageService.findById(request.getNewImageId());
 
         removeProductImage(request.getImageId());
@@ -64,6 +64,8 @@ public class ProductModifyService {
         Product product = productFindService.findById(request.getId());
         product.update(request);
         product.setImage(image);
+
+        return product;
     }
 
     private void removeProductImage(Long imageId) {

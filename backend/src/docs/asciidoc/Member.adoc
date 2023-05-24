@@ -77,6 +77,26 @@ include::{snippets}/Member/FindMemberInfo/http-response.adoc[]
 
 include::{snippets}/Member/FindMemberInfo/response-fields.adoc[]
 
+== [GET] 회원 프로필 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Member/FindMemberProfile/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Member/FindMemberProfile/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Member/FindMemberProfile/response-fields.adoc[]
+
 == [PATCH] 회원 닉네임 변경
 
 '''

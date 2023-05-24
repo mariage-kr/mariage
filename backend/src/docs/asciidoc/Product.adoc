@@ -17,15 +17,54 @@
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
-== 일정 기간 추천 제품 조회
+== [POST] 제품 저장
 
-Week, Month, Total 의 내용은 똑같고 `URI` 에만 차이를 보입니다.
+'''
 
 === Request
 
-include::{snippets}/Product/RecommendByTotal/http-request.adoc[]
+'''
+
+include::{snippets}/Product/Save/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Save/request-fields.adoc[]
 
 === Response
+
+'''
+
+include::{snippets}/Product/Save/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Save/response-fields.adoc[]
+
+== [GET] 일정 기간 추천 제품 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/RecommendByTotal/http-request.adoc[]
+
+==== Param
+
+- `size` : 데이터의 크기
+- `option` : 조회 옵션
+
+`option` 은 3가지가 있습니다.
+
+1. `week` : 일주일
+2. `month` : 한달
+3. `total` : 전체
+
+=== Response
+
+'''
 
 include::{snippets}/Product/RecommendByTotal/http-response.adoc[]
 
@@ -33,3 +72,106 @@ include::{snippets}/Product/RecommendByTotal/http-response.adoc[]
 
 include::{snippets}/Product/RecommendByTotal/response-fields.adoc[]
 
+== [GET] 필터 조건으로 제품 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/Filter/http-request.adoc[]
+
+==== Param
+
+- `pageSize` : 페이지의 크기
+- `pageNumber` : 페이지 번호
+- `sort` : 정렬 옵션
+- `upperCategory` : 제품의 상위 카테고리
+- `lowerCategory` : 제품의 하위 카테고리
+- `minRate` : 제품의 최소 평균 리뷰 점수
+- `maxRate` : 제품의 최대 평균 리뷰 점수
+- `minLevel` : 제품의 최소 알코올 도수
+- `maxLevel` : 제품의 최대 알코올 도수
+
+=== Response
+
+'''
+
+include::{snippets}/Product/Filter/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Filter/response-fields.adoc[]
+
+== [GET] 제품 상세 정보 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/Detail/http-request.adoc[]
+
+==== PathVariable
+
+- `id` : 제품 식별 번호
+
+=== Response
+
+'''
+
+include::{snippets}/Product/Detail/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Detail/response-fields.adoc[]
+
+== [GET] 제품 리뷰 점수 정보 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/Stats/http-request.adoc[]
+
+==== PathVariable
+
+- `id` : 제품 식별 번호
+
+=== Response
+
+'''
+
+include::{snippets}/Product/Stats/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Stats/response-fields.adoc[]
+
+== [PATCH] 제품 수정
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/Update/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Update/request-fields.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Product/Update/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Update/response-fields.adoc[]
