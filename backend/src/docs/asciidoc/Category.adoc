@@ -10,6 +10,8 @@
 '''
 
 - http://localhost:8080/docs/auth.html[Auth^]
+- http://localhost:8080/docs/country.html[Country^]
+- http://localhost:8080/docs/like.html[Like^]
 - http://localhost:8080/docs/member.html[Member^]
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
