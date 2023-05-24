@@ -11,7 +11,8 @@ import java.time.ZoneId;
 public enum WeatherFixture {
     맑음_현재(25.43, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul"))),
     맑음_2주전(23.13, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusWeeks(2)),
-    맑음_2달전(21.13, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusMonths(2));
+    맑음_2달전(21.13, 800L, LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusMonths(2)),
+    비_현재(20.43, 500L, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
     private double temp;
     private Long value;

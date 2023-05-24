@@ -147,4 +147,25 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         /* Then */
         assertThat(actual).hasSize(1);
     }
+
+    @DisplayName("해당 날씨에 가장 많은 리뷰가 달린 제품을 조회한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {2})
+    void 해당_날씨에_가장_많은_리뷰가_달린_제품을_조회한다(int size) {
+        /* Given */
+        saveReview(ReviewFixture.참이슬_과자, 마리, 참이슬,
+                saveFood(ReviewFixture.참이슬_과자, 참이슬),
+                saveImage(ImageFixture.JPEG_IMAGE),
+                saveWeather(WeatherFixture.맑음_현재));
+        saveReview(ReviewFixture.산토리위스키_해산물, 마리, 산토리_위스키,
+                saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키),
+                saveImage(ImageFixture.JPEG_IMAGE2),
+                saveWeather(WeatherFixture.비_현재));
+
+        /* When */
+        List<Product> actual = productRepository.findRecommendProductsByWeather(size, WeatherFixture.맑음_현재.toWeather());
+
+        /* Then */
+        assertThat(actual).hasSize(1);
+    }
 }
