@@ -21,33 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ProductFindControllerTest extends ControllerTest {
-    @DisplayName("상세페이지의 제품 정보를 조회한다.")
-    @Test
-    void 상세페이지의_제품_정보를_조회한다() throws Exception {
-
-        Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
-        Long productId = product.getId();
-
-        mockMvc.perform(get("/api/product/detail/" + productId))
-                .andDo(print())
-                .andDo(document("Product/Detail",
-                                preprocessResponse(prettyPrint()),
-                                responseFields(
-                                        fieldWithPath("id").description("제품 식별자"),
-                                        fieldWithPath("imageId").description("제품 이미지 식별자"),
-                                        fieldWithPath("imageUrl").description("제품 이미지 url"),
-                                        fieldWithPath("name").description("제품 이름"),
-                                        fieldWithPath("level").description("제품의 도수"),
-                                        fieldWithPath("reviewRate").description("제품에 대한 리뷰 평점"),
-                                        fieldWithPath("info").description("제품 정보"),
-                                        fieldWithPath("countryId").description("제품의 제조국 식별자"),
-                                        fieldWithPath("country").description("제품의 제조국 이름")
-                                )
-                        )
-                )
-                .andExpect(status().is(HttpStatus.OK.value()));
-    }
-
     @DisplayName("전체기간 동안 가장많이 리뷰가 작성된 제품들을 추천한다.")
     @Test
     void 전체기간_동안_가장많이_리뷰가_작성된_제품들을_추천한다() throws Exception {
@@ -137,5 +110,32 @@ class ProductFindControllerTest extends ControllerTest {
                                 )
                         )
                 ).andExpect(status().isOk());
+    }
+
+    @DisplayName("상세페이지의 제품 정보를 조회한다.")
+    @Test
+    void 상세페이지의_제품_정보를_조회한다() throws Exception {
+
+        Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
+        Long productId = product.getId();
+
+        mockMvc.perform(get("/api/product/detail/" + productId))
+                .andDo(print())
+                .andDo(document("Product/Detail",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("id").description("제품 식별자"),
+                                        fieldWithPath("imageId").description("제품 이미지 식별자"),
+                                        fieldWithPath("imageUrl").description("제품 이미지 url"),
+                                        fieldWithPath("name").description("제품 이름"),
+                                        fieldWithPath("level").description("제품의 도수"),
+                                        fieldWithPath("reviewRate").description("제품에 대한 리뷰 평점"),
+                                        fieldWithPath("info").description("제품 정보"),
+                                        fieldWithPath("countryId").description("제품의 제조국 식별자"),
+                                        fieldWithPath("country").description("제품의 제조국 이름")
+                                )
+                        )
+                )
+                .andExpect(status().is(HttpStatus.OK.value()));
     }
 }

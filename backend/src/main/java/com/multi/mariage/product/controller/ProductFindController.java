@@ -21,12 +21,14 @@ import java.util.List;
 public class ProductFindController {
     private final ProductFindService productFindService;
 
+    /* TODO: 2023/05/24 추후 조회 기능으로 수정 */
     @GetMapping("/product/find")
     public ResponseEntity<ProductFindResponse> findProducts() {
         ProductFindResponse response = productFindService.findProducts();
         return ResponseEntity.ok(response);
     }
 
+    /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/recommend/weather")
     public ResponseEntity<List<ProductMainCardResponse>> findWeather(@Param("size") int size) {
         List<ProductMainCardResponse> response = productFindService.findWeather(size);
@@ -40,6 +42,7 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/find/filter")
     public ResponseEntity<ProductFilterResponse> findProductsByFilter(ProductFindByFilterRequest cond) {
         ProductFilterResponse response = productFindService.findByFilter(cond);
@@ -52,6 +55,7 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/detail/stats/{id}")
     public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);

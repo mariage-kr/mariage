@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ProductModifyController {
     private final ProductModifyService productModifyService;
+    /* TODO: 2023/05/24 테스트 코드 필요 */
 
     @PostMapping("/user/product/save")
     public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request) {
@@ -21,6 +22,7 @@ public class ProductModifyController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /* TODO: 2023/05/24 테스트 코드 필요 */
     @PatchMapping("/user/product/update")
     public ResponseEntity<Void> update(@RequestBody ProductUpdateRequest request) {
         productModifyService.update(request);
