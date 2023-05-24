@@ -1,10 +1,13 @@
 package com.multi.mariage.product.domain;
 
 
+import com.multi.mariage.category.domain.DrinkLowerCategory;
+import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.dto.condition.RecommendCond;
+import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -167,5 +170,51 @@ class ProductRepositoryQueryTest extends RepositoryTest {
 
         /* Then */
         assertThat(actual).hasSize(1);
+    }
+
+    @DisplayName("필터링 조건으로 제품을 조회한다.")
+    @Test
+    void 필터링_조건으로_제품을_조회한다() {
+        /* Given */
+        ProductFindByFilterRequest cond = ProductFindByFilterRequest.builder()
+                .pageNumber(1)
+                .pageSize(2)
+                .upperCategory(DrinkUpperCategory.LOCAL_SOJU)
+                .lowerCategory(DrinkLowerCategory.NORMAL_SOJU)
+                .sort("count")
+                .minRate(0)
+                .maxRate(5)
+                .minLevel(15)
+                .maxLevel(20)
+                .build();
+
+        /* when */
+        List<Product> actual = productRepository.findProductsByFilter(cond);
+
+        /* Then */
+        assertThat(actual).hasSize(2);
+        actual.forEach(product -> assertThat(product.getName())
+                .containsAnyOf(참이슬.getName(), 처음처럼.getName()));
+    }
+
+    @DisplayName("필터링 조건에 해당하는 제품의 총 개수를 조회한다.")
+    @Test
+    void 필터링_조건에_해당하는_제품의_총_개수를_조회한다() {
+        /* Given */
+        ProductFindByFilterRequest cond = ProductFindByFilterRequest.builder()
+                .pageNumber(1)
+                .pageSize(2)
+                .sort("count")
+                .minRate(0)
+                .maxRate(5)
+                .minLevel(30)
+                .maxLevel(70)
+                .build();
+
+        /* when - 산토리 위스키 */
+        Long actual = productRepository.countProductWithFilter(cond);
+
+        /* Then */
+        assertThat(actual).isEqualTo(1);
     }
 }
