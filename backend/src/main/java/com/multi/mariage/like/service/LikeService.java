@@ -25,9 +25,9 @@ public class LikeService {
 
     @Transactional
     public void save(AuthMember authMember, LikeSaveRequest request) {
-
         Member member = memberFindService.findById(authMember.getId());
         Review review = reviewFindService.findById(request.getReviewId());
+
         validateReviewAlreadyLiked(authMember.getId(), request.getReviewId());
 
         Like like = Like.builder()
@@ -35,30 +35,19 @@ public class LikeService {
                 .review(review)
                 .build();
 
-        /* TODO: 2023/05/24 로직 분석 필요 */
-
-        likeRepository.save(like);
-
-        validateLikeNotExistsInMember(member, like.getId());
-        validateLikeNotExistsInReview(review, like.getId());
-
         like.setMember(member);
         like.setReview(review);
+
+        likeRepository.save(like);
     }
 
     @Transactional
     public void remove(AuthMember authMember, LikeRemoveRequest request) {
-
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), request.getReviewId())
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
         Member member = like.getMember();
         Review review = like.getReview();
-
-        validateLikeExistsInMember(member, like.getId());
-        validateLikeExistsInReview(review, like.getId());
-
-        /* TODO: 2023/05/24 Like 에서 삭제하는 방법으로 수정 필요할듯 합니다. */
 
         member.removeLike(like);
         review.removeLike(like);
@@ -70,38 +59,6 @@ public class LikeService {
         boolean isExist = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
         if (isExist) {
             throw new LikeException(LikeErrorCode.REVIEW_ALREADY_LIKED);
-        }
-    }
-
-    private void validateLikeNotExistsInMember(Member member, Long likeId) {
-        boolean isExist = member.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (!isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_EXIST_IN_MEMBER);
-        }
-    }
-
-    private void validateLikeNotExistsInReview(Review review, Long likeId) {
-        boolean isExist = review.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (!isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_EXIST_IN_REVIEW);
-        }
-    }
-
-    private void validateLikeExistsInMember(Member member, Long likeId) {
-        boolean isExist = member.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_CANCELED_IN_MEMBER);
-        }
-    }
-
-    private void validateLikeExistsInReview(Review review, Long likeId) {
-        boolean isExist = review.getLikes().stream()
-                .anyMatch(like -> like.getId().equals(likeId));
-        if (isExist) {
-            throw new LikeException(LikeErrorCode.LIKE_NOT_CANCELED_IN_REVIEW);
         }
     }
 }
