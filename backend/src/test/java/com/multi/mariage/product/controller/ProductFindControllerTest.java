@@ -185,4 +185,30 @@ class ProductFindControllerTest extends ControllerTest {
                 )
                 .andExpect(status().is(HttpStatus.OK.value()));
     }
+
+    @DisplayName("제품의 리뷰 점수 정보를 조회한다.")
+    @Test
+    void 제품의_리뷰_점수_정보를_조회한다() throws Exception {
+        Member member = saveMember();
+        Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        Product product1 = saveProduct(ProductFixture.참이슬, image1.getId());
+        saveReview(ReviewFixture.참이슬_과자, image2.getId(), product1.getId(), member.getId());
+
+        mockMvc.perform(get("/api/product/detail/stats/" + product1.getId()))
+                .andDo(print())
+                .andDo(document("Product/Stats",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("productId").description("제품 식별 번호"),
+                                        fieldWithPath("reviewAverageRate").description("제품 평균 리뷰 점수"),
+                                        fieldWithPath("reviewCount").description("제품 리뷰 총 개수"),
+                                        fieldWithPath("percentageList").description("제품 리뷰 정보"),
+                                        fieldWithPath("percentageList[].reviewRate").description("제품 리뷰 점수"),
+                                        fieldWithPath("percentageList[].percentage").description("제품 리뷰 점수 비율")
+                                )
+                        )
+                )
+                .andExpect(status().isOk());
+    }
 }

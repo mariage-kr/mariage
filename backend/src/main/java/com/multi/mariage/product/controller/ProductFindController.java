@@ -42,7 +42,6 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
-    /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/find/filter")
     public ResponseEntity<ProductFilterResponse> findProductsByFilter(ProductFindByFilterRequest cond) {
         ProductFilterResponse response = productFindService.findByFilter(cond);
@@ -55,7 +54,6 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
-    /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/detail/stats/{id}")
     public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
@@ -63,6 +61,7 @@ public class ProductFindController {
     }
 
     /* TODO: 2023/05/19 추후 해당 권한은 관리자만 가능하게 할 예정입니다. */
+    /* TODO: 2023/05/24 권한 부여후 테스트 코드 작성 */
     @GetMapping("/user/product/info")
     public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
         ProductInfoResponse response = productFindService.findProductInfo(productId);
