@@ -21,6 +21,8 @@ import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.StorageService;
+import com.multi.mariage.weather.domain.Weather;
+import com.multi.mariage.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -58,6 +60,8 @@ public abstract class ControllerTest {
     protected StorageService storageService;
     @Autowired
     protected LikeService likeService;
+    @Autowired
+    protected WeatherService weatherService;
 
     protected Member saveMember() {
         MemberSignupRequest request = MemberFixture.MARI.toSignupRequest();
@@ -82,5 +86,9 @@ public abstract class ControllerTest {
     }
     protected void likeReview(AuthMember authMember, LikeSaveRequest request) {
         likeService.save(authMember, request);
+    }
+
+    protected Weather saveWeather() {
+        return weatherService.findLatestWeather();
     }
 }

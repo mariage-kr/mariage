@@ -24,7 +24,6 @@ class ProductFindControllerTest extends ControllerTest {
     @DisplayName("전체기간 동안 가장많이 리뷰가 작성된 제품들을 추천한다.")
     @Test
     void 전체기간_동안_가장많이_리뷰가_작성된_제품들을_추천한다() throws Exception {
-
         int size = 1;
 
         Member member = saveMember();
@@ -107,6 +106,54 @@ class ProductFindControllerTest extends ControllerTest {
                                         fieldWithPath("[].reviewRate").description("제품 리뷰 평균 점수"),
                                         fieldWithPath("[].country").description("제조국"),
                                         fieldWithPath("[].countryId").description("제조국 식별 번호")
+                                )
+                        )
+                ).andExpect(status().isOk());
+    }
+
+    @DisplayName("필터 조건으로 제품을 조회한다.")
+    @Test
+    void 필터_조건으로_제품을_조회한다() throws Exception {
+        Member member = saveMember();
+        Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        Image image3 = saveImage(ImageFixture.JPEG_IMAGE3);
+        Product product1 = saveProduct(ProductFixture.참이슬, image1.getId());
+        Product product2 = saveProduct(ProductFixture.산토리_위스키, image2.getId());
+        saveReview(ReviewFixture.참이슬_과자, image3.getId(), product1.getId(), member.getId());
+
+        mockMvc.perform(get("/api/product/find/filter")
+                        .param("pageSize", "10")
+                        .param("pageNumber", "1")
+                        .param("sort", "count")
+                        .param("minRate", "0")
+                        .param("maxRate", "5")
+                        .param("minLevel", "0")
+                        .param("maxLevel", "70"))
+                .andDo(print())
+                .andDo(document("Product/Filter",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("contents").description("제품 목록"),
+                                        fieldWithPath("contents[].id").description("제품 식별 번호"),
+                                        fieldWithPath("contents[].name").description("제품 이름"),
+                                        fieldWithPath("contents[].level").description("제품 알코올 도수"),
+                                        fieldWithPath("contents[].imageUrl").description("제품 사진 Url"),
+                                        fieldWithPath("contents[].country").description("제품 제조국"),
+                                        fieldWithPath("contents[].country.countryId").description("제품 제조국 식별 번호"),
+                                        fieldWithPath("contents[].country.country").description("제품 제조국 이름"),
+                                        fieldWithPath("contents[].review").description("제품 리뷰 정보"),
+                                        fieldWithPath("contents[].review.reviewRate").description("제품 평균 리뷰 점수"),
+                                        fieldWithPath("contents[].review.reviewCount").description("제품 리뷰 횟수"),
+                                        fieldWithPath("contents[].foods").description("제품 음식 카테고리"),
+                                        fieldWithPath("contents[].foods[].id").description("제품 음식 카테고리 고유 식별 번호"),
+                                        fieldWithPath("contents[].foods[].name").description("제품 음식 카테고리 이름"),
+                                        fieldWithPath("pageNumber").description("페이지 번호"),
+                                        fieldWithPath("totalCount").description("전체 상품의 개수"),
+                                        fieldWithPath("pageSize").description("페이지 크기"),
+                                        fieldWithPath("totalPages").description("전체 페이지 개수"),
+                                        fieldWithPath("firstPage").description("첫번째 페이지 확인"),
+                                        fieldWithPath("lastPage").description("마지막 페이지 확인")
                                 )
                         )
                 ).andExpect(status().isOk());
