@@ -18,6 +18,7 @@ public class Hashtag {
     @Column(name = "hashtag_id")
     private Long id;
 
+    /* TODO: 2023/05/24 최대 길이 검증 필요 */
     @Column(nullable = false)
     private String name;
 

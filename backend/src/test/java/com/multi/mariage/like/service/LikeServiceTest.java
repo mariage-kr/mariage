@@ -87,7 +87,7 @@ class LikeServiceTest extends ServiceTest {
         likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
 
         int expected = user1.getLikes().size();
-        Assertions.assertThat(expected).isEqualTo(0);
+        Assertions.assertThat(expected).isZero();
 
     }
 

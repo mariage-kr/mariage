@@ -32,6 +32,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+/* TODO: 2023/05/24 테스트 코드 분리 - Find, Modify */
 class MemberServiceTest extends ServiceTest {
     @Value("${storagePath}")
     private String STORAGE_PATH;

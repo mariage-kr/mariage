@@ -35,12 +35,15 @@ public class LikeService {
                 .review(review)
                 .build();
 
+        /* TODO: 2023/05/24 로직 분석 필요 */
+
         likeRepository.save(like);
 
-        like.setMember(member);
         validateLikeNotExistsInMember(member, like.getId());
-        like.setReview(review);
         validateLikeNotExistsInReview(review, like.getId());
+
+        like.setMember(member);
+        like.setReview(review);
     }
 
     @Transactional
@@ -52,10 +55,13 @@ public class LikeService {
         Member member = like.getMember();
         Review review = like.getReview();
 
-        member.removeLike(like);
         validateLikeExistsInMember(member, like.getId());
-        review.removeLike(like);
         validateLikeExistsInReview(review, like.getId());
+
+        /* TODO: 2023/05/24 Like 에서 삭제하는 방법으로 수정 필요할듯 합니다. */
+
+        member.removeLike(like);
+        review.removeLike(like);
 
         likeRepository.delete(like);
     }
