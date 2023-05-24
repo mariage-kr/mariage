@@ -52,7 +52,7 @@ public class FoodCategoryService {
         return foodRepository.findByProductId(product.getId(), size);
     }
 
-    public List<Food> findFoodsSortingCountByProduct(Product product, int size) {
-        return foodRepository.findByReviewCount(product.getId(), size);
+    public List<Food> findFoodsOrderByReviewCount(Product product, int size) {
+        return foodRepository.orderByReviewCount(product.getId(), size);
     }
 }

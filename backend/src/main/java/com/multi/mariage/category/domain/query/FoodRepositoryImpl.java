@@ -27,7 +27,7 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom {
                 .fetch();
     }
     @Override
-    public List<Food> findByReviewCount(Long productId, int size) {
+    public List<Food> orderByReviewCount(Long productId, int size) {
         return queryFactory.selectFrom(food)
                 .where(product.id.eq(productId))
                 .join(food.product, product).fetchJoin()

@@ -121,7 +121,7 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
-    public ProductReviewRankRateResponse findRankingByReviewRate(Long productId) {
+    public ProductReviewRankRateResponse findFoodsOrderByRate(Long productId) {
         Product product = findById(productId);
         int size = 5;
         List<Food> foodList = foodCategoryService.findFoodsByProduct(product, size);    // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
@@ -136,10 +136,10 @@ public class ProductFindService extends PagingUtil {
         return response;
     }
 
-    public ProductReviewRankCountResponse findRankingByReviewCount(Long productId) {
+    public ProductReviewRankCountResponse findFoodsOrderByCount(Long productId) {
         Product product = findById(productId);
 
-        List<Food> foodList = foodCategoryService.findFoodsSortingCountByProduct(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
+        List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
         List<FoodCountVO> foodCountList = new ArrayList<>();
 
         for (Food food : foodList) {
