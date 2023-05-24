@@ -6,6 +6,7 @@ import ReviewContent from './ReviewContent/ReviewContent';
 import RateStatistic from './RateStatistic/RateStatistic';
 import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
+import NoReviews from '@/components/NoReviews/NoReviews';
 
 import useUserInfo from '@/hooks/useUserInfo';
 import { PagingType } from '@/@types/paging';
@@ -79,13 +80,21 @@ function Review(productContent: ProductContentType) {
     return () => window.removeEventListener('scroll', infiniteScroll);
   }, [infiniteScroll]);
 
+  const lengthIsZero = (): boolean => {
+    return reviews.length === 0;
+  };
+
   return (
     <S.Container>
       <S.Left>
         <ReviewCategory />
-        {reviews.map((review: ReviewType) => {
-          return <ReviewContent key={review.id} {...review} />;
-        })}
+        {lengthIsZero() ? (
+          <NoReviews />
+        ) : (
+          reviews.map((review: ReviewType) => {
+            return <ReviewContent key={review.id} {...review} />;
+          })
+        )}
       </S.Left>
       <S.Right>
         <RateStatistic />
