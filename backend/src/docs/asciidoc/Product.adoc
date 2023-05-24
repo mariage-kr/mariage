@@ -1,4 +1,4 @@
-= Member API 문서
+= Product API 문서
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -11,8 +11,10 @@
 
 - http://localhost:8080/docs/auth.html[Auth^]
 - http://localhost:8080/docs/category.html[Category^]
-- http://localhost:8080/docs/review.html[Review^]
+- http://localhost:8080/docs/country.html[Country^]
+- http://localhost:8080/docs/like.html[Like^]
 - http://localhost:8080/docs/member.html[Member^]
+- http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
 == 일정 기간 추천 제품 조회

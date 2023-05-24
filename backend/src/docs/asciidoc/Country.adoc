@@ -1,4 +1,4 @@
-= Storage API 문서
+= Country API 문서
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -11,13 +11,13 @@
 
 - http://localhost:8080/docs/auth.html[Auth^]
 - http://localhost:8080/docs/category.html[Category^]
-- http://localhost:8080/docs/country.html[Country^]
 - http://localhost:8080/docs/like.html[Like^]
 - http://localhost:8080/docs/member.html[Member^]
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
+- http://localhost:8080/docs/storage.html[Storage^]
 
-== 이미지 저장
+== 제조국 조회
 
 '''
 
@@ -25,14 +25,15 @@
 
 '''
 
-include::{snippets}/Storage/Save/http-request.adoc[]
+include::{snippets}/Country/Find/http-request.adoc[]
 
 === Response
 
 '''
 
-include::{snippets}/Storage/Save/http-response.adoc[]
+include::{snippets}/Country/Find/http-response.adoc[]
+
 
 ==== Fields
 
-include::{snippets}/Storage/Save/response-fields.adoc
+include::{snippets}/Country/Find/response-fields.adoc[]

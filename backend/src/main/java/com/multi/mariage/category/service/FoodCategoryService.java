@@ -32,8 +32,9 @@ public class FoodCategoryService {
                 .toList();
     }
 
+    @Transactional
     public Food findProductWithCategory(FoodCategory foodCategory, Product product) {
-        Optional<Food> foodOptional = foodRepository.findByFoodCategoryAndProduct(foodCategory, product);
+        Optional<Food> foodOptional = foodRepository.findByCategoryAndProduct(foodCategory, product);
         if (foodOptional.isPresent()) {
             Food food = foodOptional.get();
             food.setProduct(product);

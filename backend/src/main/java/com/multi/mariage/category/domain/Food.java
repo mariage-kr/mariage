@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "food_category")
 public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class Food {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private FoodCategory foodCategory;
+    private FoodCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
@@ -34,7 +33,7 @@ public class Food {
     private double avgFoodRate = 0D;
 
     public Food(FoodCategory foodCategory) {
-        this.foodCategory = foodCategory;
+        this.category = foodCategory;
     }
 
     /* 연관관계 편의 메서드 */

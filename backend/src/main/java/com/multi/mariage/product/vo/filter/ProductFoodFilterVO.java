@@ -20,7 +20,7 @@ public class ProductFoodFilterVO {
     }
 
     public static ProductFoodFilterVO from(Food food) {
-        FoodCategory category = food.getFoodCategory();
+        FoodCategory category = food.getCategory();
         return ProductFoodFilterVO.builder()
                 .id(category.getId())
                 .name(category.getName())
