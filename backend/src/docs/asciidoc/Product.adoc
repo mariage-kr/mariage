@@ -17,6 +17,30 @@
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
 
+== [POST] 제품 저장
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/Save/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Save/request-fields.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Product/Save/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Save/response-fields.adoc[]
+
 == [GET] 일정 기간 추천 제품 조회
 
 '''
@@ -45,3 +69,26 @@ include::{snippets}/Product/RecommendByTotal/http-response.adoc[]
 
 include::{snippets}/Product/RecommendByTotal/response-fields.adoc[]
 
+== [PATCH] 제품 수정
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Product/Update/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Update/request-fields.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Product/Update/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Product/Update/response-fields.adoc[]
