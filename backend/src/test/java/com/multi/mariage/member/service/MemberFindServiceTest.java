@@ -5,12 +5,15 @@ import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.dto.response.MyInfoResponse;
+import com.multi.mariage.member.exception.MemberErrorCode;
+import com.multi.mariage.member.exception.MemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MemberFindServiceTest extends ServiceTest {
@@ -24,9 +27,9 @@ class MemberFindServiceTest extends ServiceTest {
         member = signup(MemberFixture.MARI);
     }
 
-    @DisplayName("회원 정보를 조회한다.")
+    @DisplayName("회원 프로필 정보를 조회한다.")
     @Test
-    void 회원_정보를_조회한다() {
+    void 회원_프로필_정보를_조회한다() {
         AuthMember authMember = convertMember(member);
 
         MyInfoResponse actual = memberFindService.findMemberProfile(authMember);
@@ -37,6 +40,14 @@ class MemberFindServiceTest extends ServiceTest {
                 () -> assertThat(actual.getEmail()).isEqualTo(member.getEmail()),
                 () -> assertThat(actual.getNickname()).isEqualTo(member.getNickname())
         );
+    }
+
+    @DisplayName("회원의 ID가 데이터베이스에 없으면 예외를 던진다")
+    @Test
+    void 회원의_ID가_데이터베이스에_없으면_예외를_던진다() {
+        assertThatThrownBy(() -> memberFindService.findById(-1L))
+                .isInstanceOf(MemberException.class)
+                .hasMessageContaining(MemberErrorCode.MEMBER_IS_NOT_EXISTED.getMessage());
     }
 
     @DisplayName("회원의 프로필 사진이 존재하지 않으면 기본 사진을 가져온다.")
