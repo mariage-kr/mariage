@@ -25,4 +25,14 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom {
                 .limit(size)
                 .fetch();
     }
+
+    @Override
+    public List<Food> findByProductIdSortByCount(Long productId, int size) {
+        return queryFactory.selectFrom(food)
+                .where(product.id.eq(productId))
+                .join(food.product, product).fetchJoin()
+                .orderBy(food.avgFoodRate.desc())
+                .limit(size)
+                .fetch();
+    }
 }

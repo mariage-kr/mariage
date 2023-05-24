@@ -1,6 +1,7 @@
 package com.multi.mariage.product.service;
 
 import com.multi.mariage.category.domain.Food;
+import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.global.utils.PagingUtil;
@@ -12,10 +13,7 @@ import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductDetailVO;
-import com.multi.mariage.product.vo.filter.ProductCountryFilterVO;
-import com.multi.mariage.product.vo.filter.ProductFilterVO;
-import com.multi.mariage.product.vo.filter.ProductFoodFilterVO;
-import com.multi.mariage.product.vo.filter.ProductReviewFilterVO;
+import com.multi.mariage.product.vo.filter.*;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
@@ -122,6 +120,21 @@ public class ProductFindService extends PagingUtil {
                 .isFirstPage(isFirstPage(cond.getPageNumber()))
                 .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
                 .build();
+    }
+
+    public ProductReviewRankCountResponse findRankingByReviewRate(Long productId) {
+        Product product = findById(productId);
+        int size = 5;
+        List<Food> foodList = foodCategoryService.findFoodsByProduct(product, size);    // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
+        List<FoodRateVO> foodRateList = new ArrayList<>();
+
+        for (Food food : foodList) {
+            FoodRateVO foodRateVO = FoodRateVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate());
+            foodRateList.add(foodRateVO);
+        }
+
+        ProductReviewRankCountResponse response = ProductReviewRankCountResponse.from(product, foodRateList);
+        return response;
     }
 
     private List<ProductFilterVO> getContentsByFilter(List<Product> products) {
