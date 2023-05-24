@@ -180,13 +180,13 @@ class ProductFindServiceTest extends ServiceTest {
                 .maxLevel(70)
                 .build();
 
+        /* 산토리 위스키 */
         ProductFilterResponse actual = productFindService.findByFilter(cond);
 
         assertThat(actual.getTotalCount()).isEqualTo(1);
     }
 
     /* TODO: 2023/05/24 테이블 구조 변경으로 테스트 수정 고려 */
-
     @DisplayName("상세페이지의 제품에 대한 리뷰 별점 통계 정보를 조회한다.")
     @Test
     void 상세페이지의_제품에_대한_리뷰_별점_통계_정보를_조회한다() {
@@ -206,6 +206,23 @@ class ProductFindServiceTest extends ServiceTest {
         }
     }
 
+    @DisplayName("제품의 리뷰 통계를 조회한다.")
+    @Test
+    void 제품의_리뷰_통계를_조회한다() {
+        saveReviews();
+
+        List<ReviewRateVO> reviewPercentages = productFindService.getReviewPercentages(참이슬.getId());
+
+        for (ReviewRateVO reviewPercentage : reviewPercentages) {
+            if (reviewPercentage.getReviewRate() == 4) {
+                assertThat(reviewPercentage.getPercentage()).isEqualTo(50);
+            }
+            if (reviewPercentage.getReviewRate() == 3) {
+                assertThat(reviewPercentage.getPercentage()).isEqualTo(50);
+            }
+        }
+    }
+
     private void saveReviews() {
         Member member = signup(MemberFixture.MARI);
 
@@ -215,9 +232,11 @@ class ProductFindServiceTest extends ServiceTest {
         Weather 비 = saveWeather(WeatherFixture.비_현재);
 
         Food saveFood1 = saveFood(ReviewFixture.참이슬_치킨, 참이슬);
-        Food saveFood2 = saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키);
+        Food saveFood2 = saveFood(ReviewFixture.참이슬_과자, 참이슬);
+        Food saveFood3 = saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키);
 
         saveReview(ReviewFixture.참이슬_치킨, member, 참이슬, saveFood1, savedImage, 맑음);
-        saveReview(ReviewFixture.산토리위스키_해산물, member, 산토리_위스키, saveFood2, savedImage, 비);
+        saveReview(ReviewFixture.참이슬_과자, member, 참이슬, saveFood2, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_해산물, member, 산토리_위스키, saveFood3, savedImage, 비);
     }
 }
