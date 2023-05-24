@@ -40,6 +40,19 @@ class StorageServiceTest extends ServiceTest {
         );
     }
 
+    @DisplayName("파일의 정보를 Id로 조회한다")
+    @Test
+    void 파일의_정보를_Id로_조회한다() {
+        /* Given */
+        Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
+
+        /* When */
+        Image actual = storageService.findById(imageId);
+
+        /* Then */
+        assertThat(actual).isNotNull();
+    }
+
     @DisplayName("파일의 저장경로를 가져온다.")
     @ParameterizedTest
     @ValueSource(strings = {"mari.png", "suri.png"})

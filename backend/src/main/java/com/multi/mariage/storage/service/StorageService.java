@@ -75,7 +75,6 @@ public class StorageService {
         }
     }
 
-    /* TODO: 2023/05/24 테스트 코드 필요 */
     public Image findById(Long id) {
         return storageRepository.findById(id)
                 .orElseThrow(() -> new StorageException(StorageErrorCode.FILE_IS_NOT_EXIST));
