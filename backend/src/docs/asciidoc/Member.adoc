@@ -16,6 +16,7 @@
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
+- http://localhost:8080/docs/weather.html[Weather^]
 
 == [POST] 회원가입
 

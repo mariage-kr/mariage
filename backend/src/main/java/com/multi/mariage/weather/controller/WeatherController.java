@@ -15,7 +15,6 @@ public class WeatherController {
 
     private final WeatherService weatherService;
 
-    /* TODO: 2023/05/23 하위 함수 테스트 코드 작성 필요 */
     @GetMapping("/weather/info")
     public ResponseEntity<WeatherInfoResponse> findInfo() {
         WeatherInfoResponse response = weatherService.findInfo();
