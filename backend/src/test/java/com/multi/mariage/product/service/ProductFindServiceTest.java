@@ -5,10 +5,9 @@ import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
-import com.multi.mariage.product.dto.response.ProductContentResponse;
-import com.multi.mariage.product.dto.response.ProductFindResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
-import com.multi.mariage.product.dto.response.ProductReviewStatsResponse;
+import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.exception.ProductErrorCode;
+import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductDetailVO;
 import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.domain.Image;
@@ -21,6 +20,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ProductFindServiceTest extends ServiceTest {
     private Product 참이슬;
@@ -35,6 +36,22 @@ class ProductFindServiceTest extends ServiceTest {
         참이슬 = productModifyService.save(saveRequest);
     }
 
+    @DisplayName("제품 식별 번호로 찾는다.")
+    @Test
+    void 제품_식별_번호로_찾는다() {
+        Product actual = productFindService.findById(참이슬.getId());
+
+        assertThat(actual).isEqualTo(참이슬);
+    }
+
+    @DisplayName("제품이 존재하지 않으면 에외를 던진다.")
+    @Test
+    void 제품이_존재하지_않으면_예외를_던진다() {
+        assertThatThrownBy(() -> productFindService.findById(-1L))
+                .isInstanceOf(ProductException.class)
+                .hasMessageContaining(ProductErrorCode.PRODUCT_IS_NOT_EXIST.getMessage());
+    }
+
     @DisplayName("제품을 조회한다.")
     @Test
     void 제품을_조회한다() {
@@ -47,6 +64,21 @@ class ProductFindServiceTest extends ServiceTest {
             assertThat(actual.getId()).isNotNull();
             assertThat(actual.getName()).isNotEmpty();
         }
+    }
+
+    @DisplayName("제품의 정보를 조회한다")
+    @Test
+    void 제품의_정보를_조회한다() {
+        ProductInfoResponse actual = productFindService.findProductInfo(참이슬.getId());
+
+        assertAll(
+                () -> assertThat(actual.getName()).isEqualTo(참이슬.getName()),
+                () -> assertThat(actual.getInfo()).isEqualTo(참이슬.getInfo()),
+                () -> assertThat(actual.getLevel()).isEqualTo(참이슬.getLevel()),
+                () -> assertThat(actual.getCountry()).isEqualTo(참이슬.getCountry()),
+                () -> assertThat(actual.getUpperCategory()).isEqualTo(참이슬.getUpperCategory()),
+                () -> assertThat(actual.getLowerCategory()).isEqualTo(참이슬.getLowerCategory())
+        );
     }
 
     @DisplayName("상세페이지의 제품 정보를 조회한다.")
@@ -135,6 +167,7 @@ class ProductFindServiceTest extends ServiceTest {
         assertThat(actual).hasSize(1);
     }
 
+    /* TODO: 2023/05/24 테이블 구조 변경으로 테스트 수정 고려 */
     @DisplayName("상세페이지의 제품에 대한 리뷰 별점 통계 정보를 조회한다.")
     @Test
     void 상세페이지의_제품에_대한_리뷰_별점_통계_정보를_조회한다() {
