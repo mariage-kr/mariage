@@ -87,7 +87,7 @@ public class ReviewFindService extends PagingUtil {
         return ProductReviewVO.builder()
                 .id(review.getId())
                 .member(memberVO)
-                .content(contentVO)
+                .review(contentVO)
                 .food(foodVO)
                 .like(likeVO)
                 .hashtags(hashtags)
