@@ -138,4 +138,47 @@ class ProductFindControllerTest extends ControllerTest {
                         )
                 ).andExpect(status().isOk());
     }
+    @DisplayName("상세페이지의 전체 정보를 조회한다.")
+    @Test
+    void 상세페이지의_전체_정보를_조회한다() throws Exception {
+        Member member = saveMember();
+        Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
+        Long productId = product.getId();
+        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
+        saveReview(ReviewFixture.참이슬_과자, image2.getId(), product.getId(), member.getId());
+
+        mockMvc.perform(get("/api/product/detail/" + productId))
+                .andDo(print())
+                .andDo(document("Product/Detail",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("productId").description("제품 식별자"),
+                                        fieldWithPath("content").description("제품 정보"),
+                                        fieldWithPath("content.imageId").description("제품 이미지 식별자"),
+                                        fieldWithPath("content.imageUrl").description("제품 이미지 url"),
+                                        fieldWithPath("content.name").description("제품 이름"),
+                                        fieldWithPath("content.level").description("제품의 도수"),
+                                        fieldWithPath("content.reviewRate").description("제품에 대한 리뷰 평점"),
+                                        fieldWithPath("content.info").description("제품 정보"),
+                                        fieldWithPath("content.countryId").description("제품의 제조국 식별자"),
+                                        fieldWithPath("content.country").description("제품의 제조국 이름"),
+                                        fieldWithPath("rating").description("제품에 대한 별점 통계"),
+                                        fieldWithPath("rating.reviewAverageRate").description("제품에 대한 리뷰의 평균 점수"),
+                                        fieldWithPath("rating.reviewCount").description("제품에 대한 리뷰 개수"),
+                                        fieldWithPath("rating.percentageList").description("제품에 대한 점수별 리뷰 비율"),
+                                        fieldWithPath("rating.percentageList[].reviewRate").description("리뷰 점수"),
+                                        fieldWithPath("rating.percentageList[].percentage").description("전체 리뷰 중 차지하는 비율"),
+                                        fieldWithPath("foodRateRanking").description("제품의 궁합 음식 별점순 랭킹"),
+                                        fieldWithPath("foodRateRanking[].foodId").description("궁합 음식 식별자"),
+                                        fieldWithPath("foodRateRanking[].category").description("궁합 음식 카테고리"),
+                                        fieldWithPath("foodRateRanking[].avgFoodRate").description("제품과의 궁합 평균 점수"),
+                                        fieldWithPath("foodCountRanking").description("제품의 궁합 음식 리뷰순 랭킹"),
+                                        fieldWithPath("foodCountRanking[].foodId").description("궁합 음식 식별자"),
+                                        fieldWithPath("foodCountRanking[].category").description("궁합 음식 카테고리"),
+                                        fieldWithPath("foodCountRanking[].reviewCount").description("사용자가 궁합 음식으로 채택한 리뷰 개수")
+                                        )
+                        )
+                )
+                .andExpect(status().is(HttpStatus.OK.value()));
+    }
 }
