@@ -6,23 +6,25 @@ import ProductCard from '@/components/Product/ProductCard/ProductCard';
 import NoItems from '@/components/NoItems/NoItems';
 
 import { PagingType } from '@/@types/paging';
-import { ProductInfoType } from '@/@types/product';
+import { ProductsType } from '@/@types/product';
 import { useProductCategory } from '@/hooks/useProductCategory';
 import useSearchParam from '@/hooks/useSearchParam';
 
 import * as S from './Product.styled';
-
-/* 추후 AXIOS로 데이터 출력 */
-import data from './data.json';
-import nullData from './nullData.json';
+import { PAGING } from '@/constants/rule';
 
 function Product() {
-  /* 위의 데이터는 데이터가 존재할 경우이며 아래는 데이터가 없을 경우입니다. */
-  const products: PagingType<ProductInfoType> = data;
-  // const products: PagingType<ProductInfoType> = nullData;
+  const [products, setProducts] = useState<PagingType<ProductsType>>({
+    contents: [],
+    pageNumber: 1,
+    totalCount: 0,
+    totalPages: 0,
+    pageSize: PAGING.PAGE_SIZE,
+    firstPage: true,
+    lastPage: false,
+  });
 
   const { value: category } = useProductCategory();
-
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const { value: upperCategory, setValue: setUpperCategory } = useSearchParam<
@@ -37,7 +39,7 @@ function Product() {
   const [sort, setSort] = useState<string>('rate'); // rate, count
 
   const lengthIsZero = (): boolean => {
-    return products.content.length === 0;
+    return products.contents.length === 0;
   };
 
   const getParam = () => {
@@ -72,7 +74,7 @@ function Product() {
         {lengthIsZero() ? (
           <NoItems />
         ) : (
-          products.content.map((product: ProductInfoType) => {
+          products.contents.map((product: ProductsType) => {
             return <ProductCard key={product.id} {...product} />;
           })
         )}

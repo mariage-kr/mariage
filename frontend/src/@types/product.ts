@@ -71,6 +71,27 @@ type ProductRecommendType = {
   countryId: number;
 };
 
+type ProductsType = {
+  id: number;
+  name: string;
+  level: number;
+  imageUrl: string;
+  country: {
+    countryId: number;
+    country: string;
+  };
+  review: {
+    reviewRate: number;
+    reviewCount: number;
+  };
+  foods: ProductFoodType[];
+};
+
+type ProductFoodType = {
+  id: number;
+  name: string;
+};
+
 export {
   ProductModifyInfoType,
   ProductSaveType,
@@ -79,4 +100,6 @@ export {
   ProductContentType,
   ProductInfoType,
   ProductRecommendType,
+  ProductsType,
+  ProductFoodType,
 };
