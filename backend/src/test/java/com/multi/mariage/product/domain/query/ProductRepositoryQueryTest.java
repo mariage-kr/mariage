@@ -1,4 +1,4 @@
-package com.multi.mariage.product.domain;
+package com.multi.mariage.product.domain.query;
 
 
 import com.multi.mariage.category.domain.DrinkLowerCategory;
@@ -6,6 +6,7 @@ import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.common.annotation.RepositoryTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.weather.domain.Weather;
