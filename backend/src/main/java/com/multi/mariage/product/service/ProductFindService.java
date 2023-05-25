@@ -178,7 +178,7 @@ public class ProductFindService extends PagingUtil {
         Product product = findById(productId);
         List<Review> reviews = product.getReviews();
 
-        int reviewCount = reviews.size();   // 리뷰 개수
+        int reviewCount = reviews.size();
         int[] reviewScore = new int[6];    // 별점 1~5
         List<ReviewRateVO> percentageList = new ArrayList<>();
 
@@ -187,19 +187,21 @@ public class ProductFindService extends PagingUtil {
         return percentageList;
     }
 
-    private void getRateCounts(List<Review> reviews, int[] reviewRateCounts) {
-        for (Review review : reviews) {     // 리뷰 개수 구하기
+    private void getRateCounts(List<Review> reviews, int[] reviewRateCounts) {  // 점수별 리뷰 개수
+        for (Review review : reviews) {
             int reviewRate = review.getProductRate();
             reviewRateCounts[reviewRate]++;
         }
     }
-    private void getPercentage(int reviewCount, int[] reviewScoreCounts, List<ReviewRateVO> percentageList) {
-        for (int reviewScore = 1; reviewScore <= 5; reviewScore++) {   // 비율 계산
+
+    private void getPercentage(int reviewCount, int[] reviewScoreCounts, List<ReviewRateVO> percentageList) {   // 비율 계산
+        for (int reviewScore = 1; reviewScore <= 5; reviewScore++) {
             int count = reviewScoreCounts[reviewScore];
-            int percentage = Math.round((float) count / reviewCount * 100);
+            int percentage = (int) Math.round((double) count / reviewCount * 100);
             percentageList.add(ReviewRateVO.from(reviewScore, percentage));
         }
     }
+
     public ProductInfoResponse findProductInfo(Long productId) {
         Product product = findById(productId);
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
