@@ -27,9 +27,7 @@ function Filter({ count, categories }: FilterProps) {
   const navigate = useNavigate();
 
   const [upperCategory, setUpperCategory] = useState<string | null>(null);
-  const [selectedLowerCategory, setSelectedLowerCategory] = useState<
-    string | null
-  >(null);
+  const [lowerCategory, setLowerCategory] = useState<string | null>(null);
 
   const [option, setOption] = useState<Option>({
     rate: {
@@ -44,13 +42,13 @@ function Filter({ count, categories }: FilterProps) {
 
   const handleUpperCategoryClick = (category: string | null) => {
     setUpperCategory(category);
-    setSelectedLowerCategory(null);
+    setLowerCategory(null);
   };
 
   const handleLowerCategoryClick = (
     lowerCategory: DrinkLowerCategoryType,
   ): void => {
-    setSelectedLowerCategory(lowerCategory.value);
+    setLowerCategory(lowerCategory.value);
   };
 
   const changeRateOption = (selectRateRange: Range) => {
@@ -63,7 +61,7 @@ function Filter({ count, categories }: FilterProps) {
 
   const findProductsByFilter = () => {
     navigate(
-      `${BROWSER_PATH.PRODUCT}?upper=${upperCategory}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
+      `${BROWSER_PATH.PRODUCT}?upper=${upperCategory}&lower=${lowerCategory}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
     );
   };
 
@@ -145,19 +143,19 @@ function Filter({ count, categories }: FilterProps) {
                         <div key={upperIndex}>
                           {upperCategory.subCategories.map(
                             (
-                              lowerCategory: DrinkLowerCategoryType,
+                              drinkLowerCategory: DrinkLowerCategoryType,
                               lowerIndex: number,
                             ) => (
                               <S.Category
                                 valid={
-                                  lowerCategory.value === selectedLowerCategory
+                                  drinkLowerCategory.value === lowerCategory
                                 }
                                 key={lowerIndex}
                                 onClick={() =>
-                                  handleLowerCategoryClick(lowerCategory)
+                                  handleLowerCategoryClick(drinkLowerCategory)
                                 }
                               >
-                                {lowerCategory.name}
+                                {drinkLowerCategory.name}
                               </S.Category>
                             ),
                           )}
@@ -199,7 +197,7 @@ function Filter({ count, categories }: FilterProps) {
           </S.ABV>
         </S.RangeWrap>
         {/* 필터 적용을 누르면 drinkUpper, drinkLower, minRate, maxRate, minLevel, maxLevel을 Http Param에 담아서 서버로 전송후 새로고침 합니다. */}
-        <S.FilterBtn>필터적용</S.FilterBtn>
+        <S.FilterBtn onClick={findProductsByFilter}>필터적용</S.FilterBtn>
       </S.FilterWrap>
     </S.Container>
   );

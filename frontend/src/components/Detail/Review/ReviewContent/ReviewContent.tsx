@@ -26,11 +26,11 @@ function ReviewContent(review: ReviewType) {
                 <SvgStarRateAverage
                   key={review.id}
                   id={review.id}
-                  rate={review.content.rate}
+                  rate={review.review.rate}
                 />
               </S.RateDate>
               <S.RateDate>
-                <S.Date>{review.content.date}</S.Date>
+                <S.Date>{review.review.date}</S.Date>
               </S.RateDate>
             </S.Profile>
           </S.TopLeft>
@@ -66,16 +66,14 @@ function ReviewContent(review: ReviewType) {
           </S.Food>
           <S.Content>
             <S.ReviewText>
-              <S.ReviewContentText>
-                {review.content.content}
-              </S.ReviewContentText>
+              <S.ReviewContentText>{review.review.content}</S.ReviewContentText>
               {review.hashtags.map((hashtag: string) => (
                 <S.HashTag>#{hashtag}</S.HashTag>
               ))}
             </S.ReviewText>
-            {review.content.img && (
+            {review.review.img && (
               <S.ReviewImg>
-                <S.Img src={review.content.img} />
+                <S.Img src={review.review.img} />
               </S.ReviewImg>
             )}
           </S.Content>
