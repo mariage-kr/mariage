@@ -1,7 +1,9 @@
 package com.multi.mariage.product.controller;
 
+import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.request.ProductUpdateRequest;
+import com.multi.mariage.product.dto.response.ProducModifyResponse;
 import com.multi.mariage.product.service.ProductModifyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +18,16 @@ public class ProductModifyController {
     private final ProductModifyService productModifyService;
 
     @PostMapping("/user/product/save")
-    public ResponseEntity<Void> save(@RequestBody @Valid ProductSaveRequest request) {
-        productModifyService.save(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ProducModifyResponse> save(@RequestBody @Valid ProductSaveRequest request) {
+        Product product = productModifyService.save(request);
+        ProducModifyResponse response = new ProducModifyResponse(product.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("/user/product/update")
-    public ResponseEntity<Void> update(@RequestBody ProductUpdateRequest request) {
-        productModifyService.update(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ProducModifyResponse> update(@RequestBody ProductUpdateRequest request) {
+        Product product = productModifyService.update(request);
+        ProducModifyResponse response = new ProducModifyResponse(product.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

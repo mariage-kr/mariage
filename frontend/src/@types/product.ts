@@ -62,12 +62,13 @@ type ProductInfoType = {
 };
 
 type ProductRecommendType = {
-  id: number;
-  name: string;
-  img: string;
+  productId: number;
+  productName: string;
+  productImageUrl: string;
   reviewCount: number;
+  reviewRate: number;
   country: string;
-  flagImg: string;
+  countryId: number;
 };
 
 export {

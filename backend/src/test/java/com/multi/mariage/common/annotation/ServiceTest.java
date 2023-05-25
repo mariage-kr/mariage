@@ -1,11 +1,10 @@
 package com.multi.mariage.common.annotation;
 
 import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.category.domain.Food;
+import com.multi.mariage.category.domain.FoodRepository;
 import com.multi.mariage.category.service.FoodCategoryService;
-import com.multi.mariage.common.fixture.ImageFixture;
-import com.multi.mariage.common.fixture.MemberFixture;
-import com.multi.mariage.common.fixture.ProductFixture;
-import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.country.service.CountryService;
 import com.multi.mariage.hashtag.service.HashtagService;
 import com.multi.mariage.like.domain.LikeRepository;
@@ -17,13 +16,18 @@ import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
+import com.multi.mariage.review.service.ReviewFindService;
 import com.multi.mariage.review.service.ReviewHashtagService;
 import com.multi.mariage.review.service.ReviewModifyService;
+import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.dto.response.ImageSavedResponse;
 import com.multi.mariage.storage.repository.StorageRepository;
+import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
+import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.domain.WeatherRepository;
 import com.multi.mariage.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +55,8 @@ public abstract class ServiceTest {
     @Autowired
     protected ProductModifyService productModifyService;
     @Autowired
+    protected ReviewFindService reviewFindService;
+    @Autowired
     protected ReviewModifyService reviewModifyService;
     @Autowired
     protected ReviewHashtagService reviewHashtagService;
@@ -60,6 +66,8 @@ public abstract class ServiceTest {
     protected WeatherService weatherService;
     @Autowired
     protected LikeService likeService;
+    @Autowired
+    protected ImageService imageService;
 
     /* TODO: 2023/05/18 추후 FindService 로 수정 */
     @Autowired
@@ -72,6 +80,8 @@ public abstract class ServiceTest {
     protected MemberRepository memberRepository;
     @Autowired
     protected LikeRepository likeRepository;
+    @Autowired
+    protected FoodRepository foodRepository;
 
     protected Member signup(MemberFixture memberFixture) {
         return memberModifyService.signup(memberFixture.toSignupRequest());
@@ -93,7 +103,28 @@ public abstract class ServiceTest {
         return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
     }
 
+    protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Food food, Image image,
+                                Weather weather) {
+        Review review = reviewFixture.toReview(member, product, image, weather);
+        review.setFoodCategory(food);
+
+        return reviewRepository.save(review);
+    }
+
+    protected Weather saveWeather(WeatherFixture weatherFixture) {
+        Weather weather = weatherFixture.toWeather();
+
+        return weatherRepository.save(weather);
+    }
+
     protected int findReviewLike(Long reviewId) {
         return likeRepository.countByReviewId(reviewId);
+    }
+
+    protected Food saveFood(ReviewFixture reviewFixture, Product product) {
+        Food food = new Food(reviewFixture.getFoodCategory());
+        food.setProduct(product);
+
+        return foodRepository.save(food);
     }
 }

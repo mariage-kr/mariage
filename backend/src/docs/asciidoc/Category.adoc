@@ -16,8 +16,9 @@
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
+- http://localhost:8080/docs/weather.html[Weather^]
 
-== 주류 상위 카테고리 조회
+== [GET] 주류 상위 카테고리 조회
 
 '''
 
@@ -37,7 +38,7 @@ include::{snippets}/Category/FindUpperCategory/http-response.adoc[]
 
 include::{snippets}/Category/FindUpperCategory/response-fields.adoc[]
 
-== 주류 하위 카테고리 조회
+== [GET] 주류 하위 카테고리 조회
 
 '''
 
@@ -57,7 +58,7 @@ include::{snippets}/Category/FindLowerCategory/http-response.adoc[]
 
 include::{snippets}/Category/FindLowerCategory/response-fields.adoc[]
 
-== 음식 카테고리 조회
+== [GET] 음식 카테고리 조회
 
 '''
 

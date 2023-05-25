@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 import { accessTokenState, refreshTokenState } from '@/store/status';
 
 import { Token } from '@/@types/token';
+import { isLoginProvider } from '@/utils/auth';
 
 const useAuth = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -28,6 +29,10 @@ const useAuth = () => {
     window.sessionStorage.removeItem('isLogin');
   };
 
+  const isLogin = () => {
+    return isLoginProvider.get();
+  };
+
   return {
     accessToken,
     setAccessToken,
@@ -35,6 +40,7 @@ const useAuth = () => {
     setAuth,
     resetAuth,
     removeIsLogin,
+    isLogin,
   };
 };
 

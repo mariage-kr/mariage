@@ -25,12 +25,14 @@ import java.util.List;
 public class ProductFindController {
     private final ProductFindService productFindService;
 
+    /* TODO: 2023/05/24 추후 조회 기능으로 수정 */
     @GetMapping("/product/find")
     public ResponseEntity<ProductFindResponse> findProducts() {
         ProductFindResponse response = productFindService.findProducts();
         return ResponseEntity.ok(response);
     }
 
+    /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/recommend/weather")
     public ResponseEntity<List<ProductMainCardResponse>> findWeather(@Param("size") int size) {
         List<ProductMainCardResponse> response = productFindService.findWeather(size);
@@ -81,6 +83,7 @@ public class ProductFindController {
     }
 
     /* TODO: 2023/05/19 추후 해당 권한은 관리자만 가능하게 할 예정입니다. */
+    /* TODO: 2023/05/24 권한 부여후 테스트 코드 작성 */
     @GetMapping("/user/product/info")
     public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
         ProductInfoResponse response = productFindService.findProductInfo(productId);

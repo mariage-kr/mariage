@@ -28,8 +28,11 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
+    /* TODO: 2023/05/24 1 부터 5 사이가 아니면 예외 처리 */
     private int productRate;
+    /* TODO: 2023/05/24 리뷰 내용 검증 예외 처리 */
     private String content;
+    /* TODO: 2023/05/24 1 부터 5 사이가 아니면 예외 처리 */
     private int foodRate;
     private LocalDate date;
 

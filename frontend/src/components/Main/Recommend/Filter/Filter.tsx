@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 
+import useAuth from '@/hooks/useAuth';
 import useBoolean from '@/hooks/useBoolean';
-import { isLoginProvider } from '@/utils/auth';
-import { isBoolean } from '@/utils/boolean';
 
 import * as S from './Filter.styled';
 
-function Filter() {
+type PropsType = {
+  changeOption: (option: string) => void;
+};
+
+function Filter({ changeOption }: PropsType) {
   const { value: weather, setValue: setWeather } = useBoolean(false);
   const { value: recommend, setValue: setRecommend } = useBoolean(false);
   const { value: week, setValue: setWeek } = useBoolean(false);
@@ -15,19 +18,21 @@ function Filter() {
 
   const [message, setMessage] = useState<string>('');
 
-  const isLogin = isBoolean(isLoginProvider.get());
+  const { isLogin } = useAuth();
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin()) {
       setRecommend(true);
       setWeather(false);
       setMessage('회원님에게 추천하는 주류의 리스트입니다.');
+      changeOption('algo');
     } else {
       setRecommend(false);
       setWeather(true);
       setMessage('현재 날씨에 인기있는 주류의 리스트입니다.');
+      changeOption('weather');
     }
-  }, [isLogin]);
+  }, []);
 
   const changeSelect = (key: string) => {
     setWeather(false);
@@ -40,22 +45,27 @@ function Filter() {
       case 'weather':
         setWeather(true);
         setMessage('현재 날씨에 인기있는 주류의 리스트입니다.');
+        changeOption('weather');
         break;
       case 'recommend':
         setRecommend(true);
         setMessage('회원님에게 추천하는 주류의 리스트입니다.');
+        changeOption('algo');
         break;
       case 'week':
         setWeek(true);
         setMessage('지난 1주일간 가장 많이 팔린 주류의 리스트입니다.');
+        changeOption('week');
         break;
       case 'month':
         setMonth(true);
         setMessage('지난 1달간 가장 많이 팔린 주류의 리스트입니다.');
+        changeOption('month');
         break;
       case 'total':
         setTotal(true);
         setMessage('전체 기간 동안 가장 많이 팔린 주류의 리스트입니다.');
+        changeOption('total');
         break;
     }
   };
@@ -63,7 +73,7 @@ function Filter() {
   return (
     <S.Container>
       <S.Header>인기 주류</S.Header>
-      {isLogin && (
+      {isLogin() && (
         <S.Button select={recommend} onClick={() => changeSelect('recommend')}>
           ✨ 추천
         </S.Button>

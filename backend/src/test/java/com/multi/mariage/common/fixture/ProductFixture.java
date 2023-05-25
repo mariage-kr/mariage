@@ -8,11 +8,12 @@ import com.multi.mariage.product.domain.embedded.Info;
 import com.multi.mariage.product.domain.embedded.Level;
 import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.request.ProductUpdateRequest;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public enum  ProductFixture {
+public enum ProductFixture {
     참이슬("참이슬",
             16.5,
             "1998년 10월 19일 국내 소주 시장에 첫선을 보인 참이슬은 소주는 25도라는 상식을 깨며," +
@@ -86,6 +87,20 @@ public enum  ProductFixture {
                 .upperCategory(upperCategory)
                 .lowerCategory(lowerCategory)
                 .imageId(imageId)
+                .build();
+    }
+
+    public ProductUpdateRequest toProductUpdateRequest(Long productId, Long imageId, Long newImageId) {
+        return ProductUpdateRequest.builder()
+                .id(productId)
+                .name(name)
+                .info(info)
+                .level(level)
+                .country(country)
+                .upperCategory(upperCategory)
+                .lowerCategory(lowerCategory)
+                .imageId(imageId)
+                .newImageId(newImageId)
                 .build();
     }
 

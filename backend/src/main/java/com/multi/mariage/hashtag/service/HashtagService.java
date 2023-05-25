@@ -16,6 +16,13 @@ public class HashtagService {
 
     private final HashtagRepository hashtagRepository;
 
+    @Transactional
+    public List<Hashtag> findHashTagsByList(List<String> list) {
+        return list.stream()
+                .map(this::findByName)
+                .toList();
+    }
+
     private Hashtag findByName(String name) {
         Optional<Hashtag> hashtag = hashtagRepository.findByName(name);
 
@@ -24,12 +31,5 @@ public class HashtagService {
         }
 
         return hashtag.get();
-    }
-
-    @Transactional
-    public List<Hashtag> findHashTagsByList(List<String> list) {
-        return list.stream()
-                .map(this::findByName)
-                .toList();
     }
 }

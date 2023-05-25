@@ -16,8 +16,9 @@
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/storage.html[Storage^]
+- http://localhost:8080/docs/weather.html[Weather^]
 
-== 로그인
+== [POST] 로그인
 
 '''
 
@@ -41,23 +42,7 @@ include::{snippets}/Auth/Login/http-response.adoc[]
 
 include::{snippets}/Auth/Login/response-fields.adoc[]
 
-== 로그아웃
-
-'''
-
-=== Request
-
-'''
-
-include::{snippets}/Auth/Logout/http-request.adoc[]
-
-=== Response
-
-'''
-
-include::{snippets}/Auth/Logout/http-response.adoc[]
-
-== 엑세스 토큰 재발행
+== [POST] 엑세스 토큰 재발행
 
 '''
 
@@ -80,3 +65,19 @@ include::{snippets}/Auth/Reissue/http-response.adoc[]
 ==== Fields
 
 include::{snippets}/Auth/Reissue/response-fields.adoc[]
+
+== [DELETE] 로그아웃
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Auth/Logout/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Auth/Logout/http-response.adoc[]

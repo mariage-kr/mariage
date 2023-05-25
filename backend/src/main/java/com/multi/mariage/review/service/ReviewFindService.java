@@ -35,6 +35,7 @@ public class ReviewFindService extends PagingUtil {
     private final ReviewRepository reviewRepository;
     private final ImageService imageService;
 
+    /* TODO: 2023/05/24 추후 코드 리팩토링 */
     public Review findById(Long id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
@@ -86,7 +87,7 @@ public class ReviewFindService extends PagingUtil {
         return ProductReviewVO.builder()
                 .id(review.getId())
                 .member(memberVO)
-                .content(contentVO)
+                .review(contentVO)
                 .food(foodVO)
                 .like(likeVO)
                 .hashtags(hashtags)

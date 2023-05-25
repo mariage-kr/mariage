@@ -13,9 +13,12 @@ import {
 } from './Validate';
 
 import * as S from './SignUp.styled';
+import useAuth from '@/hooks/useAuth';
 
 function SignUp() {
   const navigate = useNavigate();
+
+  const { isLogin } = useAuth();
 
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { value: name, setValue: setName } = useInput<string>('');
@@ -49,6 +52,14 @@ function SignUp() {
     }
     return false;
   };
+
+  useEffect(() => {
+    if (isLogin()) {
+      /* TODO: 추후 snack bar 로 수정 */
+      alert('로그인하신 사용자는 이용하실 수 없습니다.');
+      navigate(BROWSER_PATH.BASE);
+    }
+  }, []);
 
   useEffect(() => {
     setIsValidName(!checkValidName(name));
