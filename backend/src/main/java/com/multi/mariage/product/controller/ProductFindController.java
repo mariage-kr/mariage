@@ -2,6 +2,10 @@ package com.multi.mariage.product.controller;
 
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.dto.response.temp.ProductContentResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewRankCountResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewRankRateResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewStatsResponse;
 import com.multi.mariage.product.service.ProductFindService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +52,12 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/product/detail/all/{id}")
+    public ResponseEntity<ProductDetailPageResponse> findDetailPageById(@PathVariable Long id) {
+        ProductDetailPageResponse response = productFindService.findFullInfoByPage(id);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/product/detail/{id}")
     public ResponseEntity<ProductContentResponse> findProductContentById(@PathVariable Long id) {
         ProductContentResponse response = productFindService.findProductContent(id);
@@ -57,6 +67,18 @@ public class ProductFindController {
     @GetMapping("/product/detail/stats/{id}")
     public ResponseEntity<ProductReviewStatsResponse> findProductReviewStatsById(@PathVariable Long id) {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/detail/food/rate/{id}")
+    public ResponseEntity<ProductReviewRankRateResponse> findFoodRateRankingById(@PathVariable Long id) {
+        ProductReviewRankRateResponse response = productFindService.findFoodsOrderByRate(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/detail/food/count/{id}")
+    public ResponseEntity<ProductReviewRankCountResponse> findFoodCountRankingById(@PathVariable Long id) {
+        ProductReviewRankCountResponse response = productFindService.findFoodsOrderByCount(id);
         return ResponseEntity.ok(response);
     }
 

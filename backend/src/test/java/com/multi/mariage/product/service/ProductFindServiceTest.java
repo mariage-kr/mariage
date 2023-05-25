@@ -5,12 +5,15 @@ import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.product.dto.request.ProductSaveRequest;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.dto.response.temp.ProductContentResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewStatsResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.ProductDetailVO;
-import com.multi.mariage.review.vo.ReviewRateVO;
+import com.multi.mariage.product.vo.ReviewRateVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
@@ -204,6 +207,15 @@ class ProductFindServiceTest extends ServiceTest {
             assertThat(actual.getPercentage()).isNotNull();
             assertThat(actual.getReviewRate()).isNotNull();
         }
+    }
+
+    @DisplayName("제품 상세페이지의 전체 정보를 조회한다.")
+    @Test
+    void 제품_상세페이지의_전체_정보를_조회한다() {
+        Long productId = 참이슬.getId();
+
+        ProductDetailPageResponse response = productFindService.findFullInfoByPage(productId);
+        assertThat(response).isNotNull();
     }
 
     @DisplayName("제품의 리뷰 통계를 조회한다.")

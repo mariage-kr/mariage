@@ -9,15 +9,15 @@ import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.dto.response.temp.ProductContentResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewRankCountResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewRankRateResponse;
+import com.multi.mariage.product.dto.response.temp.ProductReviewStatsResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
-import com.multi.mariage.product.vo.ProductDetailVO;
-import com.multi.mariage.product.vo.filter.ProductCountryFilterVO;
-import com.multi.mariage.product.vo.filter.ProductFilterVO;
-import com.multi.mariage.product.vo.filter.ProductFoodFilterVO;
-import com.multi.mariage.product.vo.filter.ProductReviewFilterVO;
+import com.multi.mariage.product.vo.*;
+import com.multi.mariage.product.vo.filter.*;
 import com.multi.mariage.review.domain.Review;
-import com.multi.mariage.review.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
@@ -95,6 +95,15 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
+    public ProductDetailPageResponse findFullInfoByPage(Long productId) {
+        Product product = findById(productId);
+        ProductContentVO content = getProductContent(productId);
+        ProductReviewStatsVO rating = getProductReviewStats(productId);
+        List<FoodRateRankingVO> foodRateRanking = getFoodsOrderByRate(productId);
+        List<FoodCountRankingVO> foodCountRanking = getFoodsOrderByCount(productId);
+        return ProductDetailPageResponse.from(product.getId(), content, rating, foodRateRanking, foodCountRanking);
+    }
+
     private List<ProductDetailVO> getProductValues() {
         List<Product> products = productRepository.findAll();
 
@@ -124,6 +133,30 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
+    public ProductReviewRankRateResponse findFoodsOrderByRate(Long productId) {
+        Product product = findById(productId);
+
+        List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);
+        List<FoodRateRankingVO> foodRateList = foodList.stream()
+                .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
+                .toList();
+
+        ProductReviewRankRateResponse response = ProductReviewRankRateResponse.from(product, foodRateList);
+        return response;
+    }
+
+    public ProductReviewRankCountResponse findFoodsOrderByCount(Long productId) {
+        Product product = findById(productId);
+
+        List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);
+        List<FoodCountRankingVO> foodCountList = foodList.stream()
+                .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
+                .toList();
+
+        ProductReviewRankCountResponse response = ProductReviewRankCountResponse.from(product, foodCountList);
+        return response;
+    }
+
     private List<ProductFilterVO> getContentsByFilter(List<Product> products) {
         List<ProductFilterVO> contents = new LinkedList<>();
         for (Product product : products) {
@@ -144,29 +177,28 @@ public class ProductFindService extends PagingUtil {
     public List<ReviewRateVO> getReviewPercentages(Long productId) {
         Product product = findById(productId);
         List<Review> reviews = product.getReviews();
+
         int reviewCount = reviews.size();
-
-        Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
+        int[] reviewScore = new int[6];    // 별점 1~5
         List<ReviewRateVO> percentageList = new ArrayList<>();
-        getPercentage(reviewCount, reviewRateCounts, percentageList);
 
+        getRateCounts(reviews, reviewScore);
+        getPercentage(reviewCount, reviewScore, percentageList);
         return percentageList;
     }
 
-    private Map<Integer, Integer> getRateCounts(List<Review> reviews) {
-        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
+    private void getRateCounts(List<Review> reviews, int[] reviewRateCounts) {  // 점수별 리뷰 개수
         for (Review review : reviews) {
             int reviewRate = review.getProductRate();
-            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
+            reviewRateCounts[reviewRate]++;
         }
-        return reviewRateCounts;
     }
 
-    private void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
-        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
-            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
+    private void getPercentage(int reviewCount, int[] reviewScoreCounts, List<ReviewRateVO> percentageList) {   // 비율 계산
+        for (int reviewScore = 1; reviewScore <= 5; reviewScore++) {
+            int count = reviewScoreCounts[reviewScore];
             int percentage = (int) Math.round((double) count / reviewCount * 100);
-            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
+            percentageList.add(ReviewRateVO.from(reviewScore, percentage));
         }
     }
 
@@ -175,5 +207,42 @@ public class ProductFindService extends PagingUtil {
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
         return ProductInfoResponse.from(product, imageUrl);
+    }
+
+    public ProductContentVO getProductContent(Long productId) {
+        Product product = findById(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
+        return ProductContentVO.from(product, imageUrl, product.getAvgReviewRate());
+    }
+
+    public ProductReviewStatsVO getProductReviewStats(Long productId) {
+        Product product = findById(productId);
+        List<ReviewRateVO> percentageList = getReviewPercentages(productId);
+
+        return ProductReviewStatsVO.from(product, percentageList);
+    }
+
+    public List<FoodRateRankingVO> getFoodsOrderByRate(Long productId) {
+        Product product = findById(productId);
+
+        List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);   // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
+        List<FoodRateRankingVO> foodRateList = foodList.stream()
+                .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
+                .toList();
+
+
+        return foodRateList;
+    }
+
+    public List<FoodCountRankingVO> getFoodsOrderByCount(Long productId) {
+        Product product = findById(productId);
+
+        List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
+        List<FoodCountRankingVO> foodCountList = foodList.stream()
+                .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
+                .toList();
+
+        return foodCountList;
     }
 }

@@ -51,4 +51,8 @@ public class FoodCategoryService {
     public List<Food> findFoodsByProduct(Product product, int size) {
         return foodRepository.findByProductId(product.getId(), size);
     }
+
+    public List<Food> findFoodsOrderByReviewCount(Product product, int size) {
+        return foodRepository.orderByReviewCount(product.getId(), size);
+    }
 }

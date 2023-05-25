@@ -1,4 +1,4 @@
-package com.multi.mariage.product.dto.response;
+package com.multi.mariage.product.vo;
 
 import com.multi.mariage.product.domain.Product;
 import lombok.AccessLevel;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ProductContentResponse {
-    private Long id;
+public class ProductContentVO {
     private Long imageId;
     private String imageUrl;
     private String name;
@@ -18,8 +17,7 @@ public class ProductContentResponse {
     private int countryId;
     private String country;
 
-    private ProductContentResponse(Product product, String imageUrl, double reviewRate) {
-        this.id = product.getId();
+    private ProductContentVO(Product product, String imageUrl, double reviewRate) {
         this.imageId = product.getImage().getId();
         this.imageUrl = imageUrl;
         this.name = String.valueOf(product.getName());
@@ -30,7 +28,7 @@ public class ProductContentResponse {
         this.country = product.getCountry().getValue();
     }
 
-    public static ProductContentResponse from(Product product, String imageUrl, double reviewRate) {
-        return new ProductContentResponse(product, imageUrl, reviewRate);
+    public static ProductContentVO from(Product product, String imageUrl, double reviewRate) {
+        return new ProductContentVO(product, imageUrl, reviewRate);
     }
 }

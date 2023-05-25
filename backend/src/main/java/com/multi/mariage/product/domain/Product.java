@@ -8,6 +8,8 @@ import com.multi.mariage.product.domain.embedded.Info;
 import com.multi.mariage.product.domain.embedded.Level;
 import com.multi.mariage.product.domain.embedded.Name;
 import com.multi.mariage.product.dto.request.ProductUpdateRequest;
+import com.multi.mariage.product.exception.ProductErrorCode;
+import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.domain.Image;
 import jakarta.persistence.*;
@@ -84,9 +86,11 @@ public class Product {
     }
 
     public void changeTotalReviewRate(int score) {
-        /* TODO: 2023/05/24 예외 처리 적용, 점수는 0미만이 될 수 없다. */
+        if (score <= 0) {
+            throw new ProductException(ProductErrorCode.REVIEW_SCORE_CANNOT_BE_OUT_OF_RANGE);
+        }
         totalReviewRate += score;
-        avgReviewRate = (double) totalReviewRate / reviews.size();
+        avgReviewRate = Math.round(((double) totalReviewRate / reviews.size()) * 10) / 10.0;
     }
 
     public void update(ProductUpdateRequest request) {
