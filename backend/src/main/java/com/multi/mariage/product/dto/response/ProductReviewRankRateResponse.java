@@ -1,7 +1,7 @@
 package com.multi.mariage.product.dto.response;
 
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.product.vo.filter.FoodRateVO;
+import com.multi.mariage.product.vo.FoodRateVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;

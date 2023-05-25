@@ -1,7 +1,7 @@
 package com.multi.mariage.product.dto.response;
 
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review.vo.ReviewRateVO;
+import com.multi.mariage.product.vo.ReviewRateVO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

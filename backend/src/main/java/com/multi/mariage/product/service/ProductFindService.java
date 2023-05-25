@@ -1,7 +1,6 @@
 package com.multi.mariage.product.service;
 
 import com.multi.mariage.category.domain.Food;
-import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.global.utils.PagingUtil;
@@ -12,10 +11,12 @@ import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
+import com.multi.mariage.product.vo.FoodCountVO;
+import com.multi.mariage.product.vo.FoodRateVO;
 import com.multi.mariage.product.vo.ProductDetailVO;
 import com.multi.mariage.product.vo.filter.*;
 import com.multi.mariage.review.domain.Review;
-import com.multi.mariage.review.vo.ReviewRateVO;
+import com.multi.mariage.product.vo.ReviewRateVO;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;

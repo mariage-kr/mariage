@@ -10,7 +10,7 @@ import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.dto.response.ProductReviewStatsResponse;
 import com.multi.mariage.product.vo.ProductDetailVO;
-import com.multi.mariage.review.vo.ReviewRateVO;
+import com.multi.mariage.product.vo.ReviewRateVO;
 import com.multi.mariage.storage.domain.Image;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

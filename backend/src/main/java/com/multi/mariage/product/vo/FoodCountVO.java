@@ -1,4 +1,4 @@
-package com.multi.mariage.product.vo.filter;
+package com.multi.mariage.product.vo;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,20 +8,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class FoodCountVO {
-    private int id;
+    private int foodId;
     private String category;
     private int reviewCount;
 
     @Builder
-    private FoodCountVO(int id, String category, int reviewCount) {
-        this.id = id;
+    private FoodCountVO(int foodId, String category, int reviewCount) {
+        this.foodId = foodId;
         this.category = category;
         this.reviewCount = reviewCount;
     }
 
-    public static FoodCountVO from(int id, String category, int reviewCount) {
+    public static FoodCountVO from(int foodId, String category, int reviewCount) {
         return FoodCountVO.builder()
-                .id(id)
+                .foodId(foodId)
                 .category(category)
                 .reviewCount(reviewCount)
                 .build();
