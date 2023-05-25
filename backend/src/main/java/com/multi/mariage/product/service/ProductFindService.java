@@ -174,7 +174,7 @@ public class ProductFindService extends PagingUtil {
         return contents;
     }
 
-    private List<ReviewRateVO> getReviewPercentages(Long productId) {
+    public List<ReviewRateVO> getReviewPercentages(Long productId) {
         Product product = findById(productId);
         List<Review> reviews = product.getReviews();
 
