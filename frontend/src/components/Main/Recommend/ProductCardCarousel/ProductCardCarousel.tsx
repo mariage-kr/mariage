@@ -9,6 +9,7 @@ import {
   requestRecommendWeather,
 } from '@/apis/request/product';
 import DataLoading from '@/components/Animation/DataLoading';
+import NoFoodRank from '@/components/Animation/NoFoodRank';
 
 import * as S from './ProductCardCarousel.styled';
 
@@ -67,7 +68,8 @@ function ProductCardCarousel({ option }: PropsType) {
       }
       if (option === 'algo') {
         /* TODO: 추후 해당 기능이 구현되면 추가 예정 */
-        return null;
+        /* TODO: 데이터가 없으면 추천 기능(다른 버튼 클릭)이 동작을 안함 */
+        return setProducts([]);
       }
       return getRecommendDate(option);
     };
@@ -78,9 +80,9 @@ function ProductCardCarousel({ option }: PropsType) {
 
   if (loading) {
     return (
-      <S.LoadingWrapper>
+      <S.LoadingAnimation>
         <DataLoading />
-      </S.LoadingWrapper>
+      </S.LoadingAnimation>
     );
   }
 
@@ -135,7 +137,12 @@ function ProductCardCarousel({ option }: PropsType) {
         </Carousel>
       ) : (
         /* TODO: 데이터가 존재하지 않을 경우 보여줄 사진 혹은 문구 필요 */
-        <h1>데이터가 존재하지 않습니다!</h1>
+        <>
+          <S.NoProductsAnimation>
+            <NoFoodRank />
+            <S.Text>추천 제품이 존재하지 않습니다!</S.Text>
+          </S.NoProductsAnimation>
+        </>
       )}
     </S.Container>
   );
