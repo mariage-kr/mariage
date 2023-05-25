@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
@@ -21,18 +21,43 @@ function Product() {
   const products: PagingType<ProductInfoType> = data;
   // const products: PagingType<ProductInfoType> = nullData;
 
-  const { value: category, setValue: setCategory } = useProductCategory();
-  const { value: drinkUpper, setValue: setDrinkUpper } = useSearchParam<
+  const { value: category } = useProductCategory();
+
+  const [pageNumber, setPageNumber] = useState<number>(0);
+
+  const { value: upperCategory, setValue: setUpperCategory } = useSearchParam<
     string | null
   >(null);
+  const { value: lowerCategory, setValue: setLowerCategory } =
+    useSearchParam<String | null>(null);
+  const { value: minRate, setValue: setMinRate } = useSearchParam<number>(0);
+  const { value: maxRate, setValue: setMaxRate } = useSearchParam<number>(5);
+  const { value: minLevel, setValue: setMinLevel } = useSearchParam<number>(0);
+  const { value: maxLevel, setValue: setMaxLevel } = useSearchParam<number>(70);
+  const [sort, setSort] = useState<string>('rate'); // rate, count
 
   const lengthIsZero = (): boolean => {
     return products.content.length === 0;
   };
 
+  const getParam = () => {
+    setUpperCategory('upper');
+    setLowerCategory('lower');
+    setMinRate('minRate');
+    setMaxRate('maxRate');
+    setMinLevel('minLevel');
+    setMaxLevel('maxLevel');
+  };
+
   useEffect(() => {
-    setDrinkUpper('upper');
+    getParam();
   }, []);
+
+  const changeSort = (option: string) => {
+    setSort(option);
+  };
+
+  console.log(sort);
 
   return (
     <S.Container>
@@ -43,7 +68,7 @@ function Product() {
         />
       </S.Aside>
       <S.Contents>
-        <Option />
+        <Option changeSort={changeSort} />
         {lengthIsZero() ? (
           <NoItems />
         ) : (

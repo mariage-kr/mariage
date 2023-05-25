@@ -10,6 +10,8 @@ import {
   DrinkRegionCategoryType,
   DrinkLowerCategoryType,
 } from '@/@types/category';
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 
 type FilterProps = {
   count: number;
@@ -22,9 +24,9 @@ type Option = {
 };
 
 function Filter({ count, categories }: FilterProps) {
-  const [selectedUpperCategory, setSelectedUpperCategory] = useState<
-    string | null
-  >(null);
+  const navigate = useNavigate();
+
+  const [upperCategory, setUpperCategory] = useState<string | null>(null);
   const [selectedLowerCategory, setSelectedLowerCategory] = useState<
     string | null
   >(null);
@@ -41,7 +43,7 @@ function Filter({ count, categories }: FilterProps) {
   });
 
   const handleUpperCategoryClick = (category: string | null) => {
-    setSelectedUpperCategory(category);
+    setUpperCategory(category);
     setSelectedLowerCategory(null);
   };
 
@@ -57,6 +59,12 @@ function Filter({ count, categories }: FilterProps) {
 
   const changeLevelOption = (selectLevelRange: Range) => {
     setOption({ ...option, level: selectLevelRange });
+  };
+
+  const findProductsByFilter = () => {
+    navigate(
+      `${BROWSER_PATH.PRODUCT}?upper=${upperCategory}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
+    );
   };
 
   return (
@@ -76,17 +84,17 @@ function Filter({ count, categories }: FilterProps) {
                   <div key={index}>
                     {category.categories.map(
                       (
-                        upperCategory: DrinkUpperCategoryType,
+                        drinkUpperCategory: DrinkUpperCategoryType,
                         index: number,
                       ) => (
                         <S.Category
-                          valid={upperCategory.value === selectedUpperCategory}
+                          valid={drinkUpperCategory.value === upperCategory}
                           key={index}
                           onClick={() =>
-                            handleUpperCategoryClick(upperCategory.value)
+                            handleUpperCategoryClick(drinkUpperCategory.value)
                           }
                         >
-                          {upperCategory.name}
+                          {drinkUpperCategory.name}
                         </S.Category>
                       ),
                     )}
@@ -101,17 +109,17 @@ function Filter({ count, categories }: FilterProps) {
                   <div key={index}>
                     {category.categories.map(
                       (
-                        upperCategory: DrinkUpperCategoryType,
+                        drinkUpperCategory: DrinkUpperCategoryType,
                         index: number,
                       ) => (
                         <S.Category
-                          valid={upperCategory.value === selectedUpperCategory}
+                          valid={drinkUpperCategory.value === upperCategory}
                           key={index}
                           onClick={() =>
-                            handleUpperCategoryClick(upperCategory.value)
+                            handleUpperCategoryClick(drinkUpperCategory.value)
                           }
                         >
-                          {upperCategory.name}
+                          {drinkUpperCategory.name}
                         </S.Category>
                       ),
                     )}
@@ -126,8 +134,8 @@ function Filter({ count, categories }: FilterProps) {
                 <div key={index}>
                   {category.categories
                     .filter(
-                      (upperCategory: DrinkUpperCategoryType) =>
-                        upperCategory.value === selectedUpperCategory,
+                      (drinkUpperCategory: DrinkUpperCategoryType) =>
+                        drinkUpperCategory.value === upperCategory,
                     )
                     .map(
                       (

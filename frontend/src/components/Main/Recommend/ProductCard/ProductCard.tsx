@@ -1,10 +1,10 @@
-import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
-
-import * as S from './ProductCard.styled';
 import { ProductRecommendType } from '@/@types/product';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
-import { CountryType } from '@/@types/category';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+
+import * as S from './ProductCard.styled';
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 
 function ProductCard({
   productId,
@@ -15,8 +15,14 @@ function ProductCard({
   country,
   countryId,
 }: ProductRecommendType) {
+  const navigate = useNavigate();
+
+  const goProduct = () => {
+    navigate(`${BROWSER_PATH.DETAIL}/${productId}`);
+  };
+
   return (
-    <S.CarouselCard>
+    <S.CarouselCard onClick={goProduct}>
       <S.CardContainer>
         <S.Wrapper>
           <S.Inner css={S.inner_left}>

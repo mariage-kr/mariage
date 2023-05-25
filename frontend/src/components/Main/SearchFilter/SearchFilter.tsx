@@ -49,7 +49,7 @@ function SearchFilter() {
 
   const findProductsByFilter = () => {
     navigate(
-      `${BROWSER_PATH.PRODUCT}?upperCategory=${option.category}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
+      `${BROWSER_PATH.PRODUCT}?upper=${option.category}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
     );
   };
 
