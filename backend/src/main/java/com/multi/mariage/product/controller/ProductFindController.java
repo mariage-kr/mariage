@@ -50,13 +50,13 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/detail/{id}")
+    @GetMapping("/product/detail/all/{id}")
     public ResponseEntity<ProductDetailPageResponse> findDetailPageById(@PathVariable Long id) {
         ProductDetailPageResponse response = productFindService.findFullInfoByPage(id);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/detail/content/{id}")
+    @GetMapping("/product/detail/{id}")
     public ResponseEntity<ProductContentResponse> findProductContentById(@PathVariable Long id) {
         ProductContentResponse response = productFindService.findProductContent(id);
         return ResponseEntity.ok(response);

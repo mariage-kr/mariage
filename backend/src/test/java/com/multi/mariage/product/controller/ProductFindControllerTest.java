@@ -28,7 +28,7 @@ class ProductFindControllerTest extends ControllerTest {
         Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
         Long productId = product.getId();
 
-        mockMvc.perform(get("/api/product/detail/content/" + productId))
+        mockMvc.perform(get("/api/product/detail/" + productId))
                 .andDo(print())
                 .andDo(document("Product/Detail",
                                 preprocessResponse(prettyPrint()),
@@ -147,9 +147,9 @@ class ProductFindControllerTest extends ControllerTest {
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
         saveReview(ReviewFixture.참이슬_과자, image2.getId(), product.getId(), member.getId());
 
-        mockMvc.perform(get("/api/product/detail/" + productId))
+        mockMvc.perform(get("/api/product/detail/all/" + productId))
                 .andDo(print())
-                .andDo(document("Product/Detail",
+                .andDo(document("Product/Detail/All",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
                                         fieldWithPath("productId").description("제품 식별자"),
