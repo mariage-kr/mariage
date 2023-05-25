@@ -1,4 +1,4 @@
-package com.multi.mariage.review_hashtag.service;
+package com.multi.mariage.review.service;
 
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;

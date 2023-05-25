@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReviewRepositoryCustom {
 
-    public List<Review> findReviewsByProductId(ReviewsPagingCond cond);
+    List<Review> findReviewsByProductId(ReviewsPagingCond cond);
 
-    public Long findReviewsCountByProductId(Long productId);
+    Long findReviewsCountByProductId(Long productId);
 }

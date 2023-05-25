@@ -16,9 +16,9 @@
 - http://localhost:8080/docs/member.html[Member^]
 - http://localhost:8080/docs/product.html[Product^]
 - http://localhost:8080/docs/review.html[Review^]
-- http://localhost:8080/docs/weather.html[Weather^]
+- http://localhost:8080/docs/storage.html[Storage^]
 
-== 이미지 저장
+== [GET] 현재 날씨 조회
 
 '''
 
@@ -26,14 +26,14 @@
 
 '''
 
-include::{snippets}/Storage/Save/http-request.adoc[]
+include::{snippets}/Weather/Info/http-request.adoc[]
 
 === Response
 
 '''
 
-include::{snippets}/Storage/Save/http-response.adoc[]
+include::{snippets}/Weather/Info/http-response.adoc[]
 
 ==== Fields
 
-include::{snippets}/Storage/Save/response-fields.adoc
+include::{snippets}/Weather/Info/response-fields.adoc[]

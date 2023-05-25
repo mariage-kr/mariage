@@ -19,6 +19,7 @@ import com.multi.mariage.product.service.ProductModifyService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
+import com.multi.mariage.review.service.ReviewFindService;
 import com.multi.mariage.review.service.ReviewHashtagService;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
@@ -53,6 +54,8 @@ public abstract class ServiceTest {
     protected ProductFindService productFindService;
     @Autowired
     protected ProductModifyService productModifyService;
+    @Autowired
+    protected ReviewFindService reviewFindService;
     @Autowired
     protected ReviewModifyService reviewModifyService;
     @Autowired

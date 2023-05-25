@@ -16,17 +16,17 @@ import java.util.List;
 public class ProductReviewVO {
     private Long id;
     private ProductReviewMemberVO member;
-    private ProductReviewContentVO content;
+    private ProductReviewContentVO review;
     private ProductReviewLikeVO like;
     private ProductReviewFoodVO food;
     private List<String> hashtags;
 
     @Builder
-    public ProductReviewVO(Long id, ProductReviewMemberVO member, ProductReviewContentVO content,
+    public ProductReviewVO(Long id, ProductReviewMemberVO member, ProductReviewContentVO review,
                            ProductReviewLikeVO like, ProductReviewFoodVO food, List<String> hashtags) {
         this.id = id;
         this.member = member;
-        this.content = content;
+        this.review = review;
         this.like = like;
         this.food = food;
         this.hashtags = hashtags;
