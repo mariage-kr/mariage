@@ -7,18 +7,18 @@ import ProductCardCarousel from './ProductCardCarousel/ProductCardCarousel';
 import * as S from './Recommend.styled';
 
 const Recommend = () => {
-  // TODO: weather, recommend, week, month, total
-  const [type, setType] = useState<string>('weather');
+  // TODO: algo ,weather, week, month, total
+  const [option, setOption] = useState<string>('');
 
-  const changeType = (type: string) => {
-    setType(type);
+  const changeOption = (option: string) => {
+    setOption(option);
   };
 
   return (
     <S.Container>
-      <Filter />
+      <Filter changeOption={changeOption} />
       <Weather />
-      <ProductCardCarousel />
+      <ProductCardCarousel option={option} />
     </S.Container>
   );
 };

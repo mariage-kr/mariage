@@ -55,6 +55,7 @@ function SignUp() {
 
   useEffect(() => {
     if (isLogin()) {
+      /* TODO: 추후 snack bar 로 수정 */
       alert('로그인하신 사용자는 이용하실 수 없습니다.');
       navigate(BROWSER_PATH.BASE);
     }

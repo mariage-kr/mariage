@@ -26,7 +26,6 @@ function Weather() {
         .get('/api/weather/info')
         .then(response => {
           setWeatherData({ ...response.data });
-          console.log(response);
         })
         .catch(error => {
           console.error('날씨 정보를 가져올 수 없습니다.', error);
@@ -35,7 +34,6 @@ function Weather() {
 
     fetchWeatherData();
   }, []);
-  console.log(weatherData);
 
   const getWeatherComponent = (weather: string) => {
     const lowerCaseWeather = weather.toLowerCase();

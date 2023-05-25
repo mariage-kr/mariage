@@ -4,30 +4,37 @@ import Carousel from 'react-simply-carousel';
 import ProductCard from '../ProductCard/ProductCard';
 
 import { ProductRecommendType } from '@/@types/product';
+import {
+  requestRecommendDate,
+  requestRecommendWeather,
+} from '@/apis/request/product';
+import DataLoading from '@/components/Animation/DataLoading';
+import NoFoodRank from '@/components/Animation/NoFoodRank';
 
 import * as S from './ProductCardCarousel.styled';
 
-import dummy from './ProductCardDummyData.json';
+type PropsType = {
+  option: string;
+};
 
-const ProductCardCarousel = () => {
-  const data: ProductRecommendType[] = dummy.cards;
-
+function ProductCardCarousel({ option }: PropsType) {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [products, setProducts] = useState<ProductRecommendType[]>([]);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+  const [items, setItems] = useState<number>(5);
 
   const getItemCount = (): number => {
     const width: number = window.innerWidth;
-
+    const productCount: number = products.length;
     if (width >= 1800) {
-      return Math.floor(width / 320) - 1;
+      return Math.min(Math.floor(width / 320) - 1, productCount);
     } else if (width >= 1570) {
-      return 4;
+      return Math.min(4, productCount);
     } else if (width >= 1200) {
-      return 3;
+      return Math.min(3, productCount);
     }
-    return 2;
+    return Math.min(2, productCount);
   };
-
-  const [items, setItems] = useState<number>(getItemCount());
 
   const resizeHandler = () => {
     setItems(getItemCount());
@@ -37,56 +44,108 @@ const ProductCardCarousel = () => {
     window.addEventListener('resize', resizeHandler);
   }, [resizeHandler]);
 
+  const getRecommendWeather = () => {
+    requestRecommendWeather().then(data => {
+      if (Array.isArray(data)) {
+        setProducts(data);
+      }
+    });
+  };
+
+  const getRecommendDate = (option: string) => {
+    requestRecommendDate(option).then(data => {
+      if (Array.isArray(data)) {
+        setProducts(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const fetchProducts = () => {
+      setLoading(true);
+      if (option === 'weather') {
+        return getRecommendWeather();
+      }
+      if (option === 'algo') {
+        /* TODO: 추후 해당 기능이 구현되면 추가 예정 */
+        /* TODO: 데이터가 없으면 추천 기능(다른 버튼 클릭)이 동작을 안함 */
+        return setProducts([]);
+      }
+      return getRecommendDate(option);
+    };
+
+    fetchProducts();
+    setLoading(false);
+  }, [option]);
+
+  if (loading) {
+    return (
+      <S.LoadingAnimation>
+        <DataLoading />
+      </S.LoadingAnimation>
+    );
+  }
+
   return (
     <S.Container>
-      <Carousel
-        activeSlideIndex={activeSlideIndex}
-        onRequestChange={setActiveSlideIndex}
-        itemsToShow={items}
-        itemsToScroll={items / 2}
-        autoplay={true}
-        autoplayDelay={5000}
-        forwardBtnProps={{
-          style: {
-            alignSelf: 'center',
-            background: 'none',
-            border: 'none',
-            borderRadius: '50%',
-            color: '#9C94D0',
-            cursor: 'pointer',
-            fontSize: '3rem',
-            width: 50,
-            height: 50,
-            lineHeight: 1,
-            textAlign: 'center',
-          },
-          children: <span>{`>`}</span>,
-        }}
-        backwardBtnProps={{
-          style: {
-            alignSelf: 'center',
-            background: 'none',
-            border: 'none',
-            borderRadius: '50%',
-            color: '#9C94D0',
-            cursor: 'pointer',
-            fontSize: '3rem',
-            width: 50,
-            height: 50,
-            lineHeight: 1,
-            textAlign: 'center',
-          },
-          children: <span>{`<`}</span>,
-        }}
-        speed={1000}
-        easing="linear"
-      >
-        {data.map((product: ProductRecommendType) => {
-          return <ProductCard key={product.id} {...product} />;
-        })}
-      </Carousel>
+      {products.length !== 0 ? (
+        <Carousel
+          activeSlideIndex={activeSlideIndex}
+          onRequestChange={setActiveSlideIndex}
+          itemsToShow={items}
+          itemsToScroll={items / 2}
+          autoplay={true}
+          autoplayDelay={5000}
+          forwardBtnProps={{
+            style: {
+              alignSelf: 'center',
+              background: 'none',
+              border: 'none',
+              borderRadius: '50%',
+              color: '#9C94D0',
+              cursor: 'pointer',
+              fontSize: '3rem',
+              width: 50,
+              height: 50,
+              lineHeight: 1,
+              textAlign: 'center',
+            },
+            children: <span>{`>`}</span>,
+          }}
+          backwardBtnProps={{
+            style: {
+              alignSelf: 'center',
+              background: 'none',
+              border: 'none',
+              borderRadius: '50%',
+              color: '#9C94D0',
+              cursor: 'pointer',
+              fontSize: '3rem',
+              width: 50,
+              height: 50,
+              lineHeight: 1,
+              textAlign: 'center',
+            },
+            children: <span>{`<`}</span>,
+          }}
+          speed={1000}
+          easing="linear"
+        >
+          {products.map((product: ProductRecommendType) => {
+            return <ProductCard key={product.productId} {...product} />;
+          })}
+        </Carousel>
+      ) : (
+        /* TODO: 데이터가 존재하지 않을 경우 보여줄 사진 혹은 문구 필요 */
+        <>
+          <S.NoProductsAnimation>
+            <NoFoodRank />
+            <S.Text>추천 제품이 존재하지 않습니다!</S.Text>
+          </S.NoProductsAnimation>
+        </>
+      )}
     </S.Container>
   );
-};
+}
 
 export default ProductCardCarousel;
