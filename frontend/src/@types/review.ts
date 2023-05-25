@@ -1,7 +1,7 @@
 type ReviewType = {
   id: number;
   member: ReviewMemberType;
-  content: ReviewContentType;
+  review: ReviewContentType;
   like: ReviewLikeType;
   food: ReviewFoodType;
   hashtags: string[];

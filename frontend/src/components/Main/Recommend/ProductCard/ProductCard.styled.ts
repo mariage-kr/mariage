@@ -5,6 +5,8 @@ const CarouselCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 `;
 
 const CardContainer = styled.div`
@@ -21,7 +23,9 @@ const CardContainer = styled.div`
     box-shadow: 3px 3px 3px #9c94d0;
   }
 
-  @media (min-width:1920px) { margin: 0 18px 10px; }
+  @media (min-width: 1920px) {
+    margin: 0 18px 10px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -139,5 +143,5 @@ export {
   Country,
   country_left,
   FlagImg,
-  country_right
+  country_right,
 };

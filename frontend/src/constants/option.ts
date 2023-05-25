@@ -6,4 +6,11 @@ const OPTION = {
   },
 };
 
-export { OPTION };
+const SORT = {
+  FILTER: {
+    RATE: 'rate',
+    COUNT: 'count',
+  },
+};
+
+export { OPTION, SORT };

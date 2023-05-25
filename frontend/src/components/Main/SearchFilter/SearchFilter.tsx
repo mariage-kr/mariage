@@ -6,6 +6,8 @@ import RangeMultiSlider_M_ABV from '@/components/Slider/RangeMultiSlider_M/Range
 
 import * as S from './SearchFilter.styled';
 import { Range } from '@/@types/slider';
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 
 type Option = {
   region: string;
@@ -15,6 +17,7 @@ type Option = {
 };
 
 function SearchFilter() {
+  const navigate = useNavigate();
   /**
    * useState object 형태 업데이트하기
    * https://jaddong.tistory.com/entry/useState-object-%ED%98%95%ED%83%9C-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0
@@ -44,6 +47,12 @@ function SearchFilter() {
     setOption({ ...option, level: selectLevelRange });
   };
 
+  const findProductsByFilter = () => {
+    navigate(
+      `${BROWSER_PATH.PRODUCT}?upper=${option.category}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
+    );
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -67,7 +76,7 @@ function SearchFilter() {
               <S.FilterTitle css={S.FilterTitle2}>별점</S.FilterTitle>
               <S.RangeMultiSlider>
                 <RangeMultiSlider_M_Star
-                  min={1}
+                  min={0}
                   max={5}
                   onChange={({ min, max }: { min: number; max: number }) =>
                     changeRateOption({
@@ -96,7 +105,9 @@ function SearchFilter() {
           </S.Right>
         </S.Inner>
         <S.Bottom>
-          <S.FindButton type={'submit'}>Find</S.FindButton>
+          <S.FindButton type={'button'} onClick={findProductsByFilter}>
+            Find
+          </S.FindButton>
         </S.Bottom>
       </S.Wrapper>
     </S.Container>

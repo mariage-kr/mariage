@@ -141,6 +141,8 @@ const FilterBtn = styled.button`
   background: #fff;
   font-size: 1rem;
 
+  cursor: pointer;
+
   &:hover {
     background-color: #9c94d0;
     color: #fff;
