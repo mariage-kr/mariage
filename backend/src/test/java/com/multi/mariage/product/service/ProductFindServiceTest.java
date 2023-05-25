@@ -5,6 +5,7 @@ import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductSaveRequest;
+import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
 import com.multi.mariage.product.dto.response.temp.ProductContentResponse;
 import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.product.dto.response.ProductMainCardResponse;
@@ -152,5 +153,14 @@ class ProductFindServiceTest extends ServiceTest {
             assertThat(actual.getPercentage()).isNotNull();
             assertThat(actual.getReviewRate()).isNotNull();
         }
+    }
+
+    @DisplayName("제품 상세페이지의 전체 정보를 조회한다.")
+    @Test
+    void 제품_상세페이지의_전체_정보를_조회한다() {
+        Long productId = 참이슬.getId();
+
+        ProductDetailPageResponse response = productFindService.findProductDetail(productId);
+        assertThat(response).isNotNull();
     }
 }
