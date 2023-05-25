@@ -120,7 +120,7 @@ class ProductFindControllerTest extends ControllerTest {
         Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
         saveReview(ReviewFixture.참이슬_과자, image2.getId(), product.getId(), member.getId());
 
-        mockMvc.perform(get("/api/product/detail/all/" + productId))
+        mockMvc.perform(get("/api/product/detail/" + productId))
                 .andDo(print())
                 .andDo(document("Product/Detail/All",
                                 preprocessResponse(prettyPrint()),
@@ -202,58 +202,5 @@ class ProductFindControllerTest extends ControllerTest {
                                 )
                         )
                 ).andExpect(status().isOk());
-    }
-
-    @DisplayName("상세페이지의 제품 정보를 조회한다.")
-    @Test
-    void 상세페이지의_제품_정보를_조회한다() throws Exception {
-
-        Product product = saveProduct(ProductFixture.참이슬, saveImage(ImageFixture.JPEG_IMAGE).getId());
-        Long productId = product.getId();
-
-        mockMvc.perform(get("/api/product/detail/" + productId))
-                .andDo(print())
-                .andDo(document("Product/Detail",
-                                preprocessResponse(prettyPrint()),
-                                responseFields(
-                                        fieldWithPath("id").description("제품 식별자"),
-                                        fieldWithPath("imageId").description("제품 이미지 식별자"),
-                                        fieldWithPath("imageUrl").description("제품 이미지 url"),
-                                        fieldWithPath("name").description("제품 이름"),
-                                        fieldWithPath("level").description("제품의 도수"),
-                                        fieldWithPath("reviewRate").description("제품에 대한 리뷰 평점"),
-                                        fieldWithPath("info").description("제품 정보"),
-                                        fieldWithPath("countryId").description("제품의 제조국 식별자"),
-                                        fieldWithPath("country").description("제품의 제조국 이름")
-                                )
-                        )
-                )
-                .andExpect(status().is(HttpStatus.OK.value()));
-    }
-
-    @DisplayName("제품의 리뷰 점수 정보를 조회한다.")
-    @Test
-    void 제품의_리뷰_점수_정보를_조회한다() throws Exception {
-        Member member = saveMember();
-        Image image1 = saveImage(ImageFixture.JPEG_IMAGE);
-        Image image2 = saveImage(ImageFixture.JPEG_IMAGE2);
-        Product product1 = saveProduct(ProductFixture.참이슬, image1.getId());
-        saveReview(ReviewFixture.참이슬_과자, image2.getId(), product1.getId(), member.getId());
-
-        mockMvc.perform(get("/api/product/detail/stats/" + product1.getId()))
-                .andDo(print())
-                .andDo(document("Product/Stats",
-                                preprocessResponse(prettyPrint()),
-                                responseFields(
-                                        fieldWithPath("productId").description("제품 식별 번호"),
-                                        fieldWithPath("reviewAverageRate").description("제품 평균 리뷰 점수"),
-                                        fieldWithPath("reviewCount").description("제품 리뷰 총 개수"),
-                                        fieldWithPath("percentageList").description("제품 리뷰 정보"),
-                                        fieldWithPath("percentageList[].reviewRate").description("제품 리뷰 점수"),
-                                        fieldWithPath("percentageList[].percentage").description("제품 리뷰 점수 비율")
-                                )
-                        )
-                )
-                .andExpect(status().isOk());
     }
 }
