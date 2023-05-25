@@ -8,18 +8,19 @@ import {
   requestRecommendDate,
   requestRecommendWeather,
 } from '@/apis/request/product';
+import DataLoading from '@/components/Animation/DataLoading';
 
 import * as S from './ProductCardCarousel.styled';
 
-type OptionType = {
+type PropsType = {
   option: string;
 };
 
-function ProductCardCarousel({ option }: OptionType) {
+function ProductCardCarousel({ option }: PropsType) {
   const [loading, setLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<ProductRecommendType[]>([]);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
-  const [items, setItems] = useState<number>(0);
+  const [items, setItems] = useState<number>(5);
 
   const getItemCount = (): number => {
     const width: number = window.innerWidth;
@@ -65,6 +66,7 @@ function ProductCardCarousel({ option }: OptionType) {
         return getRecommendWeather();
       }
       if (option === 'algo') {
+        /* TODO: 추후 해당 기능이 구현되면 추가 예정 */
         return null;
       }
       return getRecommendDate(option);
@@ -74,9 +76,17 @@ function ProductCardCarousel({ option }: OptionType) {
     setLoading(false);
   }, [option]);
 
+  if (loading) {
+    return (
+      <S.LoadingWrapper>
+        <DataLoading />
+      </S.LoadingWrapper>
+    );
+  }
+
   return (
     <S.Container>
-      {products.length !== 0 || loading === false ? (
+      {products.length !== 0 ? (
         <Carousel
           activeSlideIndex={activeSlideIndex}
           onRequestChange={setActiveSlideIndex}
@@ -124,6 +134,7 @@ function ProductCardCarousel({ option }: OptionType) {
           })}
         </Carousel>
       ) : (
+        /* TODO: 데이터가 존재하지 않을 경우 보여줄 사진 혹은 문구 필요 */
         <h1>데이터가 존재하지 않습니다!</h1>
       )}
     </S.Container>
