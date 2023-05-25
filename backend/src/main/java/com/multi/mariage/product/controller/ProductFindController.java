@@ -52,7 +52,7 @@ public class ProductFindController {
 
     @GetMapping("/product/detail/{id}")
     public ResponseEntity<ProductDetailPageResponse> findDetailPageById(@PathVariable Long id) {
-        ProductDetailPageResponse response = productFindService.findProductDetail(id);
+        ProductDetailPageResponse response = productFindService.findFullInfoByPage(id);
         return ResponseEntity.ok(response);
     }
 

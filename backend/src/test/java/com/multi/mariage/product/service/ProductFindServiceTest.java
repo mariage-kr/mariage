@@ -160,7 +160,7 @@ class ProductFindServiceTest extends ServiceTest {
     void 제품_상세페이지의_전체_정보를_조회한다() {
         Long productId = 참이슬.getId();
 
-        ProductDetailPageResponse response = productFindService.findProductDetail(productId);
+        ProductDetailPageResponse response = productFindService.findFullInfoByPage(productId);
         assertThat(response).isNotNull();
     }
 }

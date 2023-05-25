@@ -95,7 +95,7 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
-    public ProductDetailPageResponse findProductDetail(Long productId) {
+    public ProductDetailPageResponse findFullInfoByPage(Long productId) {
         Product product = findById(productId);
         ProductContentVO content = getProductContent(productId);
         ProductReviewStatsVO rating = getProductReviewStats(productId);
