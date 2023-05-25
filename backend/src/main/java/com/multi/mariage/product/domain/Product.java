@@ -86,7 +86,7 @@ public class Product {
     }
 
     public void changeTotalReviewRate(int score) {
-        if (score < 0) {
+        if (score <= 0) {
             throw new ProductException(ProductErrorCode.REVIEW_SCORE_CANNOT_BE_OUT_OF_RANGE);
         }
         totalReviewRate += score;
