@@ -99,8 +99,8 @@ public class ProductFindService extends PagingUtil {
         Product product = findById(productId);
         ProductContentVO content = getProductContent(productId);
         ProductReviewStatsVO rating = getProductReviewStats(productId);
-        ProductReviewRankRateVO foodRateRanking = getFoodsOrderByRate(productId);
-        ProductReviewRankCountVO foodCountRanking = getFoodsOrderByCount(productId);
+        List<FoodRateRankingVO> foodRateRanking = getFoodsOrderByRate(productId);
+        List<FoodCountRankingVO> foodCountRanking = getFoodsOrderByCount(productId);
         return ProductDetailPageResponse.from(product.getId(), content, rating, foodRateRanking, foodCountRanking);
     }
 
@@ -137,8 +137,8 @@ public class ProductFindService extends PagingUtil {
         Product product = findById(productId);
 
         List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);
-        List<FoodRateVO> foodRateList = foodList.stream()
-                .map(food -> FoodRateVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
+        List<FoodRateRankingVO> foodRateList = foodList.stream()
+                .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
                 .toList();
 
         ProductReviewRankRateResponse response = ProductReviewRankRateResponse.from(product, foodRateList);
@@ -149,8 +149,8 @@ public class ProductFindService extends PagingUtil {
         Product product = findById(productId);
 
         List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);
-        List<FoodCountVO> foodCountList = foodList.stream()
-                .map(food -> FoodCountVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
+        List<FoodCountRankingVO> foodCountList = foodList.stream()
+                .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
                 .toList();
 
         ProductReviewRankCountResponse response = ProductReviewRankCountResponse.from(product, foodCountList);
@@ -224,27 +224,26 @@ public class ProductFindService extends PagingUtil {
         return ProductReviewStatsVO.from(product, percentageList);
     }
 
-    public ProductReviewRankRateVO getFoodsOrderByRate(Long productId) {
+    public List<FoodRateRankingVO> getFoodsOrderByRate(Long productId) {
         Product product = findById(productId);
 
         List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);   // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
-        List<FoodRateVO> foodRateList = foodList.stream()
-                .map(food -> FoodRateVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
+        List<FoodRateRankingVO> foodRateList = foodList.stream()
+                .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
                 .toList();
 
-        ProductReviewRankRateVO response = ProductReviewRankRateVO.from(foodRateList);
-        return response;
+
+        return foodRateList;
     }
 
-    public ProductReviewRankCountVO getFoodsOrderByCount(Long productId) {
+    public List<FoodCountRankingVO> getFoodsOrderByCount(Long productId) {
         Product product = findById(productId);
 
         List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
-        List<FoodCountVO> foodCountList = foodList.stream()
-                .map(food -> FoodCountVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
+        List<FoodCountRankingVO> foodCountList = foodList.stream()
+                .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
                 .toList();
 
-        ProductReviewRankCountVO response = ProductReviewRankCountVO.from(foodCountList);
-        return response;
+        return foodCountList;
     }
 }

@@ -1,7 +1,7 @@
 package com.multi.mariage.product.dto.response.temp;
 
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.product.vo.FoodCountVO;
+import com.multi.mariage.product.vo.FoodCountRankingVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -13,15 +13,15 @@ import java.util.List;
 @Data
 public class ProductReviewRankCountResponse {
     private Long productId;
-    private List<FoodCountVO> countRanking;
+    private List<FoodCountRankingVO> countRanking;
 
     @Builder
-    public ProductReviewRankCountResponse(Product product, List<FoodCountVO> countRanking) {
+    public ProductReviewRankCountResponse(Product product, List<FoodCountRankingVO> countRanking) {
         this.productId = product.getId();
         this.countRanking = countRanking;
     }
 
-    public static ProductReviewRankCountResponse from(Product product, List<FoodCountVO> countRanking) {
+    public static ProductReviewRankCountResponse from(Product product, List<FoodCountRankingVO> countRanking) {
         return new ProductReviewRankCountResponse(product, countRanking);
     }
 }

@@ -9,13 +9,13 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductReviewRankRateVO {
-    private List<FoodRateVO> rateRanking;
+    private List<FoodRateRankingVO> rateRanking;
 
-    public ProductReviewRankRateVO(List<FoodRateVO> rateRanking) {
+    public ProductReviewRankRateVO(List<FoodRateRankingVO> rateRanking) {
         this.rateRanking = rateRanking;
     }
 
-    public static ProductReviewRankRateVO from(List<FoodRateVO> rateRanking) {
+    public static ProductReviewRankRateVO from(List<FoodRateRankingVO> rateRanking) {
         return new ProductReviewRankRateVO(rateRanking);
     }
 }

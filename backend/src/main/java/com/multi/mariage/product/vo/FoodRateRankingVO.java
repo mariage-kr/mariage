@@ -7,20 +7,20 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class FoodRateVO {
+public class FoodRateRankingVO {
     private int foodId;
     private String category;
     private double avgFoodRate;
 
     @Builder
-    private FoodRateVO(int foodId, String category, double avgFoodRate) {
+    private FoodRateRankingVO(int foodId, String category, double avgFoodRate) {
         this.foodId = foodId;
         this.category = category;
         this.avgFoodRate = avgFoodRate;
     }
 
-    public static FoodRateVO from(int foodId, String category, double avgFoodRate) {
-        return FoodRateVO.builder()
+    public static FoodRateRankingVO from(int foodId, String category, double avgFoodRate) {
+        return FoodRateRankingVO.builder()
                 .foodId(foodId)
                 .category(category)
                 .avgFoodRate(avgFoodRate)
