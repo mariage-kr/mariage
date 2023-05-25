@@ -1,7 +1,12 @@
-import { axiosWithAccessToken } from '../axios';
+import { axios, axiosWithAccessToken } from '../axios';
 
 import { API_PATH } from '@/constants/path';
-import { ProductSaveType, ProductUpdateType } from '@/@types/product';
+import {
+  ProductRecommendType,
+  ProductSaveType,
+  ProductUpdateType,
+} from '@/@types/product';
+import { RECOMMEND_PRODUCT_SIZE } from '@/constants/rule';
 
 const requestSaveProduct = (productData: ProductSaveType) => {
   return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {
@@ -21,4 +26,41 @@ const requestUpdateProduct = async (productData: ProductUpdateType) => {
   });
 };
 
-export { requestSaveProduct, requestProductInfo, requestUpdateProduct };
+const requestRecommendDate = (option: string) => {
+  return axios
+    .get<ProductRecommendType[]>(API_PATH.PRODUCT.RECOMMEND.DATE, {
+      params: {
+        size: RECOMMEND_PRODUCT_SIZE,
+        option,
+      },
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
+
+const requestRecommendWeather = () => {
+  return axios
+    .get<ProductRecommendType[]>(API_PATH.PRODUCT.RECOMMEND.WEATHER, {
+      params: {
+        size: RECOMMEND_PRODUCT_SIZE,
+      },
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
+
+export {
+  requestSaveProduct,
+  requestProductInfo,
+  requestUpdateProduct,
+  requestRecommendWeather,
+  requestRecommendDate,
+};

@@ -24,9 +24,13 @@ const API_PATH = {
     INFO: '/api/user/product/info',
     UPDATE: '/api/user/product/update',
     IMAGE: '/api/user/product/image',
+    RECOMMEND: {
+      DATE: '/api/product/recommend/date',
+      WEATHER: '/api/product/recommend/weather',
+    },
   },
   REVIEW: {
-    PRODUCT: '/api/review/product'
+    PRODUCT: '/api/review/product',
   },
   STORAGE: '/api/user/storage/image',
 };

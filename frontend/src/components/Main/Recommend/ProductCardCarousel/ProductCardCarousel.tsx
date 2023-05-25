@@ -4,16 +4,19 @@ import Carousel from 'react-simply-carousel';
 import ProductCard from '../ProductCard/ProductCard';
 
 import { ProductRecommendType } from '@/@types/product';
+import {
+  requestRecommendDate,
+  requestRecommendWeather,
+} from '@/apis/request/product';
+import { OPTION } from '@/constants/option';
 
 import * as S from './ProductCardCarousel.styled';
 
 import dummy from './ProductCardDummyData.json';
 
 const ProductCardCarousel = () => {
-  const data: ProductRecommendType[] = dummy.cards;
-
+  const [products, setProducts] = useState<ProductRecommendType[]>([]);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
-
   const getItemCount = (): number => {
     const width: number = window.innerWidth;
 
@@ -36,6 +39,24 @@ const ProductCardCarousel = () => {
   useEffect(() => {
     window.addEventListener('resize', resizeHandler);
   }, [resizeHandler]);
+
+  const getRecommendWeather = () => {
+    requestRecommendWeather().then(data => {
+      console.log(data);
+    });
+  };
+
+  const getRecommendDate = () => {
+    requestRecommendDate(OPTION.RECOMMEND_DATE.WEEK).then(data => {
+      if (Array.isArray(data)) {
+        setProducts(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getRecommendDate();
+  }, []);
 
   return (
     <S.Container>
@@ -81,9 +102,10 @@ const ProductCardCarousel = () => {
         speed={1000}
         easing="linear"
       >
-        {data.map((product: ProductRecommendType) => {
-          return <ProductCard key={product.id} {...product} />;
-        })}
+        {products &&
+          products.map((product: ProductRecommendType) => {
+            return <ProductCard key={product.productId} {...product} />;
+          })}
       </Carousel>
     </S.Container>
   );

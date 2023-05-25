@@ -139,9 +139,7 @@ function CountryFlagImg({ id }: CountryType) {
   if (id === 31) {
     return <FoodImg src={Thailand} />;
   }
-  if (id === 32) {
-    return <FoodImg src={Vietnam} />;
-  }
+  return <FoodImg src={Vietnam} />;
 }
 
 export default CountryFlagImg;

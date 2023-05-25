@@ -2,25 +2,30 @@ import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 
 import * as S from './ProductCard.styled';
 import { ProductRecommendType } from '@/@types/product';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
+import { CountryType } from '@/@types/category';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 
 function ProductCard({
-  img,
+  productId,
+  productName,
+  productImageUrl,
   reviewCount,
-  name,
-  flagImg,
+  reviewRate,
   country,
+  countryId,
 }: ProductRecommendType) {
   return (
     <S.CarouselCard>
       <S.CardContainer>
         <S.Wrapper>
           <S.Inner css={S.inner_left}>
-            <S.Img alt="" src={img} />
+            <S.Img alt="" src={productImageUrl} />
           </S.Inner>
           <S.Inner css={S.inner_right}>
             <S.StarRate>
-              <S.StarRateText>3.6</S.StarRateText>
-              <StarRateAverage averageReviewRate={3.6} />
+              <S.StarRateText>{reviewRate}</S.StarRateText>
+              <SvgStarRateAverage id={productId} rate={reviewRate} />
             </S.StarRate>
             <S.Review>
               <S.ReviewCount>{reviewCount}</S.ReviewCount> reviews
@@ -28,9 +33,9 @@ function ProductCard({
           </S.Inner>
         </S.Wrapper>
         <S.Bottom>
-          <S.Name>{name}</S.Name>
+          <S.Name>{productName}</S.Name>
           <S.Country css={S.country_left}>
-            <S.FlagImg alt="" src={flagImg} />
+            <CountryFlagImg id={countryId} />
           </S.Country>
           <S.Country css={S.country_right}>{country}</S.Country>
         </S.Bottom>
