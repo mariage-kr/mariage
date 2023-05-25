@@ -93,6 +93,15 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
+    public ProductDetailPageResponse findProductDetail(Long productId) {
+        Product product = findById(productId);
+        ProductContentResponse content = findProductContent(productId);
+        ProductReviewStatsResponse rating = findProductReviewStats(productId);
+        ProductReviewRankRateResponse foodRateRanking = findFoodsOrderByRate(productId);
+        ProductReviewRankCountResponse foodCountRanking = findFoodsOrderByCount(productId);
+        return ProductDetailPageResponse.from(product.getId(), content, rating, foodRateRanking, foodCountRanking);
+    }
+
     private List<ProductDetailVO> getProductValues() {
         List<Product> products = productRepository.findAll();
 

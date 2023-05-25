@@ -46,6 +46,12 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/product/detail/{id}")
+    public ResponseEntity<ProductDetailPageResponse> findDetailPageById(@PathVariable Long id) {
+        ProductDetailPageResponse response = productFindService.findProductDetail(id);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/product/detail/content/{id}")
     public ResponseEntity<ProductContentResponse> findProductContentById(@PathVariable Long id) {
         ProductContentResponse response = productFindService.findProductContent(id);
@@ -57,11 +63,13 @@ public class ProductFindController {
         ProductReviewStatsResponse response = productFindService.findProductReviewStats(id);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/product/detail/food/rate/{id}")
     public ResponseEntity<ProductReviewRankRateResponse> findFoodRateRankingById(@PathVariable Long id) {
         ProductReviewRankRateResponse response = productFindService.findFoodsOrderByRate(id);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/product/detail/food/count/{id}")
     public ResponseEntity<ProductReviewRankCountResponse> findFoodCountRankingById(@PathVariable Long id) {
         ProductReviewRankCountResponse response = productFindService.findFoodsOrderByCount(id);
