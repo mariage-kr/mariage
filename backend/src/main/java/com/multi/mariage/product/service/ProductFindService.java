@@ -174,31 +174,30 @@ public class ProductFindService extends PagingUtil {
         return contents;
     }
 
-    public List<ReviewRateVO> getReviewPercentages(Long productId) {
+    private List<ReviewRateVO> getReviewPercentages(Long productId) {
         Product product = findById(productId);
         List<Review> reviews = product.getReviews();
+
         int reviewCount = reviews.size();
-
-        Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
+        int[] reviewRateCounts = new int[6]; // 별점
         List<ReviewRateVO> percentageList = new ArrayList<>();
-        getPercentage(reviewCount, reviewRateCounts, percentageList);
 
+        getRateCounts(reviews, reviewRateCounts);
+        getPercentage(reviewCount, reviewRateCounts, percentageList);
         return percentageList;
     }
 
-    private Map<Integer, Integer> getRateCounts(List<Review> reviews) {
-        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
-        for (Review review : reviews) {
+    private static void getRateCounts(List<Review> reviews, int[] reviewRateCounts) {
+        for (Review review : reviews) {     // 리뷰 개수 구하기
             int reviewRate = review.getProductRate();
-            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
+            reviewRateCounts[reviewRate]++;
         }
-        return reviewRateCounts;
     }
 
-    private void getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts, List<ReviewRateVO> percentageList) {
-        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
-            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
-            int percentage = (int) Math.round((double) count / reviewCount * 100);
+    private static void getPercentage(int reviewCount, int[] reviewRateCounts, List<ReviewRateVO> percentageList) {
+        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {   // 비율 계산
+            int count = reviewRateCounts[reviewRate];
+            int percentage = Math.round((float) count / reviewCount * 100);
             percentageList.add(ReviewRateVO.from(reviewRate, percentage));
         }
     }
