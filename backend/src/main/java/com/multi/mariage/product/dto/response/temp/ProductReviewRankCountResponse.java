@@ -1,4 +1,4 @@
-package com.multi.mariage.product.dto.response;
+package com.multi.mariage.product.dto.response.temp;
 
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.vo.FoodCountVO;
