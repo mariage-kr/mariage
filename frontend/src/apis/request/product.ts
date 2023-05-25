@@ -36,9 +36,6 @@ const requestRecommendDate = (option: string) => {
     })
     .then(response => {
       return response.data;
-    })
-    .catch(error => {
-      console.error(error);
     });
 };
 
@@ -51,9 +48,6 @@ const requestRecommendWeather = () => {
     })
     .then(response => {
       return response.data;
-    })
-    .catch(error => {
-      console.error(error);
     });
 };
 
