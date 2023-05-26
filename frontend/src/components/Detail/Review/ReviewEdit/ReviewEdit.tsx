@@ -4,25 +4,25 @@ import FoodCategory from './FoodContent/FoodCategory';
 import FoodImg from './FoodContent/FoodImg';
 import HashTag from './HashTag/HashTag';
 import * as S from './ReviewEdit.styled';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 
 type PropsType = {
   id: number;
-  flagImg: string;
-  country: string;
   name: string;
   level: number;
+  country: string;
+  countryId: number;
   onClickToggleModal: () => void;
 };
 
 function ReviewEdit({
   id,
-  flagImg,
-  country,
   name,
   level,
+  country,
+  countryId,
   onClickToggleModal,
 }: PropsType) {
-  // 버튼 클릭 이벤트
   const [content, setContent] = useState();
   const [category, setCategory] = useState<string | null>(null);
 
@@ -54,7 +54,7 @@ function ReviewEdit({
         <S.Top>
           <S.DrinkInfo>
             <S.Country css={S.country_left}>
-              <S.FlagImg alt="" src={flagImg} />
+              <CountryFlagImg id={countryId} />
             </S.Country>
             <S.Country css={S.country_right}>{country}</S.Country>
             <S.NameLevel>

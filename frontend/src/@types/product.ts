@@ -31,36 +31,6 @@ type ProductUpdateType = {
   newImageId: number;
 };
 
-type PairingFoodType = {
-  id: number;
-  img: string;
-  name: string;
-  rate: number;
-};
-
-type ProductContentType = {
-  id: number;
-  img: string;
-  flagImg: string;
-  country: string;
-  name: string;
-  level: number;
-  reviewRate: number;
-  content: string;
-};
-
-type ProductInfoType = {
-  id: number;
-  img: string;
-  flagImg: string;
-  country: string;
-  name: string;
-  level: number;
-  reviewRate: number;
-  reviewCount: number;
-  food: PairingFoodType[];
-};
-
 type ProductRecommendType = {
   productId: number;
   productName: string;
@@ -94,35 +64,36 @@ type ProductFoodType = {
 
 type ProductDetailType = {
   productId: number;
-  content: {
-    imageId: number;
-    imageUrl: string;
-    name: string;
-    level: number;
-    reviewRate: number;
-    info: string;
-    countryId: number;
-    country: string;
-  };
-  rating: {
-    reviewAverageRate: number;
-    reviewCount: number;
-    percentageList: {
-      reviewRate: number;
-      percentage: number;
-    }[];
-  };
-  foodRateRanking: {
-    foodId: number;
-    category: string;
-    avgFoodRate: number;
-  }[];
+  content: ProductContentType;
+  rating: ReviewRatingType;
+  foodRateRanking: PairingFoodType[];
+  foodCountRanking: PairingFoodType[];
+};
 
-  foodCountRanking: {
-    foodId: number;
-    category: string;
-    reviewCount: number;
+type ReviewRatingType = {
+  reviewAverageRate: number;
+  reviewCount: number;
+  percentageList: {
+    reviewRate: number;
+    percentage: number;
   }[];
+};
+
+type ProductContentType = {
+  imageUrl: string;
+  name: string;
+  level: number;
+  reviewRate: number;
+  info: string;
+  countryId: number;
+  country: string;
+};
+
+type PairingFoodType = {
+  foodId: number;
+  category: string;
+  avgFoodRate: number;
+  reviewCount: number;
 };
 
 export {
@@ -130,10 +101,10 @@ export {
   ProductSaveType,
   ProductUpdateType,
   PairingFoodType,
-  ProductContentType,
-  ProductInfoType,
   ProductRecommendType,
   ProductsType,
   ProductFoodType,
+  ReviewRatingType,
   ProductDetailType,
+  ProductContentType,
 };

@@ -1,6 +1,6 @@
 type PairingSelectType = {
-  selected: boolean;
-  highRate: boolean;
+  count: boolean;
+  rate: boolean;
 };
 
 type SortType = {

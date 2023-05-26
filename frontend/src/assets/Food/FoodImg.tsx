@@ -29,7 +29,11 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
-function FoodImg(id: number) {
+type PropsType = {
+  id: number;
+};
+
+function FoodImg({ id }: PropsType) {
   if (id === 1) {
     return <Img src={SeaFood} />;
   }
