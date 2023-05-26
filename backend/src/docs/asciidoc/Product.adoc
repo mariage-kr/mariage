@@ -129,30 +129,6 @@ include::{snippets}/Product/Detail/http-response.adoc[]
 
 include::{snippets}/Product/Detail/response-fields.adoc[]
 
-== [GET] 제품 리뷰 점수 정보 조회
-
-'''
-
-=== Request
-
-'''
-
-include::{snippets}/Product/Stats/http-request.adoc[]
-
-==== PathVariable
-
-- `id` : 제품 식별 번호
-
-=== Response
-
-'''
-
-include::{snippets}/Product/Stats/http-response.adoc[]
-
-==== Fields
-
-include::{snippets}/Product/Stats/response-fields.adoc[]
-
 == [PATCH] 제품 수정
 
 '''

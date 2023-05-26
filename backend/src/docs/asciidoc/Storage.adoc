@@ -18,7 +18,7 @@
 - http://localhost:8080/docs/review.html[Review^]
 - http://localhost:8080/docs/weather.html[Weather^]
 
-== 이미지 저장
+== [POST] 이미지 저장
 
 '''
 
