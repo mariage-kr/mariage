@@ -6,10 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
- import java.util.List;
- import java.util.Optional;
- import java.util.Iterator;
- import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Iterator.*;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -17,6 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class HashtagService {
 
     private final HashtagRepository hashtagRepository;
+
+    @Transactional
+    public List<Hashtag> findHashTagsByList(List<String> list) {
+        return list.stream()
+                .map(this::findByName)
+                .toList();
+    }
 
     private Hashtag findByName(String name) {
         Optional<Hashtag> hashtag = hashtagRepository.findByName(name);
@@ -28,28 +36,20 @@ public class HashtagService {
         return hashtag.get();
     }
 
-    public List<Hashtag> findHashTagsByList(List<String>) {
-        return list.stream()
-                .map(this::findByName)
-                .toList();
-    }
-
-
-    //해시태그에 연결된 리뷰의 수가 0일때 해당 해시태그를 데이터베이스 목록에서 지우는 로직
+    // 해시태그에 연결된 리뷰의 수가 0일때 해당 해시태그를 데이터베이스 목록에서 지우는 로직
     @Transactional
     public List<Hashtag> removeHashtagFromList(List<Hashtag> hashtags) {
         List<Hashtag> removeHashtag = new LinkedList<>();
-
-        Iterator<Hashtag> iterator = hashtags.iterator();
-        while (iterator.hasNext()) {
-            Hashtag hashtag = iterator.next();
+        hashtags.removeIf(hashtag -> {
             if (hashtag.getReviewHashtags().isEmpty()) {
-                iterator.remove();
                 removeHashtag.add(hashtag);
+                return true;
             }
-        }
+            return false;
+        });
+
         hashtagRepository.deleteAll(removeHashtag);
 
-        return  hashtags;
+        return hashtags;
     }
- }
+}
