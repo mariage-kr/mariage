@@ -6,7 +6,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  border-bottom: 1.5px solid #9C94D044;
+  border-bottom: 1.5px solid #9c94d044;
   width: 95%;
   height: 100%;
   margin: 0 auto;
@@ -33,10 +33,20 @@ const Profile1 = css`
   width: 15%;
   margin-right: 20px;
 
-  @media (max-width: 1650px) { width: 17%; margin-right: 18px; }
-  @media (max-width: 1400px) { width: 19%; }
-  @media (max-width: 1150px) { width: 20%; }
-  @media (max-width: 1050px) { width: 21%; margin-right: 15px; }
+  @media (max-width: 1650px) {
+    width: 17%;
+    margin-right: 18px;
+  }
+  @media (max-width: 1400px) {
+    width: 19%;
+  }
+  @media (max-width: 1150px) {
+    width: 20%;
+  }
+  @media (max-width: 1050px) {
+    width: 21%;
+    margin-right: 15px;
+  }
 `;
 
 const ProfileImg = styled.img`
@@ -51,10 +61,22 @@ const Profile2 = css`
   overflow: hidden;
   margin-bottom: 20px;
 
-  @media (max-width: 1650px) { width: 68%; margin-bottom: 18px; }
-  @media (max-width: 1400px) { width: 66%; margin-bottom: 17px; }
-  @media (max-width: 1150px) { width: 65%; margin-bottom: 15px; }
-  @media (max-width: 1050px) { width: 64%; margin-bottom: 13px; }
+  @media (max-width: 1650px) {
+    width: 68%;
+    margin-bottom: 18px;
+  }
+  @media (max-width: 1400px) {
+    width: 66%;
+    margin-bottom: 17px;
+  }
+  @media (max-width: 1150px) {
+    width: 65%;
+    margin-bottom: 15px;
+  }
+  @media (max-width: 1050px) {
+    width: 64%;
+    margin-bottom: 13px;
+  }
 `;
 
 const Name = styled.p`
@@ -74,15 +96,18 @@ const Date = styled.p`
   color: #b7b7b7;
 `;
 
-
 const TopRight = styled.div`
   width: 30%;
   float: right;
   overflow: hidden;
   padding-top: 40px;
 
-  @media (max-width: 1750px) { padding-top: 30px; }
-  @media (max-width: 1200px) { padding-top: 25px; }
+  @media (max-width: 1750px) {
+    padding-top: 30px;
+  }
+  @media (max-width: 1200px) {
+    padding-top: 25px;
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -90,10 +115,18 @@ const BtnWrap = styled.div`
   float: left;
   text-align: right;
 
-  @media (max-width: 1750px) { width: 65%; }
-  @media (max-width: 1450px) { width: 60%; }
-  @media (max-width: 1300px) { width: 55%; }
-  @media (max-width: 1050px) { width: 52%; }
+  @media (max-width: 1750px) {
+    width: 65%;
+  }
+  @media (max-width: 1450px) {
+    width: 60%;
+  }
+  @media (max-width: 1300px) {
+    width: 55%;
+  }
+  @media (max-width: 1050px) {
+    width: 52%;
+  }
 `;
 
 const Btn = styled.button`
@@ -104,15 +137,17 @@ const Btn = styled.button`
   font-size: 1rem;
 
   &:hover {
-    transform: scale(1.05); 
-    text-shadow: 0 0 10px #9C94D099;
+    transform: scale(1.05);
+    text-shadow: 0 0 10px #9c94d099;
     color: #000;
   }
 
-  @media (max-width: 1150px) { margin: 20px 0 0 0; } 
-  @media (max-width: 1100px) { 
+  @media (max-width: 1150px) {
+    margin: 20px 0 0 0;
+  }
+  @media (max-width: 1100px) {
     margin: 17px 0 0 0;
-    font-size: 0.9rem; 
+    font-size: 0.9rem;
   }
 `;
 
@@ -125,10 +160,18 @@ const Like = styled.div`
   float: right;
   text-align: right;
 
-  @media (max-width: 1750px) { width: 35%; }
-  @media (max-width: 1450px) { width: 40%; }
-  @media (max-width: 1300px) { width: 45%; }
-  @media (max-width: 1050px) { width: 48%; }
+  @media (max-width: 1750px) {
+    width: 35%;
+  }
+  @media (max-width: 1450px) {
+    width: 40%;
+  }
+  @media (max-width: 1300px) {
+    width: 45%;
+  }
+  @media (max-width: 1050px) {
+    width: 48%;
+  }
 `;
 
 const Bottom = styled.div`
@@ -141,10 +184,18 @@ const Food = styled.div`
   margin: 20px 1vw 0 0;
   text-align: center;
 
-  @media (max-width: 1310px) { width: 11%; }
-  @media (max-width: 1095px) { width: 11.5%; }
-  @media (max-width: 1045px) { width: 12%; }
-  @media (max-width: 1005px) { width: 13%; }
+  @media (max-width: 1310px) {
+    width: 11%;
+  }
+  @media (max-width: 1095px) {
+    width: 11.5%;
+  }
+  @media (max-width: 1045px) {
+    width: 12%;
+  }
+  @media (max-width: 1005px) {
+    width: 13%;
+  }
 `;
 
 const FoodImg = styled.img`
@@ -157,17 +208,27 @@ const FoodName = styled.p`
   font-size: 1rem;
   margin: 0 auto;
 
-  @media (max-width: 1670px) { font-size: 0.9rem; }
-  @media (max-width: 1475px) { font-size: 0.8rem; }
-  @media (max-width: 1250px) { font-size: 0.7rem; }
+  @media (max-width: 1670px) {
+    font-size: 0.9rem;
+  }
+  @media (max-width: 1475px) {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 1250px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const ReviewRateText = styled.p`
   margin: 5px 0;
   font-size: 0.8rem;
 
-  @media (max-width: 1670px) { font-size: 0.7rem; }
-  @media (max-width: 1250px) { font-size: 0.6rem; }
+  @media (max-width: 1670px) {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 1250px) {
+    font-size: 0.6rem;
+  }
 `;
 
 const ReviewRate = styled.span`
@@ -180,9 +241,15 @@ const Content = styled.div`
   width: 87.6%;
   overflow: hidden;
 
-  @media (max-width: 1310px) { width: 87%; }
-  @media (max-width: 1095px) { width: 86%; }
-  @media (max-width: 1005px) { width: 85%; }
+  @media (max-width: 1310px) {
+    width: 87%;
+  }
+  @media (max-width: 1095px) {
+    width: 86%;
+  }
+  @media (max-width: 1005px) {
+    width: 85%;
+  }
 `;
 
 const ReviewText = styled.div`
@@ -190,8 +257,12 @@ const ReviewText = styled.div`
   font-size: 1rem;
   float: left;
 
-  @media (max-width: 1750px) { width: 70%; }
-  @media (max-width: 1100px) { font-size: 0.9rem; }
+  @media (max-width: 1750px) {
+    width: 70%;
+  }
+  @media (max-width: 1100px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ReviewContentText = styled.p`
@@ -202,28 +273,37 @@ const HashTag = styled.p`
   display: inline-block;
   margin: 0 10px 0 0;
   padding: 5px 10px;
-  background-color: #9C94D022;
+  background-color: #9c94d022;
   border-radius: 10px;
 `;
 
 const ReviewImg = styled.div`
-  border: 1px solid #9C94D044;
+  border: 1px solid #9c94d044;
   width: 22%;
   text-align: center;
   padding: 1vh 0 0;
   float: right;
 
-  @media (max-width: 1750px) { width: 27%; }
-  @media (max-width: 1570px) { margin-top: 10px; }
-  @media (max-width: 1450px) { margin-top: 15px; }
-  @media (max-width: 1200px) { margin-top: 17px; }
+  cursor: pointer;
+
+  @media (max-width: 1750px) {
+    width: 27%;
+  }
+  @media (max-width: 1570px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 1450px) {
+    margin-top: 15px;
+  }
+  @media (max-width: 1200px) {
+    margin-top: 17px;
+  }
 `;
 
 const Img = styled.img`
   width: 90%;
   height: 90%;
 `;
-
 
 export {
   Container,

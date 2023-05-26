@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from 'react';
 import * as S from './ReviewEditModal.styled';
 
 interface ModalDefaultType {
@@ -16,7 +16,6 @@ function ReviewEditModal({
         <S.Backdrop
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
-            
             if (onClickToggleModal) {
               onClickToggleModal();
             }
@@ -26,6 +25,5 @@ function ReviewEditModal({
     </S.Container>
   );
 }
-
 
 export default ReviewEditModal;

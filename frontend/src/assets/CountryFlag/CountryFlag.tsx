@@ -37,7 +37,7 @@ type CountryType = {
   id: number;
 };
 
-const FoodImg = styled.img`
+const FlagImg = styled.img`
   border-radius: 100%;
   box-shadow: 0px 0px 10px #9c94d044;
   width: 100%;
@@ -47,99 +47,99 @@ const FoodImg = styled.img`
 
 function CountryFlagImg({ id }: CountryType) {
   if (id === 1) {
-    return <FoodImg src={America} />;
+    return <FlagImg src={America} />;
   }
   if (id === 2) {
-    return <FoodImg src={Australia} />;
+    return <FlagImg src={Australia} />;
   }
   if (id === 3) {
-    return <FoodImg src={Austria} />;
+    return <FlagImg src={Austria} />;
   }
   if (id === 4) {
-    return <FoodImg src={Belgium} />;
+    return <FlagImg src={Belgium} />;
   }
   if (id === 5) {
-    return <FoodImg src={Brazil} />;
+    return <FlagImg src={Brazil} />;
   }
   if (id === 6) {
-    return <FoodImg src={Bulgaria} />;
+    return <FlagImg src={Bulgaria} />;
   }
   if (id === 7) {
-    return <FoodImg src={Canada} />;
+    return <FlagImg src={Canada} />;
   }
   if (id === 8) {
-    return <FoodImg src={China} />;
+    return <FlagImg src={China} />;
   }
   if (id === 9) {
-    return <FoodImg src={Denmark} />;
+    return <FlagImg src={Denmark} />;
   }
   if (id === 10) {
-    return <FoodImg src={England} />;
+    return <FlagImg src={England} />;
   }
   if (id === 11) {
-    return <FoodImg src={Estonia} />;
+    return <FlagImg src={Estonia} />;
   }
   if (id === 12) {
-    return <FoodImg src={Finland} />;
+    return <FlagImg src={Finland} />;
   }
   if (id === 13) {
-    return <FoodImg src={France} />;
+    return <FlagImg src={France} />;
   }
   if (id === 14) {
-    return <FoodImg src={Germany} />;
+    return <FlagImg src={Germany} />;
   }
   if (id === 15) {
-    return <FoodImg src={Greece} />;
+    return <FlagImg src={Greece} />;
   }
   if (id === 16) {
-    return <FoodImg src={Hungary} />;
+    return <FlagImg src={Hungary} />;
   }
   if (id === 17) {
-    return <FoodImg src={India} />;
+    return <FlagImg src={India} />;
   }
   if (id === 18) {
-    return <FoodImg src={Ireland} />;
+    return <FlagImg src={Ireland} />;
   }
   if (id === 19) {
-    return <FoodImg src={Italy} />;
+    return <FlagImg src={Italy} />;
   }
   if (id === 20) {
-    return <FoodImg src={Japan} />;
+    return <FlagImg src={Japan} />;
   }
   if (id === 21) {
-    return <FoodImg src={Korea} />;
+    return <FlagImg src={Korea} />;
   }
   if (id === 22) {
-    return <FoodImg src={Mexico} />;
+    return <FlagImg src={Mexico} />;
   }
   if (id === 23) {
-    return <FoodImg src={Norway} />;
+    return <FlagImg src={Norway} />;
   }
   if (id === 24) {
-    return <FoodImg src={Philippine} />;
+    return <FlagImg src={Philippine} />;
   }
   if (id === 25) {
-    return <FoodImg src={Poland} />;
+    return <FlagImg src={Poland} />;
   }
   if (id === 26) {
-    return <FoodImg src={Russia} />;
+    return <FlagImg src={Russia} />;
   }
   if (id === 27) {
-    return <FoodImg src={Scotland} />;
+    return <FlagImg src={Scotland} />;
   }
   if (id === 28) {
-    return <FoodImg src={Spain} />;
+    return <FlagImg src={Spain} />;
   }
   if (id === 29) {
-    return <FoodImg src={Swiss} />;
+    return <FlagImg src={Swiss} />;
   }
   if (id === 30) {
-    return <FoodImg src={Taiwan} />;
+    return <FlagImg src={Taiwan} />;
   }
   if (id === 31) {
-    return <FoodImg src={Thailand} />;
+    return <FlagImg src={Thailand} />;
   }
-  return <FoodImg src={Vietnam} />;
+  return <FlagImg src={Vietnam} />;
 }
 
 export default CountryFlagImg;

@@ -31,36 +31,6 @@ type ProductUpdateType = {
   newImageId: number;
 };
 
-type PairingFoodType = {
-  id: number;
-  img: string;
-  name: string;
-  rate: number;
-};
-
-type ProductContentType = {
-  id: number;
-  img: string;
-  flagImg: string;
-  country: string;
-  name: string;
-  level: number;
-  reviewRate: number;
-  content: string;
-};
-
-type ProductInfoType = {
-  id: number;
-  img: string;
-  flagImg: string;
-  country: string;
-  name: string;
-  level: number;
-  reviewRate: number;
-  reviewCount: number;
-  food: PairingFoodType[];
-};
-
 type ProductRecommendType = {
   productId: number;
   productName: string;
@@ -92,14 +62,49 @@ type ProductFoodType = {
   name: string;
 };
 
+type ProductDetailType = {
+  productId: number;
+  content: ProductContentType;
+  rating: ReviewRatingType;
+  foodRateRanking: PairingFoodType[];
+  foodCountRanking: PairingFoodType[];
+};
+
+type ReviewRatingType = {
+  reviewAverageRate: number;
+  reviewCount: number;
+  percentageList: {
+    reviewRate: number;
+    percentage: number;
+  }[];
+};
+
+type ProductContentType = {
+  imageUrl: string;
+  name: string;
+  level: number;
+  reviewRate: number;
+  info: string;
+  countryId: number;
+  country: string;
+};
+
+type PairingFoodType = {
+  foodId: number;
+  category: string;
+  avgFoodRate: number;
+  reviewCount: number;
+};
+
 export {
   ProductModifyInfoType,
   ProductSaveType,
   ProductUpdateType,
   PairingFoodType,
-  ProductContentType,
-  ProductInfoType,
   ProductRecommendType,
   ProductsType,
   ProductFoodType,
+  ReviewRatingType,
+  ProductDetailType,
+  ProductContentType,
 };

@@ -1,28 +1,28 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 
 import { ProductContentType } from '@/@types/product';
 
 import * as S from './ProductContent.styled';
 
 function ProductContent({
-  id,
-  img,
-  flagImg,
-  country,
+  imageUrl,
   name,
   level,
   reviewRate,
-  content,
+  info,
+  countryId,
+  country,
 }: ProductContentType) {
   return (
     <S.Container>
       <S.Wrapper>
         <S.Left>
-          <S.Img src={img} />
+          <S.Img src={imageUrl} />
         </S.Left>
         <S.Right>
           <S.Country css={S.country_left}>
-            <S.FlagImg src={flagImg} />
+            <CountryFlagImg id={countryId}></CountryFlagImg>
           </S.Country>
           <S.Country css={S.country_right}>{country}</S.Country>
           <S.Name>{name}</S.Name>
@@ -33,13 +33,12 @@ function ProductContent({
             <S.StarRateText>{reviewRate}</S.StarRateText>
           </S.StarRate>
           <S.StarRate>
-            {/* TODO: 평균 별점 */}
             <StarRateAverage
               key={'averageRate'}
               averageReviewRate={reviewRate}
             />
           </S.StarRate>
-          <S.Content>{content}</S.Content>
+          <S.Content>{info}</S.Content>
         </S.Right>
       </S.Wrapper>
     </S.Container>

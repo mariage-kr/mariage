@@ -6,11 +6,21 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
+import { useCallback, useState } from 'react';
+import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
 
   const memberId: number | undefined = userInfo?.id;
+
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
+
+  console.log(isOpenModal);
 
   return (
     <S.Container>
@@ -55,8 +65,6 @@ function ReviewContent(review: ReviewType) {
         </S.Top>
         <S.Bottom>
           <S.Food>
-            {/* todo: 추후 이미지 컴포넌트로 대체 */}
-            {/* <S.FoodImg src={review.food.id} /> */}
             <FoodCategoryImg id={review.food.id} />
             <S.FoodName>{review.food.name}</S.FoodName>
             <S.ReviewRateText>
@@ -72,9 +80,16 @@ function ReviewContent(review: ReviewType) {
               ))}
             </S.ReviewText>
             {review.review.img && (
-              <S.ReviewImg>
+              <S.ReviewImg onClick={onClickToggleModal}>
                 <S.Img src={review.review.img} />
               </S.ReviewImg>
+            )}
+            {isOpenModal && (
+              <ReviewImage
+                imgUrl={review.review.img}
+                onChange={onClickToggleModal}
+                hashtags={review.hashtags}
+              />
             )}
           </S.Content>
         </S.Bottom>

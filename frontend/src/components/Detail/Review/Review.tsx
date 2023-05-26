@@ -8,17 +8,26 @@ import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 import NoReviews from '@/components/NoReviews/NoReviews';
 
-import useUserInfo from '@/hooks/useUserInfo';
+import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
-import { ProductContentType } from '@/@types/product';
 import { getDetailReviews } from '@/apis/request/review';
+import useUserInfo from '@/hooks/useUserInfo';
 import editIcon from '@/assets/png/edit.png';
 
 import * as S from './Review.styled';
 
+type PropsType = {
+  id: number;
+  name: string;
+  level: number;
+  countryId: number;
+  country: string;
+  rating: ReviewRatingType;
+};
+
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
-function Review(productContent: ProductContentType) {
+function Review({ id, name, level, countryId, country, rating }: PropsType) {
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
 
@@ -97,7 +106,7 @@ function Review(productContent: ProductContentType) {
         )}
       </S.Left>
       <S.Right>
-        <RateStatistic />
+        <RateStatistic {...rating} />
         <S.EditBtn onClick={onClickToggleModal}>
           <S.Edit css={S.EditSize}>
             <S.EditIcon src={editIcon} />
@@ -109,7 +118,11 @@ function Review(productContent: ProductContentType) {
         {isOpenModal && (
           <ReviewEditModal onClickToggleModal={onClickToggleModal}>
             <ReviewEdit
-              {...productContent}
+              id={id}
+              name={name}
+              level={level}
+              country={country}
+              countryId={countryId}
               onClickToggleModal={onClickToggleModal}
             />
           </ReviewEditModal>
