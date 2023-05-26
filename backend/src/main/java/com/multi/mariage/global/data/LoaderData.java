@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-//@Profile("dev")
+@Profile("dev")
 public class LoaderData {
 
     private static Member 마리;

@@ -8,7 +8,6 @@ import Pairing from '@/components/Detail/Pairing/Pairing';
 import Review from '@/components/Detail/Review/Review';
 
 import * as S from './Detail.styled';
-import { useEffect } from 'react';
 
 function Detail() {
   const productId: string = useParams().id!;

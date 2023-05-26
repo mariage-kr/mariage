@@ -23,7 +23,7 @@ public class LikeController {
     }
 
     @DeleteMapping("/user/review/like")
-    public ResponseEntity<Void> cancel(@Authenticated AuthMember authMember, @RequestBody LikeRemoveRequest request) {
+    public ResponseEntity<Void> cancel(@Authenticated AuthMember authMember, LikeRemoveRequest request) {
         likeService.remove(authMember, request);
         return ResponseEntity.ok().build();
     }

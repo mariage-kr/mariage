@@ -1,16 +1,22 @@
-import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
+import { useCallback, useState } from 'react';
 
-import LikeButton from '@/components/Button/Like/Like';
 import { ReviewType } from '@/@types/review';
+import { requestAddLike, requestRemoveLike } from '@/apis/request/like';
+import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
+import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
+import LikeButton from '@/components/Button/Like/Like';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
-import { useCallback, useState } from 'react';
-import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
+import useAuth from '@/hooks/useAuth';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
+
+  const [isLiked, setIsLiked] = useState<boolean>(review.like.liked);
+  const [likeCount, setLikeCount] = useState<number>(review.like.count);
+  const { isLogin } = useAuth();
 
   const memberId: number | undefined = userInfo?.id;
 
@@ -20,7 +26,30 @@ function ReviewContent(review: ReviewType) {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-  console.log(isOpenModal);
+  const validateIsNotLogin = useCallback((): boolean => {
+    if (isLogin()) {
+      return false;
+    }
+    return true;
+  }, []);
+
+  const changeLike = () => {
+    if (validateIsNotLogin()) {
+      return;
+    }
+    if (!isLiked) {
+      requestAddLike(review.id).then(() => {
+        setIsLiked(true);
+        setLikeCount(likeCount + 1);
+      });
+    }
+    if (isLiked) {
+      requestRemoveLike(review.id).then(() => {
+        setIsLiked(false);
+        setLikeCount(likeCount - 1);
+      });
+    }
+  };
 
   return (
     <S.Container>
@@ -55,10 +84,9 @@ function ReviewContent(review: ReviewType) {
             )}
             <S.Like>
               <LikeButton
-                liked={review.like.liked}
-                likeCount={review.like.count}
-                /* TODO: 추후 AXIOS 함수로 수정 */
-                onClick={() => console.log('추후 axios 함수가 필요합니다')}
+                liked={isLiked}
+                likeCount={likeCount}
+                onClick={changeLike}
               />
             </S.Like>
           </S.TopRight>
