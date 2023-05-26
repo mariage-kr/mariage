@@ -122,7 +122,7 @@ class ProductFindControllerTest extends ControllerTest {
 
         mockMvc.perform(get("/api/product/detail/" + productId))
                 .andDo(print())
-                .andDo(document("Product/Detail/All",
+                .andDo(document("Product/Detail",
                                 preprocessResponse(prettyPrint()),
                                 responseFields(
                                         fieldWithPath("productId").description("제품 식별자"),
@@ -149,13 +149,12 @@ class ProductFindControllerTest extends ControllerTest {
                                         fieldWithPath("foodCountRanking[].foodId").description("궁합 음식 식별자"),
                                         fieldWithPath("foodCountRanking[].category").description("궁합 음식 카테고리"),
                                         fieldWithPath("foodCountRanking[].reviewCount").description("사용자가 궁합 음식으로 채택한 리뷰 개수")
-                                        )
+                                )
                         )
                 )
                 .andExpect(status().is(HttpStatus.OK.value()));
     }
-  
-  
+
     @DisplayName("필터 조건으로 제품을 조회한다.")
     @Test
     void 필터_조건으로_제품을_조회한다() throws Exception {
