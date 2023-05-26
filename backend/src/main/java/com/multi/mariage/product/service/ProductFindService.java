@@ -141,9 +141,8 @@ public class ProductFindService extends PagingUtil {
         int reviewCount = reviews.size();
 
         Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
-        List<ReviewRateVO> percentageList = getPercentage(reviewCount, reviewRateCounts);
 
-        return percentageList;
+        return getPercentage(reviewCount, reviewRateCounts);
     }
 
     private Map<Integer, Integer> getRateCounts(List<Review> reviews) {
