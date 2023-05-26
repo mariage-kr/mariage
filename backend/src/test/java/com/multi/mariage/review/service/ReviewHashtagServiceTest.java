@@ -51,6 +51,7 @@ class ReviewHashtagServiceTest extends ServiceTest {
 
     @DisplayName("해시태그와 리뷰의 연관관계를 삭제한다.")
     @Test
+
     void 해시태그와_리뷰의_연관관계를_삭제한다() {
         List<String> hashtagsToRemove = new LinkedList<>();
         hashtagsToRemove.add("태그1");

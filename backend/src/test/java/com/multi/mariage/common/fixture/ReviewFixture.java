@@ -44,7 +44,7 @@ public enum ReviewFixture {
         this.hashtags = hashtags;
     }
 
-    // 아래에 해시태그 들어가야 되는거 아닌지?
+    // 아래에 해시태그 들어가야 되는 건지?
     public Review toReview(Member member, Product product, Image image, Weather weather) {
         Review review = Review.builder()
                 .productRate(productRate)

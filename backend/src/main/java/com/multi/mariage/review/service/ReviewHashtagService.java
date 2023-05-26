@@ -1,16 +1,17 @@
-package com.multi.mariage.review_hashtag.service;
+package com.multi.mariage.review.service;
 
- import com.multi.mariage.hashtag.domain.Hashtag;
- import com.multi.mariage.hashtag.service.HashtagService;
- import com.multi.mariage.review.domain.Review;
- import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
- import com.multi.mariage.review_hashtag.domain.ReviewHashtagRepository;
+import com.multi.mariage.hashtag.domain.Hashtag;
+import com.multi.mariage.hashtag.service.HashtagService;
+import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.domain.ReviewHashtag;
+import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
- import java.util.List;
- import java.util.Optional;
+import java.util.List;
+import java.util.Optional;
+import java.util.Iterator;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -48,12 +49,13 @@ public class ReviewHashtagService {
 
     @Transactional
     public void removeHashtags(List<String> hashtagsToRemove) {
-        Iterator<ReviewHashtag> iterator = reviewHashtagRepository.reviewHashtag.iterator();
-        while (iterator.hasNext()) {
-            ReviewHashtag reviewHashtag = iterator.next();
-            if (hashtagsToRemove.contains(reviewHashtag.getHashtag().getId())) {
-                reviewHashtag.removeHashtag();
-                iterator.remove();
+
+        List<Hashtag> hashtags = hashtagService.findHashTagsByList(hashtagsToRemove);
+
+        for (Hashtag hashtag : hashtags) {
+            ReviewHashtag reviewHashtag = reviewHashtagRepository.findByReviewAndHashtag(review, hashtag);
+            if (reviewHashtag != null) {
+                reviewHashtagRepository.delete(reviewHashtag);
             }
         }
     }
