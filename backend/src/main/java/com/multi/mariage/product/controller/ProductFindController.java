@@ -2,10 +2,6 @@ package com.multi.mariage.product.controller;
 
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
-import com.multi.mariage.product.dto.response.temp.ProductContentResponse;
-import com.multi.mariage.product.dto.response.temp.ProductReviewRankCountResponse;
-import com.multi.mariage.product.dto.response.temp.ProductReviewRankRateResponse;
-import com.multi.mariage.product.dto.response.temp.ProductReviewStatsResponse;
 import com.multi.mariage.product.service.ProductFindService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
