@@ -69,6 +69,7 @@ function ProductCardCarousel({ option }: PropsType) {
       if (option === 'algo') {
         /* TODO: 추후 해당 기능이 구현되면 추가 예정 */
         /* TODO: 데이터가 없으면 추천 기능(다른 버튼 클릭)이 동작을 안함 */
+        console.log('run');
         return setProducts([]);
       }
       return getRecommendDate(option);
@@ -136,10 +137,11 @@ function ProductCardCarousel({ option }: PropsType) {
           })}
         </Carousel>
       ) : (
-        /* TODO: 데이터가 존재하지 않을 경우 보여줄 사진 혹은 문구 필요 */
         <>
           <S.NoProductsAnimation>
-            <NoFoodRank />
+            <S.AniWrapper>
+              <NoFoodRank />
+            </S.AniWrapper>
             <S.Text>추천 제품이 존재하지 않습니다!</S.Text>
           </S.NoProductsAnimation>
         </>
