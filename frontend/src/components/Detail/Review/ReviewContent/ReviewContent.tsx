@@ -7,7 +7,7 @@ import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
 import { useCallback, useState } from 'react';
-import ImageModal from '@/components/ImageModal/ImageModal';
+import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
@@ -85,9 +85,10 @@ function ReviewContent(review: ReviewType) {
               </S.ReviewImg>
             )}
             {isOpenModal && (
-              <ImageModal
+              <ReviewImage
                 imgUrl={review.review.img}
                 onChange={onClickToggleModal}
+                hashtags={review.hashtags}
               />
             )}
           </S.Content>
