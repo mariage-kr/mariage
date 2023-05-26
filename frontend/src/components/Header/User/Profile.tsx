@@ -9,6 +9,7 @@ import useAuth from '@/hooks/useAuth';
 
 import * as S from './Profile.styled';
 import useUserInfo from '@/hooks/useUserInfo';
+import { isLoginProvider } from '@/utils/auth';
 
 function User() {
   const { accessToken, refreshToken, setAuth, resetAuth, removeIsLogin } =
@@ -17,10 +18,10 @@ function User() {
   const navigate = useNavigate();
 
   const { userInfo, setUserInfo, resetUserInfo } = useUserInfo();
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(isLoginProvider.get());
 
   const handlerIsLogin = () => {
-    setIsLogin(window.sessionStorage.getItem('isLogin') === 'true');
+    setIsLogin(isLoginProvider.get());
   };
 
   const logout = () => {
@@ -38,7 +39,7 @@ function User() {
   useEffect(() => {
     handlerIsLogin();
 
-    if (!isLogin || !accessToken || !refreshToken) {
+    if (!isLoginProvider.get() || !accessToken || !refreshToken) {
       resetUserInfo();
       return;
     }
