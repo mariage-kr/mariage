@@ -23,9 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -111,7 +109,7 @@ public class ProductFindService extends PagingUtil {
 
     private List<ProductDetailVO> getProductValues() {
         List<Product> products = productRepository.findAll();
-      
+
         return products.stream()
                 .map(product -> {
                     String imageUrl = imageService.getImageUrl(product.getImage().getName());
@@ -140,36 +138,33 @@ public class ProductFindService extends PagingUtil {
     public List<ReviewRateVO> getReviewPercentages(Long productId) {
         Product product = findById(productId);
         List<Review> reviews = product.getReviews();
-
         int reviewCount = reviews.size();
-        int[] reviewScore = new int[6];    // 별점 1~5
-        List<ReviewRateVO> percentageList = new ArrayList<>();
 
-        getRateCounts(reviews, reviewScore);
-        getPercentage(reviewCount, reviewScore, percentageList);
+        Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
+        List<ReviewRateVO> percentageList = getPercentage(reviewCount, reviewRateCounts);
+
         return percentageList;
     }
 
-    private void getRateCounts(List<Review> reviews, int[] reviewRateCounts) {  // 점수별 리뷰 개수
+    private Map<Integer, Integer> getRateCounts(List<Review> reviews) {
+        Map<Integer, Integer> reviewRateCounts = new HashMap<>();
         for (Review review : reviews) {
             int reviewRate = review.getProductRate();
-            reviewRateCounts[reviewRate]++;
+            reviewRateCounts.put(reviewRate, reviewRateCounts.getOrDefault(reviewRate, 0) + 1);
         }
+        return reviewRateCounts;
     }
 
-    private void getPercentage(int reviewCount, int[] reviewScoreCounts, List<ReviewRateVO> percentageList) {   // 비율 계산
-        for (int reviewScore = 1; reviewScore <= 5; reviewScore++) {
-            int count = reviewScoreCounts[reviewScore];
+    private List<ReviewRateVO> getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts) {
+        List<ReviewRateVO> percentageList = new ArrayList<>();
+
+        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
+            int count = reviewRateCounts.getOrDefault(reviewRate, 0);
             int percentage = (int) Math.round((double) count / reviewCount * 100);
-            percentageList.add(ReviewRateVO.from(reviewScore, percentage));
+            percentageList.add(ReviewRateVO.from(reviewRate, percentage));
         }
-    }
-
-    public ProductContentVO getProductContent(Long productId) {
-        Product product = findById(productId);
-        String imageUrl = imageService.getImageUrl(product.getImage().getName());
-
-        return ProductContentVO.from(product, imageUrl, product.getAvgReviewRate());
+        percentageList.sort(Comparator.comparingInt(ReviewRateVO::getReviewRate).reversed());
+        return percentageList;
     }
 
     public ProductReviewStatsVO getProductReviewStats(Long productId) {
@@ -177,6 +172,13 @@ public class ProductFindService extends PagingUtil {
         List<ReviewRateVO> percentageList = getReviewPercentages(productId);
 
         return ProductReviewStatsVO.from(product, percentageList);
+    }
+
+    public ProductContentVO getProductContent(Long productId) {
+        Product product = findById(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
+        return ProductContentVO.from(product, imageUrl, product.getAvgReviewRate());
     }
 
     public List<FoodRateRankingVO> getFoodsOrderByRate(Long productId) {
