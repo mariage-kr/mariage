@@ -1,17 +1,28 @@
 package com.multi.mariage.review.service;
 
 
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.product.domain.ProductRepository;
+import com.multi.mariage.product.exception.ProductErrorCode;
+import com.multi.mariage.product.exception.ProductException;
+import com.multi.mariage.product.vo.ProductContentVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
+import com.multi.mariage.review.dto.MyReviewsPagingCond;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
+import com.multi.mariage.review.dto.response.MyReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.review.vo.ProductReviewVO;
+import com.multi.mariage.review.vo.myreview.MyProductReviewVO;
+import com.multi.mariage.review.vo.myreview.MyReviewVO;
+import com.multi.mariage.review.vo.myreview.ReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
@@ -33,6 +44,7 @@ import java.util.Objects;
 @Service
 public class ReviewFindService extends PagingUtil {
     private final ReviewRepository reviewRepository;
+    private final ProductRepository productRepository;
     private final ImageService imageService;
 
     /* TODO: 2023/05/24 추후 코드 리팩토링 */
@@ -135,5 +147,78 @@ public class ReviewFindService extends PagingUtil {
                 .map(ReviewHashtag::getHashtag)
                 .map(Hashtag::getName)
                 .toList();
+    }
+    public MyReviewInfoResponse findProductsAndReviewsByMemberId(AuthMember authMember,
+                                                                 int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+
+        MyReviewsPagingCond cond = MyReviewsPagingCond.builder()
+                .memberId(authMember.getId())
+                .pageSize(pageSize)
+                .pageNumber(pageNumber)
+                .sort(sort)
+                .build();
+
+        List<Review> reviews = reviewRepository.findProductAndReviewsByMemberId(cond);
+        Long totalCount = reviewRepository.findReviewsCountByMemberId(authMember.getId());
+
+        List<MyReviewVO> productAndReviewList = getReviewListByMember(reviews, authMember.getId());
+        int totalPages = getTotalPages(pageSize, totalCount);
+
+        return MyReviewInfoResponse.builder()
+                .contents(productAndReviewList)
+                .pageSize(pageSize)
+                .totalCount(totalCount)
+                .pageNumber(pageNumber)
+                .totalPages(totalPages)
+                .isFirstPage(isFirstPage(pageNumber))
+                .isLastPage(isLastPage(pageNumber, totalPages))
+                .build();
+    }
+    private List<MyReviewVO> getReviewListByMember(List<Review> reviews, Long memberId) {
+        return reviews.stream()
+                .map(review -> {
+                    ProductContentVO productContent = getProductContentFrom(review.getProduct().getId());
+                    MyProductReviewVO productReview = getMyReviewContent(review,
+                            getProductReviewMemberFrom(review),
+                            getMyReviewContentFrom(review),
+                            ProductReviewFoodVO.from(review),
+                            getProductReviewLikeFrom(review, memberId),
+                            getHashtags(review));
+                    return MyReviewVO.from(productContent, productReview);
+                })
+                .toList();
+    }
+    public ProductContentVO getProductContentFrom(Long productId) {
+        Product product = findByProductId(productId);
+        String imageUrl = imageService.getImageUrl(product.getImage().getName());
+
+        return ProductContentVO.from(product, imageUrl, product.getAvgReviewRate());
+    }
+    private Product findByProductId(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+    }
+    private MyProductReviewVO getMyReviewContent(Review review,
+                                                       ProductReviewMemberVO member,
+                                                       ReviewContentVO content,
+                                                       ProductReviewFoodVO food,
+                                                       ProductReviewLikeVO like,
+                                                       List<String> hashtags) {
+        return MyProductReviewVO.builder()
+                .id(review.getId())
+                .member(member)
+                .review(content)
+                .food(food)
+                .like(like)
+                .hashtags(hashtags)
+                .build();
+    }
+    private ReviewContentVO getMyReviewContentFrom(Review review) {
+        return ReviewContentVO.builder()
+                .date(convertToLocalDateFormat(review.getDate()))
+                .rate(review.getProductRate())
+                .content(review.getContent())
+                .img(imageService.getImageUrl(review.getImage().getName()))
+                .build();
     }
 }
