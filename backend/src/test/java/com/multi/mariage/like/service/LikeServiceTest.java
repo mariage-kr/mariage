@@ -15,8 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 class LikeServiceTest extends ServiceTest {
     private Member member;
     private Member user1;
@@ -66,7 +64,7 @@ class LikeServiceTest extends ServiceTest {
         reviewFixture = ReviewFixture.참이슬_치킨;
 
         likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(reviewId));
-        likeService.remove(new AuthMember(memberId), reviewFixture.toRemoveLike(reviewId));
+        likeService.remove(new AuthMember(memberId), reviewId);
 
         boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
 
@@ -84,7 +82,7 @@ class LikeServiceTest extends ServiceTest {
 
         likeService.save(new AuthMember(userId1), reviewFixture.toSaveLike(reviewId));
         likeService.save(new AuthMember(userId2), reviewFixture.toSaveLike(reviewId));
-        likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
+        likeService.remove(new AuthMember(userId1), reviewId);
 
         int expected = user1.getLikes().size();
         Assertions.assertThat(expected).isZero();
@@ -104,7 +102,7 @@ class LikeServiceTest extends ServiceTest {
         likeService.save(new AuthMember(userId1), reviewFixture.toSaveLike(reviewId));
         likeService.save(new AuthMember(userId2), reviewFixture.toSaveLike(reviewId));
         likeService.save(new AuthMember(userId3), reviewFixture.toSaveLike(reviewId));
-        likeService.remove(new AuthMember(userId1), reviewFixture.toRemoveLike(reviewId));
+        likeService.remove(new AuthMember(userId1), reviewId);
 
         Review review = reviewRepository.findById(reviewId).orElseThrow();
 

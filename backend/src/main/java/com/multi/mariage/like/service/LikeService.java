@@ -3,7 +3,6 @@ package com.multi.mariage.like.service;
 import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.like.domain.LikeRepository;
-import com.multi.mariage.like.dto.request.LikeRemoveRequest;
 import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.like.exception.LikeErrorCode;
 import com.multi.mariage.like.exception.LikeException;
@@ -42,8 +41,8 @@ public class LikeService {
     }
 
     @Transactional
-    public void remove(AuthMember authMember, LikeRemoveRequest request) {
-        Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), request.getReviewId())
+    public void remove(AuthMember authMember, Long reviewId) {
+        Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), reviewId)
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
         Member member = like.getMember();

@@ -6,7 +6,6 @@ import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
-import com.multi.mariage.like.dto.request.LikeRemoveRequest;
 import com.multi.mariage.like.dto.request.LikeSaveRequest;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
@@ -71,23 +70,18 @@ class LikeControllerTest extends ControllerTest {
     @DisplayName("사용자가 좋아요를 취소한다.")
     @Test
     void 사용자가_좋아요를_취소한다() throws Exception {
-
         LikeSaveRequest likeSaveRequest = new LikeSaveRequest(reviewSaveResponse.getReviewId());
         likeReview(authMember, likeSaveRequest);
-        LikeRemoveRequest likeRemoveRequest = new LikeRemoveRequest(reviewSaveResponse.getReviewId());
-        String content = objectMapper.writeValueAsString(likeRemoveRequest);
+        String reviewId = String.valueOf(reviewSaveResponse.getReviewId());
 
         mockMvc.perform(delete("/api/user/review/like")
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN)
-                        .content(content)
+                        .param("reviewId", reviewId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andDo(
                         document("Like/Cancel",
-                                preprocessRequest(prettyPrint()),
-                                requestFields(
-                                        fieldWithPath("reviewId").description("리뷰 식별자")
-                                )
+                                preprocessRequest(prettyPrint())
                         )
                 ).andExpect(MockMvcResultMatchers.status().isOk());
     }
