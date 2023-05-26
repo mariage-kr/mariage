@@ -35,18 +35,26 @@ public class ReviewHashtagService {
         return reviewHashtagRepository.save(reviewHashtag);
     }
 
-     public ReviewHashtag findById(Long reviewHashtagId) {
-         Optional<ReviewHashtag> reviewHashtag = reviewHashtagRepository.findById(reviewHashtagId);
-         return reviewHashtag.orElse(null);
-     }
+    public ReviewHashtag findById(Long id) {
+        Optional<ReviewHashtag> optionalReviewHashtag = reviewHashtagRepository.findById(id);
 
-     @Transactional
-     public void removeHashtagFromReview(Long reviewHashtagId) {
-         Optional<ReviewHashtag> reviewHashtagOptional = reviewHashtagRepository.findById(reviewHashtagId);
-         if (reviewHashtagOptional.isPresent()) {
-             ReviewHashtag reviewHashtag = reviewHashtagOptional.get();
-             reviewHashtag.removeHashtag();
-             reviewHashtagRepository.delete(reviewHashtag);
-         }
-     }
+        if (optionalReviewHashtag.isPresent()) {
+            ReviewHashtag reviewHashtag = optionalReviewHashtag.get();
+            return reviewHashtag;
+        } else {
+            return null;
+        }
+    }
+
+    @Transactional
+    public void removeHashtags(List<String> hashtagsToRemove) {
+        Iterator<ReviewHashtag> iterator = reviewHashtagRepository.reviewHashtag.iterator();
+        while (iterator.hasNext()) {
+            ReviewHashtag reviewHashtag = iterator.next();
+            if (hashtagsToRemove.contains(reviewHashtag.getHashtag().getId())) {
+                reviewHashtag.removeHashtag();
+                iterator.remove();
+            }
+        }
+    }
 }

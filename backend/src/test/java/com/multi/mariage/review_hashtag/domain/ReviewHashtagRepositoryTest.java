@@ -51,4 +51,15 @@ class ReviewHashtagRepositoryTest extends RepositoryTest {
                 () -> assertThat(actual.getReview()).isEqualTo(review)
         );
     }
+
+
+    @DisplayName("해시태그와 리뷰의 연관관계를 삭제한다.")
+    @Test
+    void 해시태그와_리뷰의_연관관계를_삭제한다() {
+        ReviewHashtag reviewHashtag = reviewHashtagRepository.findByReivewAndHashtag(review, hashtag);
+        reviewHashtagRepository.delete(reviewHashtag);
+
+        ReviewHashtag deletedReviewHashtag = reviewHashtagRepository.findByReviewAndHashtag(reveiw, hashtag);
+        assertThat(deletedReviewHashtag).isNull();
+    }
 }

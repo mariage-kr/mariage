@@ -38,7 +38,7 @@ public class ReviewHashtag {
 
      public void removeHashtag() {
          if (hashtag != null) {
-             hashtag.getReviewHashTags().remove(this);
+             hashtag.getReviewHashtags().remove(this);
              hashtag = null;
          }
          //여기서는 해당 리뷰의 해시태그만 지우기 때문에(해시태그 값 자체를 지우는 것이 아닌) null로 만듦.

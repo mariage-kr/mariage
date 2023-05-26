@@ -4,8 +4,8 @@ import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
- import com.multi.mariage.review.dto.request.ReviewSaveRequest;
- import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review_hashtag.domain.ReviewHashtag;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
@@ -99,13 +99,4 @@ public class Review {
         this.image = image;
     }
 
-    public void removeHashtags(List<String> hashtagsToRemove) {
-        Iterator<ReviewHashtag> iterator = reviewHashtags.iterator();
-        while (iterator.hasNext()) {
-            ReviewHashtag reviewHashtag = iterator.next();
-            if (hashtagsToRemove.contains(reviewHashtag.getHashtag().getId())) {
-                reviewHashtag.removeHashtag();
-                iterator.remove();
-            }
-        }
-    }
+}
