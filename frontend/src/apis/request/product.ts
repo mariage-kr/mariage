@@ -2,6 +2,7 @@ import { axios, axiosWithAccessToken } from '../axios';
 
 import { API_PATH } from '@/constants/path';
 import {
+  ProductDetailType,
   ProductRecommendType,
   ProductSaveType,
   ProductUpdateType,
@@ -92,6 +93,14 @@ const requestProducts = ({
     });
 };
 
+const requestProductDetailInfo = (id: string) => {
+  return axios
+    .get<ProductDetailType>(`${API_PATH.PRODUCT.DETAIL}/${id}`)
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   requestSaveProduct,
   requestProductInfo,
@@ -99,4 +108,5 @@ export {
   requestRecommendWeather,
   requestRecommendDate,
   requestProducts,
+  requestProductDetailInfo,
 };
