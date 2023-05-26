@@ -1,6 +1,6 @@
 package com.multi.mariage.review.dto.response;
 
-import com.multi.mariage.review.vo.myreview.MyReviewVO;
+import com.multi.mariage.review.vo.my.review.MyReviewVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
