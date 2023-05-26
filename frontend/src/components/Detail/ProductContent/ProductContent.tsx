@@ -1,45 +1,35 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 
-import { ProductContentType } from '@/@types/product';
+import { ProductDetailType } from '@/@types/product';
 
 import * as S from './ProductContent.styled';
 
-function ProductContent({
-  id,
-  img,
-  flagImg,
-  country,
-  name,
-  level,
-  reviewRate,
-  content,
-}: ProductContentType) {
+function ProductContent({ content }: ProductDetailType) {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Left>
-          <S.Img src={img} />
-        </S.Left>
+        <S.Left>{/* <S.Img src={content.imageUrl} /> */}</S.Left>
         <S.Right>
           <S.Country css={S.country_left}>
-            <S.FlagImg src={flagImg} />
+            <CountryFlagImg id={content.countryId}></CountryFlagImg>
           </S.Country>
-          <S.Country css={S.country_right}>{country}</S.Country>
-          <S.Name>{name}</S.Name>
+          <S.Country css={S.country_right}>{content.country}</S.Country>
+          <S.Name>{content.country}</S.Name>
           <S.ABV>
-            ABV <S.ABVText>{level}</S.ABVText>%
+            ABV <S.ABVText>{content.level}</S.ABVText>%
           </S.ABV>
           <S.StarRate>
-            <S.StarRateText>{reviewRate}</S.StarRateText>
+            <S.StarRateText>{content.reviewRate}</S.StarRateText>
           </S.StarRate>
           <S.StarRate>
             {/* TODO: 평균 별점 */}
             <StarRateAverage
               key={'averageRate'}
-              averageReviewRate={reviewRate}
+              averageReviewRate={content.reviewRate}
             />
           </S.StarRate>
-          <S.Content>{content}</S.Content>
+          <S.Content>{content.info}</S.Content>
         </S.Right>
       </S.Wrapper>
     </S.Container>

@@ -92,6 +92,39 @@ type ProductFoodType = {
   name: string;
 };
 
+type ProductDetailType = {
+  productId: number;
+  content: {
+    imageId: number;
+    imageUrl: string;
+    name: string;
+    level: number;
+    reviewRate: number;
+    info: string;
+    countryId: number;
+    country: string;
+  };
+  rating: {
+    reviewAverageRate: number;
+    reviewCount: number;
+    percentageList: {
+      reviewRate: number;
+      percentage: number;
+    }[];
+  };
+  foodRateRanking: {
+    foodId: number;
+    category: string;
+    avgFoodRate: number;
+  }[];
+
+  foodCountRanking: {
+    foodId: number;
+    category: string;
+    reviewCount: number;
+  }[];
+};
+
 export {
   ProductModifyInfoType,
   ProductSaveType,
@@ -102,4 +135,5 @@ export {
   ProductRecommendType,
   ProductsType,
   ProductFoodType,
+  ProductDetailType,
 };
