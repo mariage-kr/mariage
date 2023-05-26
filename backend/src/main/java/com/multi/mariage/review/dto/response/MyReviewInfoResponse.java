@@ -8,8 +8,16 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
-public class MyReviewInfoResponse extends BasePageResponse<MyReviewVO> {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
+public class MyReviewInfoResponse {
+    public List<MyReviewVO> contents;
+    public int pageNumber;
+    public Long totalCount;
+    public int pageSize;
+    public int totalPages;
+    public boolean isFirstPage;
+    public boolean isLastPage;
 
     @Builder
     public MyReviewInfoResponse(List<MyReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
