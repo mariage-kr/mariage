@@ -7,14 +7,9 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
-import com.multi.mariage.product.dto.response.temp.ProductContentResponse;
-import com.multi.mariage.product.dto.response.temp.ProductReviewRankRateResponse;
-import com.multi.mariage.product.dto.response.temp.ProductReviewStatsResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
-import com.multi.mariage.product.vo.FoodRateRankingVO;
-import com.multi.mariage.product.vo.ProductDetailVO;
-import com.multi.mariage.product.vo.ReviewRateVO;
+import com.multi.mariage.product.vo.*;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,7 +89,7 @@ class ProductFindServiceTest extends ServiceTest {
         Image 산토리_위스키_이미지 = storageRepository.save(image);
         Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
         Long productId = 산토리_위스키.getId();
-        ProductContentResponse response = productFindService.findProductContent(productId);
+        ProductContentVO response = productFindService.getProductContent(productId);
         assertThat(response).isNotNull();
     }
 
@@ -202,7 +197,7 @@ class ProductFindServiceTest extends ServiceTest {
         Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
         Long productId = 산토리_위스키.getId();
 
-        ProductReviewStatsResponse response = productFindService.findProductReviewStats(productId);
+        ProductReviewStatsVO response = productFindService.getProductReviewStats(productId);
         assertThat(response).isNotNull();
 
         List<ReviewRateVO> vo = response.getPercentageList();
@@ -216,11 +211,10 @@ class ProductFindServiceTest extends ServiceTest {
     @DisplayName("제품 상세페이지의 전체 정보를 조회한다.")
     @Test
     void 제품_상세페이지의_전체_정보를_조회한다() {
-
         Long productId = 참이슬.getId();
 
-        ProductDetailPageResponse response = productFindService.findFullInfoByPage(productId);
-        assertThat(response).isNotNull();
+        ProductDetailPageResponse actual = productFindService.findFullInfoByPage(productId);
+        assertThat(actual).isNotNull();
     }
 
     @DisplayName("제품의 리뷰 통계를 조회한다.")
@@ -250,15 +244,42 @@ class ProductFindServiceTest extends ServiceTest {
         Food saveFood2 = saveFood(ReviewFixture.산토리위스키_과자, 산토리_위스키);
         Food saveFood3 = saveFood(ReviewFixture.산토리위스키_치즈, 산토리_위스키);
         saveReview(ReviewFixture.산토리위스키_해산물, member, 산토리_위스키, saveFood1, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_해산물2, member, 산토리_위스키, saveFood1, savedImage, 맑음);
         saveReview(ReviewFixture.산토리위스키_과자, member, 산토리_위스키, saveFood2, savedImage, 맑음);
         saveReview(ReviewFixture.산토리위스키_치즈, member, 산토리_위스키, saveFood3, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_치즈2, member, 산토리_위스키, saveFood3, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_치즈3, member, 산토리_위스키, saveFood3, savedImage, 맑음);
 
-        List<FoodRateRankingVO> rateRanking = productFindService.getFoodsOrderByRate(산토리_위스키.getId());
-        assertThat(rateRanking).isNotNull();
+        List<FoodRateRankingVO> actual = productFindService.getFoodsOrderByRate(산토리_위스키.getId());
+        assertThat(actual).isNotNull();
 
-        assertEquals("해산물",rateRanking.get(0).getCategory());
-        assertEquals("치즈",rateRanking.get(1).getCategory());
-        assertEquals("스낵",rateRanking.get(2).getCategory());
+        assertEquals("해산물", actual.get(0).getCategory());
+        assertEquals("스낵", actual.get(1).getCategory());
+        assertEquals("치즈", actual.get(2).getCategory());
+    }
+
+    @DisplayName("제품 리뷰의 궁합 음식을 리뷰 개수가 많은 순으로 조회한다.")
+    @Test
+    void 제품_리뷰의_궁합_음식을_리뷰_개수가_많은_순으로_조회한다() {
+        Member member = signup(MemberFixture.SURI);
+        산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, savedImage.getId());
+        맑음 = saveWeather(WeatherFixture.맑음_현재);
+        Food saveFood1 = saveFood(ReviewFixture.산토리위스키_해산물, 산토리_위스키);
+        Food saveFood2 = saveFood(ReviewFixture.산토리위스키_과자, 산토리_위스키);
+        Food saveFood3 = saveFood(ReviewFixture.산토리위스키_치즈, 산토리_위스키);
+        saveReview(ReviewFixture.산토리위스키_해산물, member, 산토리_위스키, saveFood1, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_해산물2, member, 산토리_위스키, saveFood1, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_과자, member, 산토리_위스키, saveFood2, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_치즈, member, 산토리_위스키, saveFood3, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_치즈2, member, 산토리_위스키, saveFood3, savedImage, 맑음);
+        saveReview(ReviewFixture.산토리위스키_치즈3, member, 산토리_위스키, saveFood3, savedImage, 맑음);
+
+        List<FoodCountRankingVO> actual = productFindService.getFoodsOrderByCount(산토리_위스키.getId());
+        assertThat(actual).isNotNull();
+
+        assertEquals("치즈", actual.get(0).getCategory());
+        assertEquals("해산물", actual.get(1).getCategory());
+        assertEquals("스낵", actual.get(2).getCategory());
     }
 
     private void saveReviews() {
