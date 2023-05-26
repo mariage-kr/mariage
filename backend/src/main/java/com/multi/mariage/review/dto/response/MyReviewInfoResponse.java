@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Data
+
 public class MyReviewInfoResponse extends BasePageResponse<MyReviewVO> {
 
     @Builder

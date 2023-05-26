@@ -139,7 +139,7 @@ class ReviewFindServiceTest extends ServiceTest {
         MyReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
                 member.getId(),
                 1,
-                1,
+                5,
                 Sort.NEWEST.name());
 
         assertThat(actual.getContents()).hasSize(5);
