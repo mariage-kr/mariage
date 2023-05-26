@@ -4,16 +4,19 @@ import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
 import ProductCard from '@/components/Product/ProductCard/ProductCard';
 import NoItems from '@/components/NoItems/NoItems';
+import DataLoading from '@/components/Animation/DataLoading';
 
 import { PagingType } from '@/@types/paging';
 import { ProductsType } from '@/@types/product';
-import { useProductCategory } from '@/hooks/useProductCategory';
-import useSearchParam from '@/hooks/useSearchParam';
+import { requestProducts } from '@/apis/request/product';
+import { PAGING } from '@/constants/rule';
+import { SORT } from '@/constants/option';
 
 import * as S from './Product.styled';
-import { PAGING } from '@/constants/rule';
 
 function Product() {
+  const queryParam = new URLSearchParams(location.search);
+
   const [products, setProducts] = useState<PagingType<ProductsType>>({
     contents: [],
     pageNumber: 1,
@@ -24,59 +27,73 @@ function Product() {
     lastPage: false,
   });
 
-  const { value: category } = useProductCategory();
-  const [pageNumber, setPageNumber] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { value: upperCategory, setValue: setUpperCategory } = useSearchParam<
-    string | null
-  >(null);
-  const { value: lowerCategory, setValue: setLowerCategory } =
-    useSearchParam<String | null>(null);
-  const { value: minRate, setValue: setMinRate } = useSearchParam<number>(0);
-  const { value: maxRate, setValue: setMaxRate } = useSearchParam<number>(5);
-  const { value: minLevel, setValue: setMinLevel } = useSearchParam<number>(0);
-  const { value: maxLevel, setValue: setMaxLevel } = useSearchParam<number>(70);
-  const [sort, setSort] = useState<string>('rate'); // rate, count
+  const upperCategory = queryParam.get('upper');
+  const lowerCategory = queryParam.get('lower');
+  const minRate = queryParam.get('minRate');
+  const maxRate = queryParam.get('maxRate');
+  const minLevel = queryParam.get('minLevel');
+  const maxLevel = queryParam.get('maxLevel');
 
-  const lengthIsZero = (): boolean => {
-    return products.contents.length === 0;
-  };
-
-  const getParam = () => {
-    setUpperCategory('upper');
-    setLowerCategory('lower');
-    setMinRate('minRate');
-    setMaxRate('maxRate');
-    setMinLevel('minLevel');
-    setMaxLevel('maxLevel');
-  };
-
-  useEffect(() => {
-    getParam();
-  }, []);
+  const [sort, setSort] = useState<string>(SORT.FILTER.RATE);
 
   const changeSort = (option: string) => {
     setSort(option);
   };
 
-  console.log(sort);
+  const fetchProducts = () => {
+    setLoading(true);
+    if (!minRate || !maxRate || !minLevel || !maxLevel) {
+      return;
+    }
+    const minRateNumber = Number.parseInt(minRate);
+    const maxRateNumber = Number.parseInt(maxRate);
+    const minLevelNumber = Number.parseInt(minLevel);
+    const maxLevelNumber = Number.parseInt(maxLevel);
+    requestProducts({
+      pageSize: PAGING.PAGE_SIZE,
+      pageNumber,
+      sort,
+      upperCategory,
+      lowerCategory,
+      minRate: minRateNumber,
+      maxRate: maxRateNumber,
+      minLevel: minLevelNumber,
+      maxLevel: maxLevelNumber,
+    })
+      .then(data => {
+        console.log(data);
+        setProducts(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <S.Container>
       <S.Aside>
-        <Filter
-          count={lengthIsZero() ? 0 : products.totalCount}
-          categories={category}
-        />
+        <Filter count={products.totalCount} />
       </S.Aside>
       <S.Contents>
         <Option changeSort={changeSort} />
-        {lengthIsZero() ? (
+        {products.totalCount === 0 ? (
           <NoItems />
         ) : (
           products.contents.map((product: ProductsType) => {
             return <ProductCard key={product.id} {...product} />;
           })
+        )}
+        {loading && (
+          <S.AniWrapper>
+            <DataLoading />
+          </S.AniWrapper>
         )}
       </S.Contents>
     </S.Container>

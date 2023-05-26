@@ -101,6 +101,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
+                .where(betweenRangeRate(cond.getMinRate(), cond.getMaxRate()))
                 .offset(getOffset(cond.getPageNumber(), cond.getPageSize()))
                 .limit(cond.getPageSize())
                 .fetch();
@@ -134,6 +135,10 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     private BooleanExpression betweenRangeLevel(int minLevel, int maxLevel) {
         return product.level.value.between(minLevel, maxLevel);
+    }
+
+    private BooleanExpression betweenRangeRate(int minRate, int maxRate) {
+        return product.avgReviewRate.between(minRate, maxRate);
     }
 
     private OrderSpecifier<? extends Number> sortOption(String sort) {

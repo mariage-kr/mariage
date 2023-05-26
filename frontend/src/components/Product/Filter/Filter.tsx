@@ -3,8 +3,6 @@ import { useState } from 'react';
 import RangeMultiSlider_F from '@/components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
 import { Range } from '@/@types/slider';
 
-import * as S from './Filter.styled';
-
 import {
   DrinkUpperCategoryType,
   DrinkRegionCategoryType,
@@ -12,10 +10,12 @@ import {
 } from '@/@types/category';
 import { useNavigate } from 'react-router-dom';
 import { BROWSER_PATH } from '@/constants/path';
+import { useProductCategory } from '@/hooks/useProductCategory';
+
+import * as S from './Filter.styled';
 
 type FilterProps = {
   count: number;
-  categories: DrinkRegionCategoryType[];
 };
 
 type Option = {
@@ -23,11 +23,17 @@ type Option = {
   level: Range;
 };
 
-function Filter({ count, categories }: FilterProps) {
+function Filter({ count }: FilterProps) {
   const navigate = useNavigate();
 
-  const [upperCategory, setUpperCategory] = useState<string | null>(null);
-  const [lowerCategory, setLowerCategory] = useState<string | null>(null);
+  const { value: category } = useProductCategory();
+
+  const [selectUpperCategory, setSelectUpperCategory] = useState<string | null>(
+    null,
+  );
+  const [selectLowerCategory, setSelectLowerCategory] = useState<string | null>(
+    null,
+  );
 
   const [option, setOption] = useState<Option>({
     rate: {
@@ -41,14 +47,14 @@ function Filter({ count, categories }: FilterProps) {
   });
 
   const handleUpperCategoryClick = (category: string | null) => {
-    setUpperCategory(category);
-    setLowerCategory(null);
+    setSelectUpperCategory(category);
+    setSelectLowerCategory(null);
   };
 
   const handleLowerCategoryClick = (
     lowerCategory: DrinkLowerCategoryType,
   ): void => {
-    setLowerCategory(lowerCategory.value);
+    setSelectLowerCategory(lowerCategory.value);
   };
 
   const changeRateOption = (selectRateRange: Range) => {
@@ -61,8 +67,14 @@ function Filter({ count, categories }: FilterProps) {
 
   const findProductsByFilter = () => {
     navigate(
-      `${BROWSER_PATH.PRODUCT}?upper=${upperCategory}&lower=${lowerCategory}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
+      `${BROWSER_PATH.PRODUCT}?upper=${selectUpperCategory}&lower=${selectLowerCategory}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
     );
+    window.location.reload();
+  };
+
+  const resetFilter = () => {
+    setSelectUpperCategory(null);
+    setSelectLowerCategory(null);
   };
 
   return (
@@ -76,7 +88,7 @@ function Filter({ count, categories }: FilterProps) {
             <S.CategoryTitle>상위 카테고리</S.CategoryTitle>
             <S.Domestic>
               <S.p>국내</S.p>
-              {categories
+              {category
                 .filter(category => category.region === '국내')
                 .map((category: DrinkRegionCategoryType, index: number) => (
                   <div key={index}>
@@ -86,7 +98,9 @@ function Filter({ count, categories }: FilterProps) {
                         index: number,
                       ) => (
                         <S.Category
-                          valid={drinkUpperCategory.value === upperCategory}
+                          valid={
+                            drinkUpperCategory.value === selectUpperCategory
+                          }
                           key={index}
                           onClick={() =>
                             handleUpperCategoryClick(drinkUpperCategory.value)
@@ -101,7 +115,7 @@ function Filter({ count, categories }: FilterProps) {
             </S.Domestic>
             <S.Overseas>
               <S.p>해외</S.p>
-              {categories
+              {category
                 .filter(category => category.region === '해외')
                 .map((category: DrinkRegionCategoryType, index: number) => (
                   <div key={index}>
@@ -111,7 +125,9 @@ function Filter({ count, categories }: FilterProps) {
                         index: number,
                       ) => (
                         <S.Category
-                          valid={drinkUpperCategory.value === upperCategory}
+                          valid={
+                            drinkUpperCategory.value === selectUpperCategory
+                          }
                           key={index}
                           onClick={() =>
                             handleUpperCategoryClick(drinkUpperCategory.value)
@@ -127,13 +143,13 @@ function Filter({ count, categories }: FilterProps) {
           </S.UpperCategory>
           <S.LowerCategory>
             <S.CategoryTitle>하위 카테고리</S.CategoryTitle>
-            {categories.map(
+            {category.map(
               (category: DrinkRegionCategoryType, index: number) => (
                 <div key={index}>
                   {category.categories
                     .filter(
                       (drinkUpperCategory: DrinkUpperCategoryType) =>
-                        drinkUpperCategory.value === upperCategory,
+                        drinkUpperCategory.value === selectUpperCategory,
                     )
                     .map(
                       (
@@ -148,7 +164,8 @@ function Filter({ count, categories }: FilterProps) {
                             ) => (
                               <S.Category
                                 valid={
-                                  drinkLowerCategory.value === lowerCategory
+                                  drinkLowerCategory.value ===
+                                  selectLowerCategory
                                 }
                                 key={lowerIndex}
                                 onClick={() =>
@@ -196,8 +213,8 @@ function Filter({ count, categories }: FilterProps) {
             />
           </S.ABV>
         </S.RangeWrap>
-        {/* 필터 적용을 누르면 drinkUpper, drinkLower, minRate, maxRate, minLevel, maxLevel을 Http Param에 담아서 서버로 전송후 새로고침 합니다. */}
         <S.FilterBtn onClick={findProductsByFilter}>필터적용</S.FilterBtn>
+        <S.FilterBtn onClick={resetFilter}>초기화</S.FilterBtn>
       </S.FilterWrap>
     </S.Container>
   );

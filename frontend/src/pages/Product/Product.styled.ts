@@ -11,6 +11,14 @@ const Container = styled.div`
   }
 `;
 
+const AniWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  scale: calc(1);
+`;
+
 const Aside = styled.div`
   width: 20%;
   min-width: 300px;
@@ -36,4 +44,4 @@ const Contents = styled.div`
   }
 `;
 
-export { Container, Aside, Contents };
+export { Container, AniWrapper, Aside, Contents };

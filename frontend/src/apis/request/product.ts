@@ -5,8 +5,11 @@ import {
   ProductRecommendType,
   ProductSaveType,
   ProductUpdateType,
+  ProductsType,
 } from '@/@types/product';
-import { RECOMMEND_PRODUCT_SIZE } from '@/constants/rule';
+import { PAGING, RECOMMEND_PRODUCT_SIZE } from '@/constants/rule';
+import { PagingType } from '@/@types/paging';
+import { ProductFIlterParam } from '@/@types/param';
 
 const requestSaveProduct = (productData: ProductSaveType) => {
   return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {
@@ -51,10 +54,41 @@ const requestRecommendWeather = () => {
     });
 };
 
+const requestProducts = ({
+  pageSize,
+  pageNumber,
+  sort,
+  upperCategory,
+  lowerCategory,
+  minRate,
+  maxRate,
+  minLevel,
+  maxLevel,
+}: ProductFIlterParam) => {
+  return axios
+    .get<PagingType<ProductsType>>(API_PATH.PRODUCT.FILTER, {
+      params: {
+        pageNumber,
+        pageSize,
+        sort,
+        upperCategory,
+        lowerCategory,
+        minRate,
+        maxRate,
+        minLevel,
+        maxLevel,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   requestSaveProduct,
   requestProductInfo,
   requestUpdateProduct,
   requestRecommendWeather,
   requestRecommendDate,
+  requestProducts,
 };

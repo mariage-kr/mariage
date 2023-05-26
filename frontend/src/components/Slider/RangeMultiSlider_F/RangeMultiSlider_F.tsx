@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import { ChangeEvent, useCallback, useEffect, useState, useRef } from 'react';
 
 import * as S from './RangeMultiSlider_F.styled';
 
@@ -15,11 +8,7 @@ interface rangeMultiSliderProps {
   onChange: Function;
 }
 
-const RangeMultiSlider_F: FC<rangeMultiSliderProps> = ({
-  min,
-  max,
-  onChange,
-}) => {
+function RangeMultiSlider_F({ min, max, onChange }: rangeMultiSliderProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -32,30 +21,15 @@ const RangeMultiSlider_F: FC<rangeMultiSliderProps> = ({
     [min, max],
   );
 
-  // Set width of the range to decrease from the left side
   useEffect(() => {
-    if (maxValRef.current) {
+    if (minValRef.current && maxValRef.current && range.current) {
       const minPercent = getPercent(minVal);
-      const maxPercent = getPercent(+maxValRef.current.value); // Precede with '+' to convert the value from type string to type number
-
-      if (range.current) {
-        range.current.style.left = `${minPercent}%`;
-        range.current.style.width = `${maxPercent - minPercent}%`;
-      }
-    }
-  }, [minVal, getPercent]);
-
-  // Set width of the range to decrease from the right side
-  useEffect(() => {
-    if (minValRef.current) {
-      const minPercent = getPercent(+minValRef.current.value);
       const maxPercent = getPercent(maxVal);
 
-      if (range.current) {
-        range.current.style.width = `${maxPercent - minPercent}%`;
-      }
+      range.current.style.left = `${minPercent}%`;
+      range.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [maxVal, getPercent]);
+  }, [minVal, maxVal, getPercent]);
 
   // Get min and max values when their state changes
   useEffect(() => {
@@ -76,7 +50,7 @@ const RangeMultiSlider_F: FC<rangeMultiSliderProps> = ({
             setMinVal(value);
             event.target.value = value.toString();
           }}
-          css={[S.thumb_zindex3, S.thumb_zindex5(minVal, max)]}
+          css={[S.thumb_zIndex3, S.thumb_zIndex5(minVal, max)]}
         />
         <S.Thumb
           type="range"
@@ -89,7 +63,7 @@ const RangeMultiSlider_F: FC<rangeMultiSliderProps> = ({
             setMaxVal(value);
             event.target.value = value.toString();
           }}
-          css={S.thumb_zindex4}
+          css={S.thumb_zIndex4}
         />
 
         <S.Slider>
@@ -101,6 +75,6 @@ const RangeMultiSlider_F: FC<rangeMultiSliderProps> = ({
       </S.Container>
     </>
   );
-};
+}
 
 export default RangeMultiSlider_F;
