@@ -111,7 +111,7 @@ public class ProductFindService extends PagingUtil {
 
     private List<ProductDetailVO> getProductValues() {
         List<Product> products = productRepository.findAll();
-
+      
         return products.stream()
                 .map(product -> {
                     String imageUrl = imageService.getImageUrl(product.getImage().getName());
@@ -181,24 +181,20 @@ public class ProductFindService extends PagingUtil {
 
     public List<FoodRateRankingVO> getFoodsOrderByRate(Long productId) {
         Product product = findById(productId);
-
         List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);   // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
-        List<FoodRateRankingVO> foodRateList = foodList.stream()
+
+        return foodList.stream()
                 .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
                 .toList();
-
-        return foodRateList;
     }
 
     public List<FoodCountRankingVO> getFoodsOrderByCount(Long productId) {
         Product product = findById(productId);
-
         List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
-        List<FoodCountRankingVO> foodCountList = foodList.stream()
+
+        return foodList.stream()
                 .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
                 .toList();
-
-        return foodCountList;
     }
 
     public ProductInfoResponse findProductInfo(Long productId) {

@@ -24,6 +24,7 @@ const API_PATH = {
     INFO: '/api/user/product/info',
     UPDATE: '/api/user/product/update',
     IMAGE: '/api/user/product/image',
+    FILTER: '/api/product/find/filter',
     RECOMMEND: {
       DATE: '/api/product/recommend/date',
       WEATHER: '/api/product/recommend/weather',

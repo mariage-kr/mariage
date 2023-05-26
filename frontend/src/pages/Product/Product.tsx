@@ -4,77 +4,95 @@ import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
 import ProductCard from '@/components/Product/ProductCard/ProductCard';
 import NoItems from '@/components/NoItems/NoItems';
+import DataLoading from '@/components/Animation/DataLoading';
 
 import { PagingType } from '@/@types/paging';
-import { ProductInfoType } from '@/@types/product';
-import { useProductCategory } from '@/hooks/useProductCategory';
-import useSearchParam from '@/hooks/useSearchParam';
+import { ProductsType } from '@/@types/product';
+import { requestProducts } from '@/apis/request/product';
+import { PAGING } from '@/constants/rule';
+import { SORT } from '@/constants/option';
 
 import * as S from './Product.styled';
 
-/* 추후 AXIOS로 데이터 출력 */
-import data from './data.json';
-import nullData from './nullData.json';
-
 function Product() {
-  /* 위의 데이터는 데이터가 존재할 경우이며 아래는 데이터가 없을 경우입니다. */
-  const products: PagingType<ProductInfoType> = data;
-  // const products: PagingType<ProductInfoType> = nullData;
+  const queryParam = new URLSearchParams(location.search);
 
-  const { value: category } = useProductCategory();
+  const [products, setProducts] = useState<PagingType<ProductsType>>({
+    contents: [],
+    pageNumber: 1,
+    totalCount: 0,
+    totalPages: 0,
+    pageSize: PAGING.PAGE_SIZE,
+    firstPage: true,
+    lastPage: false,
+  });
 
-  const [pageNumber, setPageNumber] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { value: upperCategory, setValue: setUpperCategory } = useSearchParam<
-    string | null
-  >(null);
-  const { value: lowerCategory, setValue: setLowerCategory } =
-    useSearchParam<String | null>(null);
-  const { value: minRate, setValue: setMinRate } = useSearchParam<number>(0);
-  const { value: maxRate, setValue: setMaxRate } = useSearchParam<number>(5);
-  const { value: minLevel, setValue: setMinLevel } = useSearchParam<number>(0);
-  const { value: maxLevel, setValue: setMaxLevel } = useSearchParam<number>(70);
-  const [sort, setSort] = useState<string>('rate'); // rate, count
+  const queryUpperCategory = queryParam.get('upper');
+  const queryLowerCategory = queryParam.get('lower');
+  const queryMinRate = queryParam.get('minRate');
+  const queryMaxRate = queryParam.get('maxRate');
+  const queryMinLevel = queryParam.get('minLevel');
+  const queryMaxLevel = queryParam.get('maxLevel');
 
-  const lengthIsZero = (): boolean => {
-    return products.content.length === 0;
-  };
-
-  const getParam = () => {
-    setUpperCategory('upper');
-    setLowerCategory('lower');
-    setMinRate('minRate');
-    setMaxRate('maxRate');
-    setMinLevel('minLevel');
-    setMaxLevel('maxLevel');
-  };
-
-  useEffect(() => {
-    getParam();
-  }, []);
+  const [sort, setSort] = useState<string>(SORT.FILTER.RATE);
 
   const changeSort = (option: string) => {
     setSort(option);
   };
 
-  console.log(sort);
+  /* TODO: 추후 무한스크롤로 적용 */
+  const fetchProducts = () => {
+    setLoading(true);
+    requestProducts({
+      pageSize: PAGING.PAGE_SIZE,
+      pageNumber,
+      sort,
+      queryUpperCategory,
+      queryLowerCategory,
+      queryMinRate,
+      queryMaxRate,
+      queryMinLevel,
+      queryMaxLevel,
+    })
+      .then(data => {
+        setProducts(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  /* 페이지 진입 시 */
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  /* 정렬 옵션 수정 시 */
+  useEffect(() => {
+    fetchProducts();
+  }, [sort]);
 
   return (
     <S.Container>
       <S.Aside>
-        <Filter
-          count={lengthIsZero() ? 0 : products.totalCount}
-          categories={category}
-        />
+        <Filter count={products.totalCount} />
       </S.Aside>
       <S.Contents>
         <Option changeSort={changeSort} />
-        {lengthIsZero() ? (
+        {products.totalCount === 0 ? (
           <NoItems />
         ) : (
-          products.content.map((product: ProductInfoType) => {
+          products.contents.map((product: ProductsType) => {
             return <ProductCard key={product.id} {...product} />;
           })
+        )}
+        {loading && (
+          <S.AniWrapper>
+            <DataLoading />
+          </S.AniWrapper>
         )}
       </S.Contents>
     </S.Container>

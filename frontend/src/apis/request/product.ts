@@ -5,8 +5,11 @@ import {
   ProductRecommendType,
   ProductSaveType,
   ProductUpdateType,
+  ProductsType,
 } from '@/@types/product';
 import { RECOMMEND_PRODUCT_SIZE } from '@/constants/rule';
+import { PagingType } from '@/@types/paging';
+import { ProductFIlterParam } from '@/@types/param';
 
 const requestSaveProduct = (productData: ProductSaveType) => {
   return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {
@@ -51,10 +54,49 @@ const requestRecommendWeather = () => {
     });
 };
 
+const requestProducts = ({
+  pageSize,
+  pageNumber,
+  sort,
+  queryUpperCategory,
+  queryLowerCategory,
+  queryMinRate,
+  queryMaxRate,
+  queryMinLevel,
+  queryMaxLevel,
+}: ProductFIlterParam) => {
+  const upperCategory: string | null =
+    queryUpperCategory !== 'null' ? queryUpperCategory : null;
+  const lowerCategory: string | null =
+    queryLowerCategory !== 'null' ? queryLowerCategory : null;
+  const minRate: number = Number.parseInt(queryMinRate!);
+  const maxRate: number = Number.parseInt(queryMaxRate!);
+  const minLevel: number = Number.parseInt(queryMinLevel!);
+  const maxLevel: number = Number.parseInt(queryMaxLevel!);
+  return axios
+    .get<PagingType<ProductsType>>(API_PATH.PRODUCT.FILTER, {
+      params: {
+        pageNumber,
+        pageSize,
+        sort,
+        upperCategory,
+        lowerCategory,
+        minRate,
+        maxRate,
+        minLevel,
+        maxLevel,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   requestSaveProduct,
   requestProductInfo,
   requestUpdateProduct,
   requestRecommendWeather,
   requestRecommendDate,
+  requestProducts,
 };

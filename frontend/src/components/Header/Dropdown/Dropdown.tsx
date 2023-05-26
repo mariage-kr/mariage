@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
+
 import {
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
 } from '@/@types/category';
 import { BROWSER_PATH } from '@/constants/path';
-import * as S from './Dropdown.styled';
+import { PARAM } from '@/constants/rule';
 import useSearchParam from '@/hooks/useSearchParam';
+
+import * as S from './Dropdown.styled';
 
 function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
   const { value: categoryValue, setValue: setCategoryValue } =
     useSearchParam(value);
 
-  const handleCategoryClick = (categoryValue: string) => {
-    setCategoryValue(`upper:${categoryValue}`); // 예시: upper:local_soju
+  const handleCategoryClick = async (categoryValue: string) => {
+    await setCategoryValue(`upper:${categoryValue}`);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -32,7 +36,13 @@ function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
               return (
                 <S.DropList key={index}>
                   <S.StyledLink
-                    to={`${BROWSER_PATH.PRODUCT}?upper=${categoryValue}`}
+                    to={`${
+                      BROWSER_PATH.PRODUCT
+                    }?upper=${categoryValue.toUpperCase()}&minRate=${
+                      PARAM.RATE.MIN
+                    }&maxRate=${PARAM.RATE.MAX}&minLevel=${
+                      PARAM.LEVEL.MIN
+                    }&maxLevel=${PARAM.LEVEL.MAX}`}
                     onClick={() => handleCategoryClick(categoryValue)}
                   >
                     {category.name}

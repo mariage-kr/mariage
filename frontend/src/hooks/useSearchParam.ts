@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function useSearchParam<T>(initialState: T) {
-  const [value, setValue] = useState<string | null>();
+  const [value, setValue] = useState<string | null>('');
 
   const changeValue = (param: string) => {
     const getParam = (param: string) => {

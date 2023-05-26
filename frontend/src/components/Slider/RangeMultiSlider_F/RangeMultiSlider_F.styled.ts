@@ -14,7 +14,6 @@ const Container = styled.div`
   @media (max-width: 1000px) {
     max-width: 300px;
     margin: 20px auto;
-
   }
 `;
 
@@ -70,13 +69,13 @@ const Thumb = styled.input`
   }
 `;
 
-const thumb_zindex3 = css`
+const thumb_zIndex3 = css`
   z-index: 3;
 `;
-const thumb_zindex4 = css`
+const thumb_zIndex4 = css`
   z-index: 4;
 `;
-const thumb_zindex5 = (minVal: number, max: number) => css`
+const thumb_zIndex5 = (minVal: number, max: number) => css`
   z-index: (minVal > max - 100) && 5;
 `;
 
@@ -123,9 +122,9 @@ const slider_sub34 = css`
 export {
   Container,
   Thumb,
-  thumb_zindex3,
-  thumb_zindex4,
-  thumb_zindex5,
+  thumb_zIndex3,
+  thumb_zIndex4,
+  thumb_zIndex5,
   Slider,
   Slider_sub,
   slider_sub12,

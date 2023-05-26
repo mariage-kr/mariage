@@ -1,4 +1,5 @@
 import { SORT } from '@/constants/option';
+
 import * as S from './Option.styled';
 
 type PropsType = {
@@ -12,10 +13,10 @@ function Option({ changeSort }: PropsType) {
 
   return (
     <S.Container>
-      <S.Btn type={'button'} onClick={() => changeOption(SORT.FILTER.RATE)!}>
+      <S.Btn type={'button'} onClick={() => changeOption(SORT.FILTER.RATE)}>
         별점순
       </S.Btn>
-      <S.Btn type={'button'} onClick={() => changeOption(SORT.FILTER.COUNT)!}>
+      <S.Btn type={'button'} onClick={() => changeOption(SORT.FILTER.COUNT)}>
         리뷰순
       </S.Btn>
     </S.Container>
