@@ -91,7 +91,7 @@ public class ReviewFindService extends PagingUtil {
         List<Review> reviews = reviewRepository.findReviewsByMemberId(cond);
         Long totalCount = reviewRepository.findReviewsCountByMemberId(authMember.getId());
 
-        List<MyReviewVO> productAndReviewList = getReviewListByMember(reviews, authMember.getId());
+        List<MyReviewVO> productAndReviewList = getReviewListByMemberId(reviews, authMember.getId());
         int totalPages = getTotalPages(pageSize, totalCount);
 
         return MyReviewInfoResponse.builder()
@@ -175,17 +175,17 @@ public class ReviewFindService extends PagingUtil {
                 .toList();
     }
 
-    private List<MyReviewVO> getReviewListByMember(List<Review> reviews, Long memberId) {
+    private List<MyReviewVO> getReviewListByMemberId(List<Review> reviews, Long memberId) {
         return reviews.stream()
                 .map(review -> {
                     ProductContentVO productContent = getProductContentFrom(review.getProduct().getId());
-                    MyProductReviewVO productReview = getMyReviewContent(review,
+                    MyProductReviewVO reviewContent = getMyReviewContent(review,
                             getProductReviewMemberFrom(review),
                             getMyReviewContentFrom(review),
                             ProductReviewFoodVO.from(review),
                             getProductReviewLikeFrom(review, memberId),
                             getHashtags(review));
-                    return MyReviewVO.from(productContent, productReview);
+                    return MyReviewVO.from(productContent, reviewContent);
                 })
                 .toList();
     }

@@ -1,5 +1,6 @@
 package com.multi.mariage.review.service;
 
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
@@ -9,6 +10,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
+import com.multi.mariage.review.dto.response.MyReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -123,5 +125,24 @@ class ReviewFindServiceTest extends ServiceTest {
 
         /* Then */
         assertThat(actual.getTotalCount()).isEqualTo(2);
+    }
+
+    @DisplayName("회원이 본인의 리뷰를 조회한다.")
+    @Test
+    void 회원이_본인의_리뷰를_조회한다() {
+        Member member2 = signup(MemberFixture.SURI);
+        Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
+        saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_치즈, member.getId(), product.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_해산물, member.getId(), product.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_과자, member.getId(), product.getId(), imageId);
+
+        MyReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
+                new AuthMember(member.getId()),
+                1,
+                5,
+                Sort.NEWEST.name());
+
+        assertThat(actual.getContents()).hasSize(5);
     }
 }
