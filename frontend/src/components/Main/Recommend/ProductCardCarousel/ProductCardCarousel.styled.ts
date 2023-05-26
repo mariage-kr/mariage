@@ -22,13 +22,20 @@ const NoProductsAnimation = styled.div`
   height: 400px;
 
   flex-direction: column;
+`;
 
-  scale: calc(4);
+const AniWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  scale: calc(3);
 `;
 
 const Text = styled.p`
-  margin-top: -10px;
-  scale: calc(0.25);
+  margin-top: 180px;
+
+  font-size: 1.6rem;
 `;
 
-export { Container, LoadingAnimation, NoProductsAnimation, Text };
+export { Container, LoadingAnimation, NoProductsAnimation, AniWrapper, Text };

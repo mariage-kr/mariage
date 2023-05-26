@@ -120,6 +120,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
+                .where((betweenRangeRate(cond.getMinRate(), cond.getMaxRate())))
                 .fetchFirst();
     }
 

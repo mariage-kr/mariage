@@ -136,10 +136,11 @@ function ProductCardCarousel({ option }: PropsType) {
           })}
         </Carousel>
       ) : (
-        /* TODO: 데이터가 존재하지 않을 경우 보여줄 사진 혹은 문구 필요 */
         <>
           <S.NoProductsAnimation>
-            <NoFoodRank />
+            <S.AniWrapper>
+              <NoFoodRank />
+            </S.AniWrapper>
             <S.Text>추천 제품이 존재하지 않습니다!</S.Text>
           </S.NoProductsAnimation>
         </>
