@@ -44,7 +44,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public List<Review> findProductAndReviewsByMemberId(MyReviewsPagingCond cond) {
+    public List<Review> findReviewsByMemberId(MyReviewsPagingCond cond) {
         List<Long> reviewIds = getPagingReviewsByMember(cond);
 
         return queryFactory.selectFrom(review)
