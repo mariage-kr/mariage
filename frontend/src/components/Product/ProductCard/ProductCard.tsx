@@ -37,7 +37,9 @@ function ProductCard({
       <S.Content>
         <S.Name>{name}</S.Name>
         <S.CountryWrap>
-          <CountryFlagImg id={country.countryId} />
+          <S.CountryImgWrapper>
+            <CountryFlagImg id={country.countryId} />
+          </S.CountryImgWrapper>
           <S.Country>{country.country}</S.Country>
         </S.CountryWrap>
         <S.p>

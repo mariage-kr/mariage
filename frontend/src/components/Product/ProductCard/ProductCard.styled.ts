@@ -168,6 +168,15 @@ const Review = styled.p`
   font-size: 0.9rem;
 `;
 
+const CountryImgWrapper = styled.div`
+  width: 40px;
+  height: 40px;
+
+  border-radius: 100%;
+  box-shadow: 0px 0px 10px #9c94d044;
+  object-fit: cover;
+`;
+
 export {
   Container,
   Image,
@@ -188,4 +197,5 @@ export {
   Star,
   StarRateText,
   Review,
+  CountryImgWrapper,
 };

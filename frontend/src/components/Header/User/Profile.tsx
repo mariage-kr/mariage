@@ -6,10 +6,10 @@ import { requestLogout, requestReissue } from '@/apis/request/auth';
 import { requestUserInfo } from '@/apis/request/member';
 import { BROWSER_PATH } from '@/constants/path';
 import useAuth from '@/hooks/useAuth';
-
-import * as S from './Profile.styled';
 import useUserInfo from '@/hooks/useUserInfo';
 import { isLoginProvider } from '@/utils/auth';
+
+import * as S from './Profile.styled';
 
 function User() {
   const { accessToken, refreshToken, setAuth, resetAuth, removeIsLogin } =
@@ -81,7 +81,9 @@ function User() {
       <S.Container>
         <S.Wrapper>
           <S.Wrap>
-            <S.StyledLink to={BROWSER_PATH.REVIEW}>리뷰</S.StyledLink>
+            <S.StyledLink to={`${BROWSER_PATH.REVIEW}/${userInfo?.id}`}>
+              리뷰
+            </S.StyledLink>
           </S.Wrap>
           <S.Wrap>
             <S.StyledLink to={BROWSER_PATH.MY}>
