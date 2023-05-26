@@ -141,8 +141,7 @@ public class ProductFindService extends PagingUtil {
                 .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
                 .toList();
 
-        ProductReviewRankRateResponse response = ProductReviewRankRateResponse.from(product, foodRateList);
-        return response;
+        return ProductReviewRankRateResponse.from(product, foodRateList);
     }
 
     public ProductReviewRankCountResponse findFoodsOrderByCount(Long productId) {
@@ -153,8 +152,7 @@ public class ProductFindService extends PagingUtil {
                 .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
                 .toList();
 
-        ProductReviewRankCountResponse response = ProductReviewRankCountResponse.from(product, foodCountList);
-        return response;
+        return ProductReviewRankCountResponse.from(product, foodCountList);
     }
 
     private List<ProductFilterVO> getContentsByFilter(List<Product> products) {
@@ -225,24 +223,19 @@ public class ProductFindService extends PagingUtil {
 
     public List<FoodRateRankingVO> getFoodsOrderByRate(Long productId) {
         Product product = findById(productId);
-
         List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);   // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
-        List<FoodRateRankingVO> foodRateList = foodList.stream()
+
+        return foodList.stream()
                 .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
                 .toList();
-
-
-        return foodRateList;
     }
 
     public List<FoodCountRankingVO> getFoodsOrderByCount(Long productId) {
         Product product = findById(productId);
-
         List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
-        List<FoodCountRankingVO> foodCountList = foodList.stream()
+
+        return foodList.stream()
                 .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
                 .toList();
-
-        return foodCountList;
     }
 }

@@ -13,6 +13,7 @@ import { PAGING } from '@/constants/rule';
 import { SORT } from '@/constants/option';
 
 import * as S from './Product.styled';
+import { UpperCategory } from '@/components/Product/Filter/Filter.styled';
 
 function Product() {
   const queryParam = new URLSearchParams(location.search);
@@ -30,12 +31,12 @@ function Product() {
   const [loading, setLoading] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const upperCategory = queryParam.get('upper');
-  const lowerCategory = queryParam.get('lower');
-  const minRate = queryParam.get('minRate');
-  const maxRate = queryParam.get('maxRate');
-  const minLevel = queryParam.get('minLevel');
-  const maxLevel = queryParam.get('maxLevel');
+  const queryUpperCategory = queryParam.get('upper');
+  const queryLowerCategory = queryParam.get('lower');
+  const queryMinRate = queryParam.get('minRate');
+  const queryMaxRate = queryParam.get('maxRate');
+  const queryMinLevel = queryParam.get('minLevel');
+  const queryMaxLevel = queryParam.get('maxLevel');
 
   const [sort, setSort] = useState<string>(SORT.FILTER.RATE);
 
@@ -43,28 +44,21 @@ function Product() {
     setSort(option);
   };
 
+  /* TODO: 추후 무한스크롤로 적용 */
   const fetchProducts = () => {
     setLoading(true);
-    if (!minRate || !maxRate || !minLevel || !maxLevel) {
-      return;
-    }
-    const minRateNumber = Number.parseInt(minRate);
-    const maxRateNumber = Number.parseInt(maxRate);
-    const minLevelNumber = Number.parseInt(minLevel);
-    const maxLevelNumber = Number.parseInt(maxLevel);
     requestProducts({
       pageSize: PAGING.PAGE_SIZE,
       pageNumber,
       sort,
-      upperCategory,
-      lowerCategory,
-      minRate: minRateNumber,
-      maxRate: maxRateNumber,
-      minLevel: minLevelNumber,
-      maxLevel: maxLevelNumber,
+      queryUpperCategory,
+      queryLowerCategory,
+      queryMinRate,
+      queryMaxRate,
+      queryMinLevel,
+      queryMaxLevel,
     })
       .then(data => {
-        console.log(data);
         setProducts(data);
       })
       .finally(() => {

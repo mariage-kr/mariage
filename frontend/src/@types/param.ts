@@ -2,12 +2,12 @@ type ProductFIlterParam = {
   pageSize: number;
   pageNumber: number;
   sort: string;
-  upperCategory: string | null;
-  lowerCategory: string | null;
-  minRate: number;
-  maxRate: number;
-  minLevel: number;
-  maxLevel: number;
+  queryUpperCategory: string | null;
+  queryLowerCategory: string | null;
+  queryMinRate: string | null;
+  queryMaxRate: string | null;
+  queryMinLevel: string | null;
+  queryMaxLevel: string | null;
 };
 
 export { ProductFIlterParam };
