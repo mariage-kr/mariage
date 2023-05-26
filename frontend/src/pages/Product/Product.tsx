@@ -13,7 +13,6 @@ import { PAGING } from '@/constants/rule';
 import { SORT } from '@/constants/option';
 
 import * as S from './Product.styled';
-import { UpperCategory } from '@/components/Product/Filter/Filter.styled';
 
 function Product() {
   const queryParam = new URLSearchParams(location.search);
@@ -66,9 +65,15 @@ function Product() {
       });
   };
 
+  /* 페이지 진입 시 */
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  /* 정렬 옵션 수정 시 */
+  useEffect(() => {
+    fetchProducts();
+  }, [sort]);
 
   return (
     <S.Container>

@@ -37,8 +37,12 @@ function Header() {
           );
         })}
       </S.Nav>
-      <S.SearchArea><Search /></S.SearchArea>
-      <S.UserArea><User /></S.UserArea>
+      <S.SearchArea>
+        <Search />
+      </S.SearchArea>
+      <S.UserArea>
+        <User />
+      </S.UserArea>
     </S.Container>
   );
 }

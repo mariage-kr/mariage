@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
+
 import {
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
 } from '@/@types/category';
 import { BROWSER_PATH } from '@/constants/path';
-import * as S from './Dropdown.styled';
-import useSearchParam from '@/hooks/useSearchParam';
 import { PARAM } from '@/constants/rule';
+import useSearchParam from '@/hooks/useSearchParam';
+
+import * as S from './Dropdown.styled';
 
 function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
   const { value: categoryValue, setValue: setCategoryValue } =
