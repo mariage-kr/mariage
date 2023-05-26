@@ -1,6 +1,5 @@
 package com.multi.mariage.review.service;
 
-import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
@@ -138,9 +137,9 @@ class ReviewFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.산토리위스키_과자, member.getId(), product.getId(), imageId);
 
         MyReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
-                new AuthMember(member.getId()),
+                member.getId(),
                 1,
-                5,
+                1,
                 Sort.NEWEST.name());
 
         assertThat(actual.getContents()).hasSize(5);

@@ -79,19 +79,19 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MyReviewInfoResponse findProductsAndReviewsByMemberId(AuthMember authMember, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MyReviewInfoResponse findProductsAndReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
         MyReviewsPagingCond cond = MyReviewsPagingCond.builder()
-                .memberId(authMember.getId())
+                .memberId(memberId)
                 .pageSize(pageSize)
                 .pageNumber(pageNumber)
                 .sort(sort)
                 .build();
 
         List<Review> reviews = reviewRepository.findReviewsByMemberId(cond);
-        Long totalCount = reviewRepository.findReviewsCountByMemberId(authMember.getId());
+        Long totalCount = reviewRepository.findReviewsCountByMemberId(memberId);
 
-        List<MyReviewVO> productAndReviewList = getReviewListByMemberId(reviews, authMember.getId());
+        List<MyReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
         int totalPages = getTotalPages(pageSize, totalCount);
 
         return MyReviewInfoResponse.builder()

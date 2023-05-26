@@ -32,11 +32,11 @@ public class ReviewFindController {
         return ResponseEntity.ok(response);
     }
     @GetMapping("/review/my/write")
-    public ResponseEntity<MyReviewInfoResponse> findProductAndReviewsByMemberId(@Authenticated AuthMember authMember,
+    public ResponseEntity<MyReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
                                                                                 @Param("pageNumber") int pageNumber,
                                                                                 @Param("pageSize") int pageSize,
                                                                                 @Param("sort") @Nullable String sort) {
-        MyReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberId(authMember,
+        MyReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberId(memberId,
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
