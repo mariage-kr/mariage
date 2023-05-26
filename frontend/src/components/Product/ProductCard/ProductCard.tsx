@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+import Reviewer from '@/components/Animation/Reviewer';
+
 import { ProductFoodType, ProductsType } from '@/@types/product';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
-import Reviewer from '@/components/Animation/Reviewer';
+import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './ProductCard.styled';
 
@@ -19,8 +23,14 @@ function ProductCard({
     return foods.length > 0;
   };
 
+  const navigate = useNavigate();
+
+  const goProduct = () => {
+    navigate(`${BROWSER_PATH.DETAIL}/${id}`);
+  };
+
   return (
-    <S.Container>
+    <S.Container onClick={goProduct}>
       <S.Image>
         <S.Img src={imageUrl} />
       </S.Image>
