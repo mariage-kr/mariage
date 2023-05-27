@@ -92,7 +92,7 @@ class ReviewFindControllerTest extends ControllerTest {
                 .andDo(document("Review/FindReviews/Member/Write",
                         preprocessResponse(prettyPrint()),
                         responseFields(
-                                fieldWithPath("contents").description("조회한 리뷰 목록"),
+                                fieldWithPath("contents").description("사용자가 작성한 리뷰 목록"),
                                 fieldWithPath("contents[].productContent.id").description("제품 식별 번호"),
                                 fieldWithPath("contents[].productContent.imageId").description("제품 사진 식별 번호"),
                                 fieldWithPath("contents[].productContent.imageUrl").description("제품 사진 Url"),
