@@ -31,7 +31,7 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/review/my/write")
+    @GetMapping("/review/member")
     public ResponseEntity<MyReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
                                                                                 @Param("pageNumber") int pageNumber,
                                                                                 @Param("pageSize") int pageSize,
