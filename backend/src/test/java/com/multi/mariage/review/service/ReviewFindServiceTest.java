@@ -11,11 +11,17 @@ import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.review.dto.response.MyReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
+import com.multi.mariage.review.vo.member.write.MemberReviewVO;
+import com.multi.mariage.review.vo.member.write.ProductInfoVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReviewFindServiceTest extends ServiceTest {
     private Product product;
@@ -142,7 +148,16 @@ class ReviewFindServiceTest extends ServiceTest {
                 1,
                 4,
                 Sort.NEWEST.name());
+
         assertThat(actual).isNotNull();
+        List<MemberReviewVO> memberReviews=actual.getContents();
+
+        MemberReviewVO memberReview=memberReviews.stream()
+                .filter(r->product.getName().equals(r.getProductInfo().getName()))
+                .findFirst()
+                .orElse(null);
+
+        assertEquals("참이슬", memberReview.getProductInfo().getName());
         assertThat(actual.getContents()).hasSize(4);
     }
 }
