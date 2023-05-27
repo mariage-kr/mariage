@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class MemberReviewVO {
-    private ProductInfoVO productContent;
-    private ReviewInfoVO productReview;
+    private ProductInfoVO productInfo;
+    private ReviewInfoVO reviewInfo;
 
     @Builder
-    private MemberReviewVO(ProductInfoVO productContent, ReviewInfoVO productReview) {
-        this.productContent = productContent;
-        this.productReview = productReview;
+    private MemberReviewVO(ProductInfoVO productInfo, ReviewInfoVO reviewInfo) {
+        this.productInfo = productInfo;
+        this.reviewInfo = reviewInfo;
     }
 
-    public static MemberReviewVO from(ProductInfoVO productContent, ReviewInfoVO productReview) {
+    public static MemberReviewVO from(ProductInfoVO productInfo, ReviewInfoVO reviewInfo) {
         return MemberReviewVO.builder()
-                .productContent(productContent)
-                .productReview(productReview)
+                .productInfo(productInfo)
+                .reviewInfo(reviewInfo)
                 .build();
     }
 }

@@ -131,17 +131,18 @@ class ReviewFindServiceTest extends ServiceTest {
     void 사용자의_리뷰를_조회한다() {
         Member member2 = signup(MemberFixture.SURI);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
+        Product product2=saveProduct(ProductFixture.산토리_위스키, imageId);
         saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);
-        saveReview(ReviewFixture.산토리위스키_치즈, member.getId(), product.getId(), imageId);
-        saveReview(ReviewFixture.산토리위스키_해산물, member.getId(), product.getId(), imageId);
-        saveReview(ReviewFixture.산토리위스키_과자, member.getId(), product.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_치즈, member2.getId(), product2.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_과자, member2.getId(), product2.getId(), imageId);
 
         MyReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
-                member.getId(),
+                member2.getId(),
                 1,
-                5,
+                4,
                 Sort.NEWEST.name());
         assertThat(actual).isNotNull();
-        assertThat(actual.getContents()).hasSize(5);
+        assertThat(actual.getContents()).hasSize(4);
     }
 }

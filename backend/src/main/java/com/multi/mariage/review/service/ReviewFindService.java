@@ -177,19 +177,19 @@ public class ReviewFindService extends PagingUtil {
     private List<MemberReviewVO> getReviewListByMemberId(List<Review> reviews, Long memberId) {
         return reviews.stream()
                 .map(review -> {
-                    ProductInfoVO productContent = getProductContentFrom(review.getProduct().getId());
-                    ReviewInfoVO reviewContent = getMyReviewContent(review,
+                    ProductInfoVO productInfo = getProductInfoFrom(review.getProduct().getId());
+                    ReviewInfoVO reviewInfo = getMemberReviewInfo(review,
                             getProductReviewMemberFrom(review),
-                            getMyReviewContentFrom(review),
+                            getMemberReviewContentFrom(review),
                             ProductReviewFoodVO.from(review),
                             getProductReviewLikeFrom(review, memberId),
                             getHashtags(review));
-                    return MemberReviewVO.from(productContent, reviewContent);
+                    return MemberReviewVO.from(productInfo, reviewInfo);
                 })
                 .toList();
     }
 
-    public ProductInfoVO getProductContentFrom(Long productId) {
+    public ProductInfoVO getProductInfoFrom(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
 
@@ -198,12 +198,12 @@ public class ReviewFindService extends PagingUtil {
         return ProductInfoVO.from(product, imageUrl, product.getAvgReviewRate());
     }
 
-    private ReviewInfoVO getMyReviewContent(Review review,
-                                            ProductReviewMemberVO member,
-                                            ReviewContentVO content,
-                                            ProductReviewFoodVO food,
-                                            ProductReviewLikeVO like,
-                                            List<String> hashtags) {
+    private ReviewInfoVO getMemberReviewInfo(Review review,
+                                             ProductReviewMemberVO member,
+                                             ReviewContentVO content,
+                                             ProductReviewFoodVO food,
+                                             ProductReviewLikeVO like,
+                                             List<String> hashtags) {
         return ReviewInfoVO.builder()
                 .id(review.getId())
                 .member(member)
@@ -214,7 +214,7 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    private ReviewContentVO getMyReviewContentFrom(Review review) {
+    private ReviewContentVO getMemberReviewContentFrom(Review review) {
         return ReviewContentVO.builder()
                 .date(convertToLocalDateFormat(review.getDate()))
                 .rate(review.getProductRate())
