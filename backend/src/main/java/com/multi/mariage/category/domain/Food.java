@@ -45,6 +45,6 @@ public class Food {
     /* 비즈니스 로직 */
     public void changeTotalFoodRate(int rate) {
         totalFoodRate += rate;
-        avgFoodRate = (double) totalFoodRate / reviews.size();
+        avgFoodRate = Math.round(((double) totalFoodRate / reviews.size()) * 10) / 10.0;
     }
 }
