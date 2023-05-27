@@ -126,9 +126,9 @@ class ReviewFindServiceTest extends ServiceTest {
         assertThat(actual.getTotalCount()).isEqualTo(2);
     }
 
-    @DisplayName("회원이 본인의 리뷰를 조회한다.")
+    @DisplayName("사용자의 리뷰를 조회한다.")
     @Test
-    void 회원이_본인의_리뷰를_조회한다() {
+    void 사용자의_리뷰를_조회한다() {
         Member member2 = signup(MemberFixture.SURI);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
         saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);

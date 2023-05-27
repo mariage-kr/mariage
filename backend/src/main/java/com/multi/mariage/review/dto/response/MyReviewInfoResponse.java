@@ -10,15 +10,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class MyReviewInfoResponse {
-    public List<MyReviewVO> contents;
-    public int pageNumber;
-    public Long totalCount;
-    public int pageSize;
-    public int totalPages;
-    public boolean isFirstPage;
-    public boolean isLastPage;
-
+public class MyReviewInfoResponse extends BasePageResponse<MyReviewVO> {
     @Builder
     public MyReviewInfoResponse(List<MyReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
                                 int totalPages, boolean isFirstPage, boolean isLastPage) {
