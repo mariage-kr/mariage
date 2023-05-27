@@ -157,12 +157,11 @@ public class ProductFindService extends PagingUtil {
     private List<ReviewRateVO> getPercentage(int reviewCount, Map<Integer, Integer> reviewRateCounts) {
         List<ReviewRateVO> percentageList = new ArrayList<>();
 
-        for (int reviewRate = 1; reviewRate <= 5; reviewRate++) {
+        for (int reviewRate = 5; reviewRate >= 1; reviewRate--) {
             int count = reviewRateCounts.getOrDefault(reviewRate, 0);
             int percentage = (int) Math.round((double) count / reviewCount * 100);
             percentageList.add(ReviewRateVO.from(reviewRate, percentage));
         }
-        percentageList.sort(Comparator.comparingInt(ReviewRateVO::getReviewRate).reversed());
         return percentageList;
     }
 
