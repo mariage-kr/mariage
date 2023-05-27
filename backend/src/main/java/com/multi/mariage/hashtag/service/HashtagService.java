@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.LinkedList;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -31,5 +32,22 @@ public class HashtagService {
         }
 
         return hashtag.get();
+    }
+
+    // 해시태그에 연결된 리뷰의 수가 0일때 해당 해시태그를 데이터베이스에서 지우는 로직
+    @Transactional
+    public List<Hashtag> removeHashtagFromList(List<Hashtag> hashtags) {
+        List<Hashtag> removeHashtag = new LinkedList<>();
+        hashtags.removeIf(hashtag -> {
+            if (hashtag.getReviewHashTags().isEmpty()) {
+                removeHashtag.add(hashtag);
+                return true;
+            }
+            return false;
+        });
+
+        hashtagRepository.deleteAll(removeHashtag);
+
+        return hashtags;
     }
 }

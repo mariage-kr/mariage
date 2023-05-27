@@ -6,16 +6,24 @@ import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.service.ReviewHashtagService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.List;
 
 class ReviewHashtagServiceTest extends ServiceTest {
 
     private Long reviewId;
     private ReviewFixture reviewFixture;
+    private ReviewHashtagService reviewHashtagService;
+    private Review review;
+    private Hashtag hashtag;
 
     @BeforeEach
     void setUp() {
@@ -25,6 +33,8 @@ class ReviewHashtagServiceTest extends ServiceTest {
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
         Product product = saveProduct(ProductFixture.참이슬, imageId);
 
+        reviewFixture.addHashtag(new Hashtag("참이슬과자"));
+        reviewFixture.addHashtag(new Hashtag("태그2"));
         reviewId = saveReview(reviewFixture, member.getId(), product.getId(), imageId).getReviewId();
     }
 
@@ -37,4 +47,13 @@ class ReviewHashtagServiceTest extends ServiceTest {
 
         reviewHashtagService.saveAll(reviewFixture.getHashtags(), review);
     }
+
+    @DisplayName("해시태그와 리뷰의 연관관계를 삭제한다.")
+    @Test
+    void 해시태그와_리뷰의_연관관계를_삭제한다() {
+        List<String> hashtagsToRemove = new LinkedList<>();
+        hashtagsToRemove.add("참이슬과자");
+        reviewHashtagService.removeHashtags(hashtagsToRemove);
+    }
+
 }

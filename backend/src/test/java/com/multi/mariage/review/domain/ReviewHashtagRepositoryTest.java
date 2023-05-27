@@ -7,6 +7,8 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
+import com.multi.mariage.review.service.ReviewHashtagService;
+import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,9 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.util.LinkedList;
+import java.util.List;
+
 class ReviewHashtagRepositoryTest extends RepositoryTest {
 
     private Member member;
@@ -24,6 +29,7 @@ class ReviewHashtagRepositoryTest extends RepositoryTest {
     private Weather weather;
     private Review review;
     private Hashtag hashtag;
+    private ReviewHashtagService reviewHashtagService;
 
     @BeforeEach
     void setUp() {
@@ -35,6 +41,7 @@ class ReviewHashtagRepositoryTest extends RepositoryTest {
         weather = saveWeather(WeatherFixture.맑음_현재);
         review = saveReview(참이슬과자, member, product, saveFood(참이슬과자, product), image, weather);
         hashtag = saveHashtag(참이슬과자.getHashtags().get(0));
+
     }
 
     @DisplayName("해시태그와 리뷰의 연관관계를 저장한다")
@@ -49,7 +56,14 @@ class ReviewHashtagRepositoryTest extends RepositoryTest {
         assertAll(
                 () -> assertThat(actual).isNotNull(),
                 () -> assertThat(actual.getHashtag()).isEqualTo(hashtag),
-                () -> assertThat(actual.getReview()).isEqualTo(review)
-        );
+                () -> assertThat(actual.getReview()).isEqualTo(review));
+    }
+
+    @DisplayName("해시태그와 리뷰의 연관관계를 삭제한다")
+    @Test
+    void 해시태그와_리뷰의_연관관계를_삭제한다() {
+        List<String> hashtagsToRemove = new LinkedList<>();
+        hashtagsToRemove.add("참이슬과자");
+        reviewHashtagService.removeHashtags(hashtagsToRemove);
     }
 }
