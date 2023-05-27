@@ -1,7 +1,6 @@
 package com.multi.mariage.review.service;
 
 
-import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
@@ -9,7 +8,6 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
-import com.multi.mariage.product.vo.ProductContentVO;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
@@ -20,9 +18,10 @@ import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.review.vo.ProductReviewVO;
-import com.multi.mariage.review.vo.my.review.MyProductReviewVO;
-import com.multi.mariage.review.vo.my.review.MyReviewVO;
-import com.multi.mariage.review.vo.my.review.ReviewContentVO;
+import com.multi.mariage.review.vo.member.write.ReviewInfoVO;
+import com.multi.mariage.review.vo.member.write.MemberReviewVO;
+import com.multi.mariage.review.vo.member.write.ProductInfoVO;
+import com.multi.mariage.review.vo.member.write.ReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
@@ -91,7 +90,7 @@ public class ReviewFindService extends PagingUtil {
         List<Review> reviews = reviewRepository.findReviewsByMemberId(cond);
         Long totalCount = reviewRepository.findReviewsCountByMemberId(memberId);
 
-        List<MyReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
+        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
         int totalPages = getTotalPages(pageSize, totalCount);
 
         return MyReviewInfoResponse.builder()
@@ -175,37 +174,37 @@ public class ReviewFindService extends PagingUtil {
                 .toList();
     }
 
-    private List<MyReviewVO> getReviewListByMemberId(List<Review> reviews, Long memberId) {
+    private List<MemberReviewVO> getReviewListByMemberId(List<Review> reviews, Long memberId) {
         return reviews.stream()
                 .map(review -> {
-                    ProductContentVO productContent = getProductContentFrom(review.getProduct().getId());
-                    MyProductReviewVO reviewContent = getMyReviewContent(review,
+                    ProductInfoVO productContent = getProductContentFrom(review.getProduct().getId());
+                    ReviewInfoVO reviewContent = getMyReviewContent(review,
                             getProductReviewMemberFrom(review),
                             getMyReviewContentFrom(review),
                             ProductReviewFoodVO.from(review),
                             getProductReviewLikeFrom(review, memberId),
                             getHashtags(review));
-                    return MyReviewVO.from(productContent, reviewContent);
+                    return MemberReviewVO.from(productContent, reviewContent);
                 })
                 .toList();
     }
 
-    public ProductContentVO getProductContentFrom(Long productId) {
+    public ProductInfoVO getProductContentFrom(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
 
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
-        return ProductContentVO.from(product, imageUrl, product.getAvgReviewRate());
+        return ProductInfoVO.from(product, imageUrl, product.getAvgReviewRate());
     }
 
-    private MyProductReviewVO getMyReviewContent(Review review,
-                                                 ProductReviewMemberVO member,
-                                                 ReviewContentVO content,
-                                                 ProductReviewFoodVO food,
-                                                 ProductReviewLikeVO like,
-                                                 List<String> hashtags) {
-        return MyProductReviewVO.builder()
+    private ReviewInfoVO getMyReviewContent(Review review,
+                                            ProductReviewMemberVO member,
+                                            ReviewContentVO content,
+                                            ProductReviewFoodVO food,
+                                            ProductReviewLikeVO like,
+                                            List<String> hashtags) {
+        return ReviewInfoVO.builder()
                 .id(review.getId())
                 .member(member)
                 .review(content)

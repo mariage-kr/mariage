@@ -1,4 +1,4 @@
-package com.multi.mariage.review.vo.my.review;
+package com.multi.mariage.review.vo.member.write;
 
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class MyProductReviewVO {
+public class ReviewInfoVO {
     private Long id;
     private ProductReviewMemberVO member;
     private ReviewContentVO review;
@@ -21,8 +21,8 @@ public class MyProductReviewVO {
     private List<String> hashtags;
 
     @Builder
-    private MyProductReviewVO(Long id, ProductReviewMemberVO member, ReviewContentVO review,
-                              ProductReviewLikeVO like, ProductReviewFoodVO food, List<String> hashtags) {
+    private ReviewInfoVO(Long id, ProductReviewMemberVO member, ReviewContentVO review,
+                         ProductReviewLikeVO like, ProductReviewFoodVO food, List<String> hashtags) {
         this.id = id;
         this.member = member;
         this.review = review;
@@ -31,9 +31,9 @@ public class MyProductReviewVO {
         this.hashtags = hashtags;
     }
 
-    public static MyProductReviewVO from(Long id, ProductReviewMemberVO member, ReviewContentVO review,
-                                         ProductReviewLikeVO like, ProductReviewFoodVO food, List<String> hashtags) {
-        return MyProductReviewVO.builder()
+    public static ReviewInfoVO from(Long id, ProductReviewMemberVO member, ReviewContentVO review,
+                                    ProductReviewLikeVO like, ProductReviewFoodVO food, List<String> hashtags) {
+        return ReviewInfoVO.builder()
                 .id(id)
                 .member(member)
                 .review(review)

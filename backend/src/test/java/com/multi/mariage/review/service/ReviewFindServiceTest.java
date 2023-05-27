@@ -141,7 +141,7 @@ class ReviewFindServiceTest extends ServiceTest {
                 1,
                 5,
                 Sort.NEWEST.name());
-
+        assertThat(actual).isNotNull();
         assertThat(actual.getContents()).hasSize(5);
     }
 }

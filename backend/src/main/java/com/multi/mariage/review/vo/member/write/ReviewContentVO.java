@@ -1,4 +1,4 @@
-package com.multi.mariage.review.vo.my.review;
+package com.multi.mariage.review.vo.member.write;
 
 import lombok.AccessLevel;
 import lombok.Builder;
