@@ -106,23 +106,23 @@ public class LoaderData {
         }
 
         private ReviewSaveRequest getSaveRequest(ReviewFixture reviewFixture) {
-            Long productId = getProductId(reviewFixture);
-            Long imageId = getImageId(reviewFixture);
+            Long productId = getProductId(reviewFixture.getProductName());
+            Long imageId = getImageId(reviewFixture.getFoodImagePath());
 
             return reviewFixture.from(productId, imageId);
         }
 
-        private Long getProductId(ReviewFixture reviewFixture) {
+        private Long getProductId(String productName) {
             for (Product product : products) {
-                if (product.getName().equals(reviewFixture.getProductName())) {
+                if (product.getName().equals(productName)) {
                     return product.getId();
                 }
             }
             return null;
         }
 
-        private Long getImageId(ReviewFixture reviewFixture) {
-            Image savedImage = storageRepository.save(new Image(reviewFixture.getFoodImagePath()));
+        private Long getImageId(String imagePath) {
+            Image savedImage = storageRepository.save(new Image(imagePath));
             return savedImage.getId();
         }
     }
