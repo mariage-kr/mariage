@@ -80,7 +80,7 @@ public class LoaderData {
 
         public void init() {
             imageSetUp();
-            참이슬 = productModifyService.save(ProductFixture.참이슬.toProductSaveRequest(saveImage1.getId()));
+            참이슬 = productModifyService.save(ProductFixture.참이슬_Fresh.toProductSaveRequest(saveImage1.getId()));
             처음처럼 = productModifyService.save(ProductFixture.처음처럼.toProductSaveRequest(saveImage2.getId()));
             productModifyService.save(ProductFixture.간바레오또상.toProductSaveRequest(saveImage3.getId()));
             productModifyService.save(ProductFixture.일품진로.toProductSaveRequest(saveImage4.getId()));
