@@ -4,6 +4,7 @@ import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Lob;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Info {
-    private static final int MIN_LENGTH = 1;
-    private static final int MAX_LENGTH = 255;
-    @Column(name = "info", nullable = false)
+    private static final int MIN_LENGTH = 0;
+    private static final int MAX_LENGTH = 500;
+    @Lob
+    @Column(name = "info", length = 500)
     private String value;
 
 
@@ -30,6 +32,7 @@ public class Info {
     private static void validateLengthInRange(String value) {
         int length = value.length();
         if (length < MIN_LENGTH || MAX_LENGTH < length) {
+            System.out.println("예외 처리 되는 친구 : " + value);
             throw new ProductException(ProductErrorCode.INFO_CANNOT_BE_OUT_OF_RANGE);
         }
     }
