@@ -1,12 +1,12 @@
 package com.multi.mariage.product.dto.response;
 
 import com.multi.mariage.product.vo.filter.ProductFilterVO;
-import com.multi.mariage.review.dto.response.BasePageResponse;
+import com.multi.mariage.review.dto.response.PageResponse;
 import lombok.Builder;
 
 import java.util.List;
 
-public class ProductFilterResponse extends BasePageResponse<ProductFilterVO> {
+public class ProductFilterResponse extends PageResponse<ProductFilterVO> {
     @Builder
     public ProductFilterResponse(List<ProductFilterVO> contents, int pageNumber, Long totalCount, int pageSize,
                                  int totalPages, boolean isFirstPage, boolean isLastPage) {

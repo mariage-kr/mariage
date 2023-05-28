@@ -11,9 +11,9 @@ import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review.dto.MyReviewsPagingCond;
+import com.multi.mariage.review.dto.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
-import com.multi.mariage.review.dto.response.MyReviewInfoResponse;
+import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
@@ -78,9 +78,9 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MyReviewInfoResponse findProductsAndReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
-        MyReviewsPagingCond cond = MyReviewsPagingCond.builder()
+        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
                 .pageSize(pageSize)
                 .pageNumber(pageNumber)
@@ -93,7 +93,7 @@ public class ReviewFindService extends PagingUtil {
         List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
         int totalPages = getTotalPages(pageSize, totalCount);
 
-        return MyReviewInfoResponse.builder()
+        return MemberReviewInfoResponse.builder()
                 .contents(productAndReviewList)
                 .pageSize(pageSize)
                 .totalCount(totalCount)

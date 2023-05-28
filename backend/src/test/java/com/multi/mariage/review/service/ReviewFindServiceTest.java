@@ -9,15 +9,13 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
-import com.multi.mariage.review.dto.response.MyReviewInfoResponse;
+import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.vo.member.write.MemberReviewVO;
-import com.multi.mariage.review.vo.member.write.ProductInfoVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -143,7 +141,7 @@ class ReviewFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
         saveReview(ReviewFixture.산토리위스키_과자, member2.getId(), product2.getId(), imageId);
 
-        MyReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
                 member2.getId(),
                 1,
                 4,

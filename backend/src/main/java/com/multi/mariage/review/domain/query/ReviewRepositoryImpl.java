@@ -2,7 +2,7 @@ package com.multi.mariage.review.domain.query;
 
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
-import com.multi.mariage.review.dto.MyReviewsPagingCond;
+import com.multi.mariage.review.dto.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -44,7 +44,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public List<Review> findReviewsByMemberId(MyReviewsPagingCond cond) {
+    public List<Review> findReviewsByMemberId(MemberReviewsPagingCond cond) {
         List<Long> reviewIds = getPagingReviewsByMember(cond);
 
         return queryFactory.selectFrom(review)
@@ -74,7 +74,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return reviewIdsQuery.fetch();
     }
 
-    private List<Long> getPagingReviewsByMember(MyReviewsPagingCond cond) {
+    private List<Long> getPagingReviewsByMember(MemberReviewsPagingCond cond) {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
                 .where(review.member.id.eq(cond.getMemberId()))

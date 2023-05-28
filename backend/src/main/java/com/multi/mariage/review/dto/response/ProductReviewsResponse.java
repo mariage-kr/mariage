@@ -5,7 +5,7 @@ import lombok.Builder;
 
 import java.util.List;
 
-public class ProductReviewsResponse extends BasePageResponse<ProductReviewVO> {
+public class ProductReviewsResponse extends PageResponse<ProductReviewVO> {
     @Builder
     public ProductReviewsResponse(List<ProductReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
                                   int totalPages, boolean isFirstPage, boolean isLastPage) {

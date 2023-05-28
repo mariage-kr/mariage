@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class MyReviewsPagingCond {
+public class MemberReviewsPagingCond {
     private Long memberId;
     private int pageSize;
     private int pageNumber;
     private String sort;
 
     @Builder
-    public MyReviewsPagingCond(Long memberId, int pageSize, int pageNumber, String sort) {
+    public MemberReviewsPagingCond(Long memberId, int pageSize, int pageNumber, String sort) {
         this.memberId = memberId;
         this.pageSize = pageSize;
         this.pageNumber = pageNumber;

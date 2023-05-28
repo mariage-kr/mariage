@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public abstract class BasePageResponse<T> {
+public abstract class PageResponse<T> {
     public List<T> contents;
     public int pageNumber;
     public Long totalCount;

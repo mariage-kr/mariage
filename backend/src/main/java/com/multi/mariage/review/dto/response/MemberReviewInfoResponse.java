@@ -5,10 +5,10 @@ import lombok.Builder;
 
 import java.util.List;
 
-public class MyReviewInfoResponse extends BasePageResponse<MemberReviewVO> {
+public class MemberReviewInfoResponse extends PageResponse<MemberReviewVO> {
     @Builder
-    public MyReviewInfoResponse(List<MemberReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
-                                int totalPages, boolean isFirstPage, boolean isLastPage) {
+    public MemberReviewInfoResponse(List<MemberReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
+                                    int totalPages, boolean isFirstPage, boolean isLastPage) {
         this.contents = contents;
         this.pageNumber = pageNumber;
         this.totalCount = totalCount;

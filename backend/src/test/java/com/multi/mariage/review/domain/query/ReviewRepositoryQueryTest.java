@@ -7,6 +7,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
+import com.multi.mariage.review.dto.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
@@ -22,10 +23,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ReviewRepositoryQueryTest extends RepositoryTest {
     private Product product;
+    private Member member;
 
     @BeforeEach
     void setUp() {
-        Member member = saveMember(MemberFixture.MARI);
+        member = saveMember(MemberFixture.MARI);
         product = saveProduct(ProductFixture.참이슬);
         Food food1 = saveFood(ReviewFixture.참이슬_치킨, product);
         Food food2 = saveFood(ReviewFixture.참이슬_과자, product);
@@ -63,5 +65,22 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
 
         /* Then */
         assertThat(actual).isEqualTo(2);
+    }
+
+    @DisplayName("사용자가 작성한 리뷰를 조회한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void 사용자가_작성한_리뷰를_조회한다(int size) {
+
+        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
+                .memberId(member.getId())
+                .pageSize(size)
+                .pageNumber(1)
+                .sort(Sort.NEWEST.name())
+                .build();
+
+        List<Review> actual = reviewRepository.findReviewsByMemberId(cond);
+
+        assertThat(actual).hasSize(size);
     }
 }
