@@ -33,6 +33,7 @@ function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
     }
     if (!like.liked) {
       requestAddLike(reviewId).then(data => {
+        console.log(data);
         setLike({
           liked: true,
           likeCount: data.likedCount,
@@ -41,6 +42,7 @@ function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
     }
     if (like.liked) {
       requestRemoveLike(reviewId).then(data => {
+        console.log(data);
         setLike({
           liked: false,
           likeCount: data.likedCount,

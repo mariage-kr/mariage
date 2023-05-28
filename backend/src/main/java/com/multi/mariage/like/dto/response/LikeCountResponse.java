@@ -1,17 +1,15 @@
 package com.multi.mariage.like.dto.response;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class LikeCountResponse {
-    private int likedCount;
+    private Long likedCount;
 
-    public LikeCountResponse(int likedCount) {
+    public LikeCountResponse(Long likedCount) {
         this.likedCount = likedCount;
-    }
-
-    public int getLikedCount() {
-        return likedCount;
     }
 }

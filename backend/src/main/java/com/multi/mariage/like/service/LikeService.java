@@ -12,9 +12,11 @@ import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.service.ReviewFindService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -35,12 +37,10 @@ public class LikeService {
                 .review(review)
                 .build();
 
-        like.setMember(member);
-        like.setReview(review);
-
         likeRepository.save(like);
 
-        return new LikeCountResponse(review.getLikes().size());
+        long countByReview = likeRepository.findCountByReview(review);
+        return new LikeCountResponse(countByReview);
     }
 
     @Transactional
@@ -56,7 +56,8 @@ public class LikeService {
 
         likeRepository.delete(like);
 
-        return new LikeCountResponse(review.getLikes().size());
+        long countByReview = likeRepository.findCountByReview(review);
+        return new LikeCountResponse(countByReview);
     }
 
     private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {

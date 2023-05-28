@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
+
 class LikeServiceTest extends ServiceTest {
     private Member member;
     private Member user1;
@@ -43,7 +45,6 @@ class LikeServiceTest extends ServiceTest {
     @DisplayName("리뷰의 좋아요를 누른다.")
     @Test
     void 리뷰의_좋아요를_누른다() {
-
         Long memberId = user1.getId();
         Long reviewId = review.getReviewId();
         reviewFixture = ReviewFixture.참이슬_치킨;
@@ -52,7 +53,7 @@ class LikeServiceTest extends ServiceTest {
 
         boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
 
-        Assertions.assertThat(expected).isTrue();
+        assertThat(expected).isTrue();
     }
 
     @DisplayName("리뷰의 좋아요를 취소한다.")
@@ -68,7 +69,7 @@ class LikeServiceTest extends ServiceTest {
 
         boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
 
-        Assertions.assertThat(expected).isFalse();
+        assertThat(expected).isFalse();
     }
 
     @DisplayName("사용자가 리뷰의 좋아요를 취소할 때 사용자의 리스트에서도 삭제되는지 확인한다.")
@@ -85,7 +86,7 @@ class LikeServiceTest extends ServiceTest {
         likeService.remove(new AuthMember(userId1), reviewId);
 
         int expected = user1.getLikes().size();
-        Assertions.assertThat(expected).isZero();
+        assertThat(expected).isZero();
 
     }
 
@@ -109,7 +110,7 @@ class LikeServiceTest extends ServiceTest {
         int reviewLike = findReviewLike(reviewId);
         int expected = review.getLikes().size();
 
-        Assertions.assertThat(reviewLike).isEqualTo(2);
-        Assertions.assertThat(expected).isEqualTo(2);
+        assertThat(reviewLike).isEqualTo(2);
+        assertThat(expected).isEqualTo(2);
     }
 }
