@@ -17,6 +17,7 @@ import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
@@ -82,7 +83,8 @@ public abstract class ControllerTest {
     }
 
     protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture, Long imageId, Long productId, Long memberId) {
-        return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, imageId));
+        Review review = reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, imageId));
+        return new ReviewSaveResponse(review.getId());
     }
     protected void likeReview(AuthMember authMember, LikeSaveRequest request) {
         likeService.save(authMember, request);

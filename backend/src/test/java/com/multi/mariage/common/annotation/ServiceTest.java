@@ -100,7 +100,8 @@ public abstract class ServiceTest {
                                             Long memberId,
                                             Long productId,
                                             Long foodImageId) {
-        return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
+        Review review = reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
+        return new ReviewSaveResponse(review.getId());
     }
 
     protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Food food, Image image,

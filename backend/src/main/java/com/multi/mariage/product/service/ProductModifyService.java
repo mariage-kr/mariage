@@ -1,6 +1,5 @@
 package com.multi.mariage.product.service;
 
-import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.domain.embedded.Info;
@@ -24,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductModifyService {
     private final ProductFindService productFindService;
-    private final FoodCategoryService foodCategoryService;
     private final ImageService imageService;
     private final StorageService storageService;
     private final ProductRepository productRepository;

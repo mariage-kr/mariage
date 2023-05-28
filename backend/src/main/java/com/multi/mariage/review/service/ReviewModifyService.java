@@ -33,7 +33,7 @@ public class ReviewModifyService {
     private final ProductFindService productFindService;
     private final WeatherService weatherService;
 
-    public ReviewSaveResponse save(AuthMember authMember, ReviewSaveRequest request) {
+    public Review save(AuthMember authMember, ReviewSaveRequest request) {
         Image image = imageService.findById(request.getFoodImageId());
         Member member = memberFindService.findById(authMember.getId());
         Product product = productFindService.findById(request.getProductId());
@@ -50,7 +50,6 @@ public class ReviewModifyService {
         review.changeImage(image);
         review.setFoodCategory(foodCategory);
 
-        Review savedReview = reviewRepository.save(review);
-        return new ReviewSaveResponse(savedReview.getId());
+        return reviewRepository.save(review);
     }
 }
