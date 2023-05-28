@@ -18,10 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -60,8 +58,12 @@ class LikeControllerTest extends ControllerTest {
                 .andDo(
                         document("Like/Like",
                                 preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("reviewId").description("리뷰 식별자")
+                                ),
+                                responseFields(
+                                        fieldWithPath("likedCount").description("좋아요 개수")
                                 )
                         )
                 ).andExpect(MockMvcResultMatchers.status().isCreated());
@@ -81,7 +83,11 @@ class LikeControllerTest extends ControllerTest {
                 .andDo(print())
                 .andDo(
                         document("Like/Cancel",
-                                preprocessRequest(prettyPrint())
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("likedCount").description("좋아요 개수")
+                                )
                         )
                 ).andExpect(MockMvcResultMatchers.status().isOk());
     }

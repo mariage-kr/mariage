@@ -4,6 +4,7 @@ import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.like.domain.LikeRepository;
 import com.multi.mariage.like.dto.request.LikeSaveRequest;
+import com.multi.mariage.like.dto.response.LikeCountResponse;
 import com.multi.mariage.like.exception.LikeErrorCode;
 import com.multi.mariage.like.exception.LikeException;
 import com.multi.mariage.member.domain.Member;
@@ -23,7 +24,7 @@ public class LikeService {
     private final ReviewFindService reviewFindService;
 
     @Transactional
-    public void save(AuthMember authMember, LikeSaveRequest request) {
+    public LikeCountResponse save(AuthMember authMember, LikeSaveRequest request) {
         Member member = memberFindService.findById(authMember.getId());
         Review review = reviewFindService.findById(request.getReviewId());
 
@@ -38,10 +39,12 @@ public class LikeService {
         like.setReview(review);
 
         likeRepository.save(like);
+
+        return new LikeCountResponse(review.getLikes().size());
     }
 
     @Transactional
-    public void remove(AuthMember authMember, Long reviewId) {
+    public LikeCountResponse remove(AuthMember authMember, Long reviewId) {
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), reviewId)
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
@@ -52,6 +55,8 @@ public class LikeService {
         review.removeLike(like);
 
         likeRepository.delete(like);
+
+        return new LikeCountResponse(review.getLikes().size());
     }
 
     private void validateReviewAlreadyLiked(Long memberId, Long reviewId) {
