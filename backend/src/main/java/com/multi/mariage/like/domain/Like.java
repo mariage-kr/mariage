@@ -26,20 +26,20 @@ public class Like {
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;
 
+    @Builder
+    public Like(Member member, Review review) {
+        setMember(member);
+        setReview(review);
+    }
+
     /* 연관관계 편의 메서드 */
-    public void setMember(Member member) {
+    private void setMember(Member member) {
         member.getLikes().add(this);
         this.member = member;
     }
 
-    public void setReview(Review review) {
+    private void setReview(Review review) {
         review.getLikes().add(this);
-        this.review = review;
-    }
-
-    @Builder
-    public Like(Member member, Review review) {
-        this.member = member;
         this.review = review;
     }
 }

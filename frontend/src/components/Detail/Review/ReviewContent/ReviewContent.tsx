@@ -1,26 +1,23 @@
-import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
+import { useCallback, useState } from 'react';
 
-import LikeButton from '@/components/Button/Like/Like';
 import { ReviewType } from '@/@types/review';
+import { requestAddLike, requestRemoveLike } from '@/apis/request/like';
+import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
+import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
+import LikeButton from '@/components/Button/Like/Like';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
-import { useCallback, useState } from 'react';
-import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
-
   const memberId: number | undefined = userInfo?.id;
 
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
-
-  console.log(isOpenModal);
 
   return (
     <S.Container>
@@ -55,10 +52,9 @@ function ReviewContent(review: ReviewType) {
             )}
             <S.Like>
               <LikeButton
+                reviewId={review.id}
                 liked={review.like.liked}
                 likeCount={review.like.count}
-                /* TODO: 추후 AXIOS 함수로 수정 */
-                onClick={() => console.log('추후 axios 함수가 필요합니다')}
               />
             </S.Like>
           </S.TopRight>
