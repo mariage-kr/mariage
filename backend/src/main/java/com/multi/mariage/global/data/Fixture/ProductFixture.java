@@ -4243,4 +4243,8 @@ public enum ProductFixture {
     public String getImageName() {
         return "product/" + imageName;
     }
+
+    public String getName() {
+        return name;
+    }
 }

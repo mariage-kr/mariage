@@ -34,4 +34,8 @@ public enum MemberFixture {
                 .birth(birth)
                 .build();
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

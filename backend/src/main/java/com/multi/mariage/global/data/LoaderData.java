@@ -1,11 +1,15 @@
 package com.multi.mariage.global.data;
 
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.global.data.Fixture.MemberFixture;
 import com.multi.mariage.global.data.Fixture.ProductFixture;
+import com.multi.mariage.global.data.Fixture.ReviewFixture;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberModifyService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductModifyService;
+import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.service.ReviewModifyService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.repository.StorageRepository;
@@ -14,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.multi.mariage.global.data.Fixture.ProductFixture.values;
 
@@ -23,10 +29,9 @@ import static com.multi.mariage.global.data.Fixture.ProductFixture.values;
 @Component
 @Profile("dev")
 public class LoaderData {
-
-    private static Member 마리;
-    private static Member 수리;
-    private static List<Product> productList;
+    private static final List<Member> members = new ArrayList<>();
+    private static final List<Product> products = new ArrayList<>();
+    private static final List<Review> reviews = new ArrayList<>();
     private final InitMemberService memberService;
     private final InitProductService productService;
     private final InitReviewService reviewService;
@@ -35,7 +40,7 @@ public class LoaderData {
     public void init() {
         memberService.init();
         productService.init();
-//        reviewService.init();
+        reviewService.init();
     }
 
     @RequiredArgsConstructor
@@ -44,8 +49,13 @@ public class LoaderData {
         private final MemberModifyService memberService;
 
         public void init() {
-            마리 = memberService.signup(MemberFixture.MARI.toSignupRequest());
-            수리 = memberService.signup(MemberFixture.SURI.toSignupRequest());
+            for (MemberFixture memberFixture : MemberFixture.values()) {
+                members.add(signupMember(memberFixture));
+            }
+        }
+
+        private Member signupMember(MemberFixture memberFixture) {
+            return memberService.signup(memberFixture.toSignupRequest());
         }
     }
 
@@ -57,7 +67,7 @@ public class LoaderData {
 
         public void init() {
             for (ProductFixture productFixture : values()) {
-                productList.add(saveProduct(productFixture));
+                products.add(saveProduct(productFixture));
             }
         }
 
@@ -73,29 +83,47 @@ public class LoaderData {
         private final ReviewModifyService reviewModifyService;
         private final StorageRepository storageRepository;
 
-        /* TODO: 2023/05/17 추후 더미데이터를 추가할 예정 */
         public void init() {
-//            ReviewFixture fixture1 = ReviewFixture.참이슬과_고기;
-//            ReviewFixture fixture2 = ReviewFixture.처음처럼과_고기;
-//            ReviewFixture fixture3 = ReviewFixture.처음처럼과_피자;
-//            ReviewFixture fixture4 = ReviewFixture.처음처럼과_치킨;
-//            ReviewFixture fixture5 = ReviewFixture.처음처럼과_회;
-//            ReviewFixture fixture6 = ReviewFixture.처음처럼과_피자2;
-//            ReviewFixture fixture7 = ReviewFixture.처음처럼과_피자3;
-//            ReviewFixture fixture8 = ReviewFixture.처음처럼과_치킨2;
-//            Image image1 = storageRepository.save(new Image(fixture1.getFoodImagePath()));
-//            Image image2 = storageRepository.save(new Image(fixture2.getFoodImagePath()));
-//            Image image3 = storageRepository.save(new Image(fixture3.getFoodImagePath()));
-//            Image image4 = storageRepository.save(new Image(fixture4.getFoodImagePath()));
-//            Image image5 = storageRepository.save(new Image(fixture5.getFoodImagePath()));
-//            참이슬과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture1.toSaveRequest(참이슬.getId(), image1.getId()));
-//            처음처럼과고기 = reviewModifyService.save(new AuthMember(마리.getId()), fixture2.toSaveRequest(처음처럼.getId(), image2.getId()));
-//            처음처럼과피자 = reviewModifyService.save(new AuthMember(마리.getId()), fixture3.toSaveRequest(처음처럼.getId(), image3.getId()));
-//            처음처럼과치킨 = reviewModifyService.save(new AuthMember(마리.getId()), fixture4.toSaveRequest(처음처럼.getId(), image4.getId()));
-//            처음처럼과회 = reviewModifyService.save(new AuthMember(마리.getId()), fixture5.toSaveRequest(처음처럼.getId(), image5.getId()));
-//            처음처럼과피자2 = reviewModifyService.save(new AuthMember(마리.getId()), fixture6.toSaveRequest(처음처럼.getId(), image3.getId()));
-//            처음처럼과피자3 = reviewModifyService.save(new AuthMember(마리.getId()), fixture7.toSaveRequest(처음처럼.getId(), image3.getId()));
-//            처음처럼과치킨2 = reviewModifyService.save(new AuthMember(마리.getId()), fixture8.toSaveRequest(처음처럼.getId(), image3.getId()));
+            for (ReviewFixture reviewFixture : ReviewFixture.values()) {
+                reviews.add(saveReview(reviewFixture));
+            }
+        }
+
+        private Review saveReview(ReviewFixture reviewFixture) {
+            AuthMember authMember = getAuthMember(reviewFixture.getMemberEmail());
+            ReviewSaveRequest request = getSaveRequest(reviewFixture);
+
+            return reviewModifyService.save(Objects.requireNonNull(authMember), request);
+        }
+
+        private AuthMember getAuthMember(String email) {
+            for (Member member : members) {
+                if (member.getEmail().equals(email)) {
+                    return new AuthMember(member.getId());
+                }
+            }
+            return null;
+        }
+
+        private ReviewSaveRequest getSaveRequest(ReviewFixture reviewFixture) {
+            Long productId = getProductId(reviewFixture);
+            Long imageId = getImageId(reviewFixture);
+
+            return reviewFixture.from(productId, imageId);
+        }
+
+        private Long getProductId(ReviewFixture reviewFixture) {
+            for (Product product : products) {
+                if (product.getName().equals(reviewFixture.getProductName())) {
+                    return product.getId();
+                }
+            }
+            return null;
+        }
+
+        private Long getImageId(ReviewFixture reviewFixture) {
+            Image savedImage = storageRepository.save(new Image(reviewFixture.getFoodImagePath()));
+            return savedImage.getId();
         }
     }
 }
