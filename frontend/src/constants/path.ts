@@ -19,6 +19,7 @@ const API_PATH = {
     PROFILE: '/api/user/members/profile',
     PASSWORD: '/api/user/members/password',
   },
+  LIKE: '/api/user/review/like',
   PRODUCT: {
     SAVE: '/api/user/product/save',
     INFO: '/api/user/product/info',

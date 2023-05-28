@@ -36,6 +36,10 @@ include::{snippets}/Like/Like/request-fields.adoc[]
 
 include::{snippets}/Like/Like/http-response.adoc[]
 
+==== Fields
+
+include::{snippets}/Like/Like/response-fields.adoc[]
+
 == [DELETE] 좋아요 취소
 
 '''
@@ -55,3 +59,7 @@ include::{snippets}/Like/Cancel/request-fields.adoc[]
 '''
 
 include::{snippets}/Like/Cancel/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Like/Cancel/response-fields.adoc[]

@@ -1,7 +1,6 @@
 package com.multi.mariage.like.dto.request;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
