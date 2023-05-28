@@ -54,8 +54,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(review.likes, like).fetchJoin()
                 .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
-                .where(review.id.in(reviewIds))
                 .orderBy(review.id.desc())
+                .where(review.id.in(reviewIds))
                 .fetch();
     }
 
@@ -78,6 +78,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
                 .where(review.member.id.eq(cond.getMemberId()))
+                .orderBy(review.id.desc())
                 .offset((long) (cond.getPageNumber() - 1) * cond.getPageSize())
                 .limit(cond.getPageSize());
 
