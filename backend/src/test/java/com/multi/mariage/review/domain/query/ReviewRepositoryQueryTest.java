@@ -83,4 +83,12 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
 
         assertThat(actual).hasSize(size);
     }
+
+    @DisplayName("사용자가 작성한 리뷰 개수를 조회한다.")
+    @Test
+    void 사용자가_작성한_리뷰_개수를_조회한다() {
+        Long actual = reviewRepository.findReviewsCountByMemberId(member.getId());
+
+        assertThat(actual).isEqualTo(2);
+    }
 }

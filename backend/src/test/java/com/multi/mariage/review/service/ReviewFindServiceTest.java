@@ -157,13 +157,12 @@ class ReviewFindServiceTest extends ServiceTest {
                 .findFirst()
                 .orElse(null);
 
-        assertEquals("참이슬", productInfo.getProductInfo().getName());
-
         MemberReviewVO reviewInfo = memberReviews.stream()
                 .filter(r -> member2.getNickname().equals(r.getReviewInfo().getMember().getNickname()))
                 .findFirst()
                 .orElse(null);
 
+        assertEquals("참이슬", productInfo.getProductInfo().getName());
         assertEquals("수리", reviewInfo.getReviewInfo().getMember().getNickname());
     }
 }
