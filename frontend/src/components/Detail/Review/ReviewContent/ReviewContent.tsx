@@ -9,47 +9,15 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
-import useAuth from '@/hooks/useAuth';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
-
-  const [isLiked, setIsLiked] = useState<boolean>(review.like.liked);
-  const [likeCount, setLikeCount] = useState<number>(review.like.count);
-  const { isLogin } = useAuth();
-
   const memberId: number | undefined = userInfo?.id;
 
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
-
-  const validateIsNotLogin = useCallback((): boolean => {
-    if (isLogin()) {
-      return false;
-    }
-    return true;
-  }, []);
-
-  const changeLike = () => {
-    if (validateIsNotLogin()) {
-      return;
-    }
-    if (!isLiked) {
-      requestAddLike(review.id).then(() => {
-        setIsLiked(true);
-        setLikeCount(likeCount + 1);
-      });
-    }
-    if (isLiked) {
-      requestRemoveLike(review.id).then(() => {
-        setIsLiked(false);
-        setLikeCount(likeCount - 1);
-      });
-    }
-  };
 
   return (
     <S.Container>
@@ -84,9 +52,9 @@ function ReviewContent(review: ReviewType) {
             )}
             <S.Like>
               <LikeButton
-                liked={isLiked}
-                likeCount={likeCount}
-                onClick={changeLike}
+                reviewId={review.id}
+                liked={review.like.liked}
+                likeCount={review.like.count}
               />
             </S.Like>
           </S.TopRight>
