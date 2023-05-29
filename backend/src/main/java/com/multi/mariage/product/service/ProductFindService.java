@@ -23,13 +23,11 @@ import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -121,7 +119,6 @@ public class ProductFindService extends PagingUtil {
 
     private List<Food> getFoodsOrderByRate(Product product) {
         Map<Food, Double> map = new HashMap<>();
-        /* TODO: 2023/05/29 product.getFoods 가 문제 */
         for (Food food : product.getFoods()) {
             map.put(food, food.getAvgFoodRate());
         }
