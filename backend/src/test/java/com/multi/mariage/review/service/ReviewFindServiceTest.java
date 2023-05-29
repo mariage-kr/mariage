@@ -181,13 +181,13 @@ class ReviewFindServiceTest extends ServiceTest {
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.참이슬_과자.toSaveLike(review1.getReviewId()));
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_치즈.toSaveLike(review2.getReviewId()));
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_해산물.toSaveLike(review3.getReviewId()));
-        System.out.println("시작");
+
         MemberReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberLike(
                 member2.getId(),
                 1,
                 3,
                 Sort.NEWEST.name());
-        System.out.println("끝");
+
         assertThat(actual).isNotNull();
         assertThat(actual.getContents()).hasSize(3);
 

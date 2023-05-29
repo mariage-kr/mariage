@@ -29,7 +29,7 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/review/member/write")
+    @GetMapping("/review/member/ratings")
     public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
                                                                                     @Param("pageNumber") int pageNumber,
                                                                                     @Param("pageSize") int pageSize,
@@ -38,7 +38,7 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/review/member/like")
+    @GetMapping("/review/member/likes")
     public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberLike(@Param("memberId") Long memberId,
                                                                                     @Param("pageNumber") int pageNumber,
                                                                                     @Param("pageSize") int pageSize,

@@ -73,7 +73,7 @@ include::{snippets}/Review/FindReviews/response-fields.adoc[]
 
 '''
 
-include::{snippets}/Review/FindReviews/Member/Write/http-request.adoc[]
+include::{snippets}/Review/FindReviews/Member/Ratings/http-request.adoc[]
 
 ==== Param
 
@@ -86,8 +86,8 @@ include::{snippets}/Review/FindReviews/Member/Write/http-request.adoc[]
 
 '''
 
-include::{snippets}/Review/FindReviews/Member/Write/http-response.adoc[]
+include::{snippets}/Review/FindReviews/Member/Ratings/http-response.adoc[]
 
 ==== Fields
 
-include::{snippets}/Review/FindReviews/Member/Write/response-fields.adoc[]
+include::{snippets}/Review/FindReviews/Member/Ratings/response-fields.adoc[]
