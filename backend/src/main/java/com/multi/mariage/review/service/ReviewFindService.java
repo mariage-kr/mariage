@@ -4,9 +4,6 @@ package com.multi.mariage.review.service;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
-import com.multi.mariage.member.domain.MemberRepository;
-import com.multi.mariage.member.exception.MemberErrorCode;
-import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
@@ -17,16 +14,17 @@ import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
+import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.review.vo.ProductReviewVO;
-import com.multi.mariage.review.vo.member.ReviewInfoVO;
 import com.multi.mariage.review.vo.member.MemberReviewVO;
 import com.multi.mariage.review.vo.member.ProductInfoVO;
 import com.multi.mariage.review.vo.member.ReviewContentVO;
+import com.multi.mariage.review.vo.member.ReviewInfoVO;
 import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
@@ -86,55 +84,55 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MemberReviewInfoResponse findProductsAndRatedReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndRatedReviewsByMemberId(Long memberId, ReviewFindRequest cond) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
-        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
+        MemberReviewsPagingCond pageCond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
-                .pageSize(pageSize)
-                .pageNumber(pageNumber)
-                .sort(sort)
+                .pageSize(cond.getPageSize())
+                .pageNumber(cond.getPageNumber())
+                .sort(cond.getSort())
                 .build();
 
-        List<Review> reviews = reviewRepository.findRatedReviewsByMemberId(cond);
+        List<Review> reviews = reviewRepository.findRatedReviewsByMemberId(pageCond);
         Long totalCount = reviewRepository.findReviewsCountByRatings(memberId);
 
         List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
-        int totalPages = getTotalPages(pageSize, totalCount);
+        int totalPages = getTotalPages(cond.getPageSize(), totalCount);
 
         return MemberReviewInfoResponse.builder()
                 .contents(productAndReviewList)
-                .pageSize(pageSize)
+                .pageSize(cond.getPageSize())
                 .totalCount(totalCount)
-                .pageNumber(pageNumber)
+                .pageNumber(cond.getPageNumber())
                 .totalPages(totalPages)
-                .isFirstPage(isFirstPage(pageNumber))
-                .isLastPage(isLastPage(pageNumber, totalPages))
+                .isFirstPage(isFirstPage(cond.getPageNumber()))
+                .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
                 .build();
     }
 
-    public MemberReviewInfoResponse findProductsAndLikedReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndLikedReviewsByMemberId(Long memberId, ReviewFindRequest cond) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
-        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
+        MemberReviewsPagingCond pageCond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
-                .pageSize(pageSize)
-                .pageNumber(pageNumber)
-                .sort(sort)
+                .pageSize(cond.getPageSize())
+                .pageNumber(cond.getPageNumber())
+                .sort(cond.getSort())
                 .build();
 
-        List<Review> reviews = reviewRepository.findLikedReviewsByMemberId(cond);
+        List<Review> reviews = reviewRepository.findLikedReviewsByMemberId(pageCond);
         Long totalCount = reviewRepository.findReviewsCountByLikes(memberId);
 
         List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
-        int totalPages = getTotalPages(pageSize, totalCount);
+        int totalPages = getTotalPages(cond.getPageSize(), totalCount);
 
         return MemberReviewInfoResponse.builder()
                 .contents(productAndReviewList)
-                .pageSize(pageSize)
+                .pageSize(cond.getPageSize())
                 .totalCount(totalCount)
-                .pageNumber(pageNumber)
+                .pageNumber(cond.getPageNumber())
                 .totalPages(totalPages)
-                .isFirstPage(isFirstPage(pageNumber))
-                .isLastPage(isLastPage(pageNumber, totalPages))
+                .isFirstPage(isFirstPage(cond.getPageNumber()))
+                .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
                 .build();
     }
 

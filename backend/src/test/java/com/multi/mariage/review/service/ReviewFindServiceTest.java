@@ -10,6 +10,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
+import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
@@ -143,12 +144,13 @@ class ReviewFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.산토리위스키_치즈, member2.getId(), product2.getId(), imageId);
         saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
         saveReview(ReviewFixture.산토리위스키_과자, member2.getId(), product2.getId(), imageId);
+        ReviewFindRequest cond = ReviewFindRequest.builder()
+                .pageNumber(1)
+                .pageSize(4)
+                .sort(Sort.NEWEST.name())
+                .build();
 
-        MemberReviewInfoResponse actual = reviewFindService.findProductsAndRatedReviewsByMemberId(
-                member2.getId(),
-                1,
-                4,
-                Sort.NEWEST.name());
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndRatedReviewsByMemberId(member2.getId(), cond);
 
         assertThat(actual).isNotNull();
         assertThat(actual.getContents()).hasSize(4);
@@ -182,12 +184,13 @@ class ReviewFindServiceTest extends ServiceTest {
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.참이슬_과자.toSaveLike(review1.getReviewId()));
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_치즈.toSaveLike(review2.getReviewId()));
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_해산물.toSaveLike(review3.getReviewId()));
+        ReviewFindRequest cond = ReviewFindRequest.builder()
+                .pageNumber(1)
+                .pageSize(3)
+                .sort(Sort.NEWEST.name())
+                .build();
 
-        MemberReviewInfoResponse actual = reviewFindService.findProductsAndLikedReviewsByMemberId(
-                member2.getId(),
-                1,
-                3,
-                Sort.NEWEST.name());
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndLikedReviewsByMemberId(member2.getId(), cond);
 
         assertThat(actual).isNotNull();
         assertThat(actual.getContents()).hasSize(3);
@@ -200,7 +203,7 @@ class ReviewFindServiceTest extends ServiceTest {
                 .orElse(null);
 
         assertEquals("마리", reviewInfo.getReviewInfo().getMember().getNickname());   // 리뷰를 작성한 사용자의 닉네임 확인
-        assertEquals(1, reviewInfo.getReviewInfo().getLike().getCount());   // 해당 리뷰가 받은 좋아요 개수 정보 확인
+        assertEquals(1, reviewInfo.getReviewInfo().getLike().getCount());            // 해당 리뷰가 받은 좋아요 개수 정보 확인
     }
 
     @DisplayName("사용자의 프로필을 조회한다.")

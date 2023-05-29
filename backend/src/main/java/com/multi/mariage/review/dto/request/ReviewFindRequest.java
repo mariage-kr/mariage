@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class MemberReviewRequest {
+public class ReviewFindRequest {
 
     private int pageSize;
     private int pageNumber;
@@ -16,7 +16,7 @@ public class MemberReviewRequest {
     private String sort;
 
     @Builder
-    public MemberReviewRequest(String sort, int pageSize, int pageNumber) {
+    public ReviewFindRequest(String sort, int pageSize, int pageNumber) {
         this.pageSize = pageSize;
         this.pageNumber = pageNumber;
         this.sort = sort;

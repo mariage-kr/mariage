@@ -87,9 +87,8 @@ class ReviewFindControllerTest extends ControllerTest {
     @DisplayName("사용자가 작성한 리뷰를 조회한다.")
     @Test
     void 사용자가_작성한_리뷰를_조회한다() throws Exception {
-        String memberId = String.valueOf(member.getId());
-        mockMvc.perform(get("/api/review/member/ratings")
-                        .param("memberId", memberId)
+
+        mockMvc.perform(get("/api/review/" + member.getId() + "/ratings")
                         .param("pageNumber", "1")
                         .param("pageSize", "2")
                         .param("sort", Sort.NEWEST.name()))
@@ -138,12 +137,11 @@ class ReviewFindControllerTest extends ControllerTest {
     @DisplayName("사용자가 좋아요한 리뷰를 조회한다.")
     @Test
     void 사용자가_좋아요한_리뷰를_조회한다() throws Exception {
-        String memberId = String.valueOf(member.getId());
+
         LikeSaveRequest likeSaveRequest = new LikeSaveRequest(reviewSaveResponse.getReviewId());
         likeReview(new AuthMember(member.getId()), likeSaveRequest);
 
-        mockMvc.perform(get("/api/review/member/likes")
-                        .param("memberId", memberId)
+        mockMvc.perform(get("/api/review/" + member.getId() + "/likes")
                         .param("pageNumber", "1")
                         .param("pageSize", "1")
                         .param("sort", Sort.NEWEST.name()))
@@ -192,7 +190,8 @@ class ReviewFindControllerTest extends ControllerTest {
     @DisplayName("사용자의 프로필을 조회한다.")
     @Test
     void 사용자의_프로필을_조회한다() throws Exception {
-        mockMvc.perform(get("/api/review/member/" + member.getId()))
+
+        mockMvc.perform(get("/api/review/" + member.getId()))
                 .andDo(print())
                 .andDo(
                         document("Review/FindReviews/Member/Profile",

@@ -77,7 +77,6 @@ include::{snippets}/Review/FindReviews/Member/Ratings/http-request.adoc[]
 
 ==== Param
 
-- `memberId` : 사용자의 식별 번호
 - `pageSize` : 페이지의 크기
 - `pageNumber` : 페이지 번호
 - `sort` : 정렬 옵션
@@ -104,7 +103,6 @@ include::{snippets}/Review/FindReviews/Member/Likes/http-request.adoc[]
 
 ==== Param
 
-- `memberId` : 사용자의 식별 번호
 - `pageSize` : 페이지의 크기
 - `pageNumber` : 페이지 번호
 - `sort` : 정렬 옵션
