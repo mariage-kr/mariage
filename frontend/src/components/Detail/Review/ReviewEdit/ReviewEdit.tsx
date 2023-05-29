@@ -12,6 +12,7 @@ import StarRate from '@/components/StarRate/Common/StarRate';
 
 import * as S from './ReviewEdit.styled';
 import useInput from '@/hooks/useInput';
+import { FoodCategoryType } from '@/@types/category';
 
 type PropsType = {
   id: number;
@@ -20,6 +21,7 @@ type PropsType = {
   country: string;
   countryId: number;
   onClickToggleModal: () => void;
+  category: FoodCategoryType[];
 };
 
 function ReviewEdit({
@@ -29,6 +31,7 @@ function ReviewEdit({
   country,
   countryId,
   onClickToggleModal,
+  category,
 }: PropsType) {
   /* 버튼 옵션 선택 */
   const [option, setOption] = useState();
@@ -55,6 +58,8 @@ function ReviewEdit({
   const [foodRate, setFoodRate] = useState<number | null>(null);
   const [hashtags, setHashtags] = useState<string[]>([]);
 
+  const [foodCategoryName, setFoodCategoryName] = useState<string | null>(null);
+
   const changeProductRate = (value: number) => {
     setProductRate(value);
   };
@@ -63,22 +68,24 @@ function ReviewEdit({
     setFoodRate(value);
   };
 
-  const saveImage = (): number | null => {
-    if (image) {
-      requestSaveImage(image).then(data => {
-        return data.imageId;
-      });
-    }
-    return null;
-  };
+  const saveReview = async () => {
+    const saveImage = async () => {
+      let imageId: number | null = null;
+      if (image) {
+        await requestSaveImage(image).then(data => {
+          imageId = data.imageId;
+        });
+      }
 
-  const saveReview = () => {
+      return imageId;
+    };
+
     if (productRate === null) {
       return;
     }
 
     const productId: number = id;
-    const foodImageId: number | null = saveImage();
+    const foodImageId: number | null = await saveImage();
 
     requestSaveReview({
       productId,
@@ -94,11 +101,12 @@ function ReviewEdit({
   };
 
   const selectComponent = {
-    // TODO: 음식 카테고리
     FoodCategory: (
       <FoodCategory
-        category={foodCategory}
+        selectCategory={foodCategory}
         changeCategory={(category: string) => setFoodCategory(category)}
+        changeCategoryName={(name: string) => setFoodCategoryName(name)}
+        category={category}
       />
     ),
     FoodImg: <FoodImg onChange={setImage} preview={preview} />,
@@ -151,10 +159,10 @@ function ReviewEdit({
               );
             })}
           </S.BtnWrapper>
-          {foodCategory !== null && (
+          {foodCategoryName !== null && (
             <S.FoodCategoryPrint>
               선택한 카테고리 :{' '}
-              <S.FoodCategorySpan>{foodCategory}</S.FoodCategorySpan>
+              <S.FoodCategorySpan>{foodCategoryName}</S.FoodCategorySpan>
             </S.FoodCategoryPrint>
           )}
           {option && <S.FoodContent>{selectComponent[option]}</S.FoodContent>}

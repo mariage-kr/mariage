@@ -1,4 +1,4 @@
-import { axios } from '../axios';
+import { axios, axiosWithAccessToken } from '../axios';
 
 import { PagingType } from '@/@types/paging';
 import { ReviewSaveType, ReviewType } from '@/@types/review';
@@ -35,7 +35,7 @@ const requestSaveReview = ({
   foodImageId,
   hashtags,
 }: ReviewSaveType) => {
-  return axios
+  return axiosWithAccessToken
     .post(API_PATH.REVIEW.SAVE, {
       productId,
       productRate,

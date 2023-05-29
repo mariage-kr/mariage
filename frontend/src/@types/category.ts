@@ -65,11 +65,15 @@ type DrinkCategoryResponseType = {
   category: DrinkRegionCategoryType[];
 };
 
+type FoodCategoryResponseType = {
+  category: FoodCategoryType[];
+  length: number;
+};
+
 type FoodCategoryType = {
   id: number;
   name: string;
   value: string;
-  img: string;
 };
 
 export {
@@ -81,5 +85,6 @@ export {
   HeaderRegionCategoryType,
   HeaderUpperCategoryType,
   DrinkCategoryResponseType,
+  FoodCategoryResponseType,
   FoodCategoryType,
 };

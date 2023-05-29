@@ -8,10 +8,12 @@ import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 import NoReviews from '@/components/NoReviews/NoReviews';
 
+import { FoodCategoryResponseType } from '@/@types/category';
 import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { getDetailReviews } from '@/apis/request/review';
+import { requestFoodCategory } from '@/apis/request/category';
 import useAuth from '@/hooks/useAuth';
 import useUserInfo from '@/hooks/useUserInfo';
 import editIcon from '@/assets/png/edit.png';
@@ -76,10 +78,6 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     }
   }, []);
 
-  useEffect(() => {
-    fetchReview(userInfo?.id);
-  }, []);
-
   // TODO: 무한스크롤
   useEffect(() => {
     if (hasMore && !isLoading) {
@@ -96,10 +94,33 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     return reviews.length === 0;
   };
 
+  /* 음식 카테고리 */
+  const [foodCategory, setFoodCategory] = useState<FoodCategoryResponseType>({
+    category: [],
+    length: 0,
+  });
+
+  /* TODO: 추후 Recoil + ReactQuery 로 전환 */
+  const fetchFoodCategory = () => {
+    setIsLoading(true);
+    requestFoodCategory()
+      .then(data => {
+        setFoodCategory(data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchReview(userInfo?.id);
+    fetchFoodCategory();
+  }, []);
+
   return (
     <S.Container>
       <S.Left>
-        <ReviewCategory />
+        <ReviewCategory {...foodCategory} />
         {lengthIsZero() ? (
           <NoReviews />
         ) : (
@@ -127,6 +148,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
               country={country}
               countryId={countryId}
               onClickToggleModal={onClickToggleModal}
+              category={foodCategory.category}
             />
           </ReviewEditModal>
         )}
