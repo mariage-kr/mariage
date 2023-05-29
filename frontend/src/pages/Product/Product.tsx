@@ -80,7 +80,7 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
-        <Filter count={products.totalCount} />
+        <Filter count={products.totalCount} search={querySearch} />
       </S.Aside>
       <S.Contents>
         <Option changeSort={changeSort} />
