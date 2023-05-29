@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
 import StarRate from '@/components/StarRate/Common/StarRate';
-
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import FoodCategory from './FoodContent/FoodCategory';
 import FoodImg from './FoodContent/FoodImg';
 import HashTag from './HashTag/HashTag';
 
 import * as S from './ReviewEdit.styled';
-import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 
 type PropsType = {
   id: number;
@@ -28,7 +27,6 @@ function ReviewEdit({
 }: PropsType) {
   const [content, setContent] = useState();
   const [category, setCategory] = useState<string | null>(null);
-  const [option, setOption] = useState<string | null>(null);
 
   const handleClickButton = (e: any) => {
     const { name } = e.target;
