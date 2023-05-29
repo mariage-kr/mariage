@@ -64,7 +64,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         List<Long> reviewIds = getPagingReviewsByLikes(cond);
 
         return queryFactory.selectFrom(review)
-                .join(review.member, member).fetchJoin()
+                .join(review.likes, like).fetchJoin()
                 .join(review.product, product).fetchJoin()
                 .leftJoin(review.image, image).fetchJoin()
                 .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()

@@ -15,11 +15,16 @@ import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.vo.member.write.MemberReviewVO;
+import com.multi.mariage.review.vo.member.write.ReviewInfoVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -175,9 +180,9 @@ class ReviewFindServiceTest extends ServiceTest {
         Member member2 = signup(MemberFixture.SURI);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
         Product product2 = saveProduct(ProductFixture.산토리_위스키, imageId);
-        ReviewSaveResponse review1 = saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);
-        ReviewSaveResponse review2 = saveReview(ReviewFixture.산토리위스키_치즈, member2.getId(), product2.getId(), imageId);
-        ReviewSaveResponse review3 = saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
+        ReviewSaveResponse review1 = saveReview(ReviewFixture.참이슬_과자, member.getId(), product.getId(), imageId);
+        ReviewSaveResponse review2 = saveReview(ReviewFixture.산토리위스키_치즈, member.getId(), product2.getId(), imageId);
+        ReviewSaveResponse review3 = saveReview(ReviewFixture.산토리위스키_해산물, member.getId(), product2.getId(), imageId);
 
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.참이슬_과자.toSaveLike(review1.getReviewId()));
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_치즈.toSaveLike(review2.getReviewId()));
@@ -194,18 +199,13 @@ class ReviewFindServiceTest extends ServiceTest {
 
         List<MemberReviewVO> memberLikedReviews = actual.getContents();
 
-        MemberReviewVO productInfo = memberLikedReviews.stream()
-                .filter(r -> product.getName().equals(r.getProductInfo().getName()))
-                .findFirst()
-                .orElse(null);
-
         MemberReviewVO reviewInfo = memberLikedReviews.stream()
-                .filter(r -> member2.getNickname().equals(r.getReviewInfo().getMember().getNickname()))
+                .filter(r -> member.getNickname().equals(r.getReviewInfo().getMember().getNickname()))
                 .findFirst()
                 .orElse(null);
 
-        assertEquals("참이슬", productInfo.getProductInfo().getName());
-        assertEquals("수리", reviewInfo.getReviewInfo().getMember().getNickname());
+        assertEquals("마리", reviewInfo.getReviewInfo().getMember().getNickname());   // 리뷰를 작성한 사용자의 닉네임 확인
+        assertEquals(1, reviewInfo.getReviewInfo().getLike().getCount());   // 해당 리뷰가 받은 좋아요 개수 정보 확인
     }
 
     @DisplayName("사용자의 프로필을 조회한다.")
