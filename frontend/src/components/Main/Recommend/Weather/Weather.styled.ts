@@ -12,18 +12,21 @@ const WeatherWrap = styled.div`
   width: 100%;
 `;
 
+const TextWrap = styled.div`
+  padding: 0 20px;
+  box-sizing: border-box;
+`;
+
 const Temperature = styled.p`
   width: 120px;
-  margin: 10px 10px 10px 0px;
+  margin: 10px 0;
   font-size: 2rem;
   font-weight: 600;
-  text-align: center;
 `;
 
 const Name = styled.p`
-  margin: 0 17px;
   font-size: 1.1rem;
   font-weight: 600;
 `;
 
-export { Container, WeatherWrap, Temperature, Name };
+export { Container, WeatherWrap, TextWrap, Temperature, Name };
