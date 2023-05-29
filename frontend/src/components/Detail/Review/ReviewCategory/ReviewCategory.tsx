@@ -47,12 +47,6 @@ function ReviewCategory({ category }: FoodCategoryResponseType) {
                       <S.Option key={category.id}>{category.name}</S.Option>
                     );
                   })}
-                {/* {reviewOptions &&
-                  reviewOptions.map((reviewOption: FoodCategoryType) => (
-                    <S.Option key={reviewOption.id}>
-                      {reviewOption.name}
-                    </S.Option>
-                  ))} */}
               </S.SelectBox>
             </label>
           </S.FloatWrap>

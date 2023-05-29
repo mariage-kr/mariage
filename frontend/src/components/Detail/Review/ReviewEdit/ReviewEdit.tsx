@@ -5,7 +5,6 @@ import FoodImg from './FoodContent/FoodImg';
 import FoodCategory from './FoodContent/FoodCategory';
 import StarRate from '@/components/StarRate/Common/StarRate';
 
-import { FoodCategoryType } from '@/@types/category';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import { requestSaveReview } from '@/apis/request/review';
 import useImage from '@/hooks/useImage';
@@ -13,6 +12,7 @@ import useInput from '@/hooks/useInput';
 import { deleteImage, saveImage } from '@/utils/image';
 
 import * as S from './ReviewEdit.styled';
+import useFoodCategory from '@/hooks/useFoodCategory';
 
 type PropsType = {
   id: number;
@@ -21,7 +21,6 @@ type PropsType = {
   country: string;
   countryId: number;
   onClickToggleModal: () => void;
-  category: FoodCategoryType[];
 };
 
 function ReviewEdit({
@@ -31,10 +30,12 @@ function ReviewEdit({
   country,
   countryId,
   onClickToggleModal,
-  category,
 }: PropsType) {
   /* 버튼 옵션 선택 */
   const [option, setOption] = useState();
+
+  /* 음식 카테고리 */
+  const { foodCategory: category } = useFoodCategory();
 
   const btnData = [
     { id: 1, name: 'FoodCategory', text: '음식 카테고리' },
@@ -102,7 +103,7 @@ function ReviewEdit({
         selectCategory={foodCategory}
         changeCategory={(category: string) => setFoodCategory(category)}
         changeCategoryName={(name: string) => setFoodCategoryName(name)}
-        category={category}
+        category={category.category}
       />
     ),
     FoodImg: <FoodImg onChange={setImage} preview={preview} />,

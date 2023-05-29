@@ -8,15 +8,14 @@ import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 import NoReviews from '@/components/NoReviews/NoReviews';
 
-import { FoodCategoryResponseType } from '@/@types/category';
 import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { getDetailReviews } from '@/apis/request/review';
-import { requestFoodCategory } from '@/apis/request/category';
+import editIcon from '@/assets/png/edit.png';
 import useAuth from '@/hooks/useAuth';
 import useUserInfo from '@/hooks/useUserInfo';
-import editIcon from '@/assets/png/edit.png';
+import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './Review.styled';
 
@@ -31,10 +30,13 @@ type PropsType = {
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review({ id, name, level, countryId, country, rating }: PropsType) {
+  /* 제품 및 사용자 정보 */
+  const { foodCategory, setFoodCategory } = useFoodCategory();
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
 
+  /* 무한스크롤 정보 */
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -49,6 +51,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     }
   }, [isOpenModal]);
 
+  /* 리뷰 조회 */
   const fetchReview = useCallback(async (userId: number | undefined) => {
     let memberId: number | null = null;
 
@@ -94,27 +97,9 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     return reviews.length === 0;
   };
 
-  /* 음식 카테고리 */
-  const [foodCategory, setFoodCategory] = useState<FoodCategoryResponseType>({
-    category: [],
-    length: 0,
-  });
-
-  /* TODO: 추후 Recoil + ReactQuery 로 전환 */
-  const fetchFoodCategory = () => {
-    setIsLoading(true);
-    requestFoodCategory()
-      .then(data => {
-        setFoodCategory(data);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
   useEffect(() => {
     fetchReview(userInfo?.id);
-    fetchFoodCategory();
+    setFoodCategory;
   }, []);
 
   return (
@@ -148,7 +133,6 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
               country={country}
               countryId={countryId}
               onClickToggleModal={onClickToggleModal}
-              category={foodCategory.category}
             />
           </ReviewEditModal>
         )}
