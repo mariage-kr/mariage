@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import HashTag from './HashTag/HashTag';
 import FoodImg from './FoodContent/FoodImg';
 import FoodCategory from './FoodContent/FoodCategory';
-
-import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
-import { requestSaveImage } from '@/apis/request/storage';
-import { requestSaveReview } from '@/apis/request/review';
-import useImage from '@/hooks/useImage';
 import StarRate from '@/components/StarRate/Common/StarRate';
 
-import * as S from './ReviewEdit.styled';
-import useInput from '@/hooks/useInput';
 import { FoodCategoryType } from '@/@types/category';
-import { requestRemoveImage as requestDeleteImage } from '@/apis/request/storage';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
+import { requestSaveReview } from '@/apis/request/review';
+import useImage from '@/hooks/useImage';
+import useInput from '@/hooks/useInput';
+import { deleteImage, saveImage } from '@/utils/image';
+
+import * as S from './ReviewEdit.styled';
 
 type PropsType = {
   id: number;
@@ -70,26 +69,12 @@ function ReviewEdit({
   };
 
   const saveReview = async () => {
-    const deleteImage = async (imageId: number) => {
-      await requestDeleteImage(imageId);
-    };
-    const saveImage = async () => {
-      let imageId: number | null = null;
-      if (image) {
-        await requestSaveImage(image).then(data => {
-          imageId = data.imageId;
-        });
-      }
-
-      return imageId;
-    };
-
     if (productRate === null) {
       return;
     }
 
     const productId: number = id;
-    const foodImageId: number | null = await saveImage();
+    const foodImageId: number | null = await saveImage(image);
 
     requestSaveReview({
       productId,
@@ -101,6 +86,7 @@ function ReviewEdit({
       hashtags,
     })
       .then(data => {
+        window.location.reload();
         console.log(data.reviewId);
       })
       .catch(() => {

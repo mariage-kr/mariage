@@ -18,7 +18,7 @@ const requestSaveImage = (image: File) => {
     });
 };
 
-const requestRemoveImage = (imageId: number) => {
+const requestDeleteImage = (imageId: number) => {
   return axiosWithAccessToken.delete(API_PATH.STORAGE, {
     params: {
       imageId: imageId,
@@ -26,4 +26,4 @@ const requestRemoveImage = (imageId: number) => {
   });
 };
 
-export { requestSaveImage, requestRemoveImage };
+export { requestSaveImage, requestDeleteImage };

@@ -35,7 +35,7 @@ const requestSaveReview = ({
   foodImageId,
   hashtags,
 }: ReviewSaveType) => {
-  return axios
+  return axiosWithAccessToken
     .post(API_PATH.REVIEW.SAVE, {
       productId,
       productRate,
