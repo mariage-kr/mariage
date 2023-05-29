@@ -1,24 +1,12 @@
 package com.multi.mariage.product.dto.response;
 
 import com.multi.mariage.product.vo.filter.ProductFilterVO;
-import lombok.AccessLevel;
+import com.multi.mariage.review.dto.response.PageResponse;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Data
-public class ProductFilterResponse {
-    private List<ProductFilterVO> contents;
-    private int pageNumber;
-    private Long totalCount;
-    private int pageSize;
-    private int totalPages;
-    private boolean isFirstPage;
-    private boolean isLastPage;
-
+public class ProductFilterResponse extends PageResponse<ProductFilterVO> {
     @Builder
     public ProductFilterResponse(List<ProductFilterVO> contents, int pageNumber, Long totalCount, int pageSize,
                                  int totalPages, boolean isFirstPage, boolean isLastPage) {

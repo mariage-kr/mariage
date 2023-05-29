@@ -1,5 +1,6 @@
 package com.multi.mariage.review.controller;
 
+import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.service.ReviewFindService;
 import jakarta.annotation.Nullable;
@@ -25,6 +26,15 @@ public class ReviewFindController {
                                                                          @Param("pageSize") int pageSize,
                                                                          @Param("sort") @Nullable String sort) {
         ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, memberId,
+                pageNumber, pageSize, sort);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/review/member/write")
+    public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
+                                                                                    @Param("pageNumber") int pageNumber,
+                                                                                    @Param("pageSize") int pageSize,
+                                                                                    @Param("sort") @Nullable String sort) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberId(memberId,
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }

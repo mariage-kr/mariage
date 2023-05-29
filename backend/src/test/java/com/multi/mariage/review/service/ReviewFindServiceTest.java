@@ -9,12 +9,17 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
+import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
+import com.multi.mariage.review.vo.member.write.MemberReviewVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReviewFindServiceTest extends ServiceTest {
     private Product product;
@@ -123,5 +128,41 @@ class ReviewFindServiceTest extends ServiceTest {
 
         /* Then */
         assertThat(actual.getTotalCount()).isEqualTo(2);
+    }
+
+    @DisplayName("사용자의 리뷰를 조회한다.")
+    @Test
+    void 사용자의_리뷰를_조회한다() {
+        Member member2 = signup(MemberFixture.SURI);
+        Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
+        Product product2 = saveProduct(ProductFixture.산토리_위스키, imageId);
+        saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_치즈, member2.getId(), product2.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
+        saveReview(ReviewFixture.산토리위스키_과자, member2.getId(), product2.getId(), imageId);
+
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
+                member2.getId(),
+                1,
+                4,
+                Sort.NEWEST.name());
+
+        assertThat(actual).isNotNull();
+        assertThat(actual.getContents()).hasSize(4);
+
+        List<MemberReviewVO> memberReviews = actual.getContents();
+
+        MemberReviewVO productInfo = memberReviews.stream()
+                .filter(r -> product.getName().equals(r.getProductInfo().getName()))
+                .findFirst()
+                .orElse(null);
+
+        MemberReviewVO reviewInfo = memberReviews.stream()
+                .filter(r -> member2.getNickname().equals(r.getReviewInfo().getMember().getNickname()))
+                .findFirst()
+                .orElse(null);
+
+        assertEquals("참이슬", productInfo.getProductInfo().getName());
+        assertEquals("수리", reviewInfo.getReviewInfo().getMember().getNickname());
     }
 }

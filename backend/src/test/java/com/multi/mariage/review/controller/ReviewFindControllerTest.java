@@ -79,4 +79,54 @@ class ReviewFindControllerTest extends ControllerTest {
                         ))
                 ).andExpect(status().isOk());
     }
+    @DisplayName("사용자가 작성한 리뷰를 조회한다.")
+    @Test
+    void 사용자가_작성한_리뷰를_조회한다() throws Exception {
+        String memberId = String.valueOf(member.getId());
+        mockMvc.perform(get("/api/review/member/write")
+                        .param("memberId", memberId)
+                        .param("pageNumber", "1")
+                        .param("pageSize", "2")
+                        .param("sort", Sort.NEWEST.name()))
+                .andDo(print())
+                .andDo(document("Review/FindReviews/Member/Write",
+                        preprocessResponse(prettyPrint()),
+                        responseFields(
+                                fieldWithPath("contents").description("사용자가 작성한 리뷰 목록"),
+                                fieldWithPath("contents[].productInfo.id").description("제품 식별 번호"),
+                                fieldWithPath("contents[].productInfo.imageId").description("제품 사진 식별 번호"),
+                                fieldWithPath("contents[].productInfo.imageUrl").description("제품 사진 Url"),
+                                fieldWithPath("contents[].productInfo.name").description("제품 이름"),
+                                fieldWithPath("contents[].productInfo.level").description("제품 도수"),
+                                fieldWithPath("contents[].productInfo.reviewRate").description("제품 평균 평가 점수"),
+                                fieldWithPath("contents[].productInfo.info").description("제품 정보"),
+                                fieldWithPath("contents[].productInfo.countryId").description("제품 제조국 식별 번호"),
+                                fieldWithPath("contents[].productInfo.country").description("제품 제조국"),
+                                fieldWithPath("contents[].reviewInfo.id").description("리뷰 식별 번호"),
+                                fieldWithPath("contents[].reviewInfo.member").description("리뷰를 작성한 사용자"),
+                                fieldWithPath("contents[].reviewInfo.member.id").description("리뷰를 작성한 사용자 식별 번호"),
+                                fieldWithPath("contents[].reviewInfo.member.nickname").description("리뷰를 작성한 사용자 별칭"),
+                                fieldWithPath("contents[].reviewInfo.member.img").description("리뷰를 작성한 사용자 프로필 사진 Url"),
+                                fieldWithPath("contents[].reviewInfo.review").description("리뷰 내용"),
+                                fieldWithPath("contents[].reviewInfo.review.date").description("리뷰 작성 날짜"),
+                                fieldWithPath("contents[].reviewInfo.review.content").description("제품 평가 내용"),
+                                fieldWithPath("contents[].reviewInfo.review.rate").description("제품 평가 점수"),
+                                fieldWithPath("contents[].reviewInfo.review.img").description("리뷰 사진"),
+                                fieldWithPath("contents[].reviewInfo.like").description("리뷰의 좋아요 정보"),
+                                fieldWithPath("contents[].reviewInfo.like.count").description("좋아요의 개수"),
+                                fieldWithPath("contents[].reviewInfo.like.liked").description("좋아요 유무"),
+                                fieldWithPath("contents[].reviewInfo.food").description("리뷰한 제품의 궁합 음식 정보"),
+                                fieldWithPath("contents[].reviewInfo.food.id").description("음식 카테고리 식별 번호"),
+                                fieldWithPath("contents[].reviewInfo.food.name").description("음식 카테고리 이름"),
+                                fieldWithPath("contents[].reviewInfo.food.rate").description("궁합 음식의 평가 점수 "),
+                                fieldWithPath("contents[].reviewInfo.hashtags").description("해시 태그 모음"),
+                                fieldWithPath("pageNumber").description("조회한 페이지 번호"),
+                                fieldWithPath("totalCount").description("전체 리뷰 개수"),
+                                fieldWithPath("pageSize").description("페이지 크기"),
+                                fieldWithPath("totalPages").description("전체 페이지의 개수"),
+                                fieldWithPath("firstPage").description("첫번째 페이지의 유무"),
+                                fieldWithPath("lastPage").description("마지막 페이지의 유무")
+                        ))
+                ).andExpect(status().isOk());
+    }
 }

@@ -1,14 +1,14 @@
 package com.multi.mariage.review.dto.response;
 
-import com.multi.mariage.review.vo.ProductReviewVO;
+import com.multi.mariage.review.vo.member.write.MemberReviewVO;
 import lombok.Builder;
 
 import java.util.List;
 
-public class ProductReviewsResponse extends PageResponse<ProductReviewVO> {
+public class MemberReviewInfoResponse extends PageResponse<MemberReviewVO> {
     @Builder
-    public ProductReviewsResponse(List<ProductReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
-                                  int totalPages, boolean isFirstPage, boolean isLastPage) {
+    public MemberReviewInfoResponse(List<MemberReviewVO> contents, int pageNumber, Long totalCount, int pageSize,
+                                    int totalPages, boolean isFirstPage, boolean isLastPage) {
         this.contents = contents;
         this.pageNumber = pageNumber;
         this.totalCount = totalCount;
