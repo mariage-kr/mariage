@@ -81,7 +81,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .sort(Sort.NEWEST.name())
                 .build();
 
-        List<Review> actual = reviewRepository.findReviewsByMemberId(cond);
+        List<Review> actual = reviewRepository.findRatedReviewsByMemberId(cond);
 
         assertThat(actual).hasSize(size);
     }
@@ -89,7 +89,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
     @DisplayName("사용자가 작성한 리뷰 개수를 조회한다.")
     @Test
     void 사용자가_작성한_리뷰_개수를_조회한다() {
-        Long actual = reviewRepository.findReviewsCountByMemberId(member.getId());
+        Long actual = reviewRepository.findReviewsCountByRatings(member.getId());
 
         assertThat(actual).isEqualTo(2);
     }
@@ -109,7 +109,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .sort(Sort.NEWEST.name())
                 .build();
 
-        List<Review> actual = reviewRepository.findReviewsByMemberLike(cond);
+        List<Review> actual = reviewRepository.findLikedReviewsByMemberId(cond);
 
         assertThat(actual).hasSize(size);
     }
@@ -120,7 +120,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
         saveLike(member, review1);
         saveLike(member, review2);
 
-        Long actual = reviewRepository.findReviewsCountByMemberLike(member.getId());
+        Long actual = reviewRepository.findReviewsCountByLikes(member.getId());
 
         assertThat(actual).isEqualTo(2);
     }

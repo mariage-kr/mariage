@@ -44,8 +44,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public List<Review> findReviewsByMemberId(MemberReviewsPagingCond cond) {
-        List<Long> reviewIds = getPagingReviewsByMember(cond);
+    public List<Review> findRatedReviewsByMemberId(MemberReviewsPagingCond cond) {
+        List<Long> reviewIds = getPagingReviewsByRatings(cond);
 
         return queryFactory.selectFrom(review)
                 .join(review.member, member).fetchJoin()
@@ -60,8 +60,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public List<Review> findReviewsByMemberLike(MemberReviewsPagingCond cond) {
-        List<Long> reviewIds = getPagingReviewsByMemberLike(cond);
+    public List<Review> findLikedReviewsByMemberId(MemberReviewsPagingCond cond) {
+        List<Long> reviewIds = getPagingReviewsByLikes(cond);
 
         return queryFactory.selectFrom(review)
                 .join(review.member, member).fetchJoin()
@@ -90,7 +90,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return reviewIdsQuery.fetch();
     }
 
-    private List<Long> getPagingReviewsByMember(MemberReviewsPagingCond cond) {
+    private List<Long> getPagingReviewsByRatings(MemberReviewsPagingCond cond) {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
                 .where(review.member.id.eq(cond.getMemberId()))
@@ -106,7 +106,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return reviewIdsQuery.fetch();
     }
 
-    private List<Long> getPagingReviewsByMemberLike(MemberReviewsPagingCond cond) {
+    private List<Long> getPagingReviewsByLikes(MemberReviewsPagingCond cond) {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
                 .join(like).on(review.eq(like.review))
@@ -141,7 +141,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public Long findReviewsCountByMemberId(Long memberId) {
+    public Long findReviewsCountByRatings(Long memberId) {
         JPAQuery<Long> countQuery = queryFactory.select(review.count())
                 .from(review)
                 .where(review.member.id.eq(memberId));
@@ -150,7 +150,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public Long findReviewsCountByMemberLike(Long memberId) {
+    public Long findReviewsCountByLikes(Long memberId) {
         JPAQuery<Long> countQuery = queryFactory.select(review.count())
                 .from(review)
                 .join(like).on(review.eq(like.review))

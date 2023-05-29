@@ -144,7 +144,7 @@ class ReviewFindServiceTest extends ServiceTest {
         saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
         saveReview(ReviewFixture.산토리위스키_과자, member2.getId(), product2.getId(), imageId);
 
-        MemberReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberId(
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndRatedReviewsByMemberId(
                 member2.getId(),
                 1,
                 4,
@@ -183,7 +183,7 @@ class ReviewFindServiceTest extends ServiceTest {
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_치즈.toSaveLike(review2.getReviewId()));
         likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_해산물.toSaveLike(review3.getReviewId()));
 
-        MemberReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberLike(
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndLikedReviewsByMemberId(
                 member2.getId(),
                 1,
                 3,

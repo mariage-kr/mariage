@@ -1,12 +1,10 @@
 package com.multi.mariage.review.service;
 
 
-import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
-import com.multi.mariage.member.dto.response.MyInfoResponse;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
 import com.multi.mariage.product.domain.Product;
@@ -32,7 +30,6 @@ import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
-import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -88,7 +85,7 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MemberReviewInfoResponse findProductsAndReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndRatedReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
         MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
@@ -97,8 +94,8 @@ public class ReviewFindService extends PagingUtil {
                 .sort(sort)
                 .build();
 
-        List<Review> reviews = reviewRepository.findReviewsByMemberId(cond);
-        Long totalCount = reviewRepository.findReviewsCountByMemberId(memberId);
+        List<Review> reviews = reviewRepository.findRatedReviewsByMemberId(cond);
+        Long totalCount = reviewRepository.findReviewsCountByRatings(memberId);
 
         List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
         int totalPages = getTotalPages(pageSize, totalCount);
@@ -114,7 +111,7 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MemberReviewInfoResponse findProductsAndReviewsByMemberLike(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndLikedReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
         MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
@@ -123,8 +120,8 @@ public class ReviewFindService extends PagingUtil {
                 .sort(sort)
                 .build();
 
-        List<Review> reviews = reviewRepository.findReviewsByMemberLike(cond);
-        Long totalCount = reviewRepository.findReviewsCountByMemberLike(memberId);
+        List<Review> reviews = reviewRepository.findLikedReviewsByMemberId(cond);
+        Long totalCount = reviewRepository.findReviewsCountByLikes(memberId);
 
         List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
         int totalPages = getTotalPages(pageSize, totalCount);
@@ -147,8 +144,8 @@ public class ReviewFindService extends PagingUtil {
         String email = member.getEmail().substring(0, 5);
         String imageName = member.getImage() != null ? member.getImage().getName() : "profile.png";
         String filePath = storageService.getFilePath(imageName);
-        Long reviews = reviewRepository.findReviewsCountByMemberId(memberId);
-        Long likes = reviewRepository.findReviewsCountByMemberLike(memberId);
+        Long reviews = reviewRepository.findReviewsCountByRatings(memberId);
+        Long likes = reviewRepository.findReviewsCountByLikes(memberId);
 
         return MemberProfileResponse.from(email, filePath, member.getNickname(), reviews, likes);
     }

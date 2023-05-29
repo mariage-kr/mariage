@@ -1,8 +1,5 @@
 package com.multi.mariage.review.controller;
 
-import com.multi.mariage.auth.annotation.Authenticated;
-import com.multi.mariage.auth.vo.AuthMember;
-import com.multi.mariage.member.dto.response.MyInfoResponse;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
@@ -35,21 +32,21 @@ public class ReviewFindController {
     }
 
     @GetMapping("/review/member/ratings")
-    public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
-                                                                                    @Param("pageNumber") int pageNumber,
-                                                                                    @Param("pageSize") int pageSize,
-                                                                                    @Param("sort") @Nullable String sort) {
-        MemberReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberId(memberId,
+    public ResponseEntity<MemberReviewInfoResponse> findProductsAndRatedReviewsByMemberId(@Param("memberId") Long memberId,
+                                                                                          @Param("pageNumber") int pageNumber,
+                                                                                          @Param("pageSize") int pageSize,
+                                                                                          @Param("sort") @Nullable String sort) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndRatedReviewsByMemberId(memberId,
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/review/member/likes")
-    public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberLike(@Param("memberId") Long memberId,
-                                                                                      @Param("pageNumber") int pageNumber,
-                                                                                      @Param("pageSize") int pageSize,
-                                                                                      @Param("sort") @Nullable String sort) {
-        MemberReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberLike(memberId,
+    public ResponseEntity<MemberReviewInfoResponse> findProductsAndLikedReviewsByMemberId(@Param("memberId") Long memberId,
+                                                                                          @Param("pageNumber") int pageNumber,
+                                                                                          @Param("pageSize") int pageSize,
+                                                                                          @Param("sort") @Nullable String sort) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndLikedReviewsByMemberId(memberId,
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
