@@ -41,14 +41,6 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         마리 = saveMember(MemberFixture.MARI);
     }
 
-    @DisplayName("제품을 검색한다.")
-    @Test
-    void 제품을_검색한다() {
-        List<Product> actual = productRepository.searchProductByName("진로");
-
-        assertThat(actual).contains(일품진로);
-    }
-
     @DisplayName("전체기간 동안 가장 많은 리뷰가 달린 제품들을 조회한다.")
     @ParameterizedTest
     @ValueSource(ints = {2})

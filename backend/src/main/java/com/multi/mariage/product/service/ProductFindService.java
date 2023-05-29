@@ -23,11 +23,13 @@ import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -105,8 +107,7 @@ public class ProductFindService extends PagingUtil {
         List<ProductFilterVO> contents = new LinkedList<>();
         for (Product product : products) {
             String imageUrl = imageService.getImageUrl(product.getImage().getName());
-
-            List<Food> foods = foodCategoryService.findFoodsByProduct(product, 3);
+            List<Food> foods = getFoodsOrderByRate(product);
             List<ProductFoodFilterVO> foodList = foods.stream().map(ProductFoodFilterVO::from).toList();
 
             ProductFilterVO content = ProductFilterVO.from(product, imageUrl,
@@ -116,6 +117,19 @@ public class ProductFindService extends PagingUtil {
             contents.add(content);
         }
         return contents;
+    }
+
+    private List<Food> getFoodsOrderByRate(Product product) {
+        Map<Food, Double> map = new HashMap<>();
+        /* TODO: 2023/05/29 product.getFoods 가 문제 */
+        for (Food food : product.getFoods()) {
+            map.put(food, food.getAvgFoodRate());
+        }
+        List<Food> foods = new ArrayList<>(map.keySet());
+        foods.sort((o1, o2) -> map.get(o2).compareTo(map.get(o1)));
+
+        int toIndex = Math.min(foods.size(), 3);
+        return foods.subList(0, toIndex);
     }
 
     public List<ReviewRateVO> getReviewPercentages(Long productId) {

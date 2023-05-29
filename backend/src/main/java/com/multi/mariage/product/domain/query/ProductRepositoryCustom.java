@@ -8,7 +8,6 @@ import com.multi.mariage.weather.domain.Weather;
 import java.util.List;
 
 public interface ProductRepositoryCustom {
-    List<Product> searchProductByName(String name);
 
     List<Product> findRecommendProductsByWeather(int size, Weather latestWeather);
 

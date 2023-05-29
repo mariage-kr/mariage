@@ -10,13 +10,13 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public abstract class PageResponse<T> {
-    public List<T> contents;
-    public int pageNumber;
-    public Long totalCount;
-    public int pageSize;
-    public int totalPages;
+    protected List<T> contents;
+    protected int pageNumber;
+    protected Long totalCount;
+    protected int pageSize;
+    protected int totalPages;
     @JsonProperty("firstPage")
-    public boolean isFirstPage;
+    protected boolean isFirstPage;
     @JsonProperty("lastPage")
-    public boolean isLastPage;
+    protected boolean isLastPage;
 }
