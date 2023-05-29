@@ -9,21 +9,33 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.review.service.ReviewHashtagService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
 class ReviewHashtagServiceTest extends ServiceTest {
 
     private Long reviewId;
     private ReviewFixture reviewFixture;
-    private ReviewHashtagService reviewHashtagService;
     private Review review;
     private Hashtag hashtag;
+
+    @Autowired
+    private ReviewHashtagRepository reviewHashtagRepository;
+
+    @Autowired
+    private ReviewHashtagService reviewHashtagService;
 
     @BeforeEach
     void setUp() {

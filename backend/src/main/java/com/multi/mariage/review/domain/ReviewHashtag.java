@@ -38,7 +38,7 @@ public class ReviewHashtag {
 
     public ReviewHashtag eraseHashtag() {
         if (hashtag != null) {
-            hashtag.getReviewHashTags().remove(hashtag);
+            hashtag.getReviewHashTags().remove(this);
             hashtag = null;
         }
         return this;

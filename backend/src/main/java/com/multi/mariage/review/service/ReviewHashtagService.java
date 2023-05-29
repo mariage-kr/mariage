@@ -50,14 +50,12 @@ public class ReviewHashtagService {
     public void removeHashtags(List<String> hashtagsToRemove) {
         List<Hashtag> hashtags = hashtagService.findHashTagsByList(hashtagsToRemove);
         for (Hashtag hashtag : hashtags) {
-            if (hashtagsToRemove.contains(hashtag.getId())) {
-                Set<ReviewHashtag> reviewHashTags = hashtag.getReviewHashTags();
-                reviewHashTags.removeIf(reviewHashtag -> hashtagsToRemove.contains(reviewHashtag.getId()));
+            Set<ReviewHashtag> reviewHashTags = hashtag.getReviewHashTags();
+            reviewHashTags.removeIf(reviewHashtag -> hashtagsToRemove.contains(reviewHashtag.getHashtag().getId()));
 
-                for (ReviewHashtag reviewHashtag : reviewHashTags) {
-                    reviewHashtag.eraseHashtag();
-                    reviewHashtagRepository.delete(reviewHashtag);
-                }
+            for (ReviewHashtag reviewHashtag : reviewHashTags) {
+                reviewHashtag.eraseHashtag();
+                reviewHashtagRepository.delete(reviewHashtag);
             }
         }
     }
