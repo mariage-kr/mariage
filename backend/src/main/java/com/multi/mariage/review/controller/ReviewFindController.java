@@ -1,5 +1,9 @@
 package com.multi.mariage.review.controller;
 
+import com.multi.mariage.auth.annotation.Authenticated;
+import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.member.dto.response.MyInfoResponse;
+import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.service.ReviewFindService;
@@ -29,6 +33,7 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/review/member/ratings")
     public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
                                                                                     @Param("pageNumber") int pageNumber,
@@ -38,13 +43,20 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/review/member/likes")
     public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberLike(@Param("memberId") Long memberId,
-                                                                                    @Param("pageNumber") int pageNumber,
-                                                                                    @Param("pageSize") int pageSize,
-                                                                                    @Param("sort") @Nullable String sort) {
+                                                                                      @Param("pageNumber") int pageNumber,
+                                                                                      @Param("pageSize") int pageSize,
+                                                                                      @Param("sort") @Nullable String sort) {
         MemberReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberLike(memberId,
                 pageNumber, pageSize, sort);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/review/member/profile")
+    public ResponseEntity<MemberProfileResponse> findMemberProfile(@Param("memberId") Long memberId) {
+        MemberProfileResponse response = reviewFindService.findMemberProfile(memberId);
         return ResponseEntity.ok(response);
     }
 }
