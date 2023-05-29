@@ -83,4 +83,10 @@ public class StorageService {
     public String getFilePath(String fileName) {
         return was + fileName;
     }
+
+    @Transactional
+    public void delete(Long imageId) {
+        Image image = findById(imageId);
+        remove(image);
+    }
 }

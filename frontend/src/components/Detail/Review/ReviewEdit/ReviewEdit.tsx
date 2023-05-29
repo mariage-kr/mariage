@@ -13,6 +13,7 @@ import StarRate from '@/components/StarRate/Common/StarRate';
 import * as S from './ReviewEdit.styled';
 import useInput from '@/hooks/useInput';
 import { FoodCategoryType } from '@/@types/category';
+import { requestRemoveImage as requestDeleteImage } from '@/apis/request/storage';
 
 type PropsType = {
   id: number;
@@ -69,6 +70,9 @@ function ReviewEdit({
   };
 
   const saveReview = async () => {
+    const deleteImage = async (imageId: number) => {
+      await requestDeleteImage(imageId);
+    };
     const saveImage = async () => {
       let imageId: number | null = null;
       if (image) {
@@ -95,9 +99,15 @@ function ReviewEdit({
       foodCategory,
       foodImageId,
       hashtags,
-    }).then(data => {
-      console.log(data.reviewId);
-    });
+    })
+      .then(data => {
+        console.log(data.reviewId);
+      })
+      .catch(() => {
+        if (foodImageId) {
+          deleteImage(foodImageId);
+        }
+      });
   };
 
   const selectComponent = {
