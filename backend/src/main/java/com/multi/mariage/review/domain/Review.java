@@ -96,6 +96,9 @@ public class Review {
     }
 
     public void setFoodCategory(Food foodCategory) {
+        if (foodCategory == null) {
+            return;
+        }
         this.foodCategory = foodCategory;
         foodCategory.getReviews().add(this);
         foodCategory.changeTotalFoodRate(foodRate);
