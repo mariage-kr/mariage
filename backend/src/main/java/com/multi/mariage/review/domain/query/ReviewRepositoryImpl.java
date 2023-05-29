@@ -63,6 +63,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
                 .where(review.product.id.eq(cond.getProductId()))
+                .orderBy(review.id.desc())
                 .offset(getOffset(cond))
                 .limit(cond.getPageSize());
 
