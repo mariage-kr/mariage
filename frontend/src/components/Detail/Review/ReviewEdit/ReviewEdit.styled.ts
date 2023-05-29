@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+type Props = {
+  valid: boolean;
+};
+
 const Container = styled.div`
   border-radius: 10px;
   width: 95%;
@@ -129,21 +133,18 @@ const BtnWrapper = styled.div`
   padding: 0 10%;
 `;
 
-const Btn = styled.button`
+const Btn = styled.button<Props>`
   width: 30%;
   height: 42px;
   margin: 10px 5% 10px;
   border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 3px #9c94d055;
+  background-color: ${props => (props.valid ? '#9c94d0' : '#fff')};
+  box-shadow: ${props =>
+    props.valid ? '0 0 5px #b9b9b9' : '0 0 3px #9c94d055'};
+  color: ${props => (props.valid ? '#fff' : '#000')};
   font-size: 1rem;
   &:hover {
     box-shadow: 0 0 5px #9c94d0;
-  }
-  &:focus {
-    background-color: #9c94d0;
-    color: #fff;
-    box-shadow: 0 0 5px #b9b9b9;
   }
 `;
 

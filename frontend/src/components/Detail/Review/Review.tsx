@@ -12,6 +12,7 @@ import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { getDetailReviews } from '@/apis/request/review';
+import useAuth from '@/hooks/useAuth';
 import useUserInfo from '@/hooks/useUserInfo';
 import editIcon from '@/assets/png/edit.png';
 
@@ -30,6 +31,7 @@ type PropsType = {
 function Review({ id, name, level, countryId, country, rating }: PropsType) {
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
+  const { isLogin } = useAuth();
 
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -40,7 +42,9 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
+    if (isLogin()) {
+      setOpenModal(!isOpenModal);
+    }
   }, [isOpenModal]);
 
   const fetchReview = useCallback(async (userId: number | undefined) => {
@@ -80,7 +84,6 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   useEffect(() => {
     if (hasMore && !isLoading) {
       setIsLoading(true);
-      // getFetchData();
     }
   }, [hasMore, isLoading]);
 
