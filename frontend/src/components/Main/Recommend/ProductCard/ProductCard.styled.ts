@@ -126,6 +126,11 @@ const country_right = css`
   font-size: 1rem;
 `;
 
+const StarWrapper = styled.div`
+  background-color: red;
+  width: 100px;
+`;
+
 export {
   CarouselCard,
   CardContainer,
@@ -144,4 +149,5 @@ export {
   country_left,
   FlagImg,
   country_right,
+  StarWrapper,
 };
