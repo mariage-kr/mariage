@@ -38,4 +38,13 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/review/member/like")
+    public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberLike(@Param("memberId") Long memberId,
+                                                                                    @Param("pageNumber") int pageNumber,
+                                                                                    @Param("pageSize") int pageSize,
+                                                                                    @Param("sort") @Nullable String sort) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberLike(memberId,
+                pageNumber, pageSize, sort);
+        return ResponseEntity.ok(response);
+    }
 }

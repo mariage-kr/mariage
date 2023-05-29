@@ -103,6 +103,31 @@ public class ReviewFindService extends PagingUtil {
                 .isLastPage(isLastPage(pageNumber, totalPages))
                 .build();
     }
+    public MemberReviewInfoResponse findProductsAndReviewsByMemberLike(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+
+        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
+                .memberId(memberId)
+                .pageSize(pageSize)
+                .pageNumber(pageNumber)
+                .sort(sort)
+                .build();
+
+        List<Review> reviews = reviewRepository.findReviewsByMemberLike(cond);
+        Long totalCount = reviewRepository.findReviewsCountByMemberLike(memberId);
+
+        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
+        int totalPages = getTotalPages(pageSize, totalCount);
+
+        return MemberReviewInfoResponse.builder()
+                .contents(productAndReviewList)
+                .pageSize(pageSize)
+                .totalCount(totalCount)
+                .pageNumber(pageNumber)
+                .totalPages(totalPages)
+                .isFirstPage(isFirstPage(pageNumber))
+                .isLastPage(isLastPage(pageNumber, totalPages))
+                .build();
+    }
 
     private List<ProductReviewVO> getProductReviewList(List<Review> reviews, Long memberId) {
         return reviews.stream()

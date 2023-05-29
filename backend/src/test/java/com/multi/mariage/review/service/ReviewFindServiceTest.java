@@ -1,5 +1,6 @@
 package com.multi.mariage.review.service;
 
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.common.annotation.ServiceTest;
 import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
@@ -11,6 +12,7 @@ import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
+import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.vo.member.write.MemberReviewVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -158,6 +160,45 @@ class ReviewFindServiceTest extends ServiceTest {
                 .orElse(null);
 
         MemberReviewVO reviewInfo = memberReviews.stream()
+                .filter(r -> member2.getNickname().equals(r.getReviewInfo().getMember().getNickname()))
+                .findFirst()
+                .orElse(null);
+
+        assertEquals("참이슬", productInfo.getProductInfo().getName());
+        assertEquals("수리", reviewInfo.getReviewInfo().getMember().getNickname());
+    }
+
+    @DisplayName("사용자가 좋아요한 리뷰를 조회한다.")
+    @Test
+    void 사용자가_좋아요한_리뷰를_조회한다() {
+        Member member2 = signup(MemberFixture.SURI);
+        Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
+        Product product2 = saveProduct(ProductFixture.산토리_위스키, imageId);
+        ReviewSaveResponse review1 = saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);
+        ReviewSaveResponse review2 = saveReview(ReviewFixture.산토리위스키_치즈, member2.getId(), product2.getId(), imageId);
+        ReviewSaveResponse review3 = saveReview(ReviewFixture.산토리위스키_해산물, member2.getId(), product2.getId(), imageId);
+
+        likeService.save(new AuthMember(member2.getId()), ReviewFixture.참이슬_과자.toSaveLike(review1.getReviewId()));
+        likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_치즈.toSaveLike(review2.getReviewId()));
+        likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_해산물.toSaveLike(review3.getReviewId()));
+        System.out.println("시작");
+        MemberReviewInfoResponse actual = reviewFindService.findProductsAndReviewsByMemberLike(
+                member2.getId(),
+                1,
+                3,
+                Sort.NEWEST.name());
+        System.out.println("끝");
+        assertThat(actual).isNotNull();
+        assertThat(actual.getContents()).hasSize(3);
+
+        List<MemberReviewVO> memberLikedReviews = actual.getContents();
+
+        MemberReviewVO productInfo = memberLikedReviews.stream()
+                .filter(r -> product.getName().equals(r.getProductInfo().getName()))
+                .findFirst()
+                .orElse(null);
+
+        MemberReviewVO reviewInfo = memberLikedReviews.stream()
                 .filter(r -> member2.getNickname().equals(r.getReviewInfo().getMember().getNickname()))
                 .findFirst()
                 .orElse(null);

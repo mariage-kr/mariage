@@ -15,4 +15,8 @@ public interface ReviewRepositoryCustom {
     List<Review> findReviewsByMemberId(MemberReviewsPagingCond cond);
 
     Long findReviewsCountByMemberId(Long memberId);
+
+    List<Review> findReviewsByMemberLike(MemberReviewsPagingCond cond);
+
+    Long findReviewsCountByMemberLike(Long memberId);
 }
