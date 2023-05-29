@@ -177,6 +177,33 @@ class ProductFindServiceTest extends ServiceTest {
         assertThat(actual.getTotalCount()).isEqualTo(1);
     }
 
+    @DisplayName("제품을 검색하여 조회한다.")
+    @Test
+    void 제품을_검색하여_조회한다() {
+        /* Given */
+        Image image = new Image(ProductFixture.산토리_위스키.getImageName());
+        Image 산토리_위스키_이미지 = storageRepository.save(image);
+        Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
+
+        ProductFindByFilterRequest cond = ProductFindByFilterRequest.builder()
+                .search("산토리")
+                .pageNumber(1)
+                .pageSize(2)
+                .sort("count")
+                .minRate(0)
+                .maxRate(5)
+                .minLevel(30)
+                .maxLevel(70)
+                .build();
+
+        /* When */
+        ProductFilterResponse actual = productFindService.findByFilter(cond);
+
+        /* Then */
+        assertThat(actual.getContents()).hasSize(1);
+        assertThat(actual.getContents().get(0).getName()).isEqualTo(산토리_위스키.getName());
+    }
+
     /* TODO: 2023/05/24 테이블 구조 변경으로 테스트 수정 고려 */
     @DisplayName("상세페이지의 제품에 대한 리뷰 별점 통계 정보를 조회한다.")
     @Test

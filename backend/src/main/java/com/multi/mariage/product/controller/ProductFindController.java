@@ -38,6 +38,7 @@ public class ProductFindController {
         return ResponseEntity.ok(response);
     }
 
+    /* TODO: 2023/05/29 검색 기능 테스트 구현 */
     @GetMapping("/product/find/filter")
     public ResponseEntity<ProductFilterResponse> findProductsByFilter(ProductFindByFilterRequest cond) {
         ProductFilterResponse response = productFindService.findByFilter(cond);
