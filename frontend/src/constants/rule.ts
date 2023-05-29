@@ -14,7 +14,7 @@ const MEMBER_RULE = {
 };
 
 const PAGING = {
-  PAGE_SIZE: 5,
+  PAGE_SIZE: 20,
 };
 
 const PARAM = {

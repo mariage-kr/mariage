@@ -19,7 +19,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -41,11 +43,11 @@ public class Product {
     private Info info;
     private Long totalReviewRate = 0L;
     private double avgReviewRate = 0.0D;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
-    private List<Food> foods = new ArrayList<>();
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private Set<Food> foods = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "upper_category_id", nullable = false)
