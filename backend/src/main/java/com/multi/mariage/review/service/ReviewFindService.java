@@ -7,6 +7,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.domain.MemberRepository;
 import com.multi.mariage.member.exception.MemberErrorCode;
 import com.multi.mariage.member.exception.MemberException;
+import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.exception.ProductErrorCode;
@@ -49,7 +50,7 @@ import java.util.Objects;
 public class ReviewFindService extends PagingUtil {
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
+    private final MemberFindService memberFindService;
     private final ImageService imageService;
     private final StorageService storageService;
 
@@ -138,8 +139,7 @@ public class ReviewFindService extends PagingUtil {
     }
 
     public MemberProfileResponse findMemberProfile(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
+        Member member = memberFindService.findById(memberId);
 
         String email = member.getEmail().substring(0, 5);
         String imageName = member.getImage() != null ? member.getImage().getName() : "profile.png";

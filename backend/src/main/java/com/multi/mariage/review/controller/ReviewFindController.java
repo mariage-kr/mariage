@@ -1,5 +1,6 @@
 package com.multi.mariage.review.controller;
 
+import com.multi.mariage.review.dto.request.MemberReviewRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
@@ -33,21 +34,15 @@ public class ReviewFindController {
 
     @GetMapping("/review/member/ratings")
     public ResponseEntity<MemberReviewInfoResponse> findProductsAndRatedReviewsByMemberId(@Param("memberId") Long memberId,
-                                                                                          @Param("pageNumber") int pageNumber,
-                                                                                          @Param("pageSize") int pageSize,
-                                                                                          @Param("sort") @Nullable String sort) {
-        MemberReviewInfoResponse response = reviewFindService.findProductsAndRatedReviewsByMemberId(memberId,
-                pageNumber, pageSize, sort);
+                                                                                          MemberReviewRequest request) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndRatedReviewsByMemberId(memberId, request.getPageSize(), request.getPageNumber(), request.getSort());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/review/member/likes")
     public ResponseEntity<MemberReviewInfoResponse> findProductsAndLikedReviewsByMemberId(@Param("memberId") Long memberId,
-                                                                                          @Param("pageNumber") int pageNumber,
-                                                                                          @Param("pageSize") int pageSize,
-                                                                                          @Param("sort") @Nullable String sort) {
-        MemberReviewInfoResponse response = reviewFindService.findProductsAndLikedReviewsByMemberId(memberId,
-                pageNumber, pageSize, sort);
+                                                                                          MemberReviewRequest request) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndLikedReviewsByMemberId(memberId, request.getPageSize(), request.getPageNumber(), request.getSort());
         return ResponseEntity.ok(response);
     }
 
