@@ -23,4 +23,6 @@ public class StorageController {
         ImageSavedResponse response = storageService.saveFile(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    /* TODO: 2023/05/29 파일의 Id를 가지고 삭제 */
 }

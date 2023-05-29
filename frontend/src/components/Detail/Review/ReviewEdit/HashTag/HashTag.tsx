@@ -1,10 +1,15 @@
 import { useState } from 'react';
+
 import * as S from './HashTag.styled';
 
-function HashTag() {
+type PropsType = {
+  hashTags: string[];
+  setHashTags: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
+function HashTag({ hashTags, setHashTags }: PropsType) {
   // 해시태그 이벤트
   const [inputHashTag, setInputHashTag] = useState<string>('');
-  const [hashTags, setHashTags] = useState<string[]>([]);
 
   const addHashTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     let hashTag = e.currentTarget.value.trim();

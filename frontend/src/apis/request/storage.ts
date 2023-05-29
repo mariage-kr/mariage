@@ -13,7 +13,9 @@ const requestSaveImage = (image: File) => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then(response => response.data);
+    .then(response => {
+      return response.data;
+    });
 };
 
 const requestRemoveImage = (imageId: number) => {

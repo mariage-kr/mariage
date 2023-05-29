@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import StarRate from '@/components/StarRate/Common/StarRate';
-import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
-import FoodCategory from './FoodContent/FoodCategory';
-import FoodImg from './FoodContent/FoodImg';
 import HashTag from './HashTag/HashTag';
+import FoodImg from './FoodContent/FoodImg';
+import FoodCategory from './FoodContent/FoodCategory';
+
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
+import { requestSaveImage } from '@/apis/request/storage';
+import { requestSaveReview } from '@/apis/request/review';
+import useImage from '@/hooks/useImage';
+import StarRate from '@/components/StarRate/Common/StarRate';
 
 import * as S from './ReviewEdit.styled';
+import useInput from '@/hooks/useInput';
 
 type PropsType = {
   id: number;
@@ -25,27 +30,78 @@ function ReviewEdit({
   countryId,
   onClickToggleModal,
 }: PropsType) {
-  const [content, setContent] = useState();
-  const [category, setCategory] = useState<string | null>(null);
-
-  const handleClickButton = (e: any) => {
-    const { name } = e.target;
-    setContent(name);
-  };
+  /* 버튼 옵션 선택 */
+  const [option, setOption] = useState();
 
   const btnData = [
     { id: 1, name: 'FoodCategory', text: '음식 카테고리' },
     { id: 2, name: 'FoodImg', text: '음식 사진 추가' },
   ];
 
+  const handleClickButton = (e: any) => {
+    const { name } = e.target;
+    setOption(name);
+  };
+
+  /* 저장할 데이터 */
+  const {
+    value: image,
+    setValue: setImage,
+    preview,
+  } = useImage<File | null>(null);
+  const [foodCategory, setFoodCategory] = useState<string | null>(null);
+  const [productRate, setProductRate] = useState<number | null>(null);
+  const { value: content, setValue: setContent } = useInput<string>('');
+  const [foodRate, setFoodRate] = useState<number | null>(null);
+  const [hashtags, setHashtags] = useState<string[]>([]);
+
+  const changeProductRate = (value: number) => {
+    setProductRate(value);
+  };
+
+  const changeFoodRate = (value: number) => {
+    setFoodRate(value);
+  };
+
+  const saveImage = (): number | null => {
+    if (image) {
+      requestSaveImage(image).then(data => {
+        return data.imageId;
+      });
+    }
+    return null;
+  };
+
+  const saveReview = () => {
+    if (productRate === null) {
+      return;
+    }
+
+    const productId: number = id;
+    const foodImageId: number | null = saveImage();
+
+    requestSaveReview({
+      productId,
+      productRate,
+      content,
+      foodRate,
+      foodCategory,
+      foodImageId,
+      hashtags,
+    }).then(data => {
+      console.log(data.reviewId);
+    });
+  };
+
   const selectComponent = {
+    // TODO: 음식 카테고리
     FoodCategory: (
       <FoodCategory
-        category={category}
-        changeCategory={(category: string) => setCategory(category)}
+        category={foodCategory}
+        changeCategory={(category: string) => setFoodCategory(category)}
       />
     ),
-    FoodImg: <FoodImg />,
+    FoodImg: <FoodImg onChange={setImage} preview={preview} />,
   };
 
   return (
@@ -64,12 +120,19 @@ function ReviewEdit({
             </S.NameLevel>
           </S.DrinkInfo>
           <S.DrinkStarRate>
-            <StarRate />
+            <StarRate
+              onChange={rate => changeProductRate(rate)}
+              rate={productRate}
+            />
           </S.DrinkStarRate>
-          <S.InputReview placeholder="** 술과 안주에 대한 리뷰를 적어주세요. **" />
+          <S.InputReview
+            value={content}
+            onChange={setContent}
+            placeholder="** 술과 안주에 대한 리뷰를 적어주세요. **"
+          />
           <S.PairingText>궁합 음식 별점</S.PairingText>
           <S.PairingStarRate>
-            <StarRate />
+            <StarRate onChange={rate => changeFoodRate(rate)} rate={foodRate} />
           </S.PairingStarRate>
         </S.Top>
 
@@ -81,31 +144,31 @@ function ReviewEdit({
                   onClick={handleClickButton}
                   name={data.name}
                   key={data.id}
-                  valid={data.name === content}
+                  valid={data.name === option}
                 >
                   {data.text}
                 </S.Btn>
               );
             })}
           </S.BtnWrapper>
-          {category !== null && (
+          {foodCategory !== null && (
             <S.FoodCategoryPrint>
-              선택한 카테고리:{' '}
-              <S.FoodCategorySpan>{category}</S.FoodCategorySpan>
+              선택한 카테고리 :{' '}
+              <S.FoodCategorySpan>{foodCategory}</S.FoodCategorySpan>
             </S.FoodCategoryPrint>
           )}
-          {content && <S.FoodContent>{selectComponent[content]}</S.FoodContent>}
+          {option && <S.FoodContent>{selectComponent[option]}</S.FoodContent>}
 
           <S.HashTag>
             <S.HashTagTitle>#해시태그</S.HashTagTitle>
-            <HashTag />
+            <HashTag hashTags={hashtags} setHashTags={setHashtags} />
           </S.HashTag>
           <S.FinalBtn>
             <S.Cancel>
               <S.CancelBtn onClick={onClickToggleModal}>취소</S.CancelBtn>
             </S.Cancel>
             <S.Submit>
-              <S.SubmitBtn>적용</S.SubmitBtn>
+              <S.SubmitBtn onClick={saveReview}>적용</S.SubmitBtn>
             </S.Submit>
           </S.FinalBtn>
         </S.Bottom>
