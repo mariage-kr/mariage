@@ -144,12 +144,13 @@ public class ReviewFindService extends PagingUtil {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_IS_NOT_EXISTED));
 
-        String imageName = getImageName(member.getImage());
+        String email = member.getEmail().substring(0, 5);
+        String imageName = member.getImage() != null ? member.getImage().getName() : "profile.png";
         String filePath = storageService.getFilePath(imageName);
         Long reviews = reviewRepository.findReviewsCountByMemberId(memberId);
         Long likes = reviewRepository.findReviewsCountByMemberLike(memberId);
 
-        return MemberProfileResponse.from(member.getEmail().substring(0, 5), filePath, member.getNickname(), reviews, likes);
+        return MemberProfileResponse.from(email, filePath, member.getNickname(), reviews, likes);
     }
 
     private List<ProductReviewVO> getProductReviewList(List<Review> reviews, Long memberId) {
@@ -269,9 +270,5 @@ public class ReviewFindService extends PagingUtil {
                 .content(review.getContent())
                 .img(imageService.getImageUrl(review.getImage().getName()))
                 .build();
-    }
-
-    private String getImageName(Image image) {
-        return image != null ? image.getName() : "profile.png";
     }
 }
