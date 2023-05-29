@@ -28,6 +28,7 @@ function ReviewEdit({
 }: PropsType) {
   const [content, setContent] = useState();
   const [category, setCategory] = useState<string | null>(null);
+  const [option, setOption] = useState<string | null>(null);
 
   const handleClickButton = (e: any) => {
     const { name } = e.target;
@@ -82,6 +83,7 @@ function ReviewEdit({
                   onClick={handleClickButton}
                   name={data.name}
                   key={data.id}
+                  valid={data.name === content}
                 >
                   {data.text}
                 </S.Btn>

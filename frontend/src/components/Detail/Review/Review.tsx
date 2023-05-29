@@ -12,11 +12,11 @@ import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { getDetailReviews } from '@/apis/request/review';
+import useAuth from '@/hooks/useAuth';
 import useUserInfo from '@/hooks/useUserInfo';
 import editIcon from '@/assets/png/edit.png';
 
 import * as S from './Review.styled';
-import useAuth from '@/hooks/useAuth';
 
 type PropsType = {
   id: number;
