@@ -154,7 +154,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     public Long findReviewsCountByLikes(Long memberId) {
         JPAQuery<Long> countQuery = queryFactory.select(review.count())
                 .from(review)
-                .join(like).on(review.eq(like.review))
+                .join(like)
+                .where(review.eq(like.review))
                 .where(like.member.id.eq(memberId));
 
         return countQuery.fetchFirst();
