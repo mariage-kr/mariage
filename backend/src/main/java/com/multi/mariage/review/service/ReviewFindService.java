@@ -9,6 +9,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
+import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
@@ -47,7 +48,7 @@ import java.util.Objects;
 @Service
 public class ReviewFindService extends PagingUtil {
     private final ReviewRepository reviewRepository;
-    private final ProductRepository productRepository;
+    private final ProductFindService productFindService;
     private final MemberFindService memberFindService;
     private final ImageService imageService;
     private final StorageService storageService;
@@ -110,7 +111,7 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MemberReviewInfoResponse findProductsAndLikedReviewsByMemberId(Long memberId, ReviewFindRequest cond) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndLikedReviewsByMemberId(Long memberId, ReviewFindRequest cond) {   // 사용자가 좋아요한 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
         MemberReviewsPagingCond pageCond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
@@ -234,8 +235,7 @@ public class ReviewFindService extends PagingUtil {
     }
 
     public ProductInfoVO getProductInfoFrom(Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+        Product product = productFindService.findById(productId);
 
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
