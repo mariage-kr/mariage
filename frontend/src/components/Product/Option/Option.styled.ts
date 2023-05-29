@@ -9,8 +9,8 @@ const Container = styled.div`
   flex-direction: row;
 
   @media (max-width: 1000px) {
-    left: 0;
-    width: 150px;
+    right: -17%;
+    width: 300px;
   }
 `;
 
@@ -18,7 +18,7 @@ const Btn = styled.button`
   position: relative;
   width: 70px;
   padding-left: 10px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   background-color: transparent;
   transition: all 0.15s;
 
@@ -45,8 +45,8 @@ const Btn = styled.button`
   }
 
   @media (max-width: 1000px) {
-    width: 100%;
-    padding-left: 20px;
+    width: 85px;
+    padding-left: 10px;
     font-size: 1rem;
   }
 `;
