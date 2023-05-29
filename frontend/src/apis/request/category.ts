@@ -1,5 +1,10 @@
 import { axios } from '../axios';
-import { CategoryType, DrinkRegionCategoryType } from '@/@types/category';
+
+import {
+  CategoryType,
+  DrinkRegionCategoryType,
+  FoodCategoryResponseType,
+} from '@/@types/category';
 import { API_PATH } from '@/constants/path';
 
 interface requestDataType {
@@ -31,7 +36,11 @@ function requestDrinkLowerCategory() {
 }
 
 function requestFoodCategory() {
-  return axios.get(API_PATH.CATEGORY.FOOD);
+  return axios
+    .get<FoodCategoryResponseType>(API_PATH.CATEGORY.FOOD)
+    .then(response => {
+      return response.data;
+    });
 }
 
 function requestCountry() {

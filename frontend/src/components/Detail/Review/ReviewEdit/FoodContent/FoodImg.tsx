@@ -1,14 +1,13 @@
-import { useRef } from 'react';
-import useImage from '@/hooks/useImage';
+import { ChangeEventHandler, useRef } from 'react';
+
 import * as S from './FoodImg.styled';
 
-function FoodImg() {
-  const {
-    value: image,
-    setValue: setImage,
-    preview,
-  } = useImage<File | null>(null);
+type PropsType = {
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  preview: string | undefined;
+};
 
+function FoodImg({ onChange, preview }: PropsType) {
   const imageInput = useRef<HTMLInputElement>(null);
 
   // 버튼 클릭시 input태그에 클릭이벤트 적용
@@ -21,7 +20,7 @@ function FoodImg() {
       <S.InputImg
         type={'file'}
         accept={'image/*'}
-        onChange={setImage}
+        onChange={onChange}
         ref={imageInput}
       />
       <S.BtnWrapper>

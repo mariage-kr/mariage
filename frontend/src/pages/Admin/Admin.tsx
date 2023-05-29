@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 
 import {
+  DrinkCategoryResponseType,
+  DrinkRegionCategoryType,
+  DrinkUpperCategoryType,
+  DrinkLowerCategoryType,
+  CountryType,
+} from '@/@types/category';
+import { ProductModifyInfoType } from '@/@types/product';
+
+import {
   requestCountry,
   requestDrinkLowerCategory,
 } from '@/apis/request/category';
-import { requestSaveImage } from '@/apis/request/storage';
 import {
   requestProductInfo,
   requestSaveProduct,
@@ -19,20 +27,14 @@ import useImage from '@/hooks/useImage';
 import useSearchParam from '@/hooks/useSearchParam';
 import useLevel from '@/hooks/useLevel';
 
-import { ImageIdType } from '@/@types/id';
-import { ProductModifyInfoType } from '@/@types/product';
-import {
-  DrinkCategoryResponseType,
-  DrinkRegionCategoryType,
-  DrinkUpperCategoryType,
-  DrinkLowerCategoryType,
-  CountryType,
-} from '@/@types/category';
+import { deleteImage, saveImage } from '@/utils/image';
 
 import * as S from './Admin.styled';
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 
 function Admin() {
-  /* 쿼리스트링 */
+  const navigate = useNavigate();
   const { value: productId, setValue: setProductId } = useSearchParam(null);
 
   /* 카테고리 데이터 */
@@ -109,7 +111,6 @@ function Admin() {
     await requestProductInfo(parseInt(productId!))
       .then(response => {
         const data: ProductModifyInfoType = response.data;
-        console.log(response);
         defaultName(data.name);
         defaultInfo(data.info);
         defaultCountry(data.country);
@@ -120,20 +121,14 @@ function Admin() {
         setImageId(data.imageId);
       })
       .catch(error => {
-        // console.log(error);
         setErrorMessage(error.response.data.message);
       });
   };
 
   /* 제품 등록, 수정 요청 */
-  const uploadImage = async (): Promise<number> => {
-    const data: ImageIdType = await requestSaveImage(image!);
-    return data.imageId;
-  };
-
   const saveProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const imageId: number = await uploadImage();
+    const imageId: number | null = await saveImage(image);
     if (!imageId) {
       alert('사진이 정상적으로 저장되지 않았습니다.\n다시한번 시도해주세요.');
       return;
@@ -148,22 +143,23 @@ function Admin() {
       imageId,
     })
       .then(response => {
-        /* TODO: 추후 제품의 상세 페이지로 이동 */
-        console.log(response);
+        navigate(`${BROWSER_PATH.DETAIL}/${response.data.productId}`);
       })
       .catch(error => {
         if (error.response.status === 400) {
           setErrorMessage(error.response.data.message);
         }
+        deleteImage(imageId);
       });
   };
 
   const updateProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newImageId: number = await uploadImage();
+    const newImageId: number | null = await saveImage(image);
     const id: number = parseInt(productId!);
-    if (!imageId) {
+
+    if (!imageId || !newImageId) {
       return;
     }
 
@@ -179,13 +175,13 @@ function Admin() {
       newImageId,
     })
       .then(response => {
-        /* TODO: 추후 제품의 상세 페이지로 이동 */
-        console.log(response);
+        navigate(`${BROWSER_PATH.DETAIL}/${response.data.productId}`);
       })
       .catch(error => {
         if (error.response.status === 400) {
           setErrorMessage(error.response.data.message);
         }
+        deleteImage(newImageId);
       });
   };
 

@@ -32,14 +32,23 @@ type ReviewFoodType = {
   rate: number;
 };
 
+/**
+ * @property {number} productId: 제품의 식별자
+ * @property {number} productRate: 제품의 평가 점수
+ * @property {string} content: 제품의 리뷰
+ * @property {number} foodRate(Optional): 궁합 안주의 평가 점수
+ * @property {string} foodCategory(Optional) : 궁합 안주의 종류
+ * @property {number} foodImageId(Optional) : 리뷰 사진
+ * @property {string[]} hashtags(Optional) : 해시 태그
+ */
 type ReviewSaveType = {
   productId: number;
   productRate: number;
   content: string;
-  foodRate: number;
-  foodCategory: string;
-  foodImageId: number;
-  hashtags: string[];
+  foodRate: number | null;
+  foodCategory: string | null;
+  foodImageId: number | null;
+  hashtags: string[] | null;
 };
 
 export {

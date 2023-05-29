@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ProducModifyResponse {
+public class ProductModifyResponse {
     private Long productId;
 
-    public ProducModifyResponse(Long productId) {
+    public ProductModifyResponse(Long productId) {
         this.productId = productId;
     }
 }

@@ -3,8 +3,12 @@ import { recoilPersist } from 'recoil-persist';
 
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 import { isLoginProvider } from '@/utils/auth';
-import { isBoolean } from '@/utils/boolean';
-import { CategoryType, DrinkRegionCategoryType } from '@/@types/category';
+import {
+  CategoryType,
+  DrinkRegionCategoryType,
+  FoodCategoryResponseType,
+  FoodCategoryType,
+} from '@/@types/category';
 import { RECOIL_KEY } from '@/constants/key';
 import { UserInfoType } from '@/@types/user';
 
@@ -17,7 +21,7 @@ const drinkUpperCategoryState = atom<CategoryType[]>({
 });
 
 const productCategoryState = atom<DrinkRegionCategoryType[]>({
-  key: 'productCategoryState',
+  key: RECOIL_KEY.PRODUCT_CATEGORY,
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
@@ -28,10 +32,16 @@ const userInfoState = atom<UserInfoType | undefined>({
   effects_UNSTABLE: [persistAtom],
 });
 
+const foodCategoryState = atom<FoodCategoryResponseType>({
+  key: RECOIL_KEY.FOOD_CATEGORY,
+  default: undefined,
+  effects_UNSTABLE: [persistAtom],
+});
+
 const isLoginState = selector<boolean>({
   key: 'isLogin',
   get: () => {
-    return isBoolean(isLoginProvider.get());
+    return isLoginProvider.get();
   },
   set: (_, isLogin) => {
     if (!isLogin) {
@@ -83,4 +93,5 @@ export {
   accessTokenState,
   refreshTokenState,
   productCategoryState,
+  foodCategoryState,
 };

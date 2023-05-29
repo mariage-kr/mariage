@@ -13,10 +13,12 @@ const requestSaveImage = (image: File) => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then(response => response.data);
+    .then(response => {
+      return response.data;
+    });
 };
 
-const requestRemoveImage = (imageId: number) => {
+const requestDeleteImage = (imageId: number) => {
   return axiosWithAccessToken.delete(API_PATH.STORAGE, {
     params: {
       imageId: imageId,
@@ -24,4 +26,4 @@ const requestRemoveImage = (imageId: number) => {
   });
 };
 
-export { requestSaveImage, requestRemoveImage };
+export { requestSaveImage, requestDeleteImage };
