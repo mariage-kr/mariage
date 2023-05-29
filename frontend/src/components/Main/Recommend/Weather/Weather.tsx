@@ -62,10 +62,10 @@ function Weather() {
         {weatherData && (
           <>
             {getWeatherComponent(weatherData.weather)}
-            <div>
+            <S.TextWrap>
               <S.Temperature>{weatherData.temp} °</S.Temperature>
               <S.Name>{weatherData.name} </S.Name>
-            </div>
+            </S.TextWrap>
           </>
         )}
       </S.WeatherWrap>
