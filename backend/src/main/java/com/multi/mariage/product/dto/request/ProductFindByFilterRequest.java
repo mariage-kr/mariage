@@ -23,10 +23,12 @@ public class ProductFindByFilterRequest {
     private int maxRate;
     private int minLevel;
     private int maxLevel;
+    @Nullable
+    private String search;
 
     @Builder
     public ProductFindByFilterRequest(DrinkUpperCategory upperCategory, DrinkLowerCategory lowerCategory, int minRate
-            , int maxRate, int minLevel, int maxLevel, String sort, int pageSize, int pageNumber) {
+            , int maxRate, int minLevel, int maxLevel, String sort, int pageSize, int pageNumber, String search) {
         this.pageSize = pageSize;
         this.pageNumber = pageNumber;
         this.upperCategory = upperCategory;
@@ -36,5 +38,6 @@ public class ProductFindByFilterRequest {
         this.minLevel = minLevel;
         this.maxLevel = maxLevel;
         this.sort = sort;
+        this.search = search;
     }
 }

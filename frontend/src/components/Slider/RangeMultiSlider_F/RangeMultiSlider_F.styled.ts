@@ -13,6 +13,7 @@ const Container = styled.div`
   }
   @media (max-width: 1000px) {
     max-width: 300px;
+    width: 300px;
     margin: 20px auto;
   }
 `;
@@ -34,6 +35,7 @@ const Thumb = styled.input`
 
     @media (max-width: 1000px) {
       max-width: 300px;
+      width: 300px;
     }
   }
 
@@ -48,9 +50,9 @@ const Thumb = styled.input`
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
     cursor: pointer;
-    height: 1.8vh;
-    width: 0.7vw;
-    margin-top: 1.1vh;
+    height: 10px;
+    width: 10px;
+    margin-top: 6px;
     pointer-events: all;
     position: relative;
   }
@@ -61,9 +63,9 @@ const Thumb = styled.input`
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ffffff;
     cursor: pointer;
-    height: 1.8vh;
-    width: 0.7vw;
-    margin-top: 1.1vh;
+    height: 10px;
+    width: 10px;
+    margin-top: 6px;
     pointer-events: all;
     position: relative;
   }
