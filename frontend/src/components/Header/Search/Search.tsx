@@ -1,5 +1,6 @@
+import { ReactComponent as SearchImg } from '@/assets/svg/search.svg';
+
 import * as S from './Search.styled';
-import { ReactComponent as SearchImg } from '../../../assets/svg/search.svg';
 
 function Search() {
   return (

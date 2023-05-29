@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@SuppressWarnings("all")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public enum MemberFixture {
     MARI("마리", "mari1234@gmail.com", "qwer1234!@", "마리", LocalDate.of(1990, 1, 1)),

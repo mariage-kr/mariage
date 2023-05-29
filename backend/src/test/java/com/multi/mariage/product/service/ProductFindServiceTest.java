@@ -6,7 +6,10 @@ import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
+import com.multi.mariage.product.dto.response.ProductFilterResponse;
+import com.multi.mariage.product.dto.response.ProductInfoResponse;
+import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.*;
@@ -51,20 +54,6 @@ class ProductFindServiceTest extends ServiceTest {
         assertThatThrownBy(() -> productFindService.findById(-1L))
                 .isInstanceOf(ProductException.class)
                 .hasMessageContaining(ProductErrorCode.PRODUCT_IS_NOT_EXIST.getMessage());
-    }
-
-    @DisplayName("제품을 조회한다.")
-    @Test
-    void 제품을_조회한다() {
-        ProductFindResponse response = productFindService.findProducts();
-
-        assertThat(response).isNotNull();
-        List<ProductDetailVO> vo = response.getProduct();
-
-        for (ProductDetailVO actual : vo) {
-            assertThat(actual.getId()).isNotNull();
-            assertThat(actual.getName()).isNotEmpty();
-        }
     }
 
     @DisplayName("제품의 정보를 조회한다")
