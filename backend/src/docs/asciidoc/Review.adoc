@@ -118,3 +118,23 @@ include::{snippets}/Review/FindReviews/Member/Likes/http-response.adoc[]
 ==== Fields
 
 include::{snippets}/Review/FindReviews/Member/Likes/response-fields.adoc[]
+
+== [GET] 회원 프로필 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Review/FindReviews/Member/Profile/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Review/FindReviews/Member/Profile/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/FindReviews/Member/Profile/response-fields.adoc[]
