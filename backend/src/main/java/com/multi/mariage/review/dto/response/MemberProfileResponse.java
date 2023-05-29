@@ -1,6 +1,5 @@
 package com.multi.mariage.review.dto.response;
 
-import com.multi.mariage.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

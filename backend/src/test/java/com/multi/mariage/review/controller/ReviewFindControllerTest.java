@@ -188,4 +188,24 @@ class ReviewFindControllerTest extends ControllerTest {
                         ))
                 ).andExpect(status().isOk());
     }
+
+    @DisplayName("사용자의 프로필을 조회한다.")
+    @Test
+    void 사용자의_프로필을_조회한다() throws Exception {
+        mockMvc.perform(get("/api/review/member/" + member.getId()))
+                .andDo(print())
+                .andDo(
+                        document("Review/FindReviews/Member/Profile",
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("email").description("사용자 이메일"),
+                                        fieldWithPath("imagePath").description("프로필 이미지 경로"),
+                                        fieldWithPath("nickname").description("사용자 별칭"),
+                                        fieldWithPath("reviews").description("사용자가 작성한 리뷰 개수"),
+                                        fieldWithPath("likes").description("사용자가 좋아요한 리뷰 개수")
+                                )
+                        )
+                )
+                .andExpect(status().isOk());
+    }
 }
