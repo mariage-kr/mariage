@@ -54,8 +54,8 @@ public class ReviewFindController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/review/member/profile")
-    public ResponseEntity<MemberProfileResponse> findMemberProfile(@Param("memberId") Long memberId) {
+    @GetMapping("/review/member/{memberId}")
+    public ResponseEntity<MemberProfileResponse> findMemberProfile(@PathVariable("memberId") Long memberId) {
         MemberProfileResponse response = reviewFindService.findMemberProfile(memberId);
         return ResponseEntity.ok(response);
     }

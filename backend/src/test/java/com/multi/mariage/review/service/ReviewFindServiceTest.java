@@ -10,6 +10,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
+import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
@@ -205,5 +206,22 @@ class ReviewFindServiceTest extends ServiceTest {
 
         assertEquals("참이슬", productInfo.getProductInfo().getName());
         assertEquals("수리", reviewInfo.getReviewInfo().getMember().getNickname());
+    }
+
+    @DisplayName("사용자의 프로필을 조회한다.")
+    @Test
+    void 사용자의_프로필을_조회한다() {
+        Member member2 = signup(MemberFixture.SURI);
+        Long imageId = saveImage(ImageFixture.JPEG_IMAGE3).getImageId();
+        ReviewSaveResponse review1 = saveReview(ReviewFixture.참이슬_과자, member2.getId(), product.getId(), imageId);
+        likeService.save(new AuthMember(member2.getId()), ReviewFixture.산토리위스키_치즈.toSaveLike(review1.getReviewId()));
+
+        MemberProfileResponse actual = reviewFindService.findMemberProfile(member2.getId());
+
+        assertThat(actual).isNotNull();
+        assertThat(actual.getEmail()).isEqualTo("suri2");
+        assertThat(actual.getNickname()).isEqualTo("수리");
+        assertThat(actual.getReviews()).isEqualTo(1);
+        assertThat(actual.getLikes()).isEqualTo(1);
     }
 }
