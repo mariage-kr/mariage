@@ -109,7 +109,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     private List<Long> getPagingReviewsByLikes(MemberReviewsPagingCond cond) {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
-                .join(like).on(review.eq(like.review))
+                .join(like)
+                .where(review.eq(like.review))
                 .where(like.member.id.eq(cond.getMemberId()))
                 .orderBy(like.review.id.desc())
                 .offset((long) (cond.getPageNumber() - 1) * cond.getPageSize())
