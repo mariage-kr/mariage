@@ -2,6 +2,7 @@ type ProductFIlterParam = {
   pageSize: number;
   pageNumber: number;
   sort: string;
+  querySearch: string | null;
   queryUpperCategory: string | null;
   queryLowerCategory: string | null;
   queryMinRate: string | null;

@@ -101,17 +101,6 @@ public class ProductFindService extends PagingUtil {
                 .build();
     }
 
-    private List<ProductDetailVO> getProductValues() {
-        List<Product> products = productRepository.findAll();
-
-        return products.stream()
-                .map(product -> {
-                    String imageUrl = imageService.getImageUrl(product.getImage().getName());
-                    return ProductDetailVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
-                })
-                .toList();
-    }
-
     private List<ProductFilterVO> getContentsByFilter(List<Product> products) {
         List<ProductFilterVO> contents = new LinkedList<>();
         for (Product product : products) {

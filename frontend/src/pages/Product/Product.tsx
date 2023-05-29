@@ -30,6 +30,7 @@ function Product() {
   const [loading, setLoading] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
+  const querySearch = queryParam.get('search');
   const queryUpperCategory = queryParam.get('upper');
   const queryLowerCategory = queryParam.get('lower');
   const queryMinRate = queryParam.get('minRate');
@@ -50,6 +51,7 @@ function Product() {
       pageSize: PAGING.PAGE_SIZE,
       pageNumber,
       sort,
+      querySearch,
       queryUpperCategory,
       queryLowerCategory,
       queryMinRate,

@@ -23,8 +23,9 @@ function Search() {
       return;
     }
     navigate(
-      `${BROWSER_PATH.DETAIL}?search=${search}minRate=${PARAM.RATE.MIN}&maxRate=${PARAM.RATE.MAX}&minLevel=${PARAM.LEVEL.MIN}&maxLevel=${PARAM.LEVEL.MAX}`,
+      `${BROWSER_PATH.PRODUCT}?search=${search}&minRate=${PARAM.RATE.MIN}&maxRate=${PARAM.RATE.MAX}&minLevel=${PARAM.LEVEL.MIN}&maxLevel=${PARAM.LEVEL.MAX}`,
     );
+    window.location.reload();
   };
 
   return (

@@ -122,7 +122,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
-                .where((betweenRangeRate(cond.getMinRate(), cond.getMaxRate())))
+                .where(betweenRangeRate(cond.getMinRate(), cond.getMaxRate()))
                 .where(hasSearch(cond.getSearch()))
                 .fetchFirst();
     }
@@ -144,7 +144,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     private BooleanExpression hasSearch(String search) {
-        return StringUtils.hasText(search) ? product.name.value.like(search) : null;
+        return StringUtils.hasText(search) ? product.name.value.contains(search) : null;
     }
 
     private OrderSpecifier<? extends Number> sortOption(String sort) {
