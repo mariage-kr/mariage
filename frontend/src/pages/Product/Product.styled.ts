@@ -22,10 +22,10 @@ const AniWrapper = styled.div`
 const Aside = styled.div`
   width: 20%;
   min-width: 300px;
-  margin: 0 20px;
+  margin: 0 20px 0 0;
 
   @media (max-width: 1200px) {
-    min-width: 200px;
+    min-width: 250px;
   }
 
   @media (max-width: 1000px) {

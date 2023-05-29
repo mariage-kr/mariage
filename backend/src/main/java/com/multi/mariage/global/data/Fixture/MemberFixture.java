@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public enum MemberFixture {
     MARI("마리", "mari1234@gmail.com", "qwer1234!@", "마리", LocalDate.of(1990, 1, 1)),
-    SURI("수리", "suri1234@gmail.com", "suri23!@", "수리", LocalDate.of(1991, 12, 31));
+    SURI("수리", "suri1234@gmail.com", "suri23!@", "수리", LocalDate.of(1991, 12,31));
 
     private String name;
     private String email;

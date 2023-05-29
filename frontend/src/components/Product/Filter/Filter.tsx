@@ -114,7 +114,7 @@ function Filter({ count }: FilterProps) {
                 ))}
             </S.Domestic>
             <S.Overseas>
-              <S.p>해외</S.p>
+              <S.p css={S.p2}>해외</S.p>
               {category
                 .filter(category => category.region === '해외')
                 .map((category: DrinkRegionCategoryType, index: number) => (
@@ -143,45 +143,47 @@ function Filter({ count }: FilterProps) {
           </S.UpperCategory>
           <S.LowerCategory>
             <S.CategoryTitle>하위 카테고리</S.CategoryTitle>
-            {category.map(
-              (category: DrinkRegionCategoryType, index: number) => (
-                <div key={index}>
-                  {category.categories
-                    .filter(
-                      (drinkUpperCategory: DrinkUpperCategoryType) =>
-                        drinkUpperCategory.value === selectUpperCategory,
-                    )
-                    .map(
-                      (
-                        upperCategory: DrinkUpperCategoryType,
-                        upperIndex: number,
-                      ) => (
-                        <div key={upperIndex}>
-                          {upperCategory.subCategories.map(
-                            (
-                              drinkLowerCategory: DrinkLowerCategoryType,
-                              lowerIndex: number,
-                            ) => (
-                              <S.Category
-                                valid={
-                                  drinkLowerCategory.value ===
-                                  selectLowerCategory
-                                }
-                                key={lowerIndex}
-                                onClick={() =>
-                                  handleLowerCategoryClick(drinkLowerCategory)
-                                }
-                              >
-                                {drinkLowerCategory.name}
-                              </S.Category>
-                            ),
-                          )}
-                        </div>
-                      ),
-                    )}
-                </div>
-              ),
-            )}
+            <S.LowerCategoryWrap>
+              {category.map(
+                (category: DrinkRegionCategoryType, index: number) => (
+                  <div key={index}>
+                    {category.categories
+                      .filter(
+                        (drinkUpperCategory: DrinkUpperCategoryType) =>
+                          drinkUpperCategory.value === selectUpperCategory,
+                      )
+                      .map(
+                        (
+                          upperCategory: DrinkUpperCategoryType,
+                          upperIndex: number,
+                        ) => (
+                          <div key={upperIndex}>
+                            {upperCategory.subCategories.map(
+                              (
+                                drinkLowerCategory: DrinkLowerCategoryType,
+                                lowerIndex: number,
+                              ) => (
+                                <S.Category
+                                  valid={
+                                    drinkLowerCategory.value ===
+                                    selectLowerCategory
+                                  }
+                                  key={lowerIndex}
+                                  onClick={() =>
+                                    handleLowerCategoryClick(drinkLowerCategory)
+                                  }
+                                >
+                                  {drinkLowerCategory.name}
+                                </S.Category>
+                              ),
+                            )}
+                          </div>
+                        ),
+                      )}
+                  </div>
+                ),
+              )}
+            </S.LowerCategoryWrap>
           </S.LowerCategory>
         </S.CategoryWrap>
         <S.RangeWrap>
@@ -213,8 +215,10 @@ function Filter({ count }: FilterProps) {
             />
           </S.ABV>
         </S.RangeWrap>
-        <S.FilterBtn onClick={findProductsByFilter}>필터적용</S.FilterBtn>
-        <S.FilterBtn onClick={resetFilter}>초기화</S.FilterBtn>
+        <S.BtnWrap>
+          <S.FilterBtn onClick={findProductsByFilter}>필터적용</S.FilterBtn>
+          <S.FilterBtn onClick={resetFilter}>초기화</S.FilterBtn>
+        </S.BtnWrap>
       </S.FilterWrap>
     </S.Container>
   );

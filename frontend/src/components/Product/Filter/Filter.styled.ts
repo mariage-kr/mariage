@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 type Props = {
   valid: boolean;
@@ -40,6 +41,7 @@ const FilterWrap = styled.div`
 `;
 
 const h4 = styled.h4`
+  margin: 0;
   @media (max-width: 1000px) {
     display: none;
   }
@@ -52,7 +54,11 @@ const CategoryWrap = styled.div`
 
 const CategoryTitle = styled.h4`
   width: 100%;
-  margin: 10px 0;
+  margin: 20px 0 10px;
+
+  @media (max-width: 1000px) {
+    margin: 0;
+  }
 `;
 
 const UpperCategory = styled.div`
@@ -65,7 +71,8 @@ const UpperCategory = styled.div`
 
 const Domestic = styled.div`
   @media (max-width: 1000px) {
-    width: 50%;
+    width: 45%;
+    margin-left: 2%;
   }
 `;
 const Overseas = styled.div`
@@ -75,17 +82,34 @@ const Overseas = styled.div`
 `;
 
 const p = styled.p`
+  margin: 0 0 10px;
+  font-size: 1rem;
+
   @media (max-width: 1000px) {
-    margin: 10px 0;
+    margin: 10px 0 0;
   }
 `;
 
-const LowerCategory = styled.div``;
+const p2 = css`
+  margin-top: 10px;
+`;
+
+const LowerCategory = styled.div`
+  @media (max-width: 1000px) {
+    margin-top: 30px;
+  }
+`;
+
+const LowerCategoryWrap = styled.div`
+  @media (max-width: 1000px) {
+    margin-left: 2%;
+  }
+`;
 
 const Category = styled.button<Props>`
   width: auto;
-  margin: 0 5px 10px 0;
-  padding: 5px 10px;
+  margin: 0 7px 10px 0;
+  padding: 5px 10px 6px;
   border: 2px solid #9c94d0;
   border-radius: 30px;
   background-color: ${props => (props.valid ? '#9c94d0' : '#fff')};
@@ -94,6 +118,10 @@ const Category = styled.button<Props>`
   &:hover {
     background-color: #9c94d0;
     color: #fff;
+  }
+
+  @media (max-width: 1000px) {
+    margin: 10px 7px 0 0;
   }
 `;
 
@@ -110,15 +138,17 @@ const RangeWrap = styled.div`
 
 const Star = styled.div`
   margin: 20px 0;
+  font-size: 1rem;
 
   @media (max-width: 1000px) {
     width: 50%;
-    margin: 0 10px;
+    margin: 0 10px 0 0;
     padding: 20px 0;
   }
 `;
 const ABV = styled.div`
   margin: 50px 0;
+  font-size: 1rem;
 
   @media (max-width: 1000px) {
     width: 50%;
@@ -133,14 +163,24 @@ const SlideStyle = styled.div`
   border: 0;
 `;
 
+const BtnWrap = styled.div`
+  width: 100%;
+  padding-top: 20px;
+
+  @media (max-width: 1000px) {
+    margin: 0 auto 10px;
+    text-align: center;
+    }
+`;
+
 const FilterBtn = styled.button`
   width: 100px;
-  padding: 5px 10px;
+  margin-right: 15px;
+  padding: 5px 10px 6px;
   border: 2px solid #9c94d0;
   border-radius: 10px;
   background: #fff;
   font-size: 1rem;
-
   cursor: pointer;
 
   &:hover {
@@ -148,9 +188,15 @@ const FilterBtn = styled.button`
     color: #fff;
   }
 
+  @media (max-width: 1200px) {
+    width: 90px;
+    margin-right: 7px;
+    padding: 5px 7px 6px;
+  }
+
   @media (max-width: 1000px) {
-    display: block;
-    margin: 0 auto;
+    width: 200px;
+    margin: 0 20px;
     padding: 10px 0;
     font-weight: bold;
 
@@ -173,11 +219,14 @@ export {
   Domestic,
   Overseas,
   p,
+  p2,
   LowerCategory,
+  LowerCategoryWrap,
   Category,
   RangeWrap,
   Star,
   ABV,
   SlideStyle,
+  BtnWrap,
   FilterBtn,
 };

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 const Container = styled.div`
   position: relative;
@@ -32,31 +33,33 @@ const Container = styled.div`
 `;
 
 const Image = styled.div`
-  width: 13%;
-  margin: 0 20px;
+  width: 180px;
+  margin: 0 0 30px 30px;
 
   @media (max-width: 1200px) {
     width: 40%;
-    margin: 0;
   }
 `;
 
 const Img = styled.img`
-  width: 100%;
+  width: 70%;
+  height: 70%;
   min-width: 90px;
+  transform: scale(1.3);
 
   @media (max-width: 1200px) {
-    width: 75%;
     min-width: 170px;
+    transform: scale(1.1);
   }
 `;
 
 const Content = styled.div`
   width: 60%;
-  padding: 20px 0 0 40px;
+  margin: 30px 0 0;
+  padding: 0;
 
   @media (max-width: 1200px) {
-    width: 50%;
+    width: 55%;
     padding: 60px 0 0;
     margin: 80px 0 0;
   }
@@ -64,15 +67,17 @@ const Content = styled.div`
 
 const CountryWrap = styled.div`
   display: flex;
-  width: 30%;
   align-items: center;
+  margin: 10px 0;
+  font-size: 1rem;
 `;
 
-const FlagImg = styled.img`
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ddd;
-  border-radius: 50%;
+const CountryImgWrapper = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 10px #9c94d044;
+  object-fit: cover;
 `;
 
 const Country = styled.p`
@@ -92,10 +97,15 @@ const ABV = styled.span`
 const ABVSlide = styled.input`
   width: 80%;
   accent-color: #bb2649;
+
+  @media (max-width: 1500px) {
+    width: 90%;
+  }
 `;
 
 const p = styled.p`
-  margin: 10px 0;
+  margin: 20px 0 5px;
+  font-size: 1rem;
 
   @media (max-width: 1200px) {
     margin: 10px 0 3px;
@@ -105,24 +115,41 @@ const p = styled.p`
 const FoodWrap = styled.ul`
   display: flex;
   padding: 0;
+  margin: 20px 0 0;
 
-  @media (max-width: 1200px) {
-    margin: 10px 0;
+  @media (max-width: 1300px) {
+    margin: 10px 0 0;
   }
 `;
 
 const Food = styled.li`
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: auto;
   list-style: none;
+  text-align: center;
+  margin: 0;
+
+  @media (max-width: 1300px) {
+    width: 90px;
+  }
 `;
 
-const FoodImg = styled.img`
-  width: 30px;
+const FoodImg = styled.div`
+  width: 90px;
+  margin: 0 10px;
+
+  @media (max-width: 1300px) {
+    width: 70px;
+  }
 `;
 
 const FoodName = styled.p`
-  margin: 5px 0;
+  margin: 0;
+  font-size: 1rem;
+
+  @media (max-width: 1300px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const StarWrap = styled.div`
@@ -168,14 +195,7 @@ const Review = styled.p`
   font-size: 0.9rem;
 `;
 
-const CountryImgWrapper = styled.div`
-  width: 40px;
-  height: 40px;
 
-  border-radius: 100%;
-  box-shadow: 0px 0px 10px #9c94d044;
-  object-fit: cover;
-`;
 
 export {
   Container,

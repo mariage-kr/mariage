@@ -43,14 +43,16 @@ function ProductCard({
           <S.Country>{country.country}</S.Country>
         </S.CountryWrap>
         <S.p>
-          알코올 도수<S.ABV> {level}</S.ABV>%
+          알코올 도수&nbsp;&nbsp;&nbsp;<S.ABV>{level}</S.ABV>%
         </S.p>
         <S.ABVSlide type="range" value={level} />
         <S.FoodWrap>
           {hasFood() ? (
             foods.map((food: ProductFoodType) => (
               <S.Food key={food.id}>
-                <FoodCategoryImg id={food.id} />
+                <S.FoodImg>
+                  <FoodCategoryImg id={food.id} />
+                </S.FoodImg>
                 <S.FoodName>{food.name}</S.FoodName>
               </S.Food>
             ))
