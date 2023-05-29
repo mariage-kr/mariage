@@ -15,6 +15,7 @@ import { useProductCategory } from '@/hooks/useProductCategory';
 import * as S from './Filter.styled';
 
 type FilterProps = {
+  search: string | null;
   count: number;
 };
 
@@ -23,7 +24,7 @@ type Option = {
   level: Range;
 };
 
-function Filter({ count }: FilterProps) {
+function Filter({ search, count }: FilterProps) {
   const navigate = useNavigate();
 
   const { value: category } = useProductCategory();
@@ -66,9 +67,17 @@ function Filter({ count }: FilterProps) {
   };
 
   const findProductsByFilter = () => {
-    navigate(
-      `${BROWSER_PATH.PRODUCT}?upper=${selectUpperCategory}&lower=${selectLowerCategory}&minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`,
-    );
+    let query = `minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`;
+    if (selectUpperCategory !== null) {
+      query += `&upper=${selectUpperCategory}`;
+    }
+    if (selectLowerCategory !== null) {
+      query += `&lower=${selectLowerCategory}`;
+    }
+    if (search !== null) {
+      query += `&search=${search}`;
+    }
+    navigate(`${BROWSER_PATH.PRODUCT}?${query}`);
     window.location.reload();
   };
 

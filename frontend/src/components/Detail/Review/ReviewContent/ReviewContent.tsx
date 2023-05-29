@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 
 import { ReviewType } from '@/@types/review';
-import { requestAddLike, requestRemoveLike } from '@/apis/request/like';
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 import LikeButton from '@/components/Button/Like/Like';

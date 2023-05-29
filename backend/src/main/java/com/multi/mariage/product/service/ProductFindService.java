@@ -8,7 +8,10 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
+import com.multi.mariage.product.dto.response.ProductFilterResponse;
+import com.multi.mariage.product.dto.response.ProductInfoResponse;
+import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.*;
@@ -37,15 +40,6 @@ public class ProductFindService extends PagingUtil {
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
-    }
-
-    public ProductFindResponse findProducts() {
-        List<ProductDetailVO> productValues = getProductValues();
-
-        return ProductFindResponse.builder()
-                .product(productValues)
-                .length(productValues.size())
-                .build();
     }
 
     public List<ProductMainCardResponse> findWeather(int size) {
@@ -105,17 +99,6 @@ public class ProductFindService extends PagingUtil {
                 .isFirstPage(isFirstPage(cond.getPageNumber()))
                 .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
                 .build();
-    }
-
-    private List<ProductDetailVO> getProductValues() {
-        List<Product> products = productRepository.findAll();
-
-        return products.stream()
-                .map(product -> {
-                    String imageUrl = imageService.getImageUrl(product.getImage().getName());
-                    return ProductDetailVO.from(product, product.getUpperCategory(), product.getLowerCategory(), product.getCountry(), imageUrl);
-                })
-                .toList();
     }
 
     private List<ProductFilterVO> getContentsByFilter(List<Product> products) {

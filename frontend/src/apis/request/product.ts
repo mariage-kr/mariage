@@ -59,6 +59,7 @@ const requestProducts = ({
   pageSize,
   pageNumber,
   sort,
+  querySearch,
   queryUpperCategory,
   queryLowerCategory,
   queryMinRate,
@@ -70,16 +71,19 @@ const requestProducts = ({
     queryUpperCategory !== 'null' ? queryUpperCategory : null;
   const lowerCategory: string | null =
     queryLowerCategory !== 'null' ? queryLowerCategory : null;
+  const search: string | null = querySearch != 'null' ? querySearch : null;
   const minRate: number = Number.parseInt(queryMinRate!);
   const maxRate: number = Number.parseInt(queryMaxRate!);
   const minLevel: number = Number.parseInt(queryMinLevel!);
   const maxLevel: number = Number.parseInt(queryMaxLevel!);
+
   return axios
     .get<PagingType<ProductsType>>(API_PATH.PRODUCT.FILTER, {
       params: {
         pageNumber,
         pageSize,
         sort,
+        search,
         upperCategory,
         lowerCategory,
         minRate,

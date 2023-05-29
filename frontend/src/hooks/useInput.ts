@@ -23,7 +23,17 @@ function useInput<T>(initialState: T) {
     setValue(data);
   };
 
-  return { value, setValue: changeValue, resetValue, defaultData };
+  const changeSetValue = (search: string) => {
+    setValue(search);
+  };
+
+  return {
+    value,
+    setValue: changeValue,
+    resetValue,
+    defaultData,
+    changeSetValue,
+  };
 }
 
 export default useInput;

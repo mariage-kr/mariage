@@ -6,7 +6,10 @@ import com.multi.mariage.common.fixture.*;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.*;
+import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
+import com.multi.mariage.product.dto.response.ProductFilterResponse;
+import com.multi.mariage.product.dto.response.ProductInfoResponse;
+import com.multi.mariage.product.dto.response.ProductMainCardResponse;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.*;
@@ -51,20 +54,6 @@ class ProductFindServiceTest extends ServiceTest {
         assertThatThrownBy(() -> productFindService.findById(-1L))
                 .isInstanceOf(ProductException.class)
                 .hasMessageContaining(ProductErrorCode.PRODUCT_IS_NOT_EXIST.getMessage());
-    }
-
-    @DisplayName("제품을 조회한다.")
-    @Test
-    void 제품을_조회한다() {
-        ProductFindResponse response = productFindService.findProducts();
-
-        assertThat(response).isNotNull();
-        List<ProductDetailVO> vo = response.getProduct();
-
-        for (ProductDetailVO actual : vo) {
-            assertThat(actual.getId()).isNotNull();
-            assertThat(actual.getName()).isNotEmpty();
-        }
     }
 
     @DisplayName("제품의 정보를 조회한다")
@@ -186,6 +175,33 @@ class ProductFindServiceTest extends ServiceTest {
         ProductFilterResponse actual = productFindService.findByFilter(cond);
 
         assertThat(actual.getTotalCount()).isEqualTo(1);
+    }
+
+    @DisplayName("제품을 검색하여 조회한다.")
+    @Test
+    void 제품을_검색하여_조회한다() {
+        /* Given */
+        Image image = new Image(ProductFixture.산토리_위스키.getImageName());
+        Image 산토리_위스키_이미지 = storageRepository.save(image);
+        Product 산토리_위스키 = saveProduct(ProductFixture.산토리_위스키, 산토리_위스키_이미지.getId());
+
+        ProductFindByFilterRequest cond = ProductFindByFilterRequest.builder()
+                .search("산토리")
+                .pageNumber(1)
+                .pageSize(2)
+                .sort("count")
+                .minRate(0)
+                .maxRate(5)
+                .minLevel(30)
+                .maxLevel(70)
+                .build();
+
+        /* When */
+        ProductFilterResponse actual = productFindService.findByFilter(cond);
+
+        /* Then */
+        assertThat(actual.getContents()).hasSize(1);
+        assertThat(actual.getContents().get(0).getName()).isEqualTo(산토리_위스키.getName());
     }
 
     /* TODO: 2023/05/24 테이블 구조 변경으로 테스트 수정 고려 */

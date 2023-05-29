@@ -25,4 +25,8 @@ const Input = styled.input`
   }
 `;
 
-export { Container, Input };
+const Wrapper = styled.div`
+  cursor: pointer;
+`;
+
+export { Container, Input, Wrapper };

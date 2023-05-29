@@ -218,4 +218,28 @@ class ProductRepositoryQueryTest extends RepositoryTest {
         /* Then */
         assertThat(actual).isEqualTo(1);
     }
+
+    @DisplayName("필터링 조건과 검색 조건에 해당하는 제품을 조회한다.")
+    @Test
+    void 필터링_조건과_검색_조건_해당하는_제품을_조회한다() {
+        /* Given */
+        ProductFindByFilterRequest cond = ProductFindByFilterRequest.builder()
+                .search("산토리")
+                .pageNumber(1)
+                .pageSize(2)
+                .sort("count")
+                .minRate(0)
+                .maxRate(5)
+                .minLevel(30)
+                .maxLevel(70)
+                .build();
+
+        /* when - 산토리 위스키 */
+        List<Product> actual = productRepository.findProductsByFilter(cond);
+
+        /* Then */
+        assertThat(actual).hasSize(1);
+        actual.forEach(product -> assertThat(product.getName())
+                .containsOnlyOnce(산토리_위스키.getName()));
+    }
 }
