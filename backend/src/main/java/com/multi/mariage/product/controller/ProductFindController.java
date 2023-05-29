@@ -1,7 +1,6 @@
 package com.multi.mariage.product.controller;
 
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.request.ProductSearchCond;
 import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
 import com.multi.mariage.product.dto.response.ProductFilterResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
@@ -24,13 +23,6 @@ import java.util.List;
 @RestController
 public class ProductFindController {
     private final ProductFindService productFindService;
-
-    /* TODO: 2023/05/24 추후 조회 기능으로 수정 */
-    @GetMapping("/product/search")
-    public ResponseEntity<ProductFilterResponse> search(ProductSearchCond cond) {
-        ProductFilterResponse response = productFindService.search(cond);
-        return ResponseEntity.ok().build();
-    }
 
     /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/recommend/weather")

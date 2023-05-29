@@ -8,7 +8,6 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.request.ProductSearchCond;
 import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
 import com.multi.mariage.product.dto.response.ProductFilterResponse;
 import com.multi.mariage.product.dto.response.ProductInfoResponse;
@@ -41,10 +40,6 @@ public class ProductFindService extends PagingUtil {
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
-    }
-
-    public ProductFilterResponse search(ProductSearchCond cond) {
-        return null;
     }
 
     public List<ProductMainCardResponse> findWeather(int size) {

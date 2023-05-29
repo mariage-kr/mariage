@@ -17,6 +17,4 @@ public interface ProductRepositoryCustom {
     List<Product> findProductsByFilter(ProductFindByFilterRequest cond);
 
     Long countProductWithFilter(ProductFindByFilterRequest cond);
-
-    List<Product> findBySearch(String search);
 }
