@@ -6,6 +6,7 @@ import { PARAM } from '@/constants/rule';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './Search.styled';
+import { SORT } from '@/constants/option';
 
 function Search() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Search() {
       return;
     }
     navigate(
-      `${BROWSER_PATH.PRODUCT}?search=${search}&minRate=${PARAM.RATE.MIN}&maxRate=${PARAM.RATE.MAX}&minLevel=${PARAM.LEVEL.MIN}&maxLevel=${PARAM.LEVEL.MAX}`,
+      `${BROWSER_PATH.PRODUCT}?search=${search}&minRate=${PARAM.RATE.MIN}&maxRate=${PARAM.RATE.MAX}&minLevel=${PARAM.LEVEL.MIN}&maxLevel=${PARAM.LEVEL.MAX}&sort=${SORT.FILTER.RATE}`,
     );
     window.location.reload();
   };

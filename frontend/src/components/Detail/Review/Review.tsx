@@ -31,10 +31,8 @@ type PropsType = {
   rating: ReviewRatingType;
 };
 
-/* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review({ id, name, level, countryId, country, rating }: PropsType) {
   /* 제품 및 사용자 정보 */
-  // const { foodCategory, setFoodCategory } = useFoodCategory();
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
@@ -63,17 +61,17 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   }, [isOpenModal]);
 
   /* 리뷰 조회 */
-  const fetchReview = useCallback(async (userId: number | undefined) => {
+  const fetchReview = async (userId: number | undefined) => {
     if (!hasMore) {
       return;
     }
+    setLoading(true);
     let memberId: number | null = null;
-
     if (userId !== undefined) {
       memberId = userId;
     }
 
-    await getDetailReviews(productId, memberId, pageNumber, 'liked')
+    await getDetailReviews(productId, memberId, pageNumber, 'like')
       .then((fetchReviews: PagingType<ReviewType>) => {
         setReviews(prev => ({
           ...fetchReviews,
@@ -87,7 +85,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  };
 
   const lengthIsZero = (): boolean => {
     return reviews.totalCount === 0;
