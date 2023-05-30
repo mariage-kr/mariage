@@ -17,6 +17,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.product.service.ProductModifyService;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.review.service.ReviewFindService;
@@ -71,6 +72,8 @@ public abstract class ServiceTest {
 
     /* TODO: 2023/05/18 추후 FindService 로 수정 */
     @Autowired
+    protected ReviewHashtagRepository reviewHashtagRepository;
+    @Autowired
     protected ReviewRepository reviewRepository;
     @Autowired
     protected StorageRepository storageRepository;
@@ -97,14 +100,14 @@ public abstract class ServiceTest {
     }
 
     protected ReviewSaveResponse saveReview(ReviewFixture reviewFixture,
-                                            Long memberId,
-                                            Long productId,
-                                            Long foodImageId) {
+            Long memberId,
+            Long productId,
+            Long foodImageId) {
         return reviewModifyService.save(new AuthMember(memberId), reviewFixture.toSaveRequest(productId, foodImageId));
     }
 
     protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Food food, Image image,
-                                Weather weather) {
+            Weather weather) {
         Review review = reviewFixture.toReview(member, product, image, weather);
         review.setFoodCategory(food);
 
