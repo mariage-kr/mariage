@@ -203,7 +203,6 @@ export {
   Img,
   Content,
   CountryWrap,
-  FlagImg,
   Country,
   Name,
   ABV,
