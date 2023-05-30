@@ -20,17 +20,6 @@ const Container = styled.div`
   }
 `;
 
-const Count = styled.p`
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`;
-
-const Color = styled.span`
-  font-size: 1rem;
-  color: #bb2649;
-`;
-
 const FilterWrap = styled.div`
   margin-top: -25px;
   width: 100%;
@@ -212,8 +201,6 @@ const FilterBtn = styled.button`
 `;
 export {
   Container,
-  Count,
-  Color,
   FilterWrap,
   h4,
   CategoryWrap,

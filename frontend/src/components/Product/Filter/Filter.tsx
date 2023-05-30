@@ -87,15 +87,6 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
 
   return (
     <S.Container>
-      {/* {search ? (
-        <S.Count>
-          "{search}"의 검색 결과는 <S.Color>{count}개</S.Color> 입니다.
-        </S.Count>
-      ) : (
-        <S.Count>
-          조건에 맞는 상품 개수는 <S.Color>{count}개</S.Color> 입니다.
-        </S.Count>
-      )} */}
       <S.FilterWrap>
         <S.CategoryWrap>
           <S.UpperCategory>
