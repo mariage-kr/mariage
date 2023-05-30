@@ -11,6 +11,10 @@ const SORT = {
     RATE: 'rate',
     COUNT: 'count',
   },
+  DETAIL: {
+    LIKE: 'like',
+    NEWEST: 'newest',
+  },
 };
 
 const REGION = {

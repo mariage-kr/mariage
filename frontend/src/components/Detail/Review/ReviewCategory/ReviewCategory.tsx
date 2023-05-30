@@ -1,20 +1,23 @@
 import { useState } from 'react';
 
-import useSelect from '@/hooks/useSelect';
-import { SortType } from '@/@types/select';
-import { FoodCategoryResponseType, FoodCategoryType } from '@/@types/category';
-
 import reviewIcon from '@/assets/png/review.png';
 
-import * as S from './ReviewCategory.styled';
+import useSelect from '@/hooks/useSelect';
+import { SortType } from '@/@types/select';
+import { FoodCategoryType } from '@/@types/category';
+import useFoodCategory from '@/hooks/useFoodCategory';
 
-function ReviewCategory({ category }: FoodCategoryResponseType) {
+import * as S from './ReviewCategory.styled';
+import { SORT } from '@/constants/option';
+
+function ReviewCategory() {
+  const { foodCategory, setFoodCategory } = useFoodCategory();
   const { value: option, setValue: setOption } = useSelect('');
 
   // 정렬
   const [sort, setSort] = useState<SortType>({
-    sympathy: false,
-    newest: true,
+    like: true,
+    newest: false,
   });
 
   const changeSort = (key: string) => {
@@ -24,7 +27,7 @@ function ReviewCategory({ category }: FoodCategoryResponseType) {
           Object.entries(prev).map(([k]) => [k, k === key]),
         ),
       } as {
-        sympathy: boolean;
+        like: boolean;
         newest: boolean;
       };
     });
@@ -41,8 +44,8 @@ function ReviewCategory({ category }: FoodCategoryResponseType) {
           <S.FloatWrap>
             <label>
               <S.SelectBox onChange={setOption}>
-                {category &&
-                  category.map((category: FoodCategoryType) => {
+                {foodCategory &&
+                  foodCategory.category.map((category: FoodCategoryType) => {
                     return (
                       <S.Option key={category.id}>{category.name}</S.Option>
                     );
@@ -53,12 +56,15 @@ function ReviewCategory({ category }: FoodCategoryResponseType) {
           <S.FloatWrap>
             <S.Sort>
               <S.Button
-                sort={sort.sympathy}
-                onClick={() => changeSort('sympathy')}
+                sort={sort.like}
+                onClick={() => changeSort(SORT.DETAIL.LIKE)}
               >
                 공감순
               </S.Button>
-              <S.Button sort={sort.newest} onClick={() => changeSort('newest')}>
+              <S.Button
+                sort={sort.newest}
+                onClick={() => changeSort(SORT.DETAIL.NEWEST)}
+              >
                 최신순
               </S.Button>
             </S.Sort>
