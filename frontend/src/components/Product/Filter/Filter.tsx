@@ -13,9 +13,12 @@ import { BROWSER_PATH } from '@/constants/path';
 import { useProductCategory } from '@/hooks/useProductCategory';
 
 import * as S from './Filter.styled';
+import { REGION } from '@/constants/option';
 
 type FilterProps = {
   search: string | null;
+  upperCategory: string | null;
+  lowerCategory: string | null;
   count: number;
 };
 
@@ -24,16 +27,16 @@ type Option = {
   level: Range;
 };
 
-function Filter({ search, count }: FilterProps) {
+function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
   const navigate = useNavigate();
 
   const { value: category } = useProductCategory();
 
   const [selectUpperCategory, setSelectUpperCategory] = useState<string | null>(
-    null,
+    upperCategory,
   );
   const [selectLowerCategory, setSelectLowerCategory] = useState<string | null>(
-    null,
+    lowerCategory,
   );
 
   const [option, setOption] = useState<Option>({
@@ -104,7 +107,7 @@ function Filter({ search, count }: FilterProps) {
             <S.Domestic>
               <S.p>국내</S.p>
               {category
-                .filter(category => category.region === '국내')
+                .filter(category => category.region === REGION.LOCAL)
                 .map((category: DrinkRegionCategoryType, index: number) => (
                   <div key={index}>
                     {category.categories.map(
@@ -131,7 +134,7 @@ function Filter({ search, count }: FilterProps) {
             <S.Overseas>
               <S.p css={S.p2}>해외</S.p>
               {category
-                .filter(category => category.region === '해외')
+                .filter(category => category.region === REGION.FOREIGN)
                 .map((category: DrinkRegionCategoryType, index: number) => (
                   <div key={index}>
                     {category.categories.map(

@@ -80,7 +80,12 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
-        <Filter count={products.totalCount} search={querySearch} />
+        <Filter
+          count={products.totalCount}
+          upperCategory={queryUpperCategory}
+          lowerCategory={queryLowerCategory}
+          search={querySearch}
+        />
       </S.Aside>
       <S.Contents>
         <Option changeSort={changeSort} />
