@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type Select = {
+  select: boolean;
+};
+
 const Container = styled.div`
   position: absolute;
   top: 0;
@@ -14,40 +18,24 @@ const Container = styled.div`
   }
 `;
 
-const Btn = styled.button`
+const Btn = styled.button<Select>`
   position: relative;
   width: 70px;
-  padding-left: 10px;
-  font-size: 0.9rem;
+  padding-bottom: 5px;
+  font-size: 1rem;
   background-color: transparent;
   transition: all 0.15s;
+  color: ${prop => (prop.select ? '#bb2649' : '#000')};
+  font-weight: ${prop => (prop.select ? 'bold' : 'normal')};
+  
 
-  &:hover,
-  :focus {
-    font-weight: bold;
-    text-shadow: 1px 5px 10px #9c94d0;
-  }
-
-  &::before {
-    position: absolute;
-    content: '◎';
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 3px;
-    opacity: 0;
-  }
-
-  &:hover::before,
-  :focus::before {
-    opacity: 1;
-    color: #9c94d0;
+  &:hover {
+    color: #bb2649;
   }
 
   @media (max-width: 1000px) {
     width: 85px;
     padding-left: 10px;
-    font-size: 1rem;
   }
 `;
 
