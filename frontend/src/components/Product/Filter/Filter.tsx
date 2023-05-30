@@ -1,19 +1,20 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import RangeMultiSlider_F from '@/components/Slider/RangeMultiSlider_F/RangeMultiSlider_F';
-import { Range } from '@/@types/slider';
 
+import { Range } from '@/@types/slider';
 import {
   DrinkUpperCategoryType,
   DrinkRegionCategoryType,
   DrinkLowerCategoryType,
 } from '@/@types/category';
-import { useNavigate } from 'react-router-dom';
 import { BROWSER_PATH } from '@/constants/path';
+import { PARAM } from '@/constants/rule';
+import { REGION } from '@/constants/option';
 import { useProductCategory } from '@/hooks/useProductCategory';
 
 import * as S from './Filter.styled';
-import { REGION } from '@/constants/option';
 
 type FilterProps = {
   search: string | null;
@@ -41,12 +42,12 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
 
   const [option, setOption] = useState<Option>({
     rate: {
-      max: 50,
-      min: 0,
+      max: PARAM.RATE.MAX,
+      min: PARAM.RATE.MIN,
     },
     level: {
-      max: 70,
-      min: 0,
+      max: PARAM.LEVEL.MAX,
+      min: PARAM.LEVEL.MIN,
     },
   });
 
@@ -84,14 +85,9 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
     window.location.reload();
   };
 
-  const resetFilter = () => {
-    setSelectUpperCategory(null);
-    setSelectLowerCategory(null);
-  };
-
   return (
     <S.Container>
-      {search ? (
+      {/* {search ? (
         <S.Count>
           "{search}"의 검색 결과는 <S.Color>{count}개</S.Color> 입니다.
         </S.Count>
@@ -99,7 +95,7 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
         <S.Count>
           조건에 맞는 상품 개수는 <S.Color>{count}개</S.Color> 입니다.
         </S.Count>
-      )}
+      )} */}
       <S.FilterWrap>
         <S.CategoryWrap>
           <S.UpperCategory>
@@ -209,8 +205,8 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
           <S.Star>
             별점
             <RangeMultiSlider_F
-              min={0}
-              max={5}
+              min={PARAM.RATE.MIN}
+              max={PARAM.RATE.MAX}
               onChange={({ min, max }: { min: number; max: number }) =>
                 changeRateOption({
                   max: max,
@@ -222,8 +218,8 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
           <S.ABV>
             알코올 도수(%, ABV)
             <RangeMultiSlider_F
-              min={0}
-              max={70}
+              min={PARAM.LEVEL.MIN}
+              max={PARAM.LEVEL.MAX}
               onChange={({ min, max }: { min: number; max: number }) =>
                 changeLevelOption({
                   max: max,
@@ -235,7 +231,6 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
         </S.RangeWrap>
         <S.BtnWrap>
           <S.FilterBtn onClick={findProductsByFilter}>필터적용</S.FilterBtn>
-          <S.FilterBtn onClick={resetFilter}>초기화</S.FilterBtn>
         </S.BtnWrap>
       </S.FilterWrap>
     </S.Container>
