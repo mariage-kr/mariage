@@ -100,17 +100,37 @@ function Product() {
   return (
     <S.Container>
       <S.Aside>
-        <Filter count={products.totalCount} search={querySearch} />
+        <Filter
+          count={products.totalCount}
+          upperCategory={queryUpperCategory}
+          lowerCategory={queryLowerCategory}
+          search={querySearch}
+        />
       </S.Aside>
       <S.Contents>
-        <Option changeSort={changeSort} />
-        {products.totalCount === 0 ? (
-          <NoItems />
-        ) : (
-          products.contents.map((product: ProductsType) => {
-            return <ProductCard key={product.id} {...product} />;
-          })
-        )}
+        <S.ContentHeaderWrapper>
+          {querySearch ? (
+            <S.Count>
+              "{querySearch}"의 검색 결과는{' '}
+              <S.Color>{products.totalCount}개</S.Color> 입니다.
+            </S.Count>
+          ) : (
+            <S.Count>
+              조건에 맞는 상품 개수는 <S.Color>{products.totalCount}개</S.Color>{' '}
+              입니다.
+            </S.Count>
+          )}
+          <Option changeSort={changeSort} />
+        </S.ContentHeaderWrapper>
+        <S.ContentWrapper>
+          {products.totalCount === 0 ? (
+            <NoItems />
+          ) : (
+            products.contents.map((product: ProductsType) => {
+              return <ProductCard key={product.id} {...product} />;
+            })
+          )}
+        </S.ContentWrapper>
         {loading && (
           <S.AniWrapper>
             <DataLoading />

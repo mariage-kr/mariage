@@ -20,21 +20,9 @@ const Container = styled.div`
   }
 `;
 
-const Count = styled.p`
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`;
-
-const Color = styled.span`
-  font-size: 1rem;
-  color: #bb2649;
-`;
-
 const FilterWrap = styled.div`
+  margin-top: -25px;
   width: 100%;
-  margin: 30px 0;
-
   @media (max-width: 1000px) {
     margin: 0;
   }
@@ -164,13 +152,17 @@ const SlideStyle = styled.div`
 `;
 
 const BtnWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   padding-top: 20px;
 
   @media (max-width: 1000px) {
     margin: 0 auto 10px;
     text-align: center;
-    }
+  }
 `;
 
 const FilterBtn = styled.button`
@@ -209,8 +201,6 @@ const FilterBtn = styled.button`
 `;
 export {
   Container,
-  Count,
-  Color,
   FilterWrap,
   h4,
   CategoryWrap,

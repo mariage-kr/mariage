@@ -13,4 +13,9 @@ const SORT = {
   },
 };
 
-export { OPTION, SORT };
+const REGION = {
+  LOCAL: '국내',
+  FOREIGN: '해외',
+};
+
+export { OPTION, SORT, REGION };

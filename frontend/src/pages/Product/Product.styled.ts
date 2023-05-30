@@ -22,7 +22,6 @@ const AniWrapper = styled.div`
 const Aside = styled.div`
   width: 20%;
   min-width: 300px;
-  margin: 0 20px 0 0;
 
   @media (max-width: 1200px) {
     min-width: 250px;
@@ -44,4 +43,31 @@ const Contents = styled.div`
   }
 `;
 
-export { Container, AniWrapper, Aside, Contents };
+const Count = styled.p`
+  margin-top: 0;
+  font-size: 0.9rem;
+`;
+
+const Color = styled.span`
+  font-size: 0.9rem;
+  color: #bb2649;
+`;
+
+const ContentHeaderWrapper = styled.div`
+  display: flex;
+`;
+
+const ContentWrapper = styled.div`
+  margin-top: -20px;
+`;
+
+export {
+  Container,
+  AniWrapper,
+  Aside,
+  Contents,
+  Count,
+  Color,
+  ContentHeaderWrapper,
+  ContentWrapper,
+};

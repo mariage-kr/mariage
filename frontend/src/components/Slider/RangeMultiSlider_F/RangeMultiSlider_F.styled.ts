@@ -5,7 +5,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 290px;
   height: 3vh;
 
   @media (max-width: 1200px) {
@@ -25,7 +25,7 @@ const Thumb = styled.input`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 250px;
+    width: 290px;
     margin: 0;
     outline: none;
 
