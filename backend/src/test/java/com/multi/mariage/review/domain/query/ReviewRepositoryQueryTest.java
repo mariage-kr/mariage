@@ -24,6 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ReviewRepositoryQueryTest extends RepositoryTest {
     private Product product;
     private Member member;
+    private Review review1;
+    private Review review2;
 
     @BeforeEach
     void setUp() {
@@ -33,8 +35,8 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
         Food food2 = saveFood(ReviewFixture.참이슬_과자, product);
         Image image = saveImage(ImageFixture.JPEG_IMAGE);
         Weather weather = saveWeather(WeatherFixture.맑음_현재);
-        saveReview(ReviewFixture.참이슬_치킨, member, product, food1, image, weather);
-        saveReview(ReviewFixture.참이슬_과자, member, product, food2, image, weather);
+        review1 = saveReview(ReviewFixture.참이슬_치킨, member, product, food1, image, weather);
+        review2 = saveReview(ReviewFixture.참이슬_과자, member, product, food2, image, weather);
     }
 
     @DisplayName("제품 리뷰를 조회한다.")
@@ -79,7 +81,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .sort(Sort.NEWEST.name())
                 .build();
 
-        List<Review> actual = reviewRepository.findReviewsByMemberId(cond);
+        List<Review> actual = reviewRepository.findRatedReviewsByMemberId(cond);
 
         assertThat(actual).hasSize(size);
     }
@@ -87,7 +89,38 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
     @DisplayName("사용자가 작성한 리뷰 개수를 조회한다.")
     @Test
     void 사용자가_작성한_리뷰_개수를_조회한다() {
-        Long actual = reviewRepository.findReviewsCountByMemberId(member.getId());
+        Long actual = reviewRepository.findReviewsCountByRatings(member.getId());
+
+        assertThat(actual).isEqualTo(2);
+    }
+
+    @DisplayName("사용자가 좋아요한 리뷰를 조회한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void 사용자가_좋아요한_리뷰를_조회한다(int size) {
+
+        saveLike(member, review1);
+        saveLike(member, review2);
+
+        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
+                .memberId(member.getId())
+                .pageSize(size)
+                .pageNumber(1)
+                .sort(Sort.NEWEST.name())
+                .build();
+
+        List<Review> actual = reviewRepository.findLikedReviewsByMemberId(cond);
+
+        assertThat(actual).hasSize(size);
+    }
+
+    @DisplayName("사용자가 좋아요한 리뷰 개수를 조회한다.")
+    @Test
+    void 사용자가_좋아요한_리뷰_개수를_조회한다() {
+        saveLike(member, review1);
+        saveLike(member, review2);
+
+        Long actual = reviewRepository.findReviewsCountByLikes(member.getId());
 
         assertThat(actual).isEqualTo(2);
     }

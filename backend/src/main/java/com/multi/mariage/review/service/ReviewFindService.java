@@ -4,15 +4,19 @@ package com.multi.mariage.review.service;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
+import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.ReviewsPagingCond;
+import com.multi.mariage.review.dto.request.ReviewFindRequest;
+import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
@@ -28,6 +32,7 @@ import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,8 +49,10 @@ import java.util.Objects;
 @Service
 public class ReviewFindService extends PagingUtil {
     private final ReviewRepository reviewRepository;
-    private final ProductRepository productRepository;
+    private final ProductFindService productFindService;
+    private final MemberFindService memberFindService;
     private final ImageService imageService;
+    private final StorageService storageService;
 
     /* TODO: 2023/05/24 추후 코드 리팩토링 */
     public Review findById(Long id) {
@@ -79,30 +86,68 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    public MemberReviewInfoResponse findProductsAndReviewsByMemberId(Long memberId, int pageNumber, int pageSize, String sort) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+    public MemberReviewInfoResponse findProductsAndRatedReviewsByMemberId(Long memberId, ReviewFindRequest cond) {   // 사용자가 쓴 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
 
-        MemberReviewsPagingCond cond = MemberReviewsPagingCond.builder()
+        MemberReviewsPagingCond pageCond = MemberReviewsPagingCond.builder()
                 .memberId(memberId)
-                .pageSize(pageSize)
-                .pageNumber(pageNumber)
-                .sort(sort)
+                .pageSize(cond.getPageSize())
+                .pageNumber(cond.getPageNumber())
+                .sort(cond.getSort())
                 .build();
 
-        List<Review> reviews = reviewRepository.findReviewsByMemberId(cond);
-        Long totalCount = reviewRepository.findReviewsCountByMemberId(memberId);
+        List<Review> reviews = reviewRepository.findRatedReviewsByMemberId(pageCond);
+        Long totalCount = reviewRepository.findReviewsCountByRatings(memberId);
 
         List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
-        int totalPages = getTotalPages(pageSize, totalCount);
+        int totalPages = getTotalPages(cond.getPageSize(), totalCount);
 
         return MemberReviewInfoResponse.builder()
                 .contents(productAndReviewList)
-                .pageSize(pageSize)
+                .pageSize(cond.getPageSize())
                 .totalCount(totalCount)
-                .pageNumber(pageNumber)
+                .pageNumber(cond.getPageNumber())
                 .totalPages(totalPages)
-                .isFirstPage(isFirstPage(pageNumber))
-                .isLastPage(isLastPage(pageNumber, totalPages))
+                .isFirstPage(isFirstPage(cond.getPageNumber()))
+                .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
                 .build();
+    }
+
+    public MemberReviewInfoResponse findProductsAndLikedReviewsByMemberId(Long memberId, ReviewFindRequest cond) {   // 사용자가 좋아요한 리뷰를 모두 찾으면서 각각의 리뷰에 대한 제품 조회 가능
+
+        MemberReviewsPagingCond pageCond = MemberReviewsPagingCond.builder()
+                .memberId(memberId)
+                .pageSize(cond.getPageSize())
+                .pageNumber(cond.getPageNumber())
+                .sort(cond.getSort())
+                .build();
+
+        List<Review> reviews = reviewRepository.findLikedReviewsByMemberId(pageCond);
+        Long totalCount = reviewRepository.findReviewsCountByLikes(memberId);
+
+        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
+        int totalPages = getTotalPages(cond.getPageSize(), totalCount);
+
+        return MemberReviewInfoResponse.builder()
+                .contents(productAndReviewList)
+                .pageSize(cond.getPageSize())
+                .totalCount(totalCount)
+                .pageNumber(cond.getPageNumber())
+                .totalPages(totalPages)
+                .isFirstPage(isFirstPage(cond.getPageNumber()))
+                .isLastPage(isLastPage(cond.getPageNumber(), totalPages))
+                .build();
+    }
+
+    public MemberProfileResponse findMemberProfile(Long memberId) {
+        Member member = memberFindService.findById(memberId);
+
+        String email = member.getEmail().substring(0, 5);
+        String imageName = member.getImage() != null ? member.getImage().getName() : "profile.png";
+        String filePath = storageService.getFilePath(imageName);
+        Long reviews = reviewRepository.findReviewsCountByRatings(memberId);
+        Long likes = reviewRepository.findReviewsCountByLikes(memberId);
+
+        return MemberProfileResponse.from(email, filePath, member.getNickname(), reviews, likes);
     }
 
     private List<ProductReviewVO> getProductReviewList(List<Review> reviews, Long memberId) {
@@ -198,8 +243,7 @@ public class ReviewFindService extends PagingUtil {
     }
 
     public ProductInfoVO getProductInfoFrom(Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+        Product product = productFindService.findById(productId);
 
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 

@@ -73,11 +73,10 @@ include::{snippets}/Review/FindReviews/response-fields.adoc[]
 
 '''
 
-include::{snippets}/Review/FindReviews/Member/Write/http-request.adoc[]
+include::{snippets}/Review/FindReviews/Member/Ratings/http-request.adoc[]
 
 ==== Param
 
-- `memberId` : 사용자의 식별 번호
 - `pageSize` : 페이지의 크기
 - `pageNumber` : 페이지 번호
 - `sort` : 정렬 옵션
@@ -86,8 +85,54 @@ include::{snippets}/Review/FindReviews/Member/Write/http-request.adoc[]
 
 '''
 
-include::{snippets}/Review/FindReviews/Member/Write/http-response.adoc[]
+include::{snippets}/Review/FindReviews/Member/Ratings/http-response.adoc[]
 
 ==== Fields
 
-include::{snippets}/Review/FindReviews/Member/Write/response-fields.adoc[]
+include::{snippets}/Review/FindReviews/Member/Ratings/response-fields.adoc[]
+
+== [GET] 회원이 좋아요한 리뷰 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Review/FindReviews/Member/Likes/http-request.adoc[]
+
+==== Param
+
+- `pageSize` : 페이지의 크기
+- `pageNumber` : 페이지 번호
+- `sort` : 정렬 옵션
+
+=== Response
+
+'''
+
+include::{snippets}/Review/FindReviews/Member/Likes/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/FindReviews/Member/Likes/response-fields.adoc[]
+
+== [GET] 회원 프로필 조회
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Review/FindReviews/Member/Profile/http-request.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Review/FindReviews/Member/Profile/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/FindReviews/Member/Profile/response-fields.adoc[]

@@ -12,7 +12,11 @@ public interface ReviewRepositoryCustom {
 
     Long findReviewsCountByProductId(Long productId);
 
-    List<Review> findReviewsByMemberId(MemberReviewsPagingCond cond);
+    List<Review> findRatedReviewsByMemberId(MemberReviewsPagingCond cond);
 
-    Long findReviewsCountByMemberId(Long memberId);
+    Long findReviewsCountByRatings(Long memberId);
+
+    List<Review> findLikedReviewsByMemberId(MemberReviewsPagingCond cond);
+
+    Long findReviewsCountByLikes(Long memberId);
 }

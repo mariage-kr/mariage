@@ -1,5 +1,7 @@
 package com.multi.mariage.review.controller;
 
+import com.multi.mariage.review.dto.request.ReviewFindRequest;
+import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.service.ReviewFindService;
@@ -29,13 +31,24 @@ public class ReviewFindController {
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/review/member/write")
-    public ResponseEntity<MemberReviewInfoResponse> findProductAndReviewsByMemberId(@Param("memberId") Long memberId,
-                                                                                    @Param("pageNumber") int pageNumber,
-                                                                                    @Param("pageSize") int pageSize,
-                                                                                    @Param("sort") @Nullable String sort) {
-        MemberReviewInfoResponse response = reviewFindService.findProductsAndReviewsByMemberId(memberId,
-                pageNumber, pageSize, sort);
+
+    @GetMapping("/review/{memberId}/ratings")
+    public ResponseEntity<MemberReviewInfoResponse> findProductsAndRatedReviewsByMemberId(@PathVariable("memberId") Long memberId,
+                                                                                          ReviewFindRequest cond) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndRatedReviewsByMemberId(memberId, cond);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/review/{memberId}/likes")
+    public ResponseEntity<MemberReviewInfoResponse> findProductsAndLikedReviewsByMemberId(@PathVariable("memberId") Long memberId,
+                                                                                          ReviewFindRequest cond) {
+        MemberReviewInfoResponse response = reviewFindService.findProductsAndLikedReviewsByMemberId(memberId, cond);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/review/{memberId}")
+    public ResponseEntity<MemberProfileResponse> findMemberProfile(@PathVariable("memberId") Long memberId) {
+        MemberProfileResponse response = reviewFindService.findMemberProfile(memberId);
         return ResponseEntity.ok(response);
     }
 }
