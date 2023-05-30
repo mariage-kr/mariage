@@ -375,7 +375,7 @@ public enum ProductFixture {
             Country.KOREA,
             DrinkUpperCategory.LOCAL_SOJU,
             DrinkLowerCategory.LUXURIOUS_SOJU,
-            "hone"),
+            "hone.png"),
     원소주("원소주",
             22.0,
             "힙합/R&B 뮤지션 겸 사업가 박재범(Jay Park)이 출시한 원소주, 일명 \'박재범 소주\'입니다.\n" +
@@ -429,7 +429,7 @@ public enum ProductFixture {
             Country.KOREA,
             DrinkUpperCategory.LOCAL_SOJU,
             DrinkLowerCategory.LUXURIOUS_SOJU,
-            "gaebbakchiju"),
+            "gaebbakchiju.png"),
     로아_19_레드("로아 19 레드",
             19.0,
             "강렬한 사과에 깨끗한 증류주의 특징을 더해 상큼한 맛으로 표현한 증류식 과일 소주입니다.",
@@ -2243,7 +2243,7 @@ public enum ProductFixture {
             "\'Astier de ViLLate\'가 선택한 와인 클래식한 디자인의 백자로 아는 사람만 아는 아스티에 드 빌라뜨가 한국에 매장을 내며 선택한 유일한 와인입니다.",
             Country.FRANCE,
             DrinkUpperCategory.FOREIGN_WINE,
-            DrinkLowerCategory.ROSE_WINE, "사무엘 델라퐁 르 쁘띠 플러스 로제"),
+            DrinkLowerCategory.ROSE_WINE, "montfrinlatour.png"),
     디그니타_까바_로제("디그니타 까바 로제",
             11.5,
             "미세하고 지속적인 버블과 신선하고 깨끗한 야생 과일의 아로마가 감싸며 생기있고 균형잡힌 피니쉬가 특징이고, 약 11개월 간 숙성한 와인입니다." +
@@ -2420,7 +2420,7 @@ public enum ProductFixture {
                     " 이 와인은 바디감이 매우 가볍고 혀 떫기는 매우 약한 편이며, 당도가 매우 낮고 산미가 약합니다.",
             Country.SPAIN,
             DrinkUpperCategory.FOREIGN_WINE,
-            DrinkLowerCategory.SPARKLING_WINE, "LouisDeVernierSemiSweet"),
+            DrinkLowerCategory.SPARKLING_WINE, "LouisDeVernierSemiSweet.png"),
     루이_드_베르니에_까바_브륏("루이 드 베르니에 까바 브륏",
             11.5,
             "풍성한 버블,섬세하고 라운드한 구조감이 특징인 와인입니다." +
