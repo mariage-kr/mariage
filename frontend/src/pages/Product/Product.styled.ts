@@ -61,6 +61,10 @@ const ContentWrapper = styled.div`
   margin-top: -20px;
 `;
 
+const Target = styled.div`
+  height: 30px;
+`;
+
 export {
   Container,
   AniWrapper,
@@ -70,4 +74,5 @@ export {
   Color,
   ContentHeaderWrapper,
   ContentWrapper,
+  Target,
 };

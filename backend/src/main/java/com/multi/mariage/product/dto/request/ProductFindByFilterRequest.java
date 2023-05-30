@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ProductFindByFilterRequest {
     private int pageSize;
     private int pageNumber;
-    @Nullable
+//    @Nullable
     private String sort;
     @Nullable
     private DrinkUpperCategory upperCategory;
