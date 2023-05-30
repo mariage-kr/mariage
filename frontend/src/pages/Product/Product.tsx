@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
@@ -29,6 +29,7 @@ function Product() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const querySearch = queryParam.get('search');
   const queryUpperCategory = queryParam.get('upper');
@@ -46,6 +47,7 @@ function Product() {
 
   /* TODO: 추후 무한스크롤로 적용 */
   const fetchProducts = () => {
+    if (hasMore === false) {return}
     setLoading(true);
     requestProducts({
       pageSize: PAGING.PAGE_SIZE,
@@ -59,23 +61,41 @@ function Product() {
       queryMinLevel,
       queryMaxLevel,
     })
-      .then(data => {
-        setProducts(data);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    .then(data => {
+      setProducts(prevProducts => ({
+        ...data,
+        contents: [...prevProducts.contents, ...data.contents],
+      }));
+      setHasMore(data.lastPage === false);
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
   };
 
-  /* 페이지 진입 시 */
-  useEffect(() => {
-    fetchProducts();
+  const infiniteScroll = useCallback(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      setPageNumber(prevPageNumber => prevPageNumber + 1);
+    }
   }, []);
+
+
+  useEffect(() => {
+    window.addEventListener('scroll', infiniteScroll);
+    return () => window.removeEventListener('scroll', infiniteScroll);
+  }, [infiniteScroll]);
+
 
   /* 정렬 옵션 수정 시 */
   useEffect(() => {
     fetchProducts();
-  }, [sort]);
+  }, [sort, pageNumber]);
 
   return (
     <S.Container>
