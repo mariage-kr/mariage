@@ -10,6 +10,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ import static com.multi.mariage.review.domain.QReview.review;
 import static com.multi.mariage.storage.domain.QImage.image;
 import static com.multi.mariage.weather.domain.QWeather.weather;
 
+@Slf4j
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private static final String WEEK = "week";
     private static final String MONTH = "month";

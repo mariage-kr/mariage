@@ -11,7 +11,7 @@ import {
 } from '@/@types/category';
 import { BROWSER_PATH } from '@/constants/path';
 import { PARAM } from '@/constants/rule';
-import { REGION } from '@/constants/option';
+import { REGION, SORT } from '@/constants/option';
 import { useProductCategory } from '@/hooks/useProductCategory';
 
 import * as S from './Filter.styled';
@@ -52,6 +52,11 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
   });
 
   const handleUpperCategoryClick = (category: string | null) => {
+    if (selectUpperCategory === category) {
+      setSelectUpperCategory(null);
+      setSelectLowerCategory(null);
+      return;
+    }
     setSelectUpperCategory(category);
     setSelectLowerCategory(null);
   };
@@ -59,6 +64,10 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
   const handleLowerCategoryClick = (
     lowerCategory: DrinkLowerCategoryType,
   ): void => {
+    if (selectLowerCategory === lowerCategory.value) {
+      setSelectLowerCategory(null);
+      return;
+    }
     setSelectLowerCategory(lowerCategory.value);
   };
 
@@ -71,7 +80,7 @@ function Filter({ search, upperCategory, lowerCategory, count }: FilterProps) {
   };
 
   const findProductsByFilter = () => {
-    let query = `minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}`;
+    let query = `minRate=${option.rate.min}&maxRate=${option.rate.max}&minLevel=${option.level.min}&maxLevel=${option.level.max}&sort=${SORT.FILTER.RATE}`;
     if (selectUpperCategory !== null) {
       query += `&upper=${selectUpperCategory}`;
     }
