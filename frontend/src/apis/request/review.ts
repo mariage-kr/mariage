@@ -1,7 +1,7 @@
-import { axios } from '../axios';
+import { axios, axiosWithAccessToken } from '../axios';
 
 import { PagingType } from '@/@types/paging';
-import { ReviewType } from '@/@types/review';
+import { ReviewSaveType, ReviewType } from '@/@types/review';
 
 import { API_PATH } from '@/constants/path';
 import { PAGING } from '@/constants/rule';
@@ -26,4 +26,28 @@ const getDetailReviews = (
     });
 };
 
-export { getDetailReviews };
+const requestSaveReview = ({
+  productId,
+  productRate,
+  content,
+  foodRate,
+  foodCategory,
+  foodImageId,
+  hashtags,
+}: ReviewSaveType) => {
+  return axiosWithAccessToken
+    .post(API_PATH.REVIEW.SAVE, {
+      productId,
+      productRate,
+      content,
+      foodRate,
+      foodCategory,
+      foodImageId,
+      hashtags,
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
+export { getDetailReviews, requestSaveReview };

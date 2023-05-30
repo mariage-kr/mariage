@@ -22,6 +22,9 @@ public class ProductReviewFoodVO {
     }
 
     public static ProductReviewFoodVO from(Review review) {
+        if (review.getFoodCategory() == null) {
+            return null;
+        }
         FoodCategory foodCategory = review.getFoodCategory().getCategory();
 
         return ProductReviewFoodVO.builder()

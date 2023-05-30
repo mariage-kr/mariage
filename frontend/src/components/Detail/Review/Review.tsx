@@ -12,8 +12,10 @@ import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { getDetailReviews } from '@/apis/request/review';
-import useUserInfo from '@/hooks/useUserInfo';
 import editIcon from '@/assets/png/edit.png';
+import useAuth from '@/hooks/useAuth';
+import useUserInfo from '@/hooks/useUserInfo';
+import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './Review.styled';
 
@@ -28,9 +30,13 @@ type PropsType = {
 
 /* 무한 스크롤 참고 : https://tech.kakaoenterprise.com/149 */
 function Review({ id, name, level, countryId, country, rating }: PropsType) {
+  /* 제품 및 사용자 정보 */
+  const { foodCategory, setFoodCategory } = useFoodCategory();
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
+  const { isLogin } = useAuth();
 
+  /* 무한스크롤 정보 */
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -40,9 +46,12 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
+    if (isLogin()) {
+      setOpenModal(!isOpenModal);
+    }
   }, [isOpenModal]);
 
+  /* 리뷰 조회 */
   const fetchReview = useCallback(async (userId: number | undefined) => {
     let memberId: number | null = null;
 
@@ -72,15 +81,10 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     }
   }, []);
 
-  useEffect(() => {
-    fetchReview(userInfo?.id);
-  }, []);
-
   // TODO: 무한스크롤
   useEffect(() => {
     if (hasMore && !isLoading) {
       setIsLoading(true);
-      // getFetchData();
     }
   }, [hasMore, isLoading]);
 
@@ -93,10 +97,15 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     return reviews.length === 0;
   };
 
+  useEffect(() => {
+    fetchReview(userInfo?.id);
+    setFoodCategory;
+  }, []);
+
   return (
     <S.Container>
       <S.Left>
-        <ReviewCategory />
+        <ReviewCategory {...foodCategory} />
         {lengthIsZero() ? (
           <NoReviews />
         ) : (

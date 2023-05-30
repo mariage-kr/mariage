@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { ReviewType } from '@/@types/review';
+
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 import LikeButton from '@/components/Button/Like/Like';
@@ -59,14 +60,16 @@ function ReviewContent(review: ReviewType) {
           </S.TopRight>
         </S.Top>
         <S.Bottom>
-          <S.Food>
-            <FoodCategoryImg id={review.food.id} />
-            <S.FoodName>{review.food.name}</S.FoodName>
-            <S.ReviewRateText>
-              궁합별점 &nbsp;&nbsp;&nbsp;
-              <S.ReviewRate>{review.food.rate}</S.ReviewRate>&nbsp;점
-            </S.ReviewRateText>
-          </S.Food>
+          {review.food && (
+            <S.Food>
+              <FoodCategoryImg id={review.food.id} />
+              <S.FoodName>{review.food.name}</S.FoodName>
+              <S.ReviewRateText>
+                궁합별점 &nbsp;&nbsp;&nbsp;
+                <S.ReviewRate>{review.food.rate}</S.ReviewRate>&nbsp;점
+              </S.ReviewRateText>
+            </S.Food>
+          )}
           <S.Content>
             <S.ReviewText>
               <S.ReviewContentText>{review.review.content}</S.ReviewContentText>

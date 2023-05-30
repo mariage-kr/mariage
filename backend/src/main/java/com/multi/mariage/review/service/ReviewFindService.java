@@ -22,14 +22,15 @@ import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.review.vo.ProductReviewVO;
-import com.multi.mariage.review.vo.member.MemberReviewVO;
-import com.multi.mariage.review.vo.member.ProductInfoVO;
-import com.multi.mariage.review.vo.member.ReviewContentVO;
-import com.multi.mariage.review.vo.member.ReviewInfoVO;
+import com.multi.mariage.review.vo.member.write.MemberReviewVO;
+import com.multi.mariage.review.vo.member.write.ProductInfoVO;
+import com.multi.mariage.review.vo.member.write.ReviewContentVO;
+import com.multi.mariage.review.vo.member.write.ReviewInfoVO;
 import com.multi.mariage.review.vo.product.ProductReviewContentVO;
 import com.multi.mariage.review.vo.product.ProductReviewFoodVO;
 import com.multi.mariage.review.vo.product.ProductReviewLikeVO;
 import com.multi.mariage.review.vo.product.ProductReviewMemberVO;
+import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -192,9 +193,16 @@ public class ReviewFindService extends PagingUtil {
                 .date(convertToLocalDateFormat(review.getDate()))
                 .rate(review.getProductRate())
                 .content(review.getContent())
-                .img(imageService.getImageUrl(review.getImage().getName()))
+                .img(getImageUrl(review.getImage()))
                 .weather(review.getWeather().getValue().name())
                 .build();
+    }
+
+    private String getImageUrl(Image image) {
+        if (image == null) {
+            return null;
+        }
+        return imageService.getImageUrl(image.getName());
     }
 
     private String convertToLocalDateFormat(LocalDate date) {

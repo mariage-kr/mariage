@@ -105,8 +105,7 @@ public class ProductFindService extends PagingUtil {
         List<ProductFilterVO> contents = new LinkedList<>();
         for (Product product : products) {
             String imageUrl = imageService.getImageUrl(product.getImage().getName());
-
-            List<Food> foods = foodCategoryService.findFoodsByProduct(product, 3);
+            List<Food> foods = getFoodsOrderByRate(product);
             List<ProductFoodFilterVO> foodList = foods.stream().map(ProductFoodFilterVO::from).toList();
 
             ProductFilterVO content = ProductFilterVO.from(product, imageUrl,
@@ -116,6 +115,18 @@ public class ProductFindService extends PagingUtil {
             contents.add(content);
         }
         return contents;
+    }
+
+    private List<Food> getFoodsOrderByRate(Product product) {
+        Map<Food, Double> map = new HashMap<>();
+        for (Food food : product.getFoods()) {
+            map.put(food, food.getAvgFoodRate());
+        }
+        List<Food> foods = new ArrayList<>(map.keySet());
+        foods.sort((o1, o2) -> map.get(o2).compareTo(map.get(o1)));
+
+        int toIndex = Math.min(foods.size(), 3);
+        return foods.subList(0, toIndex);
     }
 
     public List<ReviewRateVO> getReviewPercentages(Long productId) {

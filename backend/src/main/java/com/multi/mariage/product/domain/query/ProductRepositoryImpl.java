@@ -34,13 +34,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<Product> searchProductByName(String name) {
-        return queryFactory.selectFrom(product)
-                .where(product.name.value.contains(name))
-                .fetch();
-    }
-
-    @Override
     public List<Product> findRecommendProductsByWeather(int size, Weather latestWeather) {
         List<Long> productIdsByWeather = queryFactory.select(product.id)
                 .from(product)
@@ -97,11 +90,13 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     public List<Product> findProductsByFilter(ProductFindByFilterRequest cond) {
         List<Long> productIds = queryFactory.select(product.id)
                 .from(product)
+                .leftJoin(product.reviews, review)
+                .where(hasSearch(cond.getSearch()))
                 .where(equalsUpperCategory(cond.getUpperCategory()))
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
                 .where(betweenRangeRate(cond.getMinRate(), cond.getMaxRate()))
-                .where(hasSearch(cond.getSearch()))
+                .orderBy(sortOption(cond.getSort()))
                 .offset(getOffset(cond.getPageNumber(), cond.getPageSize()))
                 .limit(cond.getPageSize())
                 .fetch();
@@ -109,7 +104,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return queryFactory.selectFrom(product)
                 .join(product.image, image).fetchJoin()
                 .leftJoin(product.reviews, review).fetchJoin()
-                .leftJoin(review.foodCategory, food).fetchJoin()
+                .leftJoin(product.foods, food).fetchJoin()
                 .where(product.id.in(productIds))
                 .orderBy(sortOption(cond.getSort()))
                 .fetch();
