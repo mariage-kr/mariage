@@ -10,7 +10,9 @@ function ReviewImage({ imgUrl, onChange, hashtags }: PropsType) {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Img src={imgUrl} />
+        <S.ImgWrapper>
+          <S.Img src={imgUrl} />
+        </S.ImgWrapper>
         <S.InfoWrapper>
           {hashtags.map((hashtag: string, index: number) => {
             return <S.Hashtag key={index}>#{hashtag}</S.Hashtag>;

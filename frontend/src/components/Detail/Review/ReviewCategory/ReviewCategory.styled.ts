@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { StarRate } from '@/components/StarRate/Common/StarRate';
 
 type Sort = {
   sort: boolean;
@@ -108,6 +109,51 @@ transition: 250ms;
 }
 `;
 
+const StarRate = styled.div`
+border-radius: 70px;
+width: 140px;
+min-width: 100px;
+height: 40px;
+margin-left: 10px;
+padding: 0 20px;
+font-size: 1rem;
+box-shadow: 1px 1px 3px #9C94D055;
+transition: 250ms;
+
+&:hover {
+  box-shadow: 1.5px 1.5px 3px #9C94D0;
+}
+`;
+
+const Star = styled.div`
+  box-sizing: border-box;
+  float: left;
+  width: 24%;
+  padding-right: 10px;
+  margin: 2px 0 0;
+
+  @media (max-width: 1400px) { width: 27%; }
+  @media (max-width: 1200px) { width: 31%; }
+`;
+
+const StarWrapper = styled.div`
+  display: inline-block;
+`;
+
+const img = css`
+  width: 30px;
+  height: 30px;
+
+  @media (max-width: 1800px) { width: 25px; height: 25px; }
+  @media (max-width: 1200px) { width: 20px; height: 20px; }
+`;
+
+const StarImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 export {
   Container,
   Wrapper,
@@ -120,5 +166,10 @@ export {
   SelectBox,
   Option,
   Sort,
-  Button
+  Button,
+  StarRate,
+  Star,
+  StarWrapper,
+  img,
+  StarImg,
 };

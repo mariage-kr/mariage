@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
-  margin: 25px 0 10px;
+  margin: 2vh 0 10px;
 `;
 
 const TitleInfo = styled.p`

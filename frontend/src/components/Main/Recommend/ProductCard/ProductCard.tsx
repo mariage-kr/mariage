@@ -22,6 +22,9 @@ function ProductCard({
     navigate(`${BROWSER_PATH.DETAIL}/${productId}`);
   };
 
+  // 상품명 마스킹
+  const name = productName.length > 8 ? productName.substring(0, 8) + "..." : productName;
+
   return (
     <S.CarouselCard onClick={goProduct}>
       <S.CardContainer>
@@ -40,7 +43,7 @@ function ProductCard({
           </S.Inner>
         </S.Wrapper>
         <S.Bottom>
-          <S.Name>{productName}</S.Name>
+          <S.Name>{name}</S.Name>
           <S.Country css={S.country_left}>
             <CountryFlagImg id={countryId} />
           </S.Country>

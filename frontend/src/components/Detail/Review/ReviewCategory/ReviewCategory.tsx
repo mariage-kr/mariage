@@ -9,6 +9,7 @@ import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './ReviewCategory.styled';
 import { SORT } from '@/constants/option';
+import { StarRate } from '@/components/StarRate/Common/StarRate';
 
 function ReviewCategory() {
   const { foodCategory, setFoodCategory } = useFoodCategory();
@@ -68,6 +69,9 @@ function ReviewCategory() {
                 최신순
               </S.Button>
             </S.Sort>
+          </S.FloatWrap>
+          <S.FloatWrap>
+            <S.StarRate></S.StarRate>
           </S.FloatWrap>
         </S.Bottom>
       </S.Wrapper>
