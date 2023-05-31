@@ -53,7 +53,7 @@ public class Review {
     private Weather weather;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
-    private List<Like> likes = new ArrayList<>();
+    private Set<Like> likes = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
     private Set<ReviewHashtag> reviewHashtags = new HashSet<>();

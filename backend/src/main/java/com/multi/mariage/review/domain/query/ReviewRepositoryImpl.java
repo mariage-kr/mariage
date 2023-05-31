@@ -8,9 +8,11 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.multi.mariage.category.domain.QFood.food;
 import static com.multi.mariage.hashtag.domain.QHashtag.hashtag;
 import static com.multi.mariage.like.domain.QLike.like;
 import static com.multi.mariage.member.domain.QMember.member;
@@ -20,6 +22,7 @@ import static com.multi.mariage.review.domain.QReviewHashtag.reviewHashtag;
 import static com.multi.mariage.storage.domain.QImage.image;
 import static com.multi.mariage.weather.domain.QWeather.weather;
 
+@Slf4j
 public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
@@ -29,17 +32,24 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
     @Override
     public List<Review> findReviewsByProductId(ReviewsPagingCond cond) {
-        List<Long> reviewIds = getPagingReviewIds(cond);
+        List<Long> reviewIds = queryFactory.select(review.id)
+                .from(review)
+                .where(review.product.id.eq(cond.getProductId()))
+                .orderBy(sortOption(cond.getSort()))
+                .offset(getOffset(cond))
+                .limit(cond.getPageSize())
+                .fetch();
 
         return queryFactory.selectFrom(review)
                 .join(review.weather, weather).fetchJoin()
                 .join(review.member, member).fetchJoin()
-                .leftJoin(review.image, image).fetchJoin()
+                .leftJoin(review.foodCategory, food).fetchJoin()
                 .leftJoin(review.likes, like).fetchJoin()
+                .leftJoin(review.image, image).fetchJoin()
                 .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
                 .where(review.id.in(reviewIds))
-                .orderBy(review.id.desc())
+                .orderBy(sortOption(cond.getSort()))
                 .fetch();
     }
 
@@ -74,22 +84,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .fetch();
     }
 
-    private List<Long> getPagingReviewIds(ReviewsPagingCond cond) {
-        JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
-                .from(review)
-                .where(review.product.id.eq(cond.getProductId()))
-                .orderBy(review.id.desc())
-                .offset(getOffset(cond))
-                .limit(cond.getPageSize());
-
-        OrderSpecifier<Integer> sortOption = sortOption(cond.getSort());
-        if (sortOption != null) {
-            reviewIdsQuery = reviewIdsQuery.orderBy(sortOption);
-        }
-
-        return reviewIdsQuery.fetch();
-    }
-
     private List<Long> getPagingReviewsByRatings(MemberReviewsPagingCond cond) {
         JPAQuery<Long> reviewIdsQuery = queryFactory.select(review.id)
                 .from(review)
@@ -97,11 +91,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .orderBy(review.id.desc())
                 .offset((long) (cond.getPageNumber() - 1) * cond.getPageSize())
                 .limit(cond.getPageSize());
-
-        OrderSpecifier<Integer> sortOption = sortOption(cond.getSort());
-        if (sortOption != null) {
-            reviewIdsQuery = reviewIdsQuery.orderBy(sortOption);
-        }
 
         return reviewIdsQuery.fetch();
     }
@@ -116,16 +105,17 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .offset((long) (cond.getPageNumber() - 1) * cond.getPageSize())
                 .limit(cond.getPageSize());
 
-        OrderSpecifier<Integer> sortOption = sortOption(cond.getSort());
-        if (sortOption != null) {
-            reviewIdsQuery = reviewIdsQuery.orderBy(sortOption);
-        }
-
         return reviewIdsQuery.fetch();
     }
 
-    private OrderSpecifier<Integer> sortOption(String sort) {
-        return sort.toUpperCase().equals(Sort.LIKE.name()) ? review.likes.size().desc() : null;
+    private OrderSpecifier<?> sortOption(String sort) {
+        if (sort.equalsIgnoreCase(Sort.LIKE.name())) {
+            return review.likes.size().desc();
+        }
+        if (sort.equalsIgnoreCase(Sort.NEWEST.name())) {
+            return review.id.desc();
+        }
+        return null;
     }
 
     private long getOffset(ReviewsPagingCond cond) {

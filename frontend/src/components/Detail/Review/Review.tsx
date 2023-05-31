@@ -31,6 +31,7 @@ type PropsType = {
 };
 
 function Review({ id, name, level, countryId, country, rating }: PropsType) {
+  const queryParam = new URLSearchParams(location.search);
   /* 제품 및 사용자 정보 */
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
@@ -65,12 +66,13 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
       return;
     }
     setLoading(true);
+    const sort = await queryParam.get('sort');
     let memberId: number | null = null;
     if (userId !== undefined) {
       memberId = userId;
     }
 
-    await getDetailReviews(productId, memberId, pageNumber, 'like')
+    await getDetailReviews(productId, memberId, pageNumber, sort!)
       .then((fetchReviews: PagingType<ReviewType>) => {
         setReviews(prev => ({
           ...fetchReviews,
@@ -111,7 +113,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   return (
     <S.Container>
       <S.Left>
-        <ReviewCategory />
+        <ReviewCategory productId={productId} memberId={userInfo?.id} />
         {lengthIsZero() ? (
           <NoReviews />
         ) : (

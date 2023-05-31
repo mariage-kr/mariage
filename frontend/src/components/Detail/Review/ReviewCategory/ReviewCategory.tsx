@@ -1,37 +1,43 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import reviewIcon from '@/assets/png/review.png';
 
-import useSelect from '@/hooks/useSelect';
-import { SortType } from '@/@types/select';
+import { SORT } from '@/constants/option';
 import { FoodCategoryType } from '@/@types/category';
+import { BROWSER_PATH } from '@/constants/path';
+import useSelect from '@/hooks/useSelect';
 import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './ReviewCategory.styled';
-import { SORT } from '@/constants/option';
-import { StarRate } from '@/components/StarRate/Common/StarRate';
+import { useEffect } from 'react';
+import { PAGING } from '@/constants/rule';
 
-function ReviewCategory() {
+type PropsType = {
+  productId: number;
+  memberId?: number;
+};
+
+function ReviewCategory({ productId, memberId }: PropsType) {
+  const navigate = useNavigate();
+  const queryParam = new URLSearchParams(location.search);
+
   const { foodCategory, setFoodCategory } = useFoodCategory();
   const { value: option, setValue: setOption } = useSelect('');
 
   // 정렬
-  const [sort, setSort] = useState<SortType>({
-    like: true,
-    newest: false,
-  });
+  const sort = queryParam.get('sort');
+  const selectedCategory = queryParam.get('category');
 
-  const changeSort = (key: string) => {
-    setSort(prev => {
-      return {
-        ...Object.fromEntries(
-          Object.entries(prev).map(([k]) => [k, k === key]),
-        ),
-      } as {
-        like: boolean;
-        newest: boolean;
-      };
-    });
+  const findReview = async (sortOption: string) => {
+    if ((await sort) === sortOption) {
+      return;
+    }
+    let query = `sort=${sortOption}`;
+    if (selectedCategory !== null) {
+      query += `&category=${selectedCategory}`;
+    }
+    navigate(`${BROWSER_PATH.DETAIL}/${productId}?${query}`);
+    window.location.reload();
   };
 
   return (
@@ -48,7 +54,12 @@ function ReviewCategory() {
                 {foodCategory &&
                   foodCategory.category.map((category: FoodCategoryType) => {
                     return (
-                      <S.Option key={category.id}>{category.name}</S.Option>
+                      <S.Option
+                        key={category.id}
+                        selected={category.value === selectedCategory}
+                      >
+                        {category.name}
+                      </S.Option>
                     );
                   })}
               </S.SelectBox>
@@ -57,14 +68,14 @@ function ReviewCategory() {
           <S.FloatWrap>
             <S.Sort>
               <S.Button
-                sort={sort.like}
-                onClick={() => changeSort(SORT.DETAIL.LIKE)}
+                sort={sort === SORT.DETAIL.LIKE}
+                onClick={() => findReview(SORT.DETAIL.LIKE)}
               >
                 공감순
               </S.Button>
               <S.Button
-                sort={sort.newest}
-                onClick={() => changeSort(SORT.DETAIL.NEWEST)}
+                sort={sort === SORT.DETAIL.NEWEST}
+                onClick={() => findReview(SORT.DETAIL.NEWEST)}
               >
                 최신순
               </S.Button>

@@ -26,7 +26,7 @@ public class ReviewFindController {
                                                                          @Param("memberId") @Nullable Long memberId,
                                                                          @Param("pageNumber") int pageNumber,
                                                                          @Param("pageSize") int pageSize,
-                                                                         @Param("sort") @Nullable String sort) {
+                                                                         @Param("sort") String sort) {
         ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, memberId,
                 pageNumber, pageSize, sort);
         return ResponseEntity.ok(response);
