@@ -9,6 +9,7 @@ import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './ProductCard.styled';
+import { SORT } from '@/constants/option';
 
 function ProductCard({
   id,
@@ -26,7 +27,7 @@ function ProductCard({
   const navigate = useNavigate();
 
   const goProduct = () => {
-    navigate(`${BROWSER_PATH.DETAIL}/${id}`);
+    navigate(`${BROWSER_PATH.DETAIL}/${id}?sort=${SORT.DETAIL.LIKE}`);
   };
 
   return (

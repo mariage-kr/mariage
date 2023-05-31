@@ -10,8 +10,9 @@ import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review.dto.MemberReviewsPagingCond;
-import com.multi.mariage.review.dto.ReviewsPagingCond;
+import com.multi.mariage.review.dto.cond.MemberReviewsPagingCond;
+import com.multi.mariage.review.dto.cond.ReviewsPagingCond;
+import com.multi.mariage.review.dto.request.ReviewDetailRequest;
 import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
@@ -57,29 +58,23 @@ public class ReviewFindService extends PagingUtil {
                 .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
     }
 
-    public ProductReviewsResponse findReviewsByProductId(Long productId, Long memberId,
-                                                         int pageNumber, int pageSize, String sort) {
-        ReviewsPagingCond cond = ReviewsPagingCond.builder()
-                .productId(productId)
-                .pageSize(pageSize)
-                .pageNumber(pageNumber)
-                .sort(sort)
-                .build();
+    public ProductReviewsResponse findReviewsByProductId(Long productId, ReviewDetailRequest request) {
+        ReviewsPagingCond cond = ReviewsPagingCond.from(productId, request);
 
         List<Review> reviews = reviewRepository.findReviewsByProductId(cond);
-        Long totalCount = reviewRepository.findReviewsCountByProductId(productId);
+        Long totalCount = reviewRepository.findReviewsCountByProductId(productId, request.getCategory(), request.getRate());
 
-        List<ProductReviewVO> reviewVOList = getProductReviewList(reviews, memberId);
-        int totalPages = getTotalPages(pageSize, totalCount);
+        List<ProductReviewVO> reviewVOList = getProductReviewList(reviews, request.getMemberId());
+        int totalPages = getTotalPages(request.getPageSize(), totalCount);
 
         return ProductReviewsResponse.builder()
                 .contents(reviewVOList)
-                .pageSize(pageSize)
+                .pageSize(request.getPageSize())
                 .totalCount(totalCount)
-                .pageNumber(pageNumber)
+                .pageNumber(request.getPageNumber())
                 .totalPages(totalPages)
-                .isFirstPage(isFirstPage(pageNumber))
-                .isLastPage(isLastPage(pageNumber, totalPages))
+                .isFirstPage(isFirstPage(request.getPageNumber()))
+                .isLastPage(isLastPage(request.getPageNumber(), totalPages))
                 .build();
     }
 

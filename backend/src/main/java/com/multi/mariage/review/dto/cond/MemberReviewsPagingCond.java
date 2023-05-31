@@ -1,4 +1,4 @@
-package com.multi.mariage.review.dto;
+package com.multi.mariage.review.dto.cond;
 
 
 import lombok.AccessLevel;

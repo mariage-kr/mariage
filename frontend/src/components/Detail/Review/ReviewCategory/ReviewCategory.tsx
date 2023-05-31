@@ -1,38 +1,49 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import reviewIcon from '@/assets/png/review.png';
 
-import useSelect from '@/hooks/useSelect';
-import { SortType } from '@/@types/select';
+import { SORT } from '@/constants/option';
 import { FoodCategoryType } from '@/@types/category';
+import { BROWSER_PATH } from '@/constants/path';
+import useSelect from '@/hooks/useSelect';
 import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './ReviewCategory.styled';
-import { SORT } from '@/constants/option';
-import { StarRate } from '@/components/StarRate/Common/StarRate';
+import { ChangeEvent, useEffect, useState } from 'react';
 
-function ReviewCategory() {
-  const { foodCategory, setFoodCategory } = useFoodCategory();
-  const { value: option, setValue: setOption } = useSelect('');
+type PropsType = {
+  productId: number;
+  memberId?: number;
+};
 
+function ReviewCategory({ productId, memberId }: PropsType) {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
   // 정렬
-  const [sort, setSort] = useState<SortType>({
-    like: true,
-    newest: false,
-  });
+  const queryParam = new URLSearchParams(location.search);
+  const sort = queryParam.get('sort');
+  const selectedCategory = queryParam.get('category');
 
-  const changeSort = (key: string) => {
-    setSort(prev => {
-      return {
-        ...Object.fromEntries(
-          Object.entries(prev).map(([k]) => [k, k === key]),
-        ),
-      } as {
-        like: boolean;
-        newest: boolean;
-      };
-    });
+  const { foodCategory } = useFoodCategory();
+  const { value: option, setValue: setOption } = useSelect<string | null>(null);
+
+  const findReview = async (
+    sortOption: string,
+    selectOption?: string | null,
+  ) => {
+    let query = `sort=${sortOption}`;
+    if (selectOption !== null && selectOption !== 'null') {
+      query += `&category=${selectOption}`;
+    }
+    navigate(`${BROWSER_PATH.DETAIL}/${productId}?${query}`);
+    window.location.reload();
   };
+
+  useEffect(() => {
+    if (option !== null) {
+      findReview(sort!, option);
+    }
+  }, [option]);
 
   return (
     <S.Container>
@@ -45,10 +56,17 @@ function ReviewCategory() {
           <S.FloatWrap>
             <label>
               <S.SelectBox onChange={setOption}>
+                <S.Option value={'null'}>전체</S.Option>
                 {foodCategory &&
                   foodCategory.category.map((category: FoodCategoryType) => {
                     return (
-                      <S.Option key={category.id}>{category.name}</S.Option>
+                      <S.Option
+                        key={category.id}
+                        selected={category.value === selectedCategory}
+                        value={category.value}
+                      >
+                        {category.name}
+                      </S.Option>
                     );
                   })}
               </S.SelectBox>
@@ -57,14 +75,14 @@ function ReviewCategory() {
           <S.FloatWrap>
             <S.Sort>
               <S.Button
-                sort={sort.like}
-                onClick={() => changeSort(SORT.DETAIL.LIKE)}
+                sort={sort === SORT.DETAIL.LIKE}
+                onClick={() => findReview(SORT.DETAIL.LIKE, selectedCategory)}
               >
                 공감순
               </S.Button>
               <S.Button
-                sort={sort.newest}
-                onClick={() => changeSort(SORT.DETAIL.NEWEST)}
+                sort={sort === SORT.DETAIL.NEWEST}
+                onClick={() => findReview(SORT.DETAIL.NEWEST, selectedCategory)}
               >
                 최신순
               </S.Button>
