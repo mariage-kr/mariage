@@ -18,15 +18,19 @@ public class ReviewsPagingCond {
     private String sort;
     @Nullable
     private FoodCategory foodCategory;
+    @Nullable
+    private Integer rate;
 
     /* TODO: 2023/05/22 추후 데이터 중복을 방지하기 위한 리뷰의 식별자 필요 */
     @Builder
-    private ReviewsPagingCond(Long productId, int pageSize, int pageNumber, String sort, FoodCategory foodCategory) {
+    private ReviewsPagingCond(Long productId, int pageSize, int pageNumber, String sort, FoodCategory foodCategory,
+                              Integer rate) {
         this.productId = productId;
         this.pageSize = pageSize;
         this.pageNumber = pageNumber;
         this.sort = sort;
         this.foodCategory = foodCategory;
+        this.rate = rate;
     }
 
     public static ReviewsPagingCond from(Long productId, ReviewDetailRequest request) {
@@ -36,6 +40,7 @@ public class ReviewsPagingCond {
                 .sort(request.getSort())
                 .pageNumber(request.getPageNumber())
                 .pageSize(request.getPageSize())
+                .rate(request.getRate())
                 .build();
     }
 }

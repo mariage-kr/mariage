@@ -14,14 +14,18 @@ public class ReviewDetailRequest {
     private Long memberId;
     @Nullable
     private FoodCategory category;
+    @Nullable
+    private Integer rate;
     private String sort;
     private int pageNumber;
     private int pageSize;
 
     @Builder
-    public ReviewDetailRequest(Long memberId, FoodCategory category, String sort, int pageNumber, int pageSize) {
+    public ReviewDetailRequest(Long memberId, FoodCategory category, int rate, String sort, int pageNumber,
+                               int pageSize) {
         this.memberId = memberId;
         this.category = category;
+        this.rate = rate;
         this.sort = sort;
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;

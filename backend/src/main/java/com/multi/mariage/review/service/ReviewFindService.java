@@ -62,7 +62,7 @@ public class ReviewFindService extends PagingUtil {
         ReviewsPagingCond cond = ReviewsPagingCond.from(productId, request);
 
         List<Review> reviews = reviewRepository.findReviewsByProductId(cond);
-        Long totalCount = reviewRepository.findReviewsCountByProductId(productId, request.getCategory());
+        Long totalCount = reviewRepository.findReviewsCountByProductId(productId, request.getCategory(), request.getRate());
 
         List<ProductReviewVO> reviewVOList = getProductReviewList(reviews, request.getMemberId());
         int totalPages = getTotalPages(request.getPageSize(), totalCount);

@@ -11,7 +11,7 @@ public interface ReviewRepositoryCustom {
 
     List<Review> findReviewsByProductId(ReviewsPagingCond cond);
 
-    Long findReviewsCountByProductId(Long productId, FoodCategory foodCategory);
+    Long findReviewsCountByProductId(Long productId, FoodCategory foodCategory, Integer rate);
 
     List<Review> findRatedReviewsByMemberId(MemberReviewsPagingCond cond);
 

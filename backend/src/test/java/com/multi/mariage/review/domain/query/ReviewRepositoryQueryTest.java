@@ -63,7 +63,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
     void 제품의_리뷰_개수를_조회한다() {
         /* Given */
         /* When */
-        Long actual = reviewRepository.findReviewsCountByProductId(product.getId(), null);
+        Long actual = reviewRepository.findReviewsCountByProductId(product.getId(), null, null);
 
         /* Then */
         assertThat(actual).isEqualTo(2);

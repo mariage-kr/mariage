@@ -38,6 +38,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .from(review)
                 .where(review.product.id.eq(cond.getProductId()))
                 .where(hasCategory(cond.getFoodCategory()))
+                .where(hasRate(cond.getRate()))
                 .orderBy(sortOption(cond.getSort()))
                 .offset(getOffset(cond))
                 .limit(cond.getPageSize())
@@ -66,8 +67,22 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return null;
     }
 
+    @Override
+    public Long findReviewsCountByProductId(Long productId, FoodCategory category, Integer rate) {
+        return queryFactory.select(review.count())
+                .from(review)
+                .where(review.product.id.eq(productId))
+                .where(hasCategory(category))
+                .where(hasRate(rate))
+                .fetchFirst();
+    }
+
     private BooleanExpression hasCategory(FoodCategory category) {
         return category != null ? review.foodCategory.category.eq(category) : null;
+    }
+
+    private BooleanExpression hasRate(Integer rate) {
+        return rate != 0 ? review.productRate.eq(rate) : null;
     }
 
     @Override
@@ -127,16 +142,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
     private long getOffset(ReviewsPagingCond cond) {
         return (long) (cond.getPageNumber() - 1) * cond.getPageSize();
-    }
-
-    @Override
-    public Long findReviewsCountByProductId(Long productId, FoodCategory category) {
-        JPAQuery<Long> countQuery = queryFactory.select(review.count())
-                .from(review)
-                .where(review.product.id.eq(productId))
-                .where(hasCategory(category));
-
-        return countQuery.fetchFirst();
     }
 
     @Override
