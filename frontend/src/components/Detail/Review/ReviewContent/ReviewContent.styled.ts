@@ -274,8 +274,8 @@ const HashTag = styled.p`
 const ReviewImg = styled.div`
   border: 1px solid #9c94d044;
   width: 22%;
+  height: 200px;
   text-align: center;
-  padding: 1vh 0 0;
   float: right;
 
   cursor: pointer;
@@ -295,8 +295,11 @@ const ReviewImg = styled.div`
 `;
 
 const Img = styled.img`
-  width: 90%;
-  height: 90%;
+  width: 94%;
+  height: 94%;
+  margin: 3% auto;
+  object-fit: cover;
+  object-position: 50% 50%;
 `;
 
 export {

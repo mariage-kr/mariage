@@ -112,6 +112,13 @@ const Count = styled.div`
   @media (max-width: 1400px) { display: none; }
 `;
 
+const InfoClickStar = styled.div`
+  margin: 20px 5% 0;
+  width: 90%;
+  text-align: center;
+  color: #00000077;
+`;
+
 
 export {
   Container,
@@ -129,5 +136,6 @@ export {
   StarImg,
   Graph,
   TempGraph,
-  Count
+  Count,
+  InfoClickStar
 };

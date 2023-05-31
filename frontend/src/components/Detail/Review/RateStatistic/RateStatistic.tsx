@@ -47,6 +47,7 @@ function RateStatistic({
               <S.Count>{percentage}%</S.Count>
             </S.RateOption>
           ))}
+          <S.InfoClickStar>별점 아이콘을 클릭하면<br/>해당 별점의 리뷰를 확인하실 수 있습니다.</S.InfoClickStar>
         </S.Bottom>
       </S.Wrapper>
     </S.Container>

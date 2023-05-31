@@ -31,18 +31,32 @@ const Wrapper = styled.div`
   border-radius: 5px;
 `;
 
-const InfoWrapper = styled.div`
-  z-index: 9999;
-  padding: 20px 0;
+const ImgWrapper = styled.div`
+  z-index: 10000;
+  width: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #00000022; 
+  box-sizing: border-box;
+  padding: 0;
 `;
 
 const Img = styled.img`
-  z-index: 10000;
+  width: auto;
+  height: auto;
   min-width: 500px;
   max-width: 900px;
-  height: auto;
-
+  max-height: 65vh;
+  object-fit: scale-down;
+  object-position: 50% 50%;
   border-radius: 5px;
+  text-align: center;
+  margin: 0;
+  padding-top: 5px;
+`;
+
+const InfoWrapper = styled.div`
+  z-index: 9999;
+  padding: 20px 0;
 `;
 
 const Hashtag = styled.p`
@@ -53,4 +67,4 @@ const Hashtag = styled.p`
   border-radius: 10px;
 `;
 
-export { Container, Wrapper, InfoWrapper, Img, Backdrop, Hashtag };
+export { Container, Wrapper, InfoWrapper,ImgWrapper, Img, Backdrop, Hashtag };
