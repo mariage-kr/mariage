@@ -4,7 +4,7 @@ type PairingSelectType = {
 };
 
 type SortType = {
-  sympathy: boolean;
+  like: boolean;
   newest: boolean;
 };
 

@@ -5,6 +5,7 @@ import com.multi.mariage.category.domain.DrinkUpperCategory;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
+import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.weather.domain.Weather;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -27,8 +28,7 @@ import static com.multi.mariage.weather.domain.QWeather.weather;
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private static final String WEEK = "week";
     private static final String MONTH = "month";
-    private static final String RATE = "rate";
-    private static final String REVIEW_COUNT = "count";
+
     private final JPAQueryFactory queryFactory;
 
     public ProductRepositoryImpl(EntityManager em) {
@@ -146,10 +146,10 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     }
 
     private OrderSpecifier<? extends Number> sortOption(String sort) {
-        if (sort.equalsIgnoreCase(REVIEW_COUNT)) {
+        if (sort.equalsIgnoreCase(Sort.COUNT.name())) {
             return product.reviews.size().desc();
         }
-        if (sort.equalsIgnoreCase(RATE)) {
+        if (sort.equalsIgnoreCase(Sort.RATE.name())) {
             return product.avgReviewRate.desc();
         }
         return null;

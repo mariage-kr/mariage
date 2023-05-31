@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Container = styled.div`
-  width: 100%;
+  height: 100%;
 
   @media (max-width: 1000px) {
     display: flex;
@@ -22,7 +22,6 @@ const Container = styled.div`
 
 const FilterWrap = styled.div`
   margin-top: -25px;
-  width: 100%;
   @media (max-width: 1000px) {
     margin: 0;
   }

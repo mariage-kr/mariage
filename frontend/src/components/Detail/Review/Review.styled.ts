@@ -61,6 +61,10 @@ const ReviewEdit = styled.div`
   height: 100vh;
 `;
 
+const Target = styled.div`
+  height: 30px;
+`;
+
 export {
   Container,
   Left,
@@ -70,4 +74,5 @@ export {
   EditSize,
   Edit,
   ReviewEdit,
+  Target,
 };

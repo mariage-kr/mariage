@@ -69,8 +69,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(review.image, image).fetchJoin()
                 .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
-                .orderBy(review.id.desc())
                 .where(review.id.in(reviewIds))
+                .orderBy(review.id.desc())
                 .fetch();
     }
 
@@ -125,7 +125,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     private OrderSpecifier<Integer> sortOption(String sort) {
-        return sort.toUpperCase().equals(Sort.LIKED.name()) ? review.likes.size().desc() : null;
+        return sort.toUpperCase().equals(Sort.LIKE.name()) ? review.likes.size().desc() : null;
     }
 
     private long getOffset(ReviewsPagingCond cond) {
