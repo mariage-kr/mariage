@@ -44,7 +44,7 @@ public class Product {
     private Long totalReviewRate = 0L;
     private double avgReviewRate = 0.0D;
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Review> reviews = new ArrayList<>();
+    private Set<Review> reviews = new HashSet<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private Set<Food> foods = new HashSet<>();
@@ -83,10 +83,6 @@ public class Product {
     }
 
     /* 비즈니스 로직 */
-    public double getReviewAvgRate() {
-        return (double) totalReviewRate / reviews.size();
-    }
-
     public void changeTotalReviewRate(int score) {
         if (score <= 0) {
             throw new ProductException(ProductErrorCode.REVIEW_SCORE_CANNOT_BE_OUT_OF_RANGE);

@@ -5,7 +5,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ProductReviewFilterVO {
@@ -19,6 +21,7 @@ public class ProductReviewFilterVO {
     }
 
     public static ProductReviewFilterVO from(Product product) {
+        log.info("[{}] Review Size : [{}]", product.getName(), product.getReviews().size());
         return ProductReviewFilterVO.builder()
                 .reviewRate(product.getAvgReviewRate())
                 .reviewCount(product.getReviews().size())

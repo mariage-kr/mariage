@@ -98,6 +98,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .where(equalsLowerCategory(cond.getLowerCategory()))
                 .where(betweenRangeLevel(cond.getMinLevel(), cond.getMaxLevel()))
                 .where(betweenRangeRate(cond.getMinRate(), cond.getMaxRate()))
+                .groupBy(product.id)
                 .orderBy(sortOption(cond.getSort()))
                 .orderBy(product.name.value.asc())
                 .offset(getOffset(cond.getPageNumber(), cond.getPageSize()))

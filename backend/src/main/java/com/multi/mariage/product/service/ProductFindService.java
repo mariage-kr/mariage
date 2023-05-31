@@ -60,7 +60,7 @@ public class ProductFindService extends PagingUtil {
     }
 
     private ProductMainCardResponse toProductMainCard(Product product) {
-        List<Review> reviews = product.getReviews();
+        Set<Review> reviews = product.getReviews();
         Country country = product.getCountry();
 
         return ProductMainCardResponse.builder()
@@ -131,7 +131,7 @@ public class ProductFindService extends PagingUtil {
 
     public List<ReviewRateVO> getReviewPercentages(Long productId) {
         Product product = findById(productId);
-        List<Review> reviews = product.getReviews();
+        Set<Review> reviews = product.getReviews();
         int reviewCount = reviews.size();
 
         Map<Integer, Integer> reviewRateCounts = getRateCounts(reviews);
@@ -139,7 +139,7 @@ public class ProductFindService extends PagingUtil {
         return getPercentage(reviewCount, reviewRateCounts);
     }
 
-    private Map<Integer, Integer> getRateCounts(List<Review> reviews) {
+    private Map<Integer, Integer> getRateCounts(Set<Review> reviews) {
         Map<Integer, Integer> reviewRateCounts = new HashMap<>();
         for (Review review : reviews) {
             int reviewRate = review.getProductRate();
