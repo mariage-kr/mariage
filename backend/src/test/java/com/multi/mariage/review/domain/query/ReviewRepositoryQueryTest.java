@@ -49,6 +49,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .pageSize(size)
                 .pageNumber(1)
                 .sort(Sort.LIKE.name())
+                .rate(0)
                 .build();
 
         /* When */
@@ -63,7 +64,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
     void 제품의_리뷰_개수를_조회한다() {
         /* Given */
         /* When */
-        Long actual = reviewRepository.findReviewsCountByProductId(product.getId(), null, null);
+        Long actual = reviewRepository.findReviewsCountByProductId(product.getId(), null, 0);
 
         /* Then */
         assertThat(actual).isEqualTo(2);
