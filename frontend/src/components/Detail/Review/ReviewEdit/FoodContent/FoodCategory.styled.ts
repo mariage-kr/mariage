@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 98%;
-  margin: 10px 0;
+  margin: 12px 0 10px;
 `;
 
 const FoodRadioBtn = styled.label`
@@ -96,7 +96,7 @@ const Label = styled.p`
   border-bottom: 1px solid #eae7e7;
   border-radius: 10px;
   margin: 0;
-  padding: 0;
+  padding: 0 7px 0 0;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -105,20 +105,13 @@ const Label = styled.p`
 
 const ImgText = styled.div`
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
 `;
 
 const btnImg = css`
-  width: 25px;
-  height: 25px;
-  object-fit: cover;
-  margin: 7px 7px 0 0;
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  margin: 5px 0 7px 0;
 `;
 
 const btnText = css`
@@ -135,6 +128,5 @@ export {
   Label,
   ImgText,
   btnImg,
-  Img,
   btnText,
 };

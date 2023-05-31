@@ -63,7 +63,7 @@ function Pairing({ foodCountRanking, foodRateRanking }: PropsType) {
                 <S.Food key={foodId}>
                   <FoodImg id={foodId} />
                   <S.NameRate>{category}</S.NameRate>
-                  <S.NameRate css={S.rate}>{avgFoodRate} 점</S.NameRate>
+                  <S.NameRate css={S.rate}><S.Rate>{avgFoodRate}</S.Rate>점</S.NameRate>
                 </S.Food>
               ),
             )
@@ -72,8 +72,8 @@ function Pairing({ foodCountRanking, foodRateRanking }: PropsType) {
               ({ foodId, category, reviewCount }: PairingFoodType) => (
                 <S.Food key={foodId}>
                   <FoodImg id={foodId} />
-                  <S.NameRate>{category}</S.NameRate>
-                  <S.NameRate css={S.rate}>{reviewCount} 번</S.NameRate>
+                  <S.NameRate2>{category}</S.NameRate2>
+                  <S.NameRate2><S.Rate>{reviewCount}</S.Rate> reviews</S.NameRate2>
                 </S.Food>
               ),
             )

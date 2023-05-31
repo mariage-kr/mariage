@@ -25,8 +25,9 @@ const Left = styled.div`
 `;
 
 const Img = styled.img`
-  width: 90%;
-  height: 100%;
+  width: 85%;
+  height: 95%;
+  transform: scale(1.25);
 `;
 
 const Right = styled.div`

@@ -57,6 +57,7 @@ const country_left = css`
   height: 30px;
   box-shadow: 1px 1px #9c94d0;
   border-radius: 50%;
+  margin: 5px;
 `;
 
 const FlagImg = styled.img`
@@ -69,7 +70,7 @@ const country_right = css`
   width: auto;
   height: auto;
   font-size: 1rem;
-  padding: 6px 0 0 5px;
+  padding: 8px 0 0 5px;
 `;
 
 const NameLevel = styled.p`
@@ -83,14 +84,14 @@ const ABV = styled.span`
 
 const DrinkStarRate = styled.div`
   float: right;
-  width: 30%;
-  margin: 33px auto 0;
+  width: 22%;
+  margin: 45px auto 0;
 `;
 
 const InputReview = styled.textarea`
   width: 99%;
   height: 200px;
-  margin: 10px 0.5%;
+  margin: 10px 0.5% 0;
   padding: 8px;
   border: none;
   border-radius: 10px;
@@ -110,17 +111,6 @@ const InputReview = styled.textarea`
   &::placeholder {
     color: #999999;
   }
-`;
-
-const PairingText = styled.div`
-  float: left;
-  width: 15%;
-  font-size: 1rem;
-`;
-
-const PairingStarRate = styled.div`
-  float: left;
-  width: 30%;
 `;
 
 const Bottom = styled.div`
@@ -149,8 +139,9 @@ const Btn = styled.button<Props>`
 `;
 
 const FoodCategoryPrint = styled.p`
-  margin: 7px 3%;
+  margin: 10px 0;
   font-size: 1rem;
+  text-align: center;
 `;
 
 const FoodCategorySpan = styled.span`
@@ -162,10 +153,30 @@ const FoodContent = styled.div`
   height: auto;
 `;
 
+const Pairing = styled.div`
+  margin: 10px 0;
+  overflow: hidden;
+`;
+
+const PairingText = styled.div`
+  float: left;
+  width: 22%;
+  font-size: 1rem;
+`;
+const PairingOption = styled.span`
+  color: #bb2649;
+  font-size: 0.8rem;
+`;
+
+const PairingStarRate = styled.div`
+  float: left;
+  width: 30%;
+`;
+
 const HashTag = styled.div`
   width: 100%;
   height: auto;
-  margin: 20px 0;
+  margin: 15px 0 20px;
 `;
 
 const HashTagTitle = styled.p`
@@ -249,14 +260,16 @@ export {
   ABV,
   DrinkStarRate,
   InputReview,
-  PairingText,
-  PairingStarRate,
   Bottom,
   BtnWrapper,
   Btn,
   FoodCategoryPrint,
   FoodCategorySpan,
   FoodContent,
+  Pairing,
+  PairingText,
+  PairingOption,
+  PairingStarRate,
   HashTag,
   HashTagTitle,
   FinalBtn,

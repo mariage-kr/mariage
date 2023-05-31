@@ -61,7 +61,9 @@ const ImgWrapper = styled.div`
 `;
 
 const PreviewImg = styled.img`
-  width: 45%;
+  width: auto;
+  height: 185px;
+  border-radius: 10px;
 `;
 
 export { Container, InputImg, BtnWrapper, InputImgBtn, ImgWrapper, PreviewImg };

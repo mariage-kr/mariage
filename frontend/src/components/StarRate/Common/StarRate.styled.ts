@@ -1,24 +1,26 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
+  width: 160px;
   overflow: hidden;
 `;
 
-const StarRate = styled.div`
+const StarRateText = styled.div`
   float: left;
   text-align: right;
-  width: 60%;
-  margin: 3px 0 0 20%;
-`;
-
-const StarRateText = styled.div`
-  float: right;
-  text-align: center;
-  width: 20%;
+  width: 25%;
+  margin: 0;
 `;
 
 const Text = styled.span`
   color: #BB2649;
+`;
+
+const StarRate = styled.div`
+  float: right;
+  text-align: right;
+  width: 65%;
+  margin: 3px 0 0 10%;
 `;
 
 export {

@@ -166,9 +166,9 @@ const BtnWrap = styled.div`
 `;
 
 const FilterBtn = styled.button`
-  width: 100px;
-  margin-right: 15px;
-  padding: 5px 10px 6px;
+  width: 120px;
+  margin: 0 15px 20px 0;
+  padding: 6px 0 7px;
   border: 2px solid #9c94d0;
   border-radius: 10px;
   background: #fff;

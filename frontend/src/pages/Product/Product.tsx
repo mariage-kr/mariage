@@ -47,7 +47,7 @@ function Product() {
 
   /* TODO: 추후 무한스크롤로 적용 */
   const fetchProducts = () => {
-    if (hasMore === false) {return}
+    if (hasMore === false) { return }
     setLoading(true);
     requestProducts({
       pageSize: PAGING.PAGE_SIZE,

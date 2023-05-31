@@ -4190,14 +4190,14 @@ public enum ProductFixture {
                     " 언제 어디서라도 가볍게 즐길 수 있는 것이 특징입니다.",
             Country.JAPAN,
             DrinkUpperCategory.FOREIGN_ETC,
-            DrinkLowerCategory.OTHERS, "HoroyoiGrape.png"),
+            DrinkLowerCategory.OTHERS, "HoroyoiRedStrawberry.png"),
     호로요이_부도_사와("호로요이 부도 사와",
             3.0,
             "증류식 소주와 탄산주, 그리고 과일 과즙을 함유한 저도주로서 특히 20~30대 여성에게 많은 사랑을 받고 있습니다." +
                     " 언제 어디서라도 가볍게 즐길 수 있는 것이 특징입니다.",
             Country.JAPAN,
             DrinkUpperCategory.FOREIGN_ETC,
-            DrinkLowerCategory.OTHERS, "HoroyoiRedStrawberry.png"),
+            DrinkLowerCategory.OTHERS, "HoroyoiGrape.png"),
     호로요이_믹스후르츠_사와("호로요이 믹스후르츠 사와",
             3.0,
             "증류식 소주와 탄산주, 그리고 과일 과즙을 함유한 저도주로서 특히 20~30대 여성에게 많은 사랑을 받고 있습니다." +

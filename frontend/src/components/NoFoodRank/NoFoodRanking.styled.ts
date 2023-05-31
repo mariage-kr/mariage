@@ -10,7 +10,7 @@ const TextWrap = styled.div`
   left: 0;
   width: 100%;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 60px;
   z-index: 1;
 `;
 
