@@ -9,6 +9,8 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
+import Weather from '@/components/Main/Recommend/Weather/Weather';
+import { Sunny } from '@/components/Animation/Weather';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
