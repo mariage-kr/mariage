@@ -48,7 +48,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .productId(product.getId())
                 .pageSize(size)
                 .pageNumber(1)
-                .sort(Sort.LIKED.name())
+                .sort(Sort.LIKE.name())
                 .build();
 
         /* When */
