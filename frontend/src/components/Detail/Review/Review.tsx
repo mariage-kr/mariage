@@ -67,12 +67,13 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     }
     setLoading(true);
     const sort = await queryParam.get('sort');
+    const category: string | null = await queryParam.get('category');
     let memberId: number | null = null;
     if (userId !== undefined) {
       memberId = userId;
     }
 
-    await getDetailReviews(productId, memberId, pageNumber, sort!)
+    await getDetailReviews(productId, memberId, pageNumber, sort!, category)
       .then((fetchReviews: PagingType<ReviewType>) => {
         setReviews(prev => ({
           ...fetchReviews,

@@ -1,5 +1,7 @@
 package com.multi.mariage.review.controller;
 
+import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.review.dto.request.ReviewDetailRequest;
 import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
@@ -23,12 +25,8 @@ public class ReviewFindController {
     /* TODO: 2023/05/23 자식 함수들 테스트 코드 필요 */
     @GetMapping("/review/product/{productId}")
     public ResponseEntity<ProductReviewsResponse> findReviewsByProductId(@PathVariable("productId") Long productId,
-                                                                         @Param("memberId") @Nullable Long memberId,
-                                                                         @Param("pageNumber") int pageNumber,
-                                                                         @Param("pageSize") int pageSize,
-                                                                         @Param("sort") String sort) {
-        ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, memberId,
-                pageNumber, pageSize, sort);
+                                                                         ReviewDetailRequest request) {
+        ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId,request);
         return ResponseEntity.ok(response);
     }
 
