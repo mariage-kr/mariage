@@ -198,12 +198,6 @@ const Food = styled.div`
   }
 `;
 
-const FoodImg = styled.img`
-  width: 50%;
-  height: 50%;
-  object-fit: cover;
-`;
-
 const FoodName = styled.p`
   font-size: 1rem;
   margin: 0 auto;
@@ -325,7 +319,6 @@ export {
   Like,
   Bottom,
   Food,
-  FoodImg,
   FoodName,
   ReviewRateText,
   ReviewRate,

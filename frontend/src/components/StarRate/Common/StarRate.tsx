@@ -10,6 +10,11 @@ type PropsType = {
 const StarRate = ({ onChange, rate }: PropsType) => {
   return (
     <S.Container>
+      {rate !== null &&
+        <S.StarRateText>
+          <S.Text>{rate}</S.Text>점
+        </S.StarRateText>
+      }
       <S.StarRate>
         <StarRating
           count={5}
@@ -18,9 +23,6 @@ const StarRate = ({ onChange, rate }: PropsType) => {
           onChange={value => onChange(value)}
         />
       </S.StarRate>
-      <S.StarRateText>
-        <S.Text>{rate}</S.Text>점
-      </S.StarRateText>
     </S.Container>
   );
 };

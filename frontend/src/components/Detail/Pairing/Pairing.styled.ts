@@ -114,13 +114,25 @@ const NameRate = styled.div`
   }
 `;
 
+const NameRate2= styled.div`
+  margin: 5px 0 0;
+  text-align: center;
+  font-size: 1.1rem;
+`;
+
 const rate = css`
   margin-left: 15px;
-  color: #bb2649;
 
   @media (max-width: 1140px) {
     margin-left: 0;
   }
+`;
+
+const Rate = styled.span`
+  color: #bb2649;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 2px;
 `;
 
 export {
@@ -136,5 +148,7 @@ export {
   Food,
   FoodImg,
   NameRate,
+  NameRate2,
   rate,
+  Rate,
 };

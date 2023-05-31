@@ -63,7 +63,7 @@ const SelectBox = styled.select`
   width: 160px;
   height: 40px;
   margin-right: 30px;
-  padding-left: 7px;
+  padding-left: 10px;
   font-size: 1rem;
   transition: 250ms;
 

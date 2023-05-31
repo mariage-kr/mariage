@@ -135,10 +135,6 @@ function ReviewEdit({
             onChange={setContent}
             placeholder="** 술과 안주에 대한 리뷰를 적어주세요. **"
           />
-          <S.PairingText>궁합 음식 별점</S.PairingText>
-          <S.PairingStarRate>
-            <StarRate onChange={rate => changeFoodRate(rate)} rate={foodRate} />
-          </S.PairingStarRate>
         </S.Top>
 
         <S.Bottom>
@@ -163,7 +159,14 @@ function ReviewEdit({
             </S.FoodCategoryPrint>
           )}
           {option && <S.FoodContent>{selectComponent[option]}</S.FoodContent>}
-
+          
+          <S.Pairing>
+            <S.PairingText>궁합 음식 별점<S.PairingOption>&nbsp;(선택)</S.PairingOption></S.PairingText>
+            <S.PairingStarRate>
+              <StarRate onChange={rate => changeFoodRate(rate)} rate={foodRate} />
+            </S.PairingStarRate>
+          </S.Pairing>
+          
           <S.HashTag>
             <S.HashTagTitle>#해시태그</S.HashTagTitle>
             <HashTag hashTags={hashtags} setHashTags={setHashtags} />
