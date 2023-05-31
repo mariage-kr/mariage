@@ -8,19 +8,18 @@ import ReviewEditModal from './ReviewEditModal/ReviewEditModal';
 import ReviewEdit from './ReviewEdit/ReviewEdit';
 import NoReviews from '@/components/NoReviews/NoReviews';
 
+import editIcon from '@/assets/png/edit.png';
+
 import { ReviewRatingType } from '@/@types/product';
 import { PagingType } from '@/@types/paging';
 import { ReviewType } from '@/@types/review';
 import { getDetailReviews } from '@/apis/request/review';
-import editIcon from '@/assets/png/edit.png';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useAuth from '@/hooks/useAuth';
 import useUserInfo from '@/hooks/useUserInfo';
-import useFoodCategory from '@/hooks/useFoodCategory';
+import { PAGING } from '@/constants/rule';
 
 import * as S from './Review.styled';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import Loading from '@/components/Loading/Loading';
-import { PAGING } from '@/constants/rule';
 
 type PropsType = {
   id: number;

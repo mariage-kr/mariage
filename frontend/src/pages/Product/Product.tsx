@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
