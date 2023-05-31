@@ -9,6 +9,7 @@ import { PARAM } from '@/constants/rule';
 import useSearchParam from '@/hooks/useSearchParam';
 
 import * as S from './Dropdown.styled';
+import { SORT } from '@/constants/option';
 
 function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
   const { value: categoryValue, setValue: setCategoryValue } =
@@ -42,7 +43,7 @@ function Dropdown({ region, value, categories }: HeaderRegionCategoryType) {
                       PARAM.RATE.MIN
                     }&maxRate=${PARAM.RATE.MAX}&minLevel=${
                       PARAM.LEVEL.MIN
-                    }&maxLevel=${PARAM.LEVEL.MAX}`}
+                    }&maxLevel=${PARAM.LEVEL.MAX}&sort=${SORT.FILTER.RATE}`}
                     onClick={() => handleCategoryClick(categoryValue)}
                   >
                     {category.name}

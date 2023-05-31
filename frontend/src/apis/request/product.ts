@@ -11,6 +11,7 @@ import {
 import { RECOMMEND_PRODUCT_SIZE } from '@/constants/rule';
 import { PagingType } from '@/@types/paging';
 import { ProductFIlterParam } from '@/@types/param';
+import { OPTION, SORT } from '@/constants/option';
 
 const requestSaveProduct = (productData: ProductSaveType) => {
   return axiosWithAccessToken.post(API_PATH.PRODUCT.SAVE, {

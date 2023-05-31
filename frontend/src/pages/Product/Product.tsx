@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 
 import Filter from '@/components/Product/Filter/Filter';
 import Option from '@/components/Product/Option/Option';
@@ -10,7 +10,7 @@ import { PagingType } from '@/@types/paging';
 import { ProductsType } from '@/@types/product';
 import { requestProducts } from '@/apis/request/product';
 import { PAGING } from '@/constants/rule';
-import { SORT } from '@/constants/option';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 import * as S from './Product.styled';
 
@@ -34,25 +34,21 @@ function Product() {
   const querySearch = queryParam.get('search');
   const queryUpperCategory = queryParam.get('upper');
   const queryLowerCategory = queryParam.get('lower');
+  const querySort = queryParam.get('sort');
   const queryMinRate = queryParam.get('minRate');
   const queryMaxRate = queryParam.get('maxRate');
   const queryMinLevel = queryParam.get('minLevel');
   const queryMaxLevel = queryParam.get('maxLevel');
 
-  const [sort, setSort] = useState<string>(SORT.FILTER.RATE);
-
-  const changeSort = (option: string) => {
-    setSort(option);
-  };
-
-  /* TODO: 추후 무한스크롤로 적용 */
-  const fetchProducts = () => {
-    if (hasMore === false) { return }
+  const fetchProducts = async () => {
+    if (hasMore === false) {
+      return;
+    }
     setLoading(true);
-    requestProducts({
+    await requestProducts({
       pageSize: PAGING.PAGE_SIZE,
       pageNumber,
-      sort,
+      sort: querySort!,
       querySearch,
       queryUpperCategory,
       queryLowerCategory,
@@ -61,41 +57,38 @@ function Product() {
       queryMinLevel,
       queryMaxLevel,
     })
-    .then(data => {
-      setProducts(prevProducts => ({
-        ...data,
-        contents: [...prevProducts.contents, ...data.contents],
-      }));
-      setHasMore(data.lastPage === false);
-    })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+      .then(data => {
+        setProducts(prevProducts => ({
+          ...data,
+          contents: [...prevProducts.contents, ...data.contents],
+        }));
+        setHasMore(data.lastPage === false);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
-  const infiniteScroll = useCallback(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      setPageNumber(prevPageNumber => prevPageNumber + 1);
-    }
-  }, []);
+  const target = useRef(null);
 
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    setPageNumber(prev => prev + 1);
+  });
 
   useEffect(() => {
-    window.addEventListener('scroll', infiniteScroll);
-    return () => window.removeEventListener('scroll', infiniteScroll);
-  }, [infiniteScroll]);
+    if (loading) {
+      unobserve(target.current);
+    } else {
+      observe(target.current);
+    }
+  }, [loading]);
 
-
-  /* 정렬 옵션 수정 시 */
   useEffect(() => {
     fetchProducts();
-  }, [sort, pageNumber]);
+  }, [pageNumber]);
 
   return (
     <S.Container>
@@ -120,7 +113,16 @@ function Product() {
               입니다.
             </S.Count>
           )}
-          <Option changeSort={changeSort} />
+          <Option
+            minRate={queryMinRate!}
+            maxRate={queryMaxRate!}
+            minLevel={queryMinLevel!}
+            maxLevel={queryMaxLevel!}
+            sort={querySort!}
+            search={querySearch}
+            upperCategory={queryUpperCategory}
+            lowerCategory={queryLowerCategory}
+          />
         </S.ContentHeaderWrapper>
         <S.ContentWrapper>
           {products.totalCount === 0 ? (
@@ -130,6 +132,7 @@ function Product() {
               return <ProductCard key={product.id} {...product} />;
             })
           )}
+          <S.Target ref={target} />
         </S.ContentWrapper>
         {loading && (
           <S.AniWrapper>
