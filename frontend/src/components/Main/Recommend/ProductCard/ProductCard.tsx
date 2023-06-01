@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './ProductCard.styled';
+import { SORT } from '@/constants/option';
 
 function ProductCard({
   productId,
@@ -19,11 +20,12 @@ function ProductCard({
   const navigate = useNavigate();
 
   const goProduct = () => {
-    navigate(`${BROWSER_PATH.DETAIL}/${productId}`);
+    navigate(`${BROWSER_PATH.DETAIL}/${productId}?sort=${SORT.DETAIL.LIKE}`);
   };
 
   // 상품명 마스킹
-  const name = productName.length > 8 ? productName.substring(0, 8) + "..." : productName;
+  const name =
+    productName.length > 8 ? productName.substring(0, 8) + '...' : productName;
 
   return (
     <S.CarouselCard onClick={goProduct}>

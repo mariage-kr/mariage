@@ -12,6 +12,7 @@ const getDetailReviews = (
   pageNumber: number,
   sort: string,
   category: string | null,
+  rate: number | null,
 ) => {
   return axios
     .get<PagingType<ReviewType>>(`${API_PATH.REVIEW.PRODUCT}/${productId}`, {
@@ -21,6 +22,7 @@ const getDetailReviews = (
         pageNumber,
         sort,
         category,
+        rate,
       },
     })
     .then(response => {

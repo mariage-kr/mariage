@@ -68,7 +68,6 @@ function ProductCardCarousel({ option }: PropsType) {
       }
       if (option === 'algo') {
         /* TODO: 추후 해당 기능이 구현되면 추가 예정 */
-        /* TODO: 데이터가 없으면 추천 기능(다른 버튼 클릭)이 동작을 안함 */
         return setProducts([]);
       }
       return getRecommendDate(option);
