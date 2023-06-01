@@ -38,9 +38,9 @@ public class LoaderData {
 
     @PostConstruct
     public void init() {
-//        memberService.init();
-//        productService.init();
-//        reviewService.init();
+        memberService.init();
+        productService.init();
+        reviewService.init();
     }
 
     @RequiredArgsConstructor
