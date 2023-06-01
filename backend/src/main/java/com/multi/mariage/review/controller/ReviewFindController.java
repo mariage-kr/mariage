@@ -1,15 +1,12 @@
 package com.multi.mariage.review.controller;
 
-import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.review.dto.request.ReviewDetailRequest;
 import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
 import com.multi.mariage.review.service.ReviewFindService;
-import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +23,7 @@ public class ReviewFindController {
     @GetMapping("/review/product/{productId}")
     public ResponseEntity<ProductReviewsResponse> findReviewsByProductId(@PathVariable("productId") Long productId,
                                                                          ReviewDetailRequest request) {
-        ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId,request);
+        ProductReviewsResponse response = reviewFindService.findReviewsByProductId(productId, request);
         return ResponseEntity.ok(response);
     }
 

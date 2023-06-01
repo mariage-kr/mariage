@@ -36,11 +36,6 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   const productId: number = Number.parseInt(useParams().id!);
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
-  const [selectRate, setSelectRate] = useState<number>(0);
-
-  const changeSelectRate = (rate: number) => {
-    setSelectRate(rate);
-  };
 
   /* 무한스크롤 정보 */
   const [reviews, setReviews] = useState<PagingType<ReviewType>>({
@@ -73,12 +68,21 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     setLoading(true);
     const sort = await queryParam.get('sort');
     const category: string | null = await queryParam.get('category');
+    const queryRate = queryParam.get('rate');
+    const rate = await (queryRate === null ? 0 : Number.parseInt(queryRate));
     let memberId: number | null = null;
     if (userId !== undefined) {
       memberId = userId;
     }
 
-    await getDetailReviews(productId, memberId, pageNumber, sort!, category)
+    await getDetailReviews(
+      productId,
+      memberId,
+      pageNumber,
+      sort!,
+      category,
+      rate,
+    )
       .then((fetchReviews: PagingType<ReviewType>) => {
         setReviews(prev => ({
           ...fetchReviews,
@@ -119,12 +123,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   return (
     <S.Container>
       <S.Left>
-        <ReviewCategory
-          productId={productId}
-          memberId={userInfo?.id}
-          selectRate={selectRate}
-          changeSelectRate={changeSelectRate}
-        />
+        <ReviewCategory productId={productId} />
         {lengthIsZero() ? (
           <NoReviews />
         ) : (
@@ -135,7 +134,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
         <S.Target ref={target} />
       </S.Left>
       <S.Right>
-        <RateStatistic {...rating} changeSelectRate={changeSelectRate} />
+        <RateStatistic {...rating} productId={productId} />
         <S.EditBtn onClick={onClickToggleModal}>
           <S.Edit css={S.EditSize}>
             <S.EditIcon src={editIcon} />
