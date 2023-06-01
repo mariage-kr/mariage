@@ -6,6 +6,7 @@ import com.multi.mariage.category.domain.FoodRepository;
 import com.multi.mariage.category.dto.response.FoodCategoryResponse;
 import com.multi.mariage.category.vo.food.FoodCategoriesVO;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.review.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,5 +55,17 @@ public class FoodCategoryService {
 
     public List<Food> findFoodsOrderByReviewCount(Product product, int size) {
         return foodRepository.orderByReviewCount(product.getId(), size);
+    }
+
+    @Transactional
+    public void removeByReview(Review review) {
+        Food food = review.getFoodCategory();
+        if (food == null) {
+            return;
+        }
+        food.getReviews().remove(review);
+        if (food.getReviews().isEmpty()) {
+            foodRepository.delete(food);
+        }
     }
 }

@@ -21,9 +21,11 @@ import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -75,15 +77,23 @@ public class ReviewModifyService {
     }
 
     public void delete(AuthMember authMember, Long reviewId) {
+        log.info("DELETE START");
         Review review = reviewFindService.findByIdToDelete(reviewId);
 
+        log.info("VALIDATE START");
         validateOwnerByReview(authMember.getId(), review);
 
+        log.info("IMAGE REMOVE START");
         storageService.remove(review.getImage());
+        log.info("LIKE REMOVE START");
         likeService.removeAllByReview(review);
+        log.info("HASHTAG REMOVE START");
         reviewHashtagService.removeAllByReview(review);
+        log.info("FOOD REMOVE START");
+        foodCategoryService.removeByReview(review);
+        log.info("RELATED REMOVE START");
         review.removeRelated();
-
+        log.info("REVIEW REMOVE START");
         reviewRepository.delete(review);
     }
 

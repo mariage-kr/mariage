@@ -114,5 +114,6 @@ public class Review {
     public void removeRelated() {
         member.getReviews().remove(this);
         product.getReviews().remove(this);
+        weather.getReviews().remove(this);
     }
 }

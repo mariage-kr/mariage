@@ -9,6 +9,7 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 
 import * as S from './ReviewContent.styled';
+import { requestDeleteReview } from '@/apis/request/review';
 
 function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
@@ -18,6 +19,16 @@ function ReviewContent(review: ReviewType) {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+
+  const deleteReview = () => {
+    requestDeleteReview(review.id)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <S.Container>
@@ -47,7 +58,9 @@ function ReviewContent(review: ReviewType) {
                 {/* TODO: 수정 모달창으로 할지 고민 */}
                 <S.Btn css={S.updateBtn}>수정</S.Btn>
                 {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
-                <S.Btn css={S.deleteBtn}>삭제</S.Btn>
+                <S.Btn css={S.deleteBtn} onClick={deleteReview}>
+                  삭제
+                </S.Btn>
               </S.BtnWrap>
             )}
             <S.Like>
