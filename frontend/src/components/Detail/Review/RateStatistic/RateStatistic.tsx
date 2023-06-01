@@ -1,7 +1,7 @@
 import StarRateAverage from '@/components/StarRate/Average/StarRateAverage';
 import PercentageBar from './PercentageBar/PercentageBar';
 import { ReviewRatingType } from '@/@types/product';
-import star from '@/assets/png/staricon.png';
+import star from '@/assets/png/star_icon.png';
 
 import * as S from './RateStatistic.styled';
 
@@ -37,7 +37,10 @@ function RateStatistic({
         </S.Top>
         <S.Bottom>
           {percentageList.map(({ reviewRate, percentage }: ListType) => (
-            <S.RateOption key={reviewRate} onClick={() => changeSelectRate(reviewRate)}>
+            <S.RateOption
+              key={reviewRate}
+              onClick={() => changeSelectRate(reviewRate)}
+            >
               <S.Star>
                 <S.StarWrapper css={S.img}>
                   <S.StarImg src={star} />

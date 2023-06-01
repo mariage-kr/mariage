@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   DrinkCategoryResponseType,
@@ -20,6 +21,7 @@ import {
 } from '@/apis/request/product';
 
 import { COUNTRY_TYPE } from '@/constants/category';
+import { BROWSER_PATH } from '@/constants/path';
 
 import useInput from '@/hooks/useInput';
 import useSelect from '@/hooks/useSelect';
@@ -30,8 +32,6 @@ import useLevel from '@/hooks/useLevel';
 import { deleteImage, saveImage } from '@/utils/image';
 
 import * as S from './Admin.styled';
-import { useNavigate } from 'react-router-dom';
-import { BROWSER_PATH } from '@/constants/path';
 
 function Admin() {
   const navigate = useNavigate();

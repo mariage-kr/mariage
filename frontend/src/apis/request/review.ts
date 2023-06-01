@@ -13,7 +13,6 @@ const getDetailReviews = (
   sort: string,
   category: string | null,
 ) => {
-  console.log('foodCategory : ' + category);
   return axios
     .get<PagingType<ReviewType>>(`${API_PATH.REVIEW.PRODUCT}/${productId}`, {
       params: {

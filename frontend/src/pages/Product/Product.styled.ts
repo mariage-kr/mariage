@@ -62,6 +62,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Target = styled.div`
+  border: 1px solid red;
   height: 30px;
 `;
 
