@@ -10,7 +10,7 @@ const CarouselCard = styled.div`
 `;
 
 const CardContainer = styled.div`
-  margin: 0 20px 10px;
+  margin: 0 10px 10px;
   width: 240px;
   height: 350px;
 

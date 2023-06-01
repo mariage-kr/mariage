@@ -2,15 +2,10 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  /* border-top: 1px solid #00000033; */
+  border-top: 1px solid #00000033;
   height: 100px;
   padding: 0 10%;
   overflow: hidden;
-  /* #bb2649 */
-  background-color: rgba(187, 38, 73, 0.05);
-  /* background-color: #dbdeff; */
-  /* #9c94d0 */
-  /* background-color: rgba(156, 148, 208, 0.2);  */
 `;
 
 const FLogo = styled.div`
@@ -49,28 +44,12 @@ const StyledLink = styled(Link)`
   min-width: 100px;
 `;
 
-const ContentWrapper = styled.div`
-  width: 80%;
-`;
-
-const TextContainer = styled.div`
-  border-top: 1px solid #00000033;
-  padding: 0 10%;
-  margin-bottom: 0;
-  overflow: hidden;
-  background-color: rgba(187, 38, 73, 0.05);
-`;
-
 const FooterText = styled.div`
   width: 60%;
   float: left;
-  /* height: 100%; */
-  /* margin: 20px 0; */
-
   margin: 42px auto;
   font-size: 1rem;
   text-align: center;
-  /* margin-top: 25px; */
   box-sizing: border-box;
 `;
 
@@ -82,14 +61,10 @@ const GitHubIcon = styled.img`
   margin: 35px 0;
 `;
 
-const Mark = styled.div`
+const Mark = styled(Link)`
   width: 20%;
   display: flex;
-  align-items: center;
-`;
-
-const StyledGitHubLink = styled(Link)`
-  text-decoration: none;
+  justify-content: center;
 `;
 
 export {
@@ -100,9 +75,6 @@ export {
   IconImg,
   StyledLink,
   FooterText,
-  ContentWrapper,
-  TextContainer,
   Mark,
   GitHubIcon,
-  StyledGitHubLink,
 };

@@ -2,26 +2,12 @@ import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import LogoIcon from '@/assets/png/footericon.png';
-import MembersInfo from './MembersInfo/MembersInfo';
-import DrinkInfo from './Drink/DrinkInfo';
-import User from '../Header/User/Profile';
-import * as S from './Footer.styled';
 import gitHub from '@/assets/png/github-mark.png';
+import * as S from './Footer.styled';
 
 import { BROWSER_PATH } from '@/constants/path';
-import { useDrinkUpperCategory } from '@/hooks/useCategory';
-import { CategoryType } from '@/@types/category';
-import { isLoginProvider } from '@/utils/auth';
 
 function Footer() {
-  const { value: category, setValue: setCategory } = useDrinkUpperCategory();
-
-  const isLogin = isLoginProvider;
-
-  useEffect(() => {
-    setCategory;
-  }, []);
-
   const [isMain, setIsMain] = useState(
     window.location.pathname === BROWSER_PATH.BASE,
   );
@@ -60,13 +46,8 @@ function Footer() {
         <S.FooterText>
           Copyright © 2023 Mariage. All rights reserved.
         </S.FooterText>
-        <S.Mark>
-          <S.StyledGitHubLink
-            to="https://github.com/mariage-kr/mariage"
-            target="_blank"
-          >
-            <S.GitHubIcon src={gitHub} />
-          </S.StyledGitHubLink>
+        <S.Mark to="https://github.com/mariage-kr/mariage" target="_blank">
+          <S.GitHubIcon src={gitHub} />
         </S.Mark>
       </S.Container>
     </>
