@@ -85,6 +85,7 @@ public class ReviewModifyService {
         /* TODO: 2023/06/01 좋아요 삭제 */
         likeService.removeAllByReview(review);
         /* TODO: 2023/06/01 해시 태그 삭제 */
+        reviewHashtagService.removeAllByReview(review);
     }
 
     private void validateOwnerByReview(Long memberId, Review review) {
