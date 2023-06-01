@@ -16,7 +16,6 @@ function Footer() {
     if (isMain) {
       window.scroll({
         top: 0,
-        behavior: 'smooth',
       });
     } else {
       window.location.href = BROWSER_PATH.BASE;
