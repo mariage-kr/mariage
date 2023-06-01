@@ -167,9 +167,13 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public Optional<Review> findByIdJoinMember(Long reviewId) {
+    public Optional<Review> findByIdToDelete(Long reviewId) {
         Review review = queryFactory.selectFrom(QReview.review)
                 .join(QReview.review.member, member).fetchJoin()
+                .leftJoin(QReview.review.image, image).fetchJoin()
+                .leftJoin(QReview.review.likes, like).fetchJoin()
+                .leftJoin(QReview.review.reviewHashtags, reviewHashtag).fetchJoin()
+                .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
                 .where(QReview.review.id.eq(reviewId))
                 .fetchFirst();
 

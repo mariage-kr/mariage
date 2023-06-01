@@ -22,5 +22,5 @@ public interface ReviewRepositoryCustom {
 
     Long findReviewsCountByLikes(Long memberId);
 
-    Optional<Review> findByIdJoinMember(Long reviewId);
+    Optional<Review> findByIdToDelete(Long reviewId);
 }

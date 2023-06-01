@@ -18,11 +18,11 @@ public class Like {
     @Column(name = "like_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;
 
@@ -41,5 +41,10 @@ public class Like {
     private void setReview(Review review) {
         review.getLikes().add(this);
         this.review = review;
+    }
+
+    /* 비즈니스 로직 */
+    public void removeMember() {
+        member.getLikes().remove(this);
     }
 }

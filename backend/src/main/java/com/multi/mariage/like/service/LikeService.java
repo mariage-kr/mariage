@@ -66,4 +66,9 @@ public class LikeService {
             throw new LikeException(LikeErrorCode.REVIEW_ALREADY_LIKED);
         }
     }
+
+    public void removeAllByReview(Review review) {
+        /* TODO: 2023/06/01 추후 DB에서도 삭제 한다면 이곳에 두고 아니면 review로 이동 */
+        review.getLikes().forEach(Like::removeMember);
+    }
 }

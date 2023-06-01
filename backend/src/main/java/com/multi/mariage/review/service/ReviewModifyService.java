@@ -5,6 +5,7 @@ import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
+import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
@@ -34,6 +35,7 @@ public class ReviewModifyService {
     private final ImageService imageService;
     private final MemberFindService memberFindService;
     private final ProductFindService productFindService;
+    private final LikeService likeService;
     private final StorageService storageService;
     private final WeatherService weatherService;
     private final ReviewRepository reviewRepository;
@@ -73,13 +75,15 @@ public class ReviewModifyService {
     }
 
     public void delete(AuthMember authMember, Long reviewId) {
-        Review review = reviewRepository.findByIdJoinMember(reviewId).orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
+        Review review = reviewRepository.findByIdToDelete(reviewId)
+                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
 
         validateOwnerByReview(authMember.getId(), review);
 
         /* TODO: 2023/06/01 이미지 삭제 */
         storageService.remove(review.getImage());
         /* TODO: 2023/06/01 좋아요 삭제 */
+        likeService.removeAllByReview(review);
         /* TODO: 2023/06/01 해시 태그 삭제 */
     }
 
