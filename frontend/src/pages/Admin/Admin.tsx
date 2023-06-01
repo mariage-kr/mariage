@@ -332,7 +332,12 @@ function Admin() {
             <S.Label>수정할 이미지</S.Label>
           </>
         )}
-        <S.Input type={'file'} title={'이미지 업로드'} onChange={setImage} />
+        <S.Input
+          type={'file'}
+          title={'이미지 업로드'}
+          placeholder={image?.name}
+          onChange={setImage}
+        />
         {previewImage && <S.Image src={previewImage} alt="미리보기" />}
         {isValid ? (
           <S.Button type={'submit'} isValid={isValid}>

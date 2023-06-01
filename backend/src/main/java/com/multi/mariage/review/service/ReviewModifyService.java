@@ -75,8 +75,7 @@ public class ReviewModifyService {
     }
 
     public void delete(AuthMember authMember, Long reviewId) {
-        Review review = reviewRepository.findByIdToDelete(reviewId)
-                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
+        Review review = reviewFindService.findByIdToDelete(reviewId);
 
         validateOwnerByReview(authMember.getId(), review);
 
