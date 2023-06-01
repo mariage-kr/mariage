@@ -1,3 +1,4 @@
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import reviewIcon from '@/assets/png/review.png';
@@ -9,14 +10,23 @@ import useSelect from '@/hooks/useSelect';
 import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './ReviewCategory.styled';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { SORT } from '@/constants/option';
+
+
+import star from '@/assets/png/staricon.png';
+import XIcon from '@/assets/png/XIcon.png';
 
 type PropsType = {
   productId: number;
   memberId?: number;
 };
 
-function ReviewCategory({ productId, memberId }: PropsType) {
+type selectRateProps = {
+  selectRate: number;
+  changeSelectRate: (rate: number) => void;
+}; 
+
+function ReviewCategory({ productId, memberId }: PropsType, {selectRate, changeSelectRate}: selectRateProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   // 정렬
@@ -39,6 +49,17 @@ function ReviewCategory({ productId, memberId }: PropsType) {
     window.location.reload();
   };
 
+  const isZero = (value: number) => {
+    return value === 0;
+  }
+
+  const [showStarRate, setShowStarRate] = useState(true);
+
+  const onClickX = () => {
+    setShowStarRate(false);
+    changeSelectRate(0); 
+  };
+  
   useEffect(() => {
     if (option !== null) {
       findReview(sort!, option);
@@ -88,9 +109,19 @@ function ReviewCategory({ productId, memberId }: PropsType) {
               </S.Button>
             </S.Sort>
           </S.FloatWrap>
-          <S.FloatWrap>
-            <S.StarRate></S.StarRate>
-          </S.FloatWrap>
+          <S.FloatWrap2>
+            {!isZero(selectRate) && 
+            <S.StarRate>
+              <S.Star>
+                <S.StarWrapper css={S.img}>
+                  <S.StarImg src={star} />
+                </S.StarWrapper>
+                <S.StarWrapper css={S.rateText}>{selectRate}</S.StarWrapper>
+              </S.Star>
+              <S.X onClick={onClickX}><S.XIcon src={XIcon}/></S.X>
+            </S.StarRate>
+            }
+          </S.FloatWrap2>
         </S.Bottom>
       </S.Wrapper>
     </S.Container>

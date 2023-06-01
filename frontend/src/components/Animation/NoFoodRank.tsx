@@ -2,7 +2,7 @@ import Lottie from 'lottie-react';
 import noFoodRank from '@/assets/lottie/no-food-rank.json';
 
 const style = {
-  width: '15%',
+  width: '25%',
   minWidth: '45px',
   maxHeight: '3rem',
 };

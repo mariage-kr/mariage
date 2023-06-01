@@ -96,7 +96,7 @@ const LowerCategoryWrap = styled.div`
 const Category = styled.button<Props>`
   width: auto;
   margin: 0 7px 10px 0;
-  padding: 5px 10px 6px;
+  padding: 6px 10px 6px;
   border: 2px solid #9c94d0;
   border-radius: 30px;
   background-color: ${props => (props.valid ? '#9c94d0' : '#fff')};
@@ -167,7 +167,7 @@ const BtnWrap = styled.div`
 const FilterBtn = styled.button`
   width: 120px;
   margin: 0 15px 20px 0;
-  padding: 6px 0 7px;
+  padding: 7px 0 7px;
   border: 2px solid #9c94d0;
   border-radius: 10px;
   background: #fff;

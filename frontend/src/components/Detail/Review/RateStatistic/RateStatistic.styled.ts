@@ -52,6 +52,7 @@ const RateOption = styled.div`
   width: 95%;
   text-align: center;
   overflow: hidden;
+  cursor: pointer;
 
   @media (max-width: 1400px) {
     width: 86%;
