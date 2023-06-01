@@ -23,7 +23,7 @@ public class HashtagService {
                 .toList();
     }
 
-    private Hashtag findByName(String name) {
+    public Hashtag findByName(String name) {
         Optional<Hashtag> hashtag = hashtagRepository.findByName(name);
 
         if (hashtag.isEmpty()) {

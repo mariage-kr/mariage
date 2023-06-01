@@ -5,6 +5,7 @@ import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review.dto.request.ReviewModifyRequest;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
@@ -15,9 +16,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -111,5 +110,19 @@ public class Review {
 
     public void removeLike(Like like) {
         this.likes.remove(like);
+    }
+
+    public void removeHashTag(ReviewHashtag reviewHashtag) {
+        this.reviewHashtags.remove(reviewHashtag);
+    }
+
+    public void update(ReviewModifyRequest request) {
+        this.productRate = request.getProductRate();
+        this.content = request.getContent();
+        this.foodRate = request.getFoodRate();
+    }
+
+    public void setReviewHashtags(Set<ReviewHashtag> reviewHashtags) {
+        this.reviewHashtags = reviewHashtags;
     }
 }
