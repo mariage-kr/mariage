@@ -55,7 +55,8 @@ const ContentWrapper = styled.div`
 
 const UserArea = styled.div`
   float: right;
-  width: 20%;
+  width: 40%;
+  /* padding: 0 10%; */
   /* margin-top: 150px; */
   box-sizing: border-box;
 
@@ -74,7 +75,6 @@ const UserArea = styled.div`
 `;
 
 const TextContainer = styled.div`
-  width: 80%;
   border-top: 1px solid #00000033;
   padding: 0 10%;
   margin-bottom: 0;
@@ -85,7 +85,7 @@ const TextContainer = styled.div`
 const FooterText = styled.div`
   width: 40%;
   float: left;
-  margin: 10px 0;
+  margin: 20px 0;
 `;
 
 const Mark = styled.img`
