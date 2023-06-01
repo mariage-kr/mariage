@@ -2,10 +2,15 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  border-top: 1px solid #00000033;
-  height: 100px;
+  /* border-top: 1px solid #00000033; */
+  height: 250px;
   padding: 0 10%;
   overflow: hidden;
+  /* #bb2649 */
+  background-color: rgba(187, 38, 73, 0.05);
+  /* background-color: #dbdeff; */
+  /* #9c94d0 */
+  /* background-color: rgba(156, 148, 208, 0.2);  */
 `;
 
 const FLogo = styled.div`
@@ -36,16 +41,6 @@ const IconImg = styled.img`
   object-fit: cover;
 `;
 
-const Member = styled.p`
-  width: 80%;
-  float: right;
-  margin: 0 auto;
-  font-size: 1rem;
-  text-align: center;
-  margin-top: 25px;
-  box-sizing: border-box;
-`;
-
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -54,4 +49,63 @@ const StyledLink = styled(Link)`
   min-width: 100px;
 `;
 
-export { Container, FLogo, LogoText, Icon, IconImg, Member, StyledLink };
+const ContentWrapper = styled.div`
+  width: 80%;
+`;
+
+const UserArea = styled.div`
+  float: right;
+  width: 20%;
+  /* margin-top: 150px; */
+  box-sizing: border-box;
+
+  @media (max-width: 1385px) {
+    width: 30%;
+  }
+  @media (max-width: 1030px) {
+    width: 31%;
+  }
+  @media (max-width: 1005px) {
+    width: 28%;
+  }
+  @media (max-width: 985px) {
+    width: 29%;
+  }
+`;
+
+const TextContainer = styled.div`
+  width: 80%;
+  border-top: 1px solid #00000033;
+  padding: 0 10%;
+  margin-bottom: 0;
+  overflow: hidden;
+  background-color: rgba(187, 38, 73, 0.05);
+`;
+
+const FooterText = styled.div`
+  width: 40%;
+  float: left;
+  margin: 10px 0;
+`;
+
+const Mark = styled.img`
+  float: right;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  margin: 14px 0;
+`;
+
+export {
+  Container,
+  FLogo,
+  LogoText,
+  Icon,
+  IconImg,
+  StyledLink,
+  FooterText,
+  ContentWrapper,
+  UserArea,
+  TextContainer,
+  Mark,
+};
