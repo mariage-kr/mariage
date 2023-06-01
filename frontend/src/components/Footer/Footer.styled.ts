@@ -36,16 +36,6 @@ const IconImg = styled.img`
   object-fit: cover;
 `;
 
-const Member = styled.p`
-  width: 80%;
-  float: right;
-  margin: 0 auto;
-  font-size: 1rem;
-  text-align: center;
-  margin-top: 25px;
-  box-sizing: border-box;
-`;
-
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -54,4 +44,37 @@ const StyledLink = styled(Link)`
   min-width: 100px;
 `;
 
-export { Container, FLogo, LogoText, Icon, IconImg, Member, StyledLink };
+const FooterText = styled.div`
+  width: 60%;
+  float: left;
+  margin: 42px auto;
+  font-size: 1rem;
+  text-align: center;
+  box-sizing: border-box;
+`;
+
+const GitHubIcon = styled.img`
+  float: right;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 35px 0;
+`;
+
+const Mark = styled(Link)`
+  width: 20%;
+  display: flex;
+  justify-content: center;
+`;
+
+export {
+  Container,
+  FLogo,
+  LogoText,
+  Icon,
+  IconImg,
+  StyledLink,
+  FooterText,
+  Mark,
+  GitHubIcon,
+};
