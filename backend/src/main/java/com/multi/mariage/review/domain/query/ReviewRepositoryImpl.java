@@ -1,6 +1,7 @@
 package com.multi.mariage.review.domain.query;
 
 import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.review.domain.QReview;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
 import com.multi.mariage.review.dto.cond.MemberReviewsPagingCond;
@@ -13,6 +14,7 @@ import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.multi.mariage.category.domain.QFood.food;
 import static com.multi.mariage.hashtag.domain.QHashtag.hashtag;
@@ -162,5 +164,15 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .where(like.member.id.eq(memberId));
 
         return countQuery.fetchFirst();
+    }
+
+    @Override
+    public Optional<Review> findByIdJoinMember(Long reviewId) {
+        Review review = queryFactory.selectFrom(QReview.review)
+                .join(QReview.review.member, member).fetchJoin()
+                .where(QReview.review.id.eq(reviewId))
+                .fetchFirst();
+
+        return Optional.ofNullable(review);
     }
 }

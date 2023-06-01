@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public enum ReviewErrorCode implements ErrorCode {
-    REVIEW_IS_NOT_EXISTED(400, "REVIEW_01", "리뷰가 존재하지 않습니다.");
+    REVIEW_IS_NOT_EXISTED(400, "REVIEW_01", "리뷰가 존재하지 않습니다."),
+    MEMBER_IS_NOT_OWNER(400, "REVIEW_02", "해당 리뷰의 소유자가 아닙니다.");
 
     private int statusCode;
     private String errorCode;

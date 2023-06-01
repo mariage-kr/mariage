@@ -1,7 +1,7 @@
 package com.multi.mariage.product.dto.response;
 
 import com.multi.mariage.product.vo.filter.ProductFilterVO;
-import com.multi.mariage.review.dto.response.PageResponse;
+import com.multi.mariage.global.dto.PageResponse;
 import lombok.Builder;
 
 import java.util.List;

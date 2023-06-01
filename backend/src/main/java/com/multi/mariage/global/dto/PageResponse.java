@@ -1,4 +1,4 @@
-package com.multi.mariage.review.dto.response;
+package com.multi.mariage.global.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
