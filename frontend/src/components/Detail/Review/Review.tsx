@@ -108,10 +108,25 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     fetchReview(userInfo?.id);
   }, [pageNumber]);
 
+  /* 별점클릭시 해당 별점 리뷰 조회 */
+  const [selectRate, setSelectRate] = useState<number>(0);
+
+  const changeSelectRate = (rate: number) => {
+    setSelectRate(rate);
+  }
+
+  const isZero = (value: number) => {
+    return value === 0;
+  }
+
   return (
     <S.Container>
       <S.Left>
-        <ReviewCategory />
+        <ReviewCategory 
+          selectRate={selectRate}
+          changeSelectRate={changeSelectRate}
+          isZero={isZero}
+        />
         {lengthIsZero() ? (
           <NoReviews />
         ) : (
@@ -122,7 +137,10 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
         <S.Target ref={target} />
       </S.Left>
       <S.Right>
-        <RateStatistic {...rating} />
+        <RateStatistic
+          {...rating} 
+          changeSelectRate={changeSelectRate}
+        />
         <S.EditBtn onClick={onClickToggleModal}>
           <S.Edit css={S.EditSize}>
             <S.EditIcon src={editIcon} />

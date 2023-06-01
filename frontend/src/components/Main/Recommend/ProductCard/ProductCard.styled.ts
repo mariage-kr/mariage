@@ -108,6 +108,7 @@ const Country = styled.div`
 const country_left = css`
   border-radius: 50%;
   box-shadow: 1px 1px #9c94d055;
+  margin: 1px 0;
   width: 30px;
   height: 30px;
   text-align: right;

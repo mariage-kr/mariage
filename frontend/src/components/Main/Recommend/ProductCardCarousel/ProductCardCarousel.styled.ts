@@ -16,6 +16,7 @@ const LoadingAnimation = styled.div`
 `;
 
 const NoProductsAnimation = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,16 +26,14 @@ const NoProductsAnimation = styled.div`
 `;
 
 const AniWrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  scale: calc(3);
 `;
 
 const Text = styled.p`
-  margin-top: 180px;
-
+  margin-top: 175px;
   font-size: 1.6rem;
 `;
 

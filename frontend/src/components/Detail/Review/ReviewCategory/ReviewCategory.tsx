@@ -9,9 +9,15 @@ import useFoodCategory from '@/hooks/useFoodCategory';
 
 import * as S from './ReviewCategory.styled';
 import { SORT } from '@/constants/option';
-import { StarRate } from '@/components/StarRate/Common/StarRate';
+import star from '@/assets/png/staricon.png';
+import XIcon from '@/assets/png/XIcon.png';
 
-function ReviewCategory() {
+type selectRateProps = {
+  selectRate: number;
+  changeSelectRate: (rate: number) => void;
+}; 
+
+function ReviewCategory({selectRate, changeSelectRate}: selectRateProps) {
   const { foodCategory, setFoodCategory } = useFoodCategory();
   const { value: option, setValue: setOption } = useSelect('');
 
@@ -32,6 +38,17 @@ function ReviewCategory() {
         newest: boolean;
       };
     });
+  };
+
+  const isZero = (value: number) => {
+    return value === 0;
+  }
+
+  const [showStarRate, setShowStarRate] = useState(true);
+
+  const onClickX = () => {
+    setShowStarRate(false);
+    changeSelectRate(0); 
   };
 
   return (
@@ -70,9 +87,19 @@ function ReviewCategory() {
               </S.Button>
             </S.Sort>
           </S.FloatWrap>
-          <S.FloatWrap>
-            <S.StarRate></S.StarRate>
-          </S.FloatWrap>
+          <S.FloatWrap2>
+            {!isZero(selectRate) && 
+            <S.StarRate>
+              <S.Star>
+                <S.StarWrapper css={S.img}>
+                  <S.StarImg src={star} />
+                </S.StarWrapper>
+                <S.StarWrapper css={S.rateText}>{selectRate}</S.StarWrapper>
+              </S.Star>
+              <S.X onClick={onClickX}><S.XIcon src={XIcon}/></S.X>
+            </S.StarRate>
+            }
+          </S.FloatWrap2>
         </S.Bottom>
       </S.Wrapper>
     </S.Container>

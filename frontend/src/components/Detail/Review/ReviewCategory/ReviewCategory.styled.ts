@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { StarRate } from '@/components/StarRate/Common/StarRate';
 
 type Sort = {
   sort: boolean;
@@ -107,18 +106,26 @@ transition: 250ms;
 &:hover {
   box-shadow: 1.5px 1.5px 3px #9C94D0;
 }
+
+@media (max-width: 1080px) { width: 100px; }
+`;
+
+const FloatWrap2 = styled.div`
+  float: left;
+  padding-top: 5px;
+  position: relative;
 `;
 
 const StarRate = styled.div`
 border-radius: 70px;
-width: 140px;
-min-width: 100px;
+width: 100px;
 height: 40px;
-margin-left: 10px;
-padding: 0 20px;
+margin: 0 1px 0 5px;
+padding: 0 0 0 5px;
 font-size: 1rem;
 box-shadow: 1px 1px 3px #9C94D055;
 transition: 250ms;
+overflow: hidden;
 
 &:hover {
   box-shadow: 1.5px 1.5px 3px #9C94D0;
@@ -128,30 +135,48 @@ transition: 250ms;
 const Star = styled.div`
   box-sizing: border-box;
   float: left;
-  width: 24%;
-  padding-right: 10px;
-  margin: 2px 0 0;
-
-  @media (max-width: 1400px) { width: 27%; }
-  @media (max-width: 1200px) { width: 31%; }
+  width: 80%;
+  padding: 5px 0 0 21%;
+  margin: 0 0;
 `;
 
 const StarWrapper = styled.div`
-  display: inline-block;
+  float: left;
+  width: 40%;
+  box-sizing: border-box;
 `;
 
 const img = css`
   width: 30px;
   height: 30px;
-
-  @media (max-width: 1800px) { width: 25px; height: 25px; }
-  @media (max-width: 1200px) { width: 20px; height: 20px; }
 `;
 
 const StarImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+
+const rateText = css`
+  margin: 0 0 0 5px;
+  font-size: 1.4rem;
+`;
+
+const X = styled.div`
+  position: absolute;
+  top: 0;
+  right: -5px;
+  z-index: 10;
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+  cursor: pointer;
+`;
+
+const XIcon = styled.img`
+  width: 100%;
+  object-fit: contain;
+  transform: scale(0.6);
 `;
 
 export {
@@ -167,9 +192,13 @@ export {
   Option,
   Sort,
   Button,
+  FloatWrap2,
   StarRate,
   Star,
   StarWrapper,
   img,
   StarImg,
+  rateText,
+  X,
+  XIcon,
 };

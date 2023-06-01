@@ -105,27 +105,8 @@ const FoodImg = styled.img`
 
 const NameRate = styled.div`
   margin: 5px 0 0;
-  display: inline-block;
   text-align: center;
   font-size: 1.1rem;
-
-  @media (max-width: 1140px) {
-    display: block;
-  }
-`;
-
-const NameRate2= styled.div`
-  margin: 5px 0 0;
-  text-align: center;
-  font-size: 1.1rem;
-`;
-
-const rate = css`
-  margin-left: 15px;
-
-  @media (max-width: 1140px) {
-    margin-left: 0;
-  }
 `;
 
 const Rate = styled.span`
@@ -148,7 +129,5 @@ export {
   Food,
   FoodImg,
   NameRate,
-  NameRate2,
-  rate,
   Rate,
 };

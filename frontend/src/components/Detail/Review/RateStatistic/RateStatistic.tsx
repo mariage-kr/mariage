@@ -10,11 +10,16 @@ type ListType = {
   percentage: number;
 };
 
+type RateStatisticProps = ReviewRatingType & {
+  changeSelectRate: (rate: number) => void;
+};
+
 function RateStatistic({
   reviewAverageRate,
   reviewCount,
   percentageList,
-}: ReviewRatingType) {
+  changeSelectRate,
+}: RateStatisticProps) {
   return (
     <S.Container>
       <S.Wrapper>
@@ -32,7 +37,7 @@ function RateStatistic({
         </S.Top>
         <S.Bottom>
           {percentageList.map(({ reviewRate, percentage }: ListType) => (
-            <S.RateOption>
+            <S.RateOption key={reviewRate} onClick={() => changeSelectRate(reviewRate)}>
               <S.Star>
                 <S.StarWrapper css={S.img}>
                   <S.StarImg src={star} />

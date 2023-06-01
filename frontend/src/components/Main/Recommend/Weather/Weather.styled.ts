@@ -19,12 +19,13 @@ const TextWrap = styled.div`
 
 const Temperature = styled.p`
   width: 120px;
-  margin: 10px 0;
+  margin: 20px 0 10px;
   font-size: 2rem;
   font-weight: 600;
 `;
 
 const Name = styled.p`
+  margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
 `;
