@@ -88,6 +88,10 @@ const Mark = styled.div`
   align-items: center;
 `;
 
+const StyledGitHubLink = styled(Link)`
+  text-decoration: none;
+`;
+
 export {
   Container,
   FLogo,
@@ -97,8 +101,8 @@ export {
   StyledLink,
   FooterText,
   ContentWrapper,
-  UserArea,
   TextContainer,
   Mark,
   GitHubIcon,
+  StyledGitHubLink,
 };

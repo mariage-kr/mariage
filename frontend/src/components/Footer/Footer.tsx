@@ -61,10 +61,14 @@ function Footer() {
           Copyright © 2023 Mariage. All rights reserved.
         </S.FooterText>
         <S.Mark>
-          <S.GitHubIcon src={gitHub} />
+          <S.StyledGitHubLink
+            to="https://github.com/mariage-kr/mariage"
+            target="_blank"
+          >
+            <S.GitHubIcon src={gitHub} />
+          </S.StyledGitHubLink>
         </S.Mark>
       </S.Container>
-      <S.TextContainer></S.TextContainer>
     </>
   );
 }
