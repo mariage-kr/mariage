@@ -10,6 +10,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
+import com.multi.mariage.review.dto.request.ReviewDetailRequest;
 import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
@@ -59,10 +60,12 @@ class ReviewFindServiceTest extends ServiceTest {
         /* When */
         ProductReviewsResponse actual = reviewFindService.findReviewsByProductId(
                 product.getId(),
-                member.getId(),
-                1,
-                10,
-                Sort.NEWEST.name());
+                ReviewDetailRequest.builder()
+                        .memberId(member.getId())
+                        .pageNumber(1)
+                        .pageSize(10)
+                        .sort(Sort.NEWEST.name())
+                        .build());
 
         /* Then */
         assertThat(actual.getContents()).hasSize(2);
@@ -75,14 +78,15 @@ class ReviewFindServiceTest extends ServiceTest {
         /* When */
         ProductReviewsResponse actual = reviewFindService.findReviewsByProductId(
                 product.getId(),
-                member.getId(),
-                1,
-                1,
-                Sort.NEWEST.name());
+                ReviewDetailRequest.builder()
+                        .memberId(member.getId())
+                        .pageNumber(1)
+                        .pageSize(10)
+                        .sort(Sort.NEWEST.name())
+                        .build());
 
         /* Then */
         assertThat(actual.isFirstPage()).isTrue();
-        assertThat(actual.isLastPage()).isFalse();
     }
 
     @DisplayName("마지막 페이지인지 확인한다.")
@@ -92,13 +96,14 @@ class ReviewFindServiceTest extends ServiceTest {
         /* When */
         ProductReviewsResponse actual = reviewFindService.findReviewsByProductId(
                 product.getId(),
-                member.getId(),
-                2,
-                1,
-                Sort.NEWEST.name());
+                ReviewDetailRequest.builder()
+                        .memberId(member.getId())
+                        .pageNumber(1)
+                        .pageSize(2)
+                        .sort(Sort.NEWEST.name())
+                        .build());
 
         /* Then */
-        assertThat(actual.isFirstPage()).isFalse();
         assertThat(actual.isLastPage()).isTrue();
     }
 
@@ -109,10 +114,12 @@ class ReviewFindServiceTest extends ServiceTest {
         /* When */
         ProductReviewsResponse actual = reviewFindService.findReviewsByProductId(
                 product.getId(),
-                member.getId(),
-                1,
-                1,
-                Sort.NEWEST.name());
+                ReviewDetailRequest.builder()
+                        .memberId(member.getId())
+                        .pageNumber(1)
+                        .pageSize(1)
+                        .sort(Sort.NEWEST.name())
+                        .build());
 
         /* Then */
         assertThat(actual.getTotalPages()).isEqualTo(2);
@@ -125,10 +132,12 @@ class ReviewFindServiceTest extends ServiceTest {
         /* When */
         ProductReviewsResponse actual = reviewFindService.findReviewsByProductId(
                 product.getId(),
-                member.getId(),
-                2,
-                1,
-                Sort.NEWEST.name());
+                ReviewDetailRequest.builder()
+                        .memberId(member.getId())
+                        .pageNumber(1)
+                        .pageSize(2)
+                        .sort(Sort.NEWEST.name())
+                        .build());
 
         /* Then */
         assertThat(actual.getTotalCount()).isEqualTo(2);

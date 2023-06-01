@@ -349,7 +349,7 @@ public enum ReviewFixture {
             5,
             "숙주베이컨볶음과 시원을 먹었습니다. 시원은 시원하게 먹어야 제맛! 원래 잘 모르는 술이었는데 먹어보니 정말 괜찮네요. 궁합도 좋았어요.",
             5,
-            DESSERT,
+            ROAST,
             "sei_c1_stirfriedbeefbacon.jpg",
             List.of("숙주베이컨볶음", "시원")),
     리미_딱좋은데이_닭발(
@@ -458,16 +458,16 @@ public enum ReviewFixture {
             "퇴근 후 라멘에 맥주한잔! 이맛에 퇴근합니당",
             3,
             RICE,
-            "jinee_Corona_Snack.jpg",
+            "jinee_Asahi_Ramen.jpg",
             List.of("퇴근후_한잔")),
 
-    지니_아사히_라멘(
+    지니_코로나_라멘(
             JINEE,
             코로나, 3,
             "맥주 안주로 그만인 나쵸는 파삭하고 고소한 나쵸에 치즈 소스를 찍어먹으면 가장 맛나다.",
             3,
             RICE,
-            "jinee_Asahi_Ramen.jpg",
+            "jinee_Corona_Snack.jpg",
             List.of("나초", "가볍게한잔")),
 
     마리_진로_순대볶음(

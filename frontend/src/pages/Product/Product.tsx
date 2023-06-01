@@ -90,6 +90,16 @@ function Product() {
     fetchProducts();
   }, [pageNumber]);
 
+  useEffect(() => {
+    const toTop = () => {
+      window.scroll({
+        top: 0,
+      });
+    };
+
+    toTop();
+  }, []);
+
   return (
     <S.Container>
       <S.Aside>

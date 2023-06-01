@@ -7,8 +7,8 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.Sort;
-import com.multi.mariage.review.dto.MemberReviewsPagingCond;
-import com.multi.mariage.review.dto.ReviewsPagingCond;
+import com.multi.mariage.review.dto.cond.MemberReviewsPagingCond;
+import com.multi.mariage.review.dto.cond.ReviewsPagingCond;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +49,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .pageSize(size)
                 .pageNumber(1)
                 .sort(Sort.LIKE.name())
+                .rate(0)
                 .build();
 
         /* When */
@@ -63,7 +64,7 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
     void 제품의_리뷰_개수를_조회한다() {
         /* Given */
         /* When */
-        Long actual = reviewRepository.findReviewsCountByProductId(product.getId());
+        Long actual = reviewRepository.findReviewsCountByProductId(product.getId(), null, 0);
 
         /* Then */
         assertThat(actual).isEqualTo(2);

@@ -11,14 +11,17 @@ const getDetailReviews = (
   memberId: number | null,
   pageNumber: number,
   sort: string,
+  category: string | null,
 ) => {
+  console.log('foodCategory : ' + category);
   return axios
     .get<PagingType<ReviewType>>(`${API_PATH.REVIEW.PRODUCT}/${productId}`, {
       params: {
         pageSize: PAGING.PAGE_SIZE,
-        memberId: memberId,
-        pageNumber: pageNumber,
-        sort: sort,
+        memberId,
+        pageNumber,
+        sort,
+        category,
       },
     })
     .then(response => {
