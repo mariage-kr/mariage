@@ -15,9 +15,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -111,5 +109,10 @@ public class Review {
 
     public void removeLike(Like like) {
         this.likes.remove(like);
+    }
+
+    public void removeRelated() {
+        member.getReviews().remove(this);
+        product.getReviews().remove(this);
     }
 }

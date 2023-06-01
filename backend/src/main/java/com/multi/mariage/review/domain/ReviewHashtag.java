@@ -16,7 +16,7 @@ public class ReviewHashtag {
     @Column(name = "review_hashtag_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
 

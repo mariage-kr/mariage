@@ -80,12 +80,12 @@ public class ReviewModifyService {
 
         validateOwnerByReview(authMember.getId(), review);
 
-        /* TODO: 2023/06/01 이미지 삭제 */
         storageService.remove(review.getImage());
-        /* TODO: 2023/06/01 좋아요 삭제 */
         likeService.removeAllByReview(review);
-        /* TODO: 2023/06/01 해시 태그 삭제 */
         reviewHashtagService.removeAllByReview(review);
+        review.removeRelated();
+
+        reviewRepository.delete(review);
     }
 
     private void validateOwnerByReview(Long memberId, Review review) {

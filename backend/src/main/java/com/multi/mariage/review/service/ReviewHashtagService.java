@@ -39,6 +39,7 @@ public class ReviewHashtagService {
     }
 
     private void removeReviewHashtags(ReviewHashtag reviewHashtag) {
+        /* TODO: 2023/06/01 자동으로 삭제가 안되면 삭제 코드 필요 */
         Hashtag hashtag = reviewHashtag.getHashtag();
         reviewHashtag.removeHashtag();
         hashTagRelatedIsEmpty(hashtag);
