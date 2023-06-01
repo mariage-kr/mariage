@@ -26,32 +26,28 @@ function DrinkInfo({ region, value, categories }: HeaderRegionCategoryType) {
 
   return (
     <>
-      <S.Container>
-        <S.Drink>
-          <S.RegionText>{region}</S.RegionText>
-          {categories.map(
-            (category: HeaderUpperCategoryType, index: number) => {
-              const categoryValue = category.value.toLowerCase();
-              return (
-                <div key={index}>
-                  <S.StyledLink
-                    to={`${
-                      BROWSER_PATH.PRODUCT
-                    }?upper=${categoryValue.toUpperCase()}&minRate=${
-                      PARAM.RATE.MIN
-                    }&maxRate=${PARAM.RATE.MAX}&minLevel=${
-                      PARAM.LEVEL.MIN
-                    }&maxLevel=${PARAM.LEVEL.MAX}&sort=${SORT.FILTER.RATE}`}
-                    onClick={() => handleCategoryClick(categoryValue)}
-                  >
-                    {category.name}
-                  </S.StyledLink>
-                </div>
-              );
-            },
-          )}
-        </S.Drink>
-      </S.Container>
+      <S.Drink>
+        <S.RegionText>{region}</S.RegionText>
+        {categories.map((category: HeaderUpperCategoryType, index: number) => {
+          const categoryValue = category.value.toLowerCase();
+          return (
+            <div key={index}>
+              <S.StyledLink
+                to={`${
+                  BROWSER_PATH.PRODUCT
+                }?upper=${categoryValue.toUpperCase()}&minRate=${
+                  PARAM.RATE.MIN
+                }&maxRate=${PARAM.RATE.MAX}&minLevel=${
+                  PARAM.LEVEL.MIN
+                }&maxLevel=${PARAM.LEVEL.MAX}&sort=${SORT.FILTER.RATE}`}
+                onClick={() => handleCategoryClick(categoryValue)}
+              >
+                {category.name}
+              </S.StyledLink>
+            </div>
+          );
+        })}
+      </S.Drink>
     </>
   );
 }

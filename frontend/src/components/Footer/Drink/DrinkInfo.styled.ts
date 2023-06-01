@@ -1,15 +1,8 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-const Container = styled.div`
-  /* border-top: 1px solid #00000033;
-  height: 100px;
-  padding: 0 10%;
-  overflow: hidden; */
-`;
-
 const Drink = styled.div`
-  width: 10%;
+  width: 15%;
   float: left;
   margin: 0 20px;
   font-size: 1rem;
@@ -36,4 +29,4 @@ const RegionText = styled.p`
   font-weight: bold;
 `;
 
-export { Container, Drink, StyledLink, RegionText };
+export { Drink, StyledLink, RegionText };

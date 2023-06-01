@@ -57,29 +57,14 @@ function Footer() {
             </S.Icon>
           </S.FLogo>
         </S.StyledLink>
-        <S.ContentWrapper>
-          {category.map((category: CategoryType, index: number) => {
-            return (
-              <DrinkInfo
-                value={category.value}
-                region={category.region}
-                categories={category.categories}
-                key={index}
-              />
-            );
-          })}
-          <S.Mark src={gitHub} />
-        </S.ContentWrapper>
-        {/* <MembersInfo /> */}
-      </S.Container>
-      <S.TextContainer>
         <S.FooterText>
           Copyright © 2023 Mariage. All rights reserved.
         </S.FooterText>
-        <S.UserArea>
-          <User />
-        </S.UserArea>
-      </S.TextContainer>
+        <S.Mark>
+          <S.GitHubIcon src={gitHub} />
+        </S.Mark>
+      </S.Container>
+      <S.TextContainer></S.TextContainer>
     </>
   );
 }

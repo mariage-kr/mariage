@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   /* border-top: 1px solid #00000033; */
-  height: 250px;
+  height: 100px;
   padding: 0 10%;
   overflow: hidden;
   /* #bb2649 */
@@ -53,27 +53,6 @@ const ContentWrapper = styled.div`
   width: 80%;
 `;
 
-const UserArea = styled.div`
-  float: right;
-  width: 40%;
-  /* padding: 0 10%; */
-  /* margin-top: 150px; */
-  box-sizing: border-box;
-
-  @media (max-width: 1385px) {
-    width: 30%;
-  }
-  @media (max-width: 1030px) {
-    width: 31%;
-  }
-  @media (max-width: 1005px) {
-    width: 28%;
-  }
-  @media (max-width: 985px) {
-    width: 29%;
-  }
-`;
-
 const TextContainer = styled.div`
   border-top: 1px solid #00000033;
   padding: 0 10%;
@@ -83,17 +62,30 @@ const TextContainer = styled.div`
 `;
 
 const FooterText = styled.div`
-  width: 40%;
+  width: 60%;
   float: left;
-  margin: 20px 0;
+  /* height: 100%; */
+  /* margin: 20px 0; */
+
+  margin: 42px auto;
+  font-size: 1rem;
+  text-align: center;
+  /* margin-top: 25px; */
+  box-sizing: border-box;
 `;
 
-const Mark = styled.img`
+const GitHubIcon = styled.img`
   float: right;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
-  margin: 14px 0;
+  width: 30px;
+  height: 30px;
+  margin: 35px 0;
+`;
+
+const Mark = styled.div`
+  width: 20%;
+  display: flex;
+  align-items: center;
 `;
 
 export {
@@ -108,4 +100,5 @@ export {
   UserArea,
   TextContainer,
   Mark,
+  GitHubIcon,
 };
