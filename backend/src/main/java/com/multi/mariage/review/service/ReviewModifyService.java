@@ -18,8 +18,6 @@ import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewModifyRequest;
-import com.multi.mariage.review.exception.ReviewErrorCode;
-import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
@@ -29,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -77,19 +74,25 @@ public class ReviewModifyService {
         Review review = reviewFindService.findById(request.getId());    // 해당 리뷰 가져옴
 
         review.setFoodCategory(foodCategory);   // 푸드카테고리 변경
-        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();//해당 리뷰에 대한 해시태그들
-        removeFoodImage(request.getFoodImageId());   // 저장된 기존 음식 이미지 삭제
-        removeReviewHashtags(reviewHashtags);   // 기존 해시태그 삭제
+        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags(); //해당 리뷰에 대한 해시태그들
 
-        reviewHashtags.clear();
+        removeImage(request.getFoodImageId());   // 저장된 기존 음식 이미지 삭제
 
-        for (String hashtagName : request.getHashtags()) {  // 해시태그 업데이트하여 저장
-            Hashtag hashtag = hashtagService.findByName(hashtagName);
-            ReviewHashtag newReviewHashtag = new ReviewHashtag();
-            newReviewHashtag.setHashtag(hashtag);
-            newReviewHashtag.setReview(review);
-            reviewHashtags.add(newReviewHashtag);
-            reviewHashtagRepository.save(newReviewHashtag);
+
+        if (!request.getHashtags().isEmpty()) {
+            removeHashtags(reviewHashtags);   // 기존 해시태그 삭제
+            deleteAllByReview(review);
+            reviewHashtags.clear();
+
+            for (String hashtagName : request.getHashtags()) {  // 해시태그 업데이트하여 저장
+                Hashtag hashtag = hashtagService.findByName(hashtagName);
+                ReviewHashtag newReviewHashtag = new ReviewHashtag();
+
+                newReviewHashtag.setHashtag(hashtag);
+                newReviewHashtag.setReview(review);
+                reviewHashtags.add(newReviewHashtag);
+                reviewHashtagRepository.save(newReviewHashtag);
+            }
         }
 
         review.changeImage(image);
@@ -112,27 +115,28 @@ public class ReviewModifyService {
         return foodCategoryService.findProductWithCategory(foodCategory, product);
     }
 
-    private void removeFoodImage(Long imageId) {
+    private void removeImage(Long imageId) {
         Image image = storageService.findById(imageId);
 
         storageService.remove(image);
     }
 
-    private void removeReviewHashtags(Set<ReviewHashtag> reviewHashtags) {
+    private void removeHashtags(Set<ReviewHashtag> reviewHashtags) {
         for (ReviewHashtag reviewHashtag : reviewHashtags) {
             Hashtag hashtag = reviewHashtag.getHashtag();
             Review review = reviewHashtag.getReview();
 
             review.removeHashTag(reviewHashtag);
-            reviewHashtagRepository.delete(reviewHashtag);
+
             if (hashtag.getReviewHashTags().isEmpty()) {
                 hashtagRepository.delete(hashtag);
             }
         }
     }
-//    @Transactional
-//    public void deleteAllByReview(Hashtag hashtag, Review review) {
-//        reviewHashtagRepository.deleteAllByReview(review);
-//    }
+
+    @Transactional
+    public void deleteAllByReview(Review review) {
+        reviewHashtagRepository.deleteAllByReview(review);
+    }
 
 }

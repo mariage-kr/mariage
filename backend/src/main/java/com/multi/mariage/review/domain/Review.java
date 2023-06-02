@@ -4,8 +4,8 @@ import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewModifyRequest;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import jakarta.persistence.*;
@@ -120,9 +120,5 @@ public class Review {
         this.productRate = request.getProductRate();
         this.content = request.getContent();
         this.foodRate = request.getFoodRate();
-    }
-
-    public void setReviewHashtags(Set<ReviewHashtag> reviewHashtags) {
-        this.reviewHashtags = reviewHashtags;
     }
 }
