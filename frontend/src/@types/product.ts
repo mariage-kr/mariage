@@ -77,6 +77,7 @@ type ReviewRatingType = {
     reviewRate: number;
     percentage: number;
   }[];
+  productId?: number;
 };
 
 type ProductContentType = {

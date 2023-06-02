@@ -4,22 +4,42 @@ import { ReviewRatingType } from '@/@types/product';
 import star from '@/assets/png/star_icon.png';
 
 import * as S from './RateStatistic.styled';
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 
 type ListType = {
   reviewRate: number;
   percentage: number;
 };
 
-type RateStatisticProps = ReviewRatingType & {
-  changeSelectRate: (rate: number) => void;
-};
-
 function RateStatistic({
   reviewAverageRate,
   reviewCount,
   percentageList,
-  changeSelectRate,
-}: RateStatisticProps) {
+  productId,
+}: ReviewRatingType) {
+  const navigate = useNavigate();
+  const queryParam = new URLSearchParams(location.search);
+  const sort = queryParam.get('sort');
+  const selectedCategory = queryParam.get('category');
+
+  const findReview = async (
+    sortOption: string,
+    selectOption?: string | null,
+    rate?: string | number | null,
+  ) => {
+    let query = `sort=${sortOption}`;
+    console.log(selectedCategory);
+    if (selectOption !== null && selectOption !== 'null') {
+      query += `&category=${selectOption}`;
+    }
+    if (rate !== undefined && rate !== null && rate !== '0' && rate !== 0) {
+      query += `&rate=${rate}`;
+    }
+    navigate(`${BROWSER_PATH.DETAIL}/${productId}?${query}`);
+    window.location.reload();
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -39,7 +59,7 @@ function RateStatistic({
           {percentageList.map(({ reviewRate, percentage }: ListType) => (
             <S.RateOption
               key={reviewRate}
-              onClick={() => changeSelectRate(reviewRate)}
+              onClick={() => findReview(sort!, selectedCategory, reviewRate)}
             >
               <S.Star>
                 <S.StarWrapper css={S.img}>
