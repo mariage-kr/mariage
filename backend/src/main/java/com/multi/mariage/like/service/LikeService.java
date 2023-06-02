@@ -48,15 +48,10 @@ public class LikeService {
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), reviewId)
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
-        Member member = like.getMember();
-        Review review = like.getReview();
-
-        member.removeLike(like);
-        review.removeLike(like);
-
+        like.removeRelated();
         likeRepository.delete(like);
 
-        long countByReview = likeRepository.findCountByReview(review);
+        long countByReview = likeRepository.findCountByReview(like.getReview());
         return new LikeCountResponse(countByReview);
     }
 
@@ -65,5 +60,9 @@ public class LikeService {
         if (isExist) {
             throw new LikeException(LikeErrorCode.REVIEW_ALREADY_LIKED);
         }
+    }
+
+    public void removeAllByReview(Review review) {
+        review.getLikes().forEach(Like::removeRelated);
     }
 }

@@ -2,12 +2,14 @@ package com.multi.mariage.like.domain.query;
 
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.like.domain.QLike;
+import com.multi.mariage.review.domain.QReview;
 import com.multi.mariage.review.domain.Review;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
 import java.util.Optional;
 
+import static com.multi.mariage.like.domain.QLike.like;
 import static com.multi.mariage.member.domain.QMember.member;
 import static com.multi.mariage.review.domain.QReview.review;
 

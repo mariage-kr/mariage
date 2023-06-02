@@ -42,4 +42,10 @@ public class Like {
         review.getLikes().add(this);
         this.review = review;
     }
+
+    /* 비즈니스 로직 */
+    public void removeRelated() {
+        member.getLikes().remove(this);
+        review.getLikes().remove(this);
+    }
 }

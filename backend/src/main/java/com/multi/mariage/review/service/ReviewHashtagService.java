@@ -33,4 +33,21 @@ public class ReviewHashtagService {
 
         return reviewHashtagRepository.save(reviewHashtag);
     }
+
+    public void removeAllByReview(Review review) {
+        review.getReviewHashtags().forEach(this::removeReviewHashtags);
+    }
+
+    private void removeReviewHashtags(ReviewHashtag reviewHashtag) {
+        Hashtag hashtag = reviewHashtag.getHashtag();
+        reviewHashtag.removeHashtag();
+        reviewHashtagRepository.delete(reviewHashtag);
+        hashTagRelatedIsEmpty(hashtag);
+    }
+
+    private void hashTagRelatedIsEmpty(Hashtag hashtag) {
+        if (hashtag.getReviewHashTags().isEmpty()) {
+            hashtagService.delete(hashtag);
+        }
+    }
 }

@@ -13,12 +13,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -27,11 +29,14 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
-    /* TODO: 2023/05/24 1 부터 5 사이가 아니면 예외 처리 */
+    /**
+     * TODO: 2023/06/02 임베디드 고려 <br />
+     *  - productRate <br />
+     *  - content <br />
+     *  - foodRate <br />
+     */
     private int productRate;
-    /* TODO: 2023/05/24 리뷰 내용 검증 예외 처리 */
     private String content;
-    /* TODO: 2023/05/24 1 부터 5 사이가 아니면 예외 처리 */
     private int foodRate;
     private LocalDate date;
 
@@ -54,7 +59,7 @@ public class Review {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private Set<Like> likes = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private Set<ReviewHashtag> reviewHashtags = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -108,8 +113,11 @@ public class Review {
         this.image = image;
     }
 
-    public void removeLike(Like like) {
-        this.likes.remove(like);
+    public void removeRelated() {
+        member.getReviews().remove(this);
+        product.getReviews().remove(this);
+        product.changeTotalReviewRate(productRate * -1);
+        weather.getReviews().remove(this);
     }
 
     public void removeHashTag(ReviewHashtag reviewHashtag) {

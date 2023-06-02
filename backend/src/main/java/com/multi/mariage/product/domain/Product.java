@@ -18,9 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -84,7 +82,7 @@ public class Product {
 
     /* 비즈니스 로직 */
     public void changeTotalReviewRate(int score) {
-        if (score <= 0) {
+        if (score < -5 || score > 5) {
             throw new ProductException(ProductErrorCode.REVIEW_SCORE_CANNOT_BE_OUT_OF_RANGE);
         }
         totalReviewRate += score;

@@ -32,6 +32,7 @@ function User() {
         navigate(BROWSER_PATH.BASE);
       })
       .finally(() => {
+        resetAuth();
         window.location.reload();
       });
   };

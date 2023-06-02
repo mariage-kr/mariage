@@ -12,7 +12,6 @@ const Container = styled.div`
 `;
 
 const InputImg = styled.input`
-  border: 1px solid red;
   width: 95%;
   margin: 10px 2.5%;
   padding: 5px 2px;
@@ -47,6 +46,28 @@ const InputImgBtn = styled.button`
   }
 `;
 
+const DeleteImgBtn = styled.button`
+  width: 200px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #9c94d044;
+  box-shadow: 0 0 3px #9c94d055;
+  background: #fff;
+  font-size: 1rem;
+  margin-top: 20px;
+
+  &:hover {
+    box-shadow: 0 0 5px #9c94d0;
+    background: #9c94d0;
+    color: #fff;
+  }
+  &:focus {
+    box-shadow: 0 0 5px #9c94d0;
+    background: #9c94d0;
+    color: #fff;
+  }
+`;
+
 const ImgWrapper = styled.div`
   float: right;
   width: 57.5%;
@@ -66,4 +87,4 @@ const PreviewImg = styled.img`
   border-radius: 10px;
 `;
 
-export { Container, InputImg, BtnWrapper, InputImgBtn, ImgWrapper, PreviewImg };
+export { Container, InputImg, BtnWrapper, InputImgBtn, DeleteImgBtn, ImgWrapper, PreviewImg };

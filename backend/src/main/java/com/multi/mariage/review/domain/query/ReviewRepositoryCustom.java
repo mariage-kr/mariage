@@ -6,6 +6,7 @@ import com.multi.mariage.review.dto.cond.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.cond.ReviewsPagingCond;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReviewRepositoryCustom {
 
@@ -20,4 +21,6 @@ public interface ReviewRepositoryCustom {
     List<Review> findLikedReviewsByMemberId(MemberReviewsPagingCond cond);
 
     Long findReviewsCountByLikes(Long memberId);
+
+    Optional<Review> findByIdToDelete(Long reviewId);
 }

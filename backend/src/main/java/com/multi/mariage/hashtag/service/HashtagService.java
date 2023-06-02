@@ -32,4 +32,9 @@ public class HashtagService {
 
         return hashtag.get();
     }
+
+    @Transactional
+    public void delete(Hashtag hashtag) {
+        hashtagRepository.delete(hashtag);
+    }
 }
