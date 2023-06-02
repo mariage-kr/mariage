@@ -2,6 +2,7 @@ package com.multi.mariage.review.dto.request;
 
 import com.multi.mariage.category.domain.FoodCategory;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ public class ReviewUpdateRequest {
     private MultipartFile file;
     private List<String> hashtags;
 
+    @Builder
     public ReviewUpdateRequest(Long id, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long foodImageId, MultipartFile file, List<String> hashtags) {
         this.id = id;
         this.productId = productId;

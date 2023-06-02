@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -77,7 +78,6 @@ public class ReviewModifyService {
         validateOwnerByReview(authMember.getId(), review);
 
         review.changeFoodCategory(foodCategory);
-        removeImageByReview(review);
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             reviewHashtagService.removeAllByReview(review);
