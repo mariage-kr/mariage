@@ -12,13 +12,11 @@ public class MemberReviewsPagingCond {
     private Long memberId;
     private int pageSize;
     private int pageNumber;
-    private String sort;
 
     @Builder
-    public MemberReviewsPagingCond(Long memberId, int pageSize, int pageNumber, String sort) {
+    public MemberReviewsPagingCond(Long memberId, int pageSize, int pageNumber) {
         this.memberId = memberId;
         this.pageSize = pageSize;
         this.pageNumber = pageNumber;
-        this.sort = sort;
     }
 }
