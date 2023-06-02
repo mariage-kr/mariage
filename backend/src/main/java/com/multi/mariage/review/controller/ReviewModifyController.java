@@ -38,7 +38,7 @@ public class ReviewModifyController {
 
     @PatchMapping("/user/review/{reviewId}")
     public ResponseEntity<ReviewUpdateResponse> update(@Authenticated AuthMember authMember,
-                                                       @PathVariable Long reviewId, ReviewUpdateRequest request) {
+                                                       @PathVariable Long reviewId, @RequestBody ReviewUpdateRequest request) {
         ReviewUpdateResponse response = reviewModifyService.update(authMember, request);
 
         return ResponseEntity.ok(response);

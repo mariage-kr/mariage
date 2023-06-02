@@ -107,7 +107,7 @@ public abstract class ServiceTest {
     protected Review saveReview(ReviewFixture reviewFixture, Member member, Product product, Food food, Image image,
                                 Weather weather) {
         Review review = reviewFixture.toReview(member, product, image, weather);
-        review.setFoodCategory(food);
+        review.changeFoodCategory(food);
 
         return reviewRepository.save(review);
     }

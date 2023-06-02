@@ -5,10 +5,8 @@ import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
-import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
-import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
@@ -33,7 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -67,7 +64,7 @@ public class ReviewModifyService {
         review.setProduct(product);
         review.setWeather(weather);
         review.changeImage(image);
-        review.setFoodCategory(foodCategory);
+        review.changeFoodCategory(foodCategory);
 
         return reviewRepository.save(review);
     }
@@ -79,12 +76,13 @@ public class ReviewModifyService {
         Review review = reviewFindService.findById(request.getId());
         validateOwnerByReview(authMember.getId(), review);
 
-        review.setFoodCategory(foodCategory);
+        review.changeFoodCategory(foodCategory);
         removeImageByReview(review);
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             reviewHashtagService.removeAllByReview(review);
         }
+
         List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
         UpdateReviewImageResponse newImage = updateImage(review, request.getFile());
         review.update(request);

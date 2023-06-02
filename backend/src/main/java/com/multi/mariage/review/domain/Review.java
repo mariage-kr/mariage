@@ -99,12 +99,12 @@ public class Review {
         this.member = member;
     }
 
-    public void setFoodCategory(Food foodCategory) {
-        if (foodCategory == null) {
-            return;
-        }
+    public void changeFoodCategory(Food foodCategory) {
         if (this.foodCategory != null) {
             this.foodCategory.getReviews().remove(this);
+        }
+        if (foodCategory == null) {
+            return;
         }
         this.foodCategory = foodCategory;
         foodCategory.getReviews().add(this);
