@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  margin: 0 10%;
+  margin: 10px 10% 50px;
 `;
 
 const StyledLink = styled(Link)`
@@ -41,19 +41,74 @@ const Form = styled.form`
 const Input = styled.input`
   width: 460px;
   height: 42px;
-
   margin-bottom: 20px;
-
   border: 0;
   border-bottom: 3px solid #00000050;
-
   font-size: 16px;
-
   transition: 100ms;
 
   &:focus {
     outline: none;
     border-bottom: 3px solid #bb2649;
+  }
+`;
+
+const InputImgContainer = styled.div`
+  width: 460px;
+  height: auto;
+  position: relative;
+`;
+
+const InputImgWrap = styled.div`
+  width: 460px;
+  height: 42px;
+  margin-bottom: 20px;
+  border: 0;
+  border-bottom: 3px solid #00000050;
+  font-size: 16px;
+  transition: 100ms;
+  
+
+  &:focus-within {
+    border-bottom: 3px solid #bb2649;
+  }
+`;
+
+const InputImg = styled.input`
+  display: none;
+`;
+
+const InputImgBtn = styled.button`
+  width: 120px;
+  height: 36px;
+  padding: 5px 0;
+  border-radius: 3px;
+  border: 1px solid #000;
+  background: #fff;
+  font-size: 1rem;
+
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  &:focus {
+    background: #000;
+    color: #fff;
+  }
+`;
+
+const DeleteUploadImgBtn = styled.div`
+  font-size: 1.1rem;
+  color: #bb2649;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 0;
+
+  &:hover {
+    font-weight: bold;
   }
 `;
 
@@ -154,6 +209,11 @@ export {
   Header,
   Form,
   Input,
+  InputImgContainer,
+  InputImgWrap,
+  InputImg,
+  InputImgBtn,
+  DeleteUploadImgBtn,
   Label,
   Button,
   LinkButton,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -78,8 +78,24 @@ function Admin() {
     value: image,
     setValue: setImage,
     preview: previewImage,
+    resetImage : resetImage,
   } = useImage<File | null>(null);
   const { level, setLevel, inputLevel } = useLevel<number>(0);
+
+  // 업로드 버튼 클릭 이벤트
+  const imageInput = useRef<HTMLInputElement>(null);
+  const onClickInputImgBtn = (event : any) => {
+    event.preventDefault();
+    if (imageInput.current) {
+      imageInput.current.click();
+      console.log('d');
+    }
+  };
+
+  /* 업로드 이미지 삭제(초기화) */
+  const onClickDeleteUploadImgBtn = () => {
+    resetImage();
+  };
 
   /* 불러온 이미지 */
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -126,7 +142,7 @@ function Admin() {
   };
 
   /* 제품 등록, 수정 요청 */
-  const saveProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+  const saveProduct = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const imageId: number | null = await saveImage(image);
     if (!imageId) {
@@ -153,7 +169,7 @@ function Admin() {
       });
   };
 
-  const updateProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+  const updateProduct = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const newImageId: number | null = await saveImage(image);
@@ -252,7 +268,7 @@ function Admin() {
       ) : (
         <S.Header>제품 수정 페이지</S.Header>
       )}
-      <S.Form onSubmit={productId === null ? saveProduct : updateProduct}>
+      <S.Form >
         {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Label>제품 이름</S.Label>
         <S.Input type={'text'} value={name} onChange={setName} />
@@ -332,15 +348,23 @@ function Admin() {
             <S.Label>수정할 이미지</S.Label>
           </>
         )}
-        <S.Input
-          type={'file'}
-          title={'이미지 업로드'}
-          placeholder={image?.name}
-          onChange={setImage}
-        />
-        {previewImage && <S.Image src={previewImage} alt="미리보기" />}
+        <S.InputImgContainer>
+          <S.InputImgWrap>
+            <S.InputImg 
+              type={'file'} 
+              title={'이미지 업로드'} 
+              onChange={setImage} 
+              ref={imageInput}
+            />
+            <S.InputImgBtn onClick={(e) => onClickInputImgBtn(e)}>파일선택</S.InputImgBtn>
+          </S.InputImgWrap>
+          {previewImage && <>
+            <S.DeleteUploadImgBtn onClick={onClickDeleteUploadImgBtn}>이미지 파일 삭제</S.DeleteUploadImgBtn>
+            <S.Image src={previewImage} alt="미리보기" />
+          </>}
+        </S.InputImgContainer>
         {isValid ? (
-          <S.Button type={'submit'} isValid={isValid}>
+          <S.Button type={'button'} onClick={productId === null ? saveProduct : updateProduct} isValid={isValid}>
             확인
           </S.Button>
         ) : (

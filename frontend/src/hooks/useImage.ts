@@ -34,11 +34,15 @@ function useImage<T>(initialState: T | File | null) {
     }
   };
 
+  const resetImage = () => {
+    setValue(null);
+  }
+
   useEffect(() => {
     changePreview();
   }, [value]);
 
-  return { value, setValue: changeValue, preview };
+  return { value, setValue: changeValue, preview, resetImage };
 }
 
 export default useImage;
