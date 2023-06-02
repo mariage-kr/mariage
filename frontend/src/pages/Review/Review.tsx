@@ -1,7 +1,14 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ReviewList from '@/components/Review/ReviewList';
 import * as S from './Review.styled';
+import { reviewProfileType } from '@/@types/review';
+import {
+  requestReviewProfile,
+} from '@/apis/request/member';
 
 function Review() {
+  
   const profileData = {
     id: 1,
     img: 'https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png',
@@ -11,12 +18,35 @@ function Review() {
     likes: 12301
   };
 
-  // 이메일 마스킹
-  const email = profileData.email.substring(0, 5) + "***"; 
+  const [reviewProfile, setReviewProfile] = useState<reviewProfileType>({
+    nickname: '',
+    email: '',
+    imagePath: '',
+    reviews: 0,
+    likes: 0,
+  });
+
+   /* 유저 정보 요청 */
+   const { id } = useParams();
+   const getMyInfo = async (memberId: number) => {
+    await requestReviewProfile(memberId)
+      .then(response => {
+        setReviewProfile(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    const memberId: number = Number.parseInt(id!);
+    getMyInfo(memberId);
+   }, [id])
+
 
   // 숫자 데이터 콤마 넣기
-  const reviews = profileData.reviews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const likes = profileData.likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const reviews = reviewProfile.reviews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const likes = reviewProfile.likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   
 
   return (
@@ -29,10 +59,10 @@ function Review() {
       </S.TopNav>
       <S.Main>
         <S.Profile>
-          <S.ProfileLeft><S.ProfileImg src={profileData.img}/></S.ProfileLeft>
+          <S.ProfileLeft><S.ProfileImg src={reviewProfile.imagePath}/></S.ProfileLeft>
           <S.ProfileRight>
-            <S.NameEmail css={S.name}>{profileData.nickname}</S.NameEmail>
-            <S.NameEmail css={S.email}>#{email}</S.NameEmail>
+            <S.NameEmail css={S.name}>{reviewProfile.nickname}</S.NameEmail>
+            <S.NameEmail css={S.email}>#{reviewProfile.email}***</S.NameEmail>
             <S.Reviews>
               <S.Title>Reviews</S.Title>
               <S.Count >{reviews}</S.Count>

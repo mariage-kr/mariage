@@ -37,6 +37,10 @@ const requestUpdatePassword = (password: string, newPassword: string) => {
   return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {password, newPassword})
 }
 
+const requestReviewProfile = (memberId: number) => {
+  return axios.get(`/api/review/${memberId}`)
+}
+
 
 export {
   requestSignup,
@@ -46,5 +50,6 @@ export {
   requestUpdateImage,
   requestDeleteImage,
   requestUpdateNickname,
-  requestUpdatePassword
+  requestUpdatePassword,
+  requestReviewProfile
 };

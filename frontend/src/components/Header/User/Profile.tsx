@@ -77,6 +77,9 @@ function User() {
     reissueToken();
   }, [key]);
 
+  // 닉네임 마스킹
+  const nickname = userInfo?.nickname.substring(0, 2) + "**"; 
+
   if (isLogin) {
     return (
       <S.Container>
@@ -88,7 +91,7 @@ function User() {
           </S.Wrap>
           <S.Wrap>
             <S.StyledLink to={BROWSER_PATH.MY}>
-              {userInfo?.nickname}님
+              {nickname}님
             </S.StyledLink>
           </S.Wrap>
           <S.Wrap>

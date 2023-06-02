@@ -42,6 +42,7 @@ const ProfileLeft = styled.div`
 const ProfileImg = styled.img`
   width: 100%;
   object-fit: cover;
+  border-radius: 50%;
 `;
 
 const ProfileRight = styled.div`

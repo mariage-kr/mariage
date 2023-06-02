@@ -55,6 +55,14 @@ type ReviewReportType = {
   report: boolean;
 };
 
+type reviewProfileType = {
+  nickname: string;
+  email: string;
+  imagePath: string;
+  reviews: number;
+  likes: number;
+}
+
 export {
   ReviewType,
   ReviewMemberType,
@@ -63,4 +71,5 @@ export {
   ReviewFoodType,
   ReviewSaveType,
   ReviewReportType,
+  reviewProfileType,
 };
