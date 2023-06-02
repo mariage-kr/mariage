@@ -191,6 +191,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     private BooleanExpression isNotReportReview() {
-        return null;
+        return review.report.eq(false);
     }
 }

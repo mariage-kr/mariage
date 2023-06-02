@@ -64,6 +64,7 @@ public class Review {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private Set<Report> reports = new HashSet<>();
+    private boolean report = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_category_id")
@@ -123,7 +124,8 @@ public class Review {
         weather.getReviews().remove(this);
     }
 
-    public boolean isReport(int reportCount) {
-        return reportCount > 10 + (likes.size() / 2);
+    public boolean isReport(Long reportCount) {
+        report = reportCount > 10 + (likes.size() / 2);
+        return report;
     }
 }

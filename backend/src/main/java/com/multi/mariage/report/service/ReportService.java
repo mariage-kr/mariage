@@ -26,14 +26,14 @@ public class ReportService {
     public ReportResponse report(AuthMember authMember, Long reviewId) {
         Member member = memberFindService.findById(authMember.getId());
         Review review = reviewFindService.findById(reviewId);
-        
+
         validateIsAlreadyReport(member, review);
 
         Report report = Report.from(member, review);
         reportRepository.save(report);
 
-        /* TODO: 2023/06/02 신고 개수 가져오기 */
-        boolean isReport = review.isReport(10);
+        Long reportCount = reportRepository.findCountByReview(review);
+        boolean isReport = review.isReport(reportCount);
         return new ReportResponse(isReport);
     }
 
