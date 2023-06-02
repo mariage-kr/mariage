@@ -100,8 +100,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(review.likes, like).fetchJoin()
                 .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
-                .orderBy(review.id.desc())
                 .where(review.id.in(reviewIds))
+                .orderBy(review.id.desc())
                 .fetch();
     }
 
@@ -128,7 +128,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
                 .where(review.id.in(reviewIds))
-                .where(isNotReportReview())
                 .orderBy(review.id.desc())
                 .fetch();
     }

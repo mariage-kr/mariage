@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewFindController {
     private final ReviewFindService reviewFindService;
 
-    /* TODO: 2023/05/23 자식 함수들 테스트 코드 필요 */
     @GetMapping("/review/product/{productId}")
     public ResponseEntity<ProductReviewsResponse> findReviewsByProductId(@PathVariable("productId") Long productId,
                                                                          ReviewDetailRequest request) {
@@ -27,21 +26,21 @@ public class ReviewFindController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/review/{memberId}/ratings")
+    @GetMapping("/review/ratings/{memberId}")
     public ResponseEntity<MemberReviewInfoResponse> findProductsAndRatedReviewsByMemberId(@PathVariable("memberId") Long memberId,
                                                                                           ReviewFindRequest cond) {
         MemberReviewInfoResponse response = reviewFindService.findProductsAndRatedReviewsByMemberId(memberId, cond);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/review/{memberId}/likes")
+    @GetMapping("/review/likes/{memberId}")
     public ResponseEntity<MemberReviewInfoResponse> findProductsAndLikedReviewsByMemberId(@PathVariable("memberId") Long memberId,
                                                                                           ReviewFindRequest cond) {
         MemberReviewInfoResponse response = reviewFindService.findProductsAndLikedReviewsByMemberId(memberId, cond);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/review/{memberId}")
+    @GetMapping("/review/member/{memberId}")
     public ResponseEntity<MemberProfileResponse> findMemberProfile(@PathVariable("memberId") Long memberId) {
         MemberProfileResponse response = reviewFindService.findMemberProfile(memberId);
         return ResponseEntity.ok(response);

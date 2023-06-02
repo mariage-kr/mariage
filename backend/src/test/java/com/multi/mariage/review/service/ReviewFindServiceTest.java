@@ -156,7 +156,6 @@ class ReviewFindServiceTest extends ServiceTest {
         ReviewFindRequest cond = ReviewFindRequest.builder()
                 .pageNumber(1)
                 .pageSize(4)
-                .sort(Sort.NEWEST.name())
                 .build();
 
         MemberReviewInfoResponse actual = reviewFindService.findProductsAndRatedReviewsByMemberId(member2.getId(), cond);
@@ -196,7 +195,6 @@ class ReviewFindServiceTest extends ServiceTest {
         ReviewFindRequest cond = ReviewFindRequest.builder()
                 .pageNumber(1)
                 .pageSize(3)
-                .sort(Sort.NEWEST.name())
                 .build();
 
         MemberReviewInfoResponse actual = reviewFindService.findProductsAndLikedReviewsByMemberId(member2.getId(), cond);
