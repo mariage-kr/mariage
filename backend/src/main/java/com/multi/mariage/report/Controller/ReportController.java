@@ -6,8 +6,8 @@ import com.multi.mariage.report.dto.response.ReportResponse;
 import com.multi.mariage.report.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +18,7 @@ public class ReportController {
     private final ReportService reportService;
 
 
-    @PatchMapping("/user/review/report/{reviewId}")
+    @PostMapping("/user/review/report/{reviewId}")
     public ResponseEntity<ReportResponse> report(@Authenticated AuthMember authMember,
                                                  @PathVariable Long reviewId) {
         ReportResponse response = reportService.report(authMember, reviewId);
