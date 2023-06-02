@@ -107,10 +107,9 @@ const ImageInput = styled.input`
 `;
 
 const Btn = styled.button`
-  display: inline-block;
-  width: 150px;
+  width: 320px;
   height: 40px;
-  margin: 40px 20px 0 0;
+  margin: 30px 20px 0 0;
   padding: 5px 10px 6px;
   border: 1px solid #9c94d066;
   border-radius: 15px;
@@ -126,25 +125,56 @@ const Btn = styled.button`
   }
 `;
 
+const Btn2 = styled.button`
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  margin: 20px 20px 5px 0;
+  padding: 5px 10px 6px;
+  border: 1px solid #9c94d066;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px #9c94d055;
+  font-size: 1rem;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: #9c94d0;
+    box-shadow: 2px 2px 5px #b9b9b9;
+  }
+`;
+
+const deleteBtn = css`
+  border: 1px solid #bb264966;
+  box-shadow: 2px 2px 5px #bb264955;
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: #bb2649;
+    box-shadow: 2px 2px 5px #b9b9b9;
+  }
+`;
+
 const NicknameWrap = styled.div`
   width: 90%;
-  margin: 8vh 0 0 5%;
+  margin: 10vh 0 0 5%;
   overflow: hidden;
 
   @media (max-width: 1800px) {
-    margin: 8vh 0 0 7%;
+    margin: 10vh 0 0 7%;
   }
   @media (max-width: 1700px) {
-    margin: 8vh 0 0 8%;
+    margin: 10vh 0 0 8%;
   }
   @media (max-width: 1600px) {
-    margin: 8vh 0 0 9%;
+    margin: 10vh 0 0 9%;
   }
   @media (max-width: 1550px) {
-    margin: 8vh 0 0 8%;
+    margin: 10vh 0 0 8%;
   }
   @media (max-width: 1450px) {
-    margin: 8vh 0 0 9%;
+    margin: 10vh 0 0 9%;
   }
 `;
 
@@ -215,6 +245,8 @@ export {
   Email,
   Birth,
   Btn,
+  Btn2,
+  deleteBtn,
   NicknameWrap,
   Label,
   Nickname,

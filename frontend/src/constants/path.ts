@@ -18,6 +18,7 @@ const API_PATH = {
     NICKNAME: '/api/user/members/nickname',
     PROFILE: '/api/user/members/profile',
     PASSWORD: '/api/user/members/password',
+    IMAGE: '/api/user/members/image',
   },
   LIKE: '/api/user/review/like',
   PRODUCT: {
