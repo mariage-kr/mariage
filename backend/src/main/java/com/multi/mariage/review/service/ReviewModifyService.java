@@ -71,28 +71,15 @@ public class ReviewModifyService {
         Image image = imageService.findById(request.getNewFoodImageId());       // 새로운 음식 이미지를 찾아옴
         Product product = productFindService.findById(request.getProductId());
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
-        Review review = reviewFindService.findById(request.getId());    // 해당 리뷰 가져옴
-
-        review.setFoodCategory(foodCategory);   // 푸드카테고리 변경
+        Review review = reviewFindService.findById(request.getId());
         Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags(); //해당 리뷰에 대한 해시태그들
 
-        removeImage(request.getFoodImageId());   // 저장된 기존 음식 이미지 삭제
+        review.setFoodCategory(foodCategory);       // 푸드카테고리 변경
+        removeImage(request.getFoodImageId());      // 저장된 기존 음식 이미지 삭제
 
-
-        if (!request.getHashtags().isEmpty()) {
-            removeHashtags(reviewHashtags);   // 기존 해시태그 삭제
-            deleteAllByReview(review);
-            reviewHashtags.clear();
-
-            for (String hashtagName : request.getHashtags()) {  // 해시태그 업데이트하여 저장
-                Hashtag hashtag = hashtagService.findByName(hashtagName);
-                ReviewHashtag newReviewHashtag = new ReviewHashtag();
-
-                newReviewHashtag.setHashtag(hashtag);
-                newReviewHashtag.setReview(review);
-                reviewHashtags.add(newReviewHashtag);
-                reviewHashtagRepository.save(newReviewHashtag);
-            }
+        if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
+            removeAllReviewHashTags(review, reviewHashtags);
+            saveHashTags(request, review, reviewHashtags);
         }
 
         review.changeImage(image);
@@ -121,6 +108,12 @@ public class ReviewModifyService {
         storageService.remove(image);
     }
 
+    private void removeAllReviewHashTags(Review review, Set<ReviewHashtag> reviewHashtags) {
+        removeHashtags(reviewHashtags);   // 기존 해시태그 삭제
+        deleteAllByReview(review);
+        reviewHashtags.clear();
+    }
+
     private void removeHashtags(Set<ReviewHashtag> reviewHashtags) {
         for (ReviewHashtag reviewHashtag : reviewHashtags) {
             Hashtag hashtag = reviewHashtag.getHashtag();
@@ -139,4 +132,15 @@ public class ReviewModifyService {
         reviewHashtagRepository.deleteAllByReview(review);
     }
 
+    private void saveHashTags(ReviewModifyRequest request, Review review, Set<ReviewHashtag> reviewHashtags) {
+        for (String hashtagName : request.getHashtags()) {  // 해시태그 업데이트하여 저장
+            Hashtag hashtag = hashtagService.findByName(hashtagName);
+            ReviewHashtag newReviewHashtag = new ReviewHashtag();
+
+            newReviewHashtag.setHashtag(hashtag);
+            newReviewHashtag.setReview(review);
+            reviewHashtags.add(newReviewHashtag);
+            reviewHashtagRepository.save(newReviewHashtag);
+        }
+    }
 }
