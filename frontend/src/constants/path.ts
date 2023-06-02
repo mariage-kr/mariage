@@ -38,6 +38,7 @@ const API_PATH = {
     SAVE: '/api/user/review/save',
     DELETE: '/api/user/review',
     REPORT: '/api/user/review/report',
+    MEMBER: '/api/review/member',
   },
   STORAGE: '/api/user/storage/image',
 };

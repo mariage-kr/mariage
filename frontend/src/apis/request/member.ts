@@ -22,7 +22,8 @@ const requestUpdateImage = (file: FormData) => {
   return axiosWithAccessToken.post(API_PATH.MEMBER.IMAGE, file, {
     headers: {
       'Content-Type': 'multipart/form-data',
-  }});
+    },
+  });
 };
 
 const requestDeleteImage = () => {
@@ -34,13 +35,15 @@ const requestUpdateNickname = (nickname: string) => {
 };
 
 const requestUpdatePassword = (password: string, newPassword: string) => {
-  return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {password, newPassword})
-}
+  return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {
+    password,
+    newPassword,
+  });
+};
 
 const requestReviewProfile = (memberId: number) => {
-  return axios.get(`/api/review/${memberId}`)
-}
-
+  return axios.get(`${API_PATH.REVIEW.MEMBER}/${memberId}`);
+};
 
 export {
   requestSignup,
@@ -51,5 +54,5 @@ export {
   requestDeleteImage,
   requestUpdateNickname,
   requestUpdatePassword,
-  requestReviewProfile
+  requestReviewProfile,
 };
