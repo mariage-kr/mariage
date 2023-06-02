@@ -7,7 +7,6 @@ import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.hashtag.domain.HashtagRepository;
-import com.multi.mariage.hashtag.service.HashtagService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
@@ -16,8 +15,8 @@ import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewModifyRequest;
+import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
@@ -27,8 +26,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -46,7 +43,6 @@ public class ReviewModifyService {
     private final StorageService storageService;
     private final ReviewHashtagRepository reviewHashtagRepository;
     private final ReviewFindService reviewFindService;
-    private final HashtagService hashtagService;
     private final HashtagRepository hashtagRepository;
 
     public Review save(AuthMember authMember, ReviewSaveRequest request) {
@@ -81,7 +77,7 @@ public class ReviewModifyService {
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             removeAllReviewHashTags(review, reviewHashtags);
-            saveHashTags(request, review);
+            reviewHashtagService.saveAll(request.getHashtags(), review);
         }
 
         review.changeImage(image);
@@ -132,10 +128,5 @@ public class ReviewModifyService {
     @Transactional
     public void deleteAllByReview(Review review) {
         reviewHashtagRepository.deleteAllByReview(review);
-    }
-
-    private void saveHashTags(ReviewModifyRequest request, Review review) {
-        List<String> hashtagNames = request.getHashtags();
-        reviewHashtagService.saveAll(hashtagNames, review);
     }
 }
