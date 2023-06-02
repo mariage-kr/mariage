@@ -76,11 +76,12 @@ public class ReviewModifyService {
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
         Review review = reviewFindService.findById(request.getId());
         validateOwnerByReview(authMember.getId(), review);
-
+        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
         review.changeFoodCategory(foodCategory);
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             reviewHashtagService.removeAllByReview(review);
+            reviewHashtags.clear();
         }
 
         List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
