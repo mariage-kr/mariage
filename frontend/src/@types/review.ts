@@ -51,6 +51,10 @@ type ReviewSaveType = {
   hashtags: string[] | null;
 };
 
+type ReviewReportType = {
+  report: boolean;
+};
+
 export {
   ReviewType,
   ReviewMemberType,
@@ -58,4 +62,5 @@ export {
   ReviewLikeType,
   ReviewFoodType,
   ReviewSaveType,
+  ReviewReportType,
 };
