@@ -27,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -68,7 +70,7 @@ public class ReviewModifyService {
     }
 
     public Review update(ReviewModifyRequest request) {
-        Image image = imageService.findById(request.getNewFoodImageId());       // 새로운 음식 이미지를 찾아옴
+        Image image = getImage(request.getNewFoodImageId());       // 새로운 음식 이미지를 찾아옴
         Product product = productFindService.findById(request.getProductId());
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
         Review review = reviewFindService.findById(request.getId());
@@ -79,7 +81,7 @@ public class ReviewModifyService {
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             removeAllReviewHashTags(review, reviewHashtags);
-            saveHashTags(request, review, reviewHashtags);
+            saveHashTags(request, review);
         }
 
         review.changeImage(image);
@@ -132,15 +134,8 @@ public class ReviewModifyService {
         reviewHashtagRepository.deleteAllByReview(review);
     }
 
-    private void saveHashTags(ReviewModifyRequest request, Review review, Set<ReviewHashtag> reviewHashtags) {
-        for (String hashtagName : request.getHashtags()) {  // 해시태그 업데이트하여 저장
-            Hashtag hashtag = hashtagService.findByName(hashtagName);
-            ReviewHashtag newReviewHashtag = new ReviewHashtag();
-
-            newReviewHashtag.setHashtag(hashtag);
-            newReviewHashtag.setReview(review);
-            reviewHashtags.add(newReviewHashtag);
-            reviewHashtagRepository.save(newReviewHashtag);
-        }
+    private void saveHashTags(ReviewModifyRequest request, Review review) {
+        List<String> hashtagNames = request.getHashtags();
+        reviewHashtagService.saveAll(hashtagNames, review);
     }
 }
