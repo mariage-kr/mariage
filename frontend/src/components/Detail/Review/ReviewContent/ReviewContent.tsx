@@ -15,6 +15,7 @@ function ReviewContent(review: ReviewType) {
   const { userInfo } = useUserInfo();
   const memberId: number | undefined = userInfo?.id;
 
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -23,12 +24,17 @@ function ReviewContent(review: ReviewType) {
   const deleteReview = () => {
     requestDeleteReview(review.id)
       .then(response => {
+        setIsDeleted(true);
         console.log(response);
       })
       .catch(error => {
         console.error(error);
       });
   };
+
+  if (isDeleted) {
+    return <div></div>;
+  }
 
   return (
     <S.Container>
