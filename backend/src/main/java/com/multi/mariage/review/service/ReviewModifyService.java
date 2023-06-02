@@ -5,17 +5,20 @@ import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
+import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
+import com.multi.mariage.member.dto.response.UpdateImageResponse;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewHashtag;
-import com.multi.mariage.review.domain.ReviewHashtagRepository;
 import com.multi.mariage.review.domain.ReviewRepository;
-import com.multi.mariage.review.dto.request.ReviewModifyRequest;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
+import com.multi.mariage.review.dto.response.ReviewUpdateResponse;
+import com.multi.mariage.review.dto.response.UpdateReviewImageResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
@@ -27,6 +30,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -63,6 +70,33 @@ public class ReviewModifyService {
         review.setFoodCategory(foodCategory);
 
         return reviewRepository.save(review);
+    }
+
+    public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request) {
+
+        Product product = productFindService.findById(request.getProductId());
+        Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
+        Review review = reviewFindService.findById(request.getId());
+        validateOwnerByReview(authMember.getId(), review);
+
+        review.setFoodCategory(foodCategory);
+        removeImageByReview(review);
+
+        if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
+            reviewHashtagService.removeAllByReview(review);
+        }
+        List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
+        UpdateReviewImageResponse newImage = updateImage(review, request.getFile());
+        review.update(request);
+
+        return ReviewUpdateResponse.builder()
+                .reviewId(review.getId())
+                .content(review.getContent())
+                .foodRate(review.getFoodRate())
+                .foodCategory(review.getFoodCategory().getCategory())
+                .imagePath(newImage.getImagePath())
+                .hashtags(hashTagNames)
+                .build();
     }
 
     private Image getImage(Long imageId) {
@@ -108,6 +142,18 @@ public class ReviewModifyService {
 
     private boolean isNotOwner(Long memberId, Review review) {
         return !memberId.equals(review.getMember().getId());
+    }
 
+    public UpdateReviewImageResponse updateImage(Review review, MultipartFile file) {
+
+        if (review.getImage() != null) {
+            removeImageByReview(review);
+        }
+
+        Image image = storageService.save(file);
+        review.changeImage(image);
+
+        String filePath = storageService.getFilePath(image.getName());
+        return new UpdateReviewImageResponse(filePath);
     }
 }

@@ -4,12 +4,13 @@ import com.multi.mariage.category.domain.FoodCategory;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ReviewModifyRequest {
+public class ReviewUpdateRequest {
     private Long id;
     private Long productId;
     private int productRate;
@@ -17,10 +18,10 @@ public class ReviewModifyRequest {
     private int foodRate;
     private FoodCategory foodCategory;
     private Long foodImageId;
-    private Long newFoodImageId;
+    private MultipartFile file;
     private List<String> hashtags;
 
-    public ReviewModifyRequest(Long id, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long foodImageId, Long newFoodImageId, List<String> hashtags) {
+    public ReviewUpdateRequest(Long id, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long foodImageId, MultipartFile file, List<String> hashtags) {
         this.id = id;
         this.productId = productId;
         this.productRate = productRate;
@@ -28,7 +29,7 @@ public class ReviewModifyRequest {
         this.foodRate = foodRate;
         this.foodCategory = foodCategory;
         this.foodImageId = foodImageId;
-        this.newFoodImageId = newFoodImageId;
+        this.file = file;
         this.hashtags = hashtags;
     }
 }

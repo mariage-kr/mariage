@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public class ReviewModifyResponse {
-    private Long reviewId;
+public class UpdateReviewImageResponse {
+    private String imagePath;
 
-    public ReviewModifyResponse(Long reviewId) {
-        this.reviewId = reviewId;
+    public UpdateReviewImageResponse(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
