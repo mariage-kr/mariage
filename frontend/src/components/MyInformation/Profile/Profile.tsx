@@ -5,6 +5,7 @@ import {
   requestUpdateNickname,
   requestUserProfile,
 } from '@/apis/request/member';
+import { requestSaveImage } from '@/apis/request/storage'; 
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { UserProfileType } from '@/@types/user';
@@ -46,17 +47,30 @@ function Profile() {
 
 
   /* 사진 변경 */
-  // const {
-  //   value: Image,
-  //   setValue: setImage,
-  //   preview,
-  // } = useImage<File | null>(null);
-
   // const imageInput = useRef<HTMLInputElement>(null);
 
-  // //버튼 클릭시 input태그에 클릭이벤트 적용
   // const onClickUpdateBtn = () => {
   //   imageInput.current!.click();
+  // };
+
+  // const updateImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files && event.target.files[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('image', file);
+
+  //     await requestSaveImage(formData)
+  //       .then(response => {
+  //         const imagePath = response.data.imagePath;
+  //         setUserProfile(prevState => {
+  //           return { ...prevState, imagePath: imagePath };
+  //         });
+  //         // 이미지 변경 후 추가 작업 수행
+  //       })
+  //       .catch(error => {
+  //         console.error(error);
+  //       });
+  //   }
   // };
 
 
@@ -105,7 +119,6 @@ function Profile() {
               accept="image/*"
               onChange={setImage}
               title={'프로필 수정'}
-              // ref={imageInput}
             />
             <S.Btn type={'button'} /*onClick={onClickUpdateBtn}*/>
               사진변경
