@@ -54,4 +54,8 @@ const requestSaveReview = ({
     });
 };
 
-export { getDetailReviews, requestSaveReview };
+const requestDeleteReview = (reviewId: number) => {
+  return axiosWithAccessToken.delete(`${API_PATH.REVIEW.DELETE}/${reviewId}`);
+};
+
+export { getDetailReviews, requestSaveReview, requestDeleteReview };

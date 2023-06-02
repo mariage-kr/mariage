@@ -1,5 +1,6 @@
 package com.multi.mariage.review.dto.response;
 
+import com.multi.mariage.global.dto.PageResponse;
 import com.multi.mariage.review.vo.member.MemberReviewVO;
 import lombok.Builder;
 

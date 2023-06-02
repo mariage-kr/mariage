@@ -266,4 +266,9 @@ public class ReviewFindService extends PagingUtil {
                 .img(imageService.getImageUrl(review.getImage().getName()))
                 .build();
     }
+
+    public Review findByIdToDelete(Long id) {
+        return reviewRepository.findByIdToDelete(id)
+                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
+    }
 }

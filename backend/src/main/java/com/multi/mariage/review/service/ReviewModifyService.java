@@ -5,6 +5,7 @@ import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.category.domain.FoodCategory;
 import com.multi.mariage.category.service.FoodCategoryService;
+import com.multi.mariage.like.service.LikeService;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
@@ -12,26 +13,34 @@ import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review.exception.ReviewErrorCode;
+import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
+import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional
 @Service
 public class ReviewModifyService {
 
-    private final FoodCategoryService foodCategoryService;
-    private final ReviewRepository reviewRepository;
+    private final ReviewFindService reviewFindService;
     private final ReviewHashtagService reviewHashtagService;
+    private final FoodCategoryService foodCategoryService;
     private final ImageService imageService;
     private final MemberFindService memberFindService;
     private final ProductFindService productFindService;
+    private final LikeService likeService;
+    private final StorageService storageService;
     private final WeatherService weatherService;
+    private final ReviewRepository reviewRepository;
 
     public Review save(AuthMember authMember, ReviewSaveRequest request) {
         Weather weather = weatherService.findLatestWeather();
@@ -65,5 +74,36 @@ public class ReviewModifyService {
             return null;
         }
         return foodCategoryService.findProductWithCategory(foodCategory, product);
+    }
+
+    public void delete(AuthMember authMember, Long reviewId) {
+        Review review = reviewFindService.findByIdToDelete(reviewId);
+
+        validateOwnerByReview(authMember.getId(), review);
+
+        removeImageByReview(review);
+        foodCategoryService.removeByReview(review);
+        reviewHashtagService.removeAllByReview(review);
+        likeService.removeAllByReview(review);
+        review.removeRelated();
+
+        reviewRepository.delete(review);
+    }
+
+    private void removeImageByReview(Review review) {
+        Image image = review.getImage();
+        if (image != null) {
+            storageService.remove(image);
+        }
+    }
+
+    private void validateOwnerByReview(Long memberId, Review review) {
+        if (isNotOwner(memberId, review)) {
+            throw new ReviewException(ReviewErrorCode.MEMBER_IS_NOT_OWNER);
+        }
+    }
+
+    private boolean isNotOwner(Long memberId, Review review) {
+        return !memberId.equals(review.getMember().getId());
     }
 }

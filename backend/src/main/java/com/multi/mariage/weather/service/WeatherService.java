@@ -1,5 +1,6 @@
 package com.multi.mariage.weather.service;
 
+import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.domain.Weather;
 import com.multi.mariage.weather.domain.WeatherRepository;
