@@ -18,6 +18,17 @@ const requestUserProfile = () => {
   return axiosWithAccessToken.get(API_PATH.MEMBER.PROFILE);
 };
 
+const requestUpdateImage = (file: FormData) => {
+  return axiosWithAccessToken.post(API_PATH.MEMBER.IMAGE, file, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+  }});
+};
+
+const requestDeleteImage = () => {
+  return axiosWithAccessToken.patch(API_PATH.MEMBER.IMAGE);
+};
+
 const requestUpdateNickname = (nickname: string) => {
   return axiosWithAccessToken.patch(API_PATH.MEMBER.NICKNAME, nickname);
 };
@@ -26,11 +37,14 @@ const requestUpdatePassword = (password: string, newPassword: string) => {
   return axiosWithAccessToken.patch(API_PATH.MEMBER.PASSWORD, {password, newPassword})
 }
 
+
 export {
   requestSignup,
   requestUserNickname,
   requestUserInfo,
   requestUserProfile,
+  requestUpdateImage,
+  requestDeleteImage,
   requestUpdateNickname,
   requestUpdatePassword
 };

@@ -4,8 +4,9 @@ import {
   requestUserInfo,
   requestUpdateNickname,
   requestUserProfile,
+  requestUpdateImage,
+  requestDeleteImage
 } from '@/apis/request/member';
-import { requestSaveImage } from '@/apis/request/storage'; 
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { UserProfileType } from '@/@types/user';
@@ -21,6 +22,7 @@ function Profile() {
   } = useInput('');
 
   const { value: image, setValue: setImage } = useImage<File>(null);
+  const imageInput = useRef<HTMLInputElement>(null);
   const [userProfile, setUserProfile] = useState<UserProfileType>({
     nickname: '',
     email: '',
@@ -46,11 +48,52 @@ function Profile() {
   }, []);
 
   /* 사진 변경 */
-  // const imageInput = useRef<HTMLInputElement>(null);
+  const updateImageBtn = () => {
+    if (imageInput.current) {
+      imageInput.current.click();
+    }
+  }
 
-  // const onClickUpdateBtn = () => {
-  //   imageInput.current!.click();
-  // };
+  const updateImage = async () => {
+    if (image) {
+      confirm('변경된 사진으로 적용됩니다. 정말 적용하시겠습니까?')
+      const formData = new FormData();
+      formData.append('file', image);
+  
+      await requestUpdateImage(formData)
+        .then(response => {
+          const newImagePath = response.data.imagePath;
+          console.log(response.data)
+          setUserProfile(prevState => ({
+            ...prevState,
+            imagePath: newImagePath,
+          }));
+        })
+        .catch(error => {
+          /* TODO: Handle error */
+          console.error(error);
+        });
+    }
+  };
+
+  /* 사진 삭제 */
+  const deleteImage = async () => {
+    confirm('프로필 사진을 정말 삭제하시겠습니까?')
+
+    await requestDeleteImage()
+      .then(response => {
+        const newImagePath = response.data.imagePath;
+        console.log(response.data)
+        setUserProfile(prevState => ({
+          ...prevState,
+          imagePath: newImagePath,
+        }));
+      })
+      .catch(error => {
+        /* TODO: Handle error */
+        console.error(error);
+      });
+  };
 
   /* 닉네임 변경 */
   const updateNickname = async () => {
@@ -82,7 +125,6 @@ function Profile() {
           <S.Text>프로필 사진</S.Text>
           <S.ImgWrap>
             <S.Img src={userProfile?.imagePath} />
-            {/* <S.UpdateImg src={preview} css={Image == null ? S.updateImg1 : S.updateImg2}/> */}
           </S.ImgWrap>
         </S.ProfileImage>
 
@@ -97,11 +139,11 @@ function Profile() {
               accept="image/*"
               onChange={setImage}
               title={'프로필 수정'}
+              ref={imageInput}
             />
-            <S.Btn type={'button'} /*onClick={onClickUpdateBtn}*/>
-              사진변경
-            </S.Btn>
-            <S.Btn type={'button'}>삭제</S.Btn>
+            <S.Btn type={'button'} onClick={updateImageBtn}>사진변경</S.Btn>
+            <S.Btn2 type={'button'} onClick={updateImage}>적용</S.Btn2>
+            <S.Btn2 type={'button'} onClick={deleteImage} css={S.deleteBtn}>삭제</S.Btn2>
           </form>
         </S.Info>
       </S.Profile>
