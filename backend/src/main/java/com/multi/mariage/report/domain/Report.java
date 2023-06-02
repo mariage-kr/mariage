@@ -16,13 +16,20 @@ public class Report {
     @ManyToOne(fetch = FetchType.LAZY)
     private Review review;
 
+    public static Report from(Member member, Review review) {
+        Report report = new Report();
+        report.setMember(member);
+        report.setReview(review);
+        return report;
+    }
+
     /* 연관 관계 편의 메서드 */
-    public void setMember(Member member) {
+    private void setMember(Member member) {
         member.getReports().add(this);
         this.member = member;
     }
 
-    public void setReview(Review review) {
+    private void setReview(Review review) {
         review.getReports().add(this);
         this.review = review;
     }
