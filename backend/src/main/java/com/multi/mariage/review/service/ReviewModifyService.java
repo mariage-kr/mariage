@@ -77,24 +77,24 @@ public class ReviewModifyService {
     }
 
     public void delete(AuthMember authMember, Long reviewId) {
-        log.info("DELETE START");
         Review review = reviewFindService.findByIdToDelete(reviewId);
 
-        log.info("VALIDATE START");
         validateOwnerByReview(authMember.getId(), review);
 
-        log.info("IMAGE REMOVE START");
-        storageService.remove(review.getImage());
-        log.info("LIKE REMOVE START");
-        likeService.removeAllByReview(review);
-        log.info("HASHTAG REMOVE START");
-        reviewHashtagService.removeAllByReview(review);
-        log.info("FOOD REMOVE START");
+        removeImageByReview(review);
         foodCategoryService.removeByReview(review);
-        log.info("RELATED REMOVE START");
+        reviewHashtagService.removeAllByReview(review);
+        likeService.removeAllByReview(review);
         review.removeRelated();
-        log.info("REVIEW REMOVE START");
+
         reviewRepository.delete(review);
+    }
+
+    private void removeImageByReview(Review review) {
+        Image image = review.getImage();
+        if (image != null) {
+            storageService.remove(image);
+        }
     }
 
     private void validateOwnerByReview(Long memberId, Review review) {

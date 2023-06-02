@@ -48,15 +48,10 @@ public class LikeService {
         Like like = likeRepository.findByMemberIdAndReviewId(authMember.getId(), reviewId)
                 .orElseThrow(() -> new LikeException(LikeErrorCode.REVIEW_NOT_LIKED));
 
-        Member member = like.getMember();
-        Review review = like.getReview();
-
-        member.removeLike(like);
-        review.removeLike(like);
-
+        like.removeRelated();
         likeRepository.delete(like);
 
-        long countByReview = likeRepository.findCountByReview(review);
+        long countByReview = likeRepository.findCountByReview(like.getReview());
         return new LikeCountResponse(countByReview);
     }
 
@@ -68,7 +63,6 @@ public class LikeService {
     }
 
     public void removeAllByReview(Review review) {
-        /* TODO: 2023/06/01 추후 DB에서도 삭제 한다면 이곳에 두고 아니면 review로 이동 */
-        review.getLikes().forEach(Like::removeMember);
+        review.getLikes().forEach(Like::removeRelated);
     }
 }

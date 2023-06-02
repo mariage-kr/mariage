@@ -6,6 +6,7 @@ import com.multi.mariage.storage.exception.StorageErrorCode;
 import com.multi.mariage.storage.exception.StorageException;
 import com.multi.mariage.storage.repository.StorageRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service

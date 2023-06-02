@@ -10,12 +10,11 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.storage.domain.Image;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LikeServiceTest extends ServiceTest {
     private Member member;
@@ -59,14 +58,15 @@ class LikeServiceTest extends ServiceTest {
     @DisplayName("리뷰의 좋아요를 취소한다.")
     @Test
     void 리뷰의_좋아요를_취소한다() {
-
         Long memberId = user1.getId();
         Long reviewId = review.getReviewId();
         reviewFixture = ReviewFixture.참이슬_치킨;
 
         likeService.save(new AuthMember(memberId), reviewFixture.toSaveLike(reviewId));
+        System.out.println("REMOVE START");
         likeService.remove(new AuthMember(memberId), reviewId);
 
+        System.out.println("VALID START");
         boolean expected = likeRepository.existsByMemberIdAndReviewId(memberId, reviewId);
 
         assertThat(expected).isFalse();

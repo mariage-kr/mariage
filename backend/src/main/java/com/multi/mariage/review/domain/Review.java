@@ -12,12 +12,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -53,7 +55,7 @@ public class Review {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private Set<Like> likes = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private Set<ReviewHashtag> reviewHashtags = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -107,13 +109,10 @@ public class Review {
         this.image = image;
     }
 
-    public void removeLike(Like like) {
-        this.likes.remove(like);
-    }
-
     public void removeRelated() {
         member.getReviews().remove(this);
         product.getReviews().remove(this);
+        product.changeTotalReviewRate(productRate * -1);
         weather.getReviews().remove(this);
     }
 }
