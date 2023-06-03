@@ -19,7 +19,7 @@ type PropsType = {
 
 function ReviewCategory({ productId }: PropsType) {
   const navigate = useNavigate();
-  // 정렬
+
   const queryParam = new URLSearchParams(location.search);
   const sort = queryParam.get('sort');
   const selectedCategory = queryParam.get('category');
@@ -33,7 +33,6 @@ function ReviewCategory({ productId }: PropsType) {
     selectOption?: string | null,
     rate?: string | number | null,
   ) => {
-    console.log(rate);
     let query = `sort=${sortOption}`;
     if (selectOption !== null && selectOption !== 'null') {
       query += `&category=${selectOption}`;
