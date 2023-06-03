@@ -57,7 +57,7 @@ class ReviewModifyServiceTest extends ServiceTest {
         Food food = saveFood(ReviewFixture.참이슬_치킨, product);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
 
-        review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), food.getId());
+        review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
         MockMultipartFile imageFile = ImageFixture.JPEG_IMAGE.toMultipartFile();
         List<String> hashTags = ReviewFixture.참이슬_치킨.getHashtags();
 
@@ -83,11 +83,10 @@ class ReviewModifyServiceTest extends ServiceTest {
     @Test
     void 리뷰의_이미지를_수정한다() {
 
-        Food food = saveFood(ReviewFixture.참이슬_치킨, product);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
 
-        review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), food.getId());
-        MockMultipartFile newImageFile = ImageFixture.JPEG_IMAGE.toMultipartFile();
+        review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
+        MockMultipartFile newImageFile = ImageFixture.JPEG_IMAGE2.toMultipartFile();
         List<String> hashTags = ReviewFixture.참이슬_치킨.getHashtags();
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
@@ -111,12 +110,11 @@ class ReviewModifyServiceTest extends ServiceTest {
     @Test
     void 리뷰의_해시태그를_수정한다() {
 
-        Food food = saveFood(ReviewFixture.참이슬_치킨, product);
         Long imageId = saveImage(ImageFixture.JPEG_IMAGE).getImageId();
 
-        review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), food.getId());
+        review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
         MockMultipartFile imageFile = ImageFixture.JPEG_IMAGE.toMultipartFile();
-        List<String> hashTags = ReviewFixture.참이슬_과자.getHashtags();
+        List<String> hashTags = ReviewFixture.산토리위스키_치즈3.getHashtags();     // 수정할 해시태그
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
                 .id(review.getId())
@@ -132,6 +130,6 @@ class ReviewModifyServiceTest extends ServiceTest {
         reviewModifyService.update(new AuthMember(member.getId()), request, imageFile);
 
         Review actual = reviewFindService.findById(review.getId());
-        assertThat(actual.getReviewHashtags().size()).isEqualTo(2);
+        assertThat(actual.getReviewHashtags().size()).isEqualTo(3);
     }
 }
