@@ -8,15 +8,6 @@ import {
 } from '@/apis/request/member';
 
 function Review() {
-  
-  const profileData = {
-    id: 1,
-    img: 'https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png',
-    nickname: '마리아',
-    email: 'mariage@google.com',
-    reviews: 1042,
-    likes: 12301
-  };
 
   const [reviewProfile, setReviewProfile] = useState<reviewProfileType>({
     nickname: '',
