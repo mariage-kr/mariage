@@ -70,7 +70,7 @@ public class ReviewModifyService {
         return reviewRepository.save(review);
     }
 
-    public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request) {
+    public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request, MultipartFile file) {
 
         Product product = productFindService.findById(request.getProductId());
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
@@ -83,9 +83,8 @@ public class ReviewModifyService {
             reviewHashtagService.removeAllByReview(review);
             reviewHashtags.clear();
         }
-
         List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
-        UpdateReviewImageResponse newImage = updateImage(review, request.getFile());
+        UpdateReviewImageResponse newImage = updateImage(review, file);
         review.update(request);
 
         return ReviewUpdateResponse.builder()

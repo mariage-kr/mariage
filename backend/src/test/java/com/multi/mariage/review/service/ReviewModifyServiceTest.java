@@ -69,11 +69,10 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .foodRate(review.getFoodRate())
                 .foodCategory(food.getCategory())
                 .foodImageId(imageId)
-                .file(imageFile)
                 .hashtags(hashTags)
                 .build();
 
-        reviewModifyService.update(new AuthMember(member.getId()), request);
+        reviewModifyService.update(new AuthMember(member.getId()), request, imageFile);
 
         Review actual = reviewFindService.findById(review.getId());
         assertThat(actual.getProductRate()).isEqualTo(productRate);
@@ -99,11 +98,10 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .foodRate(review.getFoodRate())
                 .foodCategory(review.getFoodCategory().getCategory())
                 .foodImageId(imageId)
-                .file(newImageFile)
                 .hashtags(hashTags)
                 .build();
 
-        reviewModifyService.update(new AuthMember(member.getId()), request);
+        reviewModifyService.update(new AuthMember(member.getId()), request, newImageFile);
 
         Review actual = reviewFindService.findById(review.getId());
         assertThat(actual.getImage().getName().equals(ImageFixture.JPEG_IMAGE2.name()));
@@ -128,11 +126,10 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .foodRate(review.getFoodRate())
                 .foodCategory(review.getFoodCategory().getCategory())
                 .foodImageId(imageId)
-                .file(imageFile)
                 .hashtags(hashTags)
                 .build();
 
-        reviewModifyService.update(new AuthMember(member.getId()), request);
+        reviewModifyService.update(new AuthMember(member.getId()), request, imageFile);
 
         Review actual = reviewFindService.findById(review.getId());
         assertThat(actual.getReviewHashtags().size()).isEqualTo(2);

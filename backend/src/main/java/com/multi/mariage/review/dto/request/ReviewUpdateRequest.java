@@ -19,11 +19,10 @@ public class ReviewUpdateRequest {
     private int foodRate;
     private FoodCategory foodCategory;
     private Long foodImageId;
-    private MultipartFile file;
     private List<String> hashtags;
 
     @Builder
-    public ReviewUpdateRequest(Long id, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long foodImageId, MultipartFile file, List<String> hashtags) {
+    public ReviewUpdateRequest(Long id, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long foodImageId, List<String> hashtags) {
         this.id = id;
         this.productId = productId;
         this.productRate = productRate;
@@ -31,7 +30,6 @@ public class ReviewUpdateRequest {
         this.foodRate = foodRate;
         this.foodCategory = foodCategory;
         this.foodImageId = foodImageId;
-        this.file = file;
         this.hashtags = hashtags;
     }
 }

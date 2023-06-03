@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -38,8 +39,8 @@ public class ReviewModifyController {
 
     @PatchMapping("/user/review/{reviewId}")
     public ResponseEntity<ReviewUpdateResponse> update(@Authenticated AuthMember authMember,
-                                                       @PathVariable Long reviewId, @RequestBody ReviewUpdateRequest request) {
-        ReviewUpdateResponse response = reviewModifyService.update(authMember, request);
+                                                       @PathVariable Long reviewId, @RequestPart ReviewUpdateRequest request, @RequestPart MultipartFile file) {
+        ReviewUpdateResponse response = reviewModifyService.update(authMember, request, file);
 
         return ResponseEntity.ok(response);
     }
