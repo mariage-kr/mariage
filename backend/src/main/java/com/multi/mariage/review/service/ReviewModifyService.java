@@ -20,6 +20,8 @@ import com.multi.mariage.review.dto.response.UpdateReviewImageResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
+import com.multi.mariage.storage.exception.StorageErrorCode;
+import com.multi.mariage.storage.exception.StorageException;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.domain.Weather;
@@ -70,21 +72,32 @@ public class ReviewModifyService {
         return reviewRepository.save(review);
     }
 
-    public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request, MultipartFile file) {
+    public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request) {
 
         Product product = productFindService.findById(request.getProductId());
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
-        Review review = reviewFindService.findById(request.getId());
+        Review review = reviewFindService.findByIdToUpdate(request.getReviewId());
+
         validateOwnerByReview(authMember.getId(), review);
-        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
+
         review.changeFoodCategory(foodCategory);
+        System.out.println("시작");
+        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
+        Image image = getImage(review.getImage().getId());
+        String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
+        log.info(imageUrl);
+        System.out.println("끝");
+        if (request.getNewImageId() != null) {  // 이미지 업데이트
+            removeImageByReview(review);
+            imageUrl = updateImage(review, request);
+        }
+        log.info(imageUrl);
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             reviewHashtagService.removeAllByReview(review);
             reviewHashtags.clear();
         }
         List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
-        UpdateReviewImageResponse newImage = updateImage(review, file);
         review.update(request);
 
         return ReviewUpdateResponse.builder()
@@ -92,7 +105,7 @@ public class ReviewModifyService {
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())
                 .foodCategory(review.getFoodCategory().getCategory())
-                .imagePath(newImage.getImagePath())
+                .imagePath(imageUrl)
                 .hashtags(hashTagNames)
                 .build();
     }
@@ -129,6 +142,7 @@ public class ReviewModifyService {
         Image image = review.getImage();
         if (image != null) {
             storageService.remove(image);
+            review.changeImage(null);
         }
     }
 
@@ -142,16 +156,12 @@ public class ReviewModifyService {
         return !memberId.equals(review.getMember().getId());
     }
 
-    public UpdateReviewImageResponse updateImage(Review review, MultipartFile file) {
+    public String updateImage(Review review, ReviewUpdateRequest request) {
 
-        if (review.getImage() != null) {
-            removeImageByReview(review);
-        }
+        Image image = imageService.findById(request.getNewImageId());
 
-        Image image = storageService.save(file);
         review.changeImage(image);
-
-        String filePath = storageService.getFilePath(image.getName());
-        return new UpdateReviewImageResponse(filePath);
+        String imageUrl = imageService.getImageUrl(review.getImage().getName());
+        return imageUrl;
     }
 }

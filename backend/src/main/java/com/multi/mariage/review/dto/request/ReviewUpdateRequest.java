@@ -5,32 +5,30 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class ReviewUpdateRequest {
-    private Long id;
+    private Long reviewId;
     private Long productId;
     private int productRate;
     private String content;
     private int foodRate;
     private FoodCategory foodCategory;
-    private Long foodImageId;
+    private Long newImageId;
     private List<String> hashtags;
 
     @Builder
-    public ReviewUpdateRequest(Long id, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long foodImageId, List<String> hashtags) {
-        this.id = id;
+    public ReviewUpdateRequest(Long reviewId, Long productId, int productRate, String content, int foodRate, FoodCategory foodCategory, Long newImageId, List<String> hashtags) {
+        this.reviewId = reviewId;
         this.productId = productId;
         this.productRate = productRate;
         this.content = content;
         this.foodRate = foodRate;
         this.foodCategory = foodCategory;
-        this.foodImageId = foodImageId;
+        this.newImageId = newImageId;
         this.hashtags = hashtags;
     }
 }
