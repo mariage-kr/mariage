@@ -56,6 +56,7 @@ const Img = styled.img`
   background: url(https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png) no-repeat;
   background-size: contain;
   box-sizing: border-box;
+  object-fit: cover;
 `;
 
 const UpdateImg = styled.img`

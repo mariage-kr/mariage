@@ -27,7 +27,7 @@ import static com.multi.mariage.global.data.Fixture.ProductFixture.values;
 
 @RequiredArgsConstructor
 @Component
-@Profile("dev")
+//@Profile("dev")
 public class LoaderData {
     private static final List<Member> members = new ArrayList<>();
     private static final List<Product> products = new ArrayList<>();

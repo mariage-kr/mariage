@@ -78,7 +78,9 @@ function User() {
   }, [key]);
 
   // 닉네임 마스킹
-  const nickname = userInfo?.nickname.substring(0, 2) + "**"; 
+  const nickname = 
+    userInfo?.nickname && 
+    userInfo?.nickname.length > 3 ? userInfo?.nickname.substring(0, 2) + "**" : userInfo?.nickname; 
 
   if (isLogin) {
     return (
