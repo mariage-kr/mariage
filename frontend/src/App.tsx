@@ -10,6 +10,7 @@ import Layout from '@/layout/Layout';
 import Mariage from '@/components/Mariage/Mariage';
 import Loading from '@/components/Loading/Loading';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
+import Snackbar from './components/SnackBar/SnackBar';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ function App() {
                 <Routes />
               </Suspense>
             </Layout>
+            <Snackbar />
           </Router>
         </QueryClientProvider>
       </RecoilRoot>
