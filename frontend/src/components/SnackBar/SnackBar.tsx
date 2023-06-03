@@ -1,14 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+
 import { BROWSER_PATH } from '@/constants/path';
+import { snackbarState } from '@/store/status';
 
 import * as S from './SnackBar.styled';
+import { SNACKBAR } from '@/constants/snackbar';
 
 function Snackbar() {
-  const [option, setOption] = useState<string>('review');
-  /* UseEffect */
+  const [snackbarInfo, setSnackbarInfo] = useRecoilState(snackbarState);
 
-  /* TODO: 로그인 관련 */
-  if (option === 'login') {
+  const [timer, setTimer] = useState<null | NodeJS.Timeout>(null);
+  const [message, setMessage] = useState<null | string>(null);
+
+  useEffect(() => {
+    if (timer || snackbarInfo.message === '') {
+      return;
+    }
+
+    setMessage(snackbarInfo.message);
+    setSnackbarInfo({
+      option: snackbarInfo.option,
+      message: '',
+    });
+
+    const newTimer = setTimeout(() => {
+      setTimer(null);
+    }, 3000);
+
+    setTimer(newTimer);
+  }, [snackbarInfo]);
+
+  if (timer === null) {
+    return;
+  }
+
+  if (snackbarInfo.option === SNACKBAR.OPTION.LOGIN) {
     return (
       <S.Container>
         <S.Text>로그인이 필요한 기능입니다.</S.Text>
@@ -17,8 +44,7 @@ function Snackbar() {
     );
   }
 
-  /* TODO: 새로운 리뷰 관련 */
-  if (option === 'review') {
+  if (snackbarInfo.option === SNACKBAR.OPTION.REVIEW) {
     return (
       <S.Container>
         <S.Text>새로운 리뷰가 작성되었습니다.</S.Text>
@@ -32,12 +58,25 @@ function Snackbar() {
       </S.Container>
     );
   }
-  /* TODO: 오류 관련 */
-  return (
-    <S.Container>
-      <S.Text>에러..</S.Text>
-    </S.Container>
-  );
+
+  if (snackbarInfo.option === SNACKBAR.OPTION.ERROR) {
+    return (
+      <S.Container>
+        <S.Text>{message}</S.Text>
+      </S.Container>
+    );
+  }
+
+  // TODO: 리뷰가 더 이상 존재하지 않거나 그럴 때 사용
+  if (snackbarInfo.option === SNACKBAR.OPTION.INFO) {
+    return (
+      <S.Container>
+        <S.Text>{message}</S.Text>
+      </S.Container>
+    );
+  }
+
+  return;
 }
 
 export default Snackbar;

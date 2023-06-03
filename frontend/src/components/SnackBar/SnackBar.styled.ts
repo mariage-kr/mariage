@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-type Props = {
-  timer: number;
-};
-
 const Container = styled.div`
   position: fixed;
   z-index: 10000;
@@ -44,7 +40,7 @@ const Container = styled.div`
     }
   }
 
-  animation: show 3.5s;
+  animation: show 3s;
 `;
 
 const Text = styled.p`

@@ -7,10 +7,10 @@ import {
   CategoryType,
   DrinkRegionCategoryType,
   FoodCategoryResponseType,
-  FoodCategoryType,
 } from '@/@types/category';
 import { RECOIL_KEY } from '@/constants/key';
 import { UserInfoType } from '@/@types/user';
+import { SnackbarInfo } from '@/@types/common';
 
 const { persistAtom } = recoilPersist();
 
@@ -35,6 +35,15 @@ const userInfoState = atom<UserInfoType | undefined>({
 const foodCategoryState = atom<FoodCategoryResponseType>({
   key: RECOIL_KEY.FOOD_CATEGORY,
   default: undefined,
+  effects_UNSTABLE: [persistAtom],
+});
+
+const snackbarState = atom<SnackbarInfo>({
+  key: RECOIL_KEY.SNACKBAR,
+  default: {
+    option: '',
+    message: '',
+  },
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -90,6 +99,7 @@ export {
   drinkUpperCategoryState,
   userInfoState,
   isLoginState,
+  snackbarState,
   accessTokenState,
   refreshTokenState,
   productCategoryState,
