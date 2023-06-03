@@ -37,9 +37,10 @@ public class ReviewModifyController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/user/review/{reviewId}")
+    @PatchMapping("/user/review/update")
     public ResponseEntity<ReviewUpdateResponse> update(@Authenticated AuthMember authMember,
-                                                       @PathVariable Long reviewId, @RequestPart ReviewUpdateRequest request, @RequestPart MultipartFile file) {
+                                                       @RequestPart ReviewUpdateRequest request,
+                                                       @RequestPart MultipartFile file) {
         ReviewUpdateResponse response = reviewModifyService.update(authMember, request, file);
 
         return ResponseEntity.ok(response);
