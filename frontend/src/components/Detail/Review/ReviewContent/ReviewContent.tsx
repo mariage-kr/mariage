@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 
 import { ReviewType } from '@/@types/review';
+import siren from '@/assets/png/Siren.png';
+import { Siren } from '@/assets/svg/SVG';
 
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
@@ -83,14 +85,15 @@ function ReviewContent(review: ReviewType) {
             {memberId === review.member.id ? (
               <S.BtnWrap>
                 {/* TODO: 수정 모달창으로 할지 고민 */}
-                <S.Btn css={S.updateBtn}>수정</S.Btn>
-                <S.Btn css={S.deleteBtn} onClick={deleteReview}>
-                  삭제
-                </S.Btn>
+                <S.Btn>수정</S.Btn>
+                <S.Btn onClick={deleteReview}>삭제</S.Btn>
               </S.BtnWrap>
             ) : (
               <S.BtnWrap>
-                <S.Btn onClick={reportReview}>신고</S.Btn>
+                <S.Btn onClick={reportReview} title="신고하기">
+                  {/* <S.SirenIcon src={siren}/> */}
+                  <Siren fill="#bb2649" />
+                </S.Btn>
               </S.BtnWrap>
             )}
             <S.Like>
