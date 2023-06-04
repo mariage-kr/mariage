@@ -16,6 +16,7 @@ import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
 import com.multi.mariage.review.dto.response.ReviewUpdateResponse;
+import com.multi.mariage.review.dto.response.UpdateReviewImageResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
@@ -74,16 +75,14 @@ public class ReviewModifyService {
         Product product = productFindService.findById(request.getProductId());
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
         Review review = reviewFindService.findByIdToUpdate(request.getReviewId());
+        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
+        Image image = getImage(review.getImage().getId());
 
         validateOwnerByReview(authMember.getId(), review);
 
         review.changeFoodCategory(foodCategory);
-
-        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
-        Image image = getImage(review.getImage().getId());
-        String imageUrl = getImagePath(request, review, image);
+        String imageUrl = getImageUrl(request, review, image);
         List<ReviewHashtag> hashTagNames = getReviewHashtagList(request, review, reviewHashtags);
-
         review.update(request);
 
         return ReviewUpdateResponse.from(review, imageUrl, hashTagNames);
@@ -156,7 +155,7 @@ public class ReviewModifyService {
         return hashTagNames;
     }
 
-    private String getImagePath(ReviewUpdateRequest request, Review review, Image image) {
+    private String getImageUrl(ReviewUpdateRequest request, Review review, Image image) {
         String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
 
         if (request.getNewImageId() != null) {  // 이미지 업데이트
