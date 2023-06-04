@@ -5,6 +5,7 @@ import {
   ProductDetailType,
   ProductRecommendType,
   ProductSaveType,
+  ProductSearchType,
   ProductUpdateType,
   ProductsType,
 } from '@/@types/product';
@@ -106,6 +107,18 @@ const requestProductDetailInfo = (id: string) => {
     });
 };
 
+const requestProductSearch = (word: string) => {
+  return axios
+    .get<ProductSearchType>(`${API_PATH.PRODUCT.SEARCH}`, {
+      params: {
+        word,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   requestSaveProduct,
   requestProductInfo,
@@ -114,4 +127,5 @@ export {
   requestRecommendDate,
   requestProducts,
   requestProductDetailInfo,
+  requestProductSearch,
 };

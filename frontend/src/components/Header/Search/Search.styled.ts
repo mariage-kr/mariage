@@ -40,7 +40,8 @@ const ProdList = styled.ul`
   z-index: 10000;
 
   padding: 0;
-  margin-top: 237px;
+
+  top: 50px;
   width: 22.7%;
 
   @media (max-width: 1000px) {
@@ -55,11 +56,13 @@ const ProdList = styled.ul`
   list-style: none;
 `;
 
-const Prod = styled.li`
+const Prod = styled.div`
   overflow: hidden;
   padding: 5px 0 5px 5px;
 
   font-size: 1rem;
+
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;

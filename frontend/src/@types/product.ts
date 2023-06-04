@@ -97,6 +97,11 @@ type PairingFoodType = {
   reviewCount: number;
 };
 
+type ProductSearchType = {
+  products: string[];
+  size: number;
+};
+
 export {
   ProductModifyInfoType,
   ProductSaveType,
