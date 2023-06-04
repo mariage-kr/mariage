@@ -16,7 +16,6 @@ import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
 import com.multi.mariage.review.dto.response.ReviewUpdateResponse;
-import com.multi.mariage.review.dto.response.UpdateReviewImageResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
@@ -82,7 +81,7 @@ public class ReviewModifyService {
 
         review.changeFoodCategory(foodCategory);
         String imageUrl = getImageUrl(request, review, image);
-        List<ReviewHashtag> hashTagNames = getReviewHashtagList(request, review, reviewHashtags);
+        List<String> hashTagNames = getReviewHashtagList(request, review, reviewHashtags);
         review.update(request);
 
         return ReviewUpdateResponse.from(review, imageUrl, hashTagNames);
@@ -143,14 +142,22 @@ public class ReviewModifyService {
         return imageUrl;
     }
 
-    private List<ReviewHashtag> getReviewHashtagList(ReviewUpdateRequest request, Review review, Set<ReviewHashtag> reviewHashtags) {
-        List<ReviewHashtag> hashTagNames = new ArrayList<>();
+    private List<String> getReviewHashtagList(ReviewUpdateRequest request, Review review, Set<ReviewHashtag> reviewHashtags) {
+        List<String> hashTagNames = new ArrayList<>();
         if (request.getHashtags() != null && !request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             reviewHashtags.clear();
             reviewHashtagService.removeAllByReview(review);
-            hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
+
+            List<String> reviewHashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review)
+                    .stream()
+                    .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
+                    .toList();
+
+            hashTagNames.addAll(reviewHashTagNames);
         } else {
-            hashTagNames.addAll(reviewHashtags);
+            hashTagNames.addAll(reviewHashtags.stream()
+                    .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
+                    .toList());
         }
         return hashTagNames;
     }

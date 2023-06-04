@@ -16,11 +16,9 @@ public class ReviewHashtag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_hashtag_id")
     private Long id;
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private Review review;

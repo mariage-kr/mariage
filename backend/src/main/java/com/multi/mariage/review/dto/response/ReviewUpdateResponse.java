@@ -1,9 +1,7 @@
 package com.multi.mariage.review.dto.response;
 
 import com.multi.mariage.category.domain.FoodCategory;
-import com.multi.mariage.product.dto.response.ProductFindResponse;
 import com.multi.mariage.review.domain.Review;
-import com.multi.mariage.review.domain.ReviewHashtag;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +18,10 @@ public class ReviewUpdateResponse {
     private int foodRate;
     private FoodCategory foodCategory;
     private String imagePath;
-    private List<ReviewHashtag> hashtags;
+    private List<String> hashtags;
 
     @Builder
-    private ReviewUpdateResponse(Long reviewId, int productRate, String content, int foodRate, FoodCategory foodCategory, String imagePath, List<ReviewHashtag> hashtags) {
+    private ReviewUpdateResponse(Long reviewId, int productRate, String content, int foodRate, FoodCategory foodCategory, String imagePath, List<String> hashtags) {
         this.reviewId = reviewId;
         this.productRate = productRate;
         this.content = content;
@@ -33,7 +31,7 @@ public class ReviewUpdateResponse {
         this.hashtags = hashtags;
     }
 
-    public static ReviewUpdateResponse from(Review review, String imagePath, List<ReviewHashtag> hashtags) {
+    public static ReviewUpdateResponse from(Review review, String imagePath, List<String> hashtags) {
         return ReviewUpdateResponse.builder()
                 .reviewId(review.getId())
                 .productRate(review.getProductRate())
