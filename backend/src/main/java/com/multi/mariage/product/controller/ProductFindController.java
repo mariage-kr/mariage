@@ -1,5 +1,7 @@
 package com.multi.mariage.product.controller;
 
+import com.multi.mariage.auth.annotation.Authenticated;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
 import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
@@ -20,6 +22,13 @@ import java.util.List;
 @RestController
 public class ProductFindController {
     private final ProductFindService productFindService;
+
+    @GetMapping("/user/product/recommend/slope")
+    public ResponseEntity<List<ProductMainCardResponse>> findSlope(@Authenticated AuthMember authMember,
+                                          @Param("size") int size) {
+        List<ProductMainCardResponse> response = productFindService.findBySlope(authMember, size);
+        return ResponseEntity.ok(response);
+    }
 
     /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/recommend/weather")

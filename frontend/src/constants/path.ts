@@ -29,6 +29,7 @@ const API_PATH = {
     FILTER: '/api/product/find/filter',
     DETAIL: '/api/product/detail',
     RECOMMEND: {
+      SLOPE: '/api/user/product/recommend/slope',
       DATE: '/api/product/recommend/date',
       WEATHER: '/api/product/recommend/weather',
     },
