@@ -3,8 +3,18 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   display: flex;
   align-items: center;
+
   width: 100%;
   min-width: 192px;
+`;
+
+const SearchWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
 `;
 
 const Input = styled.input`
@@ -25,8 +35,38 @@ const Input = styled.input`
   }
 `;
 
+const ProdList = styled.ul`
+  position: absolute;
+  z-index: 10000;
+
+  padding: 0;
+  margin-top: 237px;
+
+  min-width: 200px;
+  max-width: 337px;
+  width: 23.2%;
+
+  border: 2px solid #9c94d0;
+  border-radius: 0 0 10px 10px;
+
+  background-color: #fff;
+
+  list-style: none;
+`;
+
+const Prod = styled.li`
+  overflow: hidden;
+  padding: 5px 0 5px 5px;
+
+  font-size: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-export { Container, Input, Wrapper };
+export { Container, Input, Wrapper, SearchWrapper, ProdList, Prod };

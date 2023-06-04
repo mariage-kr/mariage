@@ -4,9 +4,9 @@ import { ReactComponent as SearchImg } from '@/assets/svg/search.svg';
 import useInput from '@/hooks/useInput';
 import { PARAM } from '@/constants/rule';
 import { BROWSER_PATH } from '@/constants/path';
+import { SORT } from '@/constants/option';
 
 import * as S from './Search.styled';
-import { SORT } from '@/constants/option';
 
 function Search() {
   const navigate = useNavigate();
@@ -31,14 +31,23 @@ function Search() {
 
   return (
     <S.Container>
-      <S.Input
-        type={'text'}
-        value={search}
-        onChange={setSearch}
-        autoComplete={'off'}
-        placeholder="원하는 주류를 검색하세요"
-        onKeyUp={handleOnKeyPress}
-      ></S.Input>
+      <S.SearchWrapper>
+        <S.Input
+          type={'text'}
+          value={search}
+          onChange={setSearch}
+          autoComplete={'off'}
+          placeholder="원하는 주류를 검색하세요"
+          onKeyUp={handleOnKeyPress}
+        ></S.Input>
+        <S.ProdList>
+          <S.Prod>아사히 맥주</S.Prod>
+          <S.Prod>2</S.Prod>
+          <S.Prod>3</S.Prod>
+          <S.Prod>4</S.Prod>
+          <S.Prod>5</S.Prod>
+        </S.ProdList>
+      </S.SearchWrapper>
       <S.Wrapper>
         <SearchImg onClick={searchProduct} />
       </S.Wrapper>
