@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -76,6 +77,16 @@ class ReviewModifyControllerTest extends ControllerTest {
         Image newImage = saveImage(ImageFixture.JPEG_IMAGE2);
         String content = objectMapper.writeValueAsString(ReviewFixture.참이슬_치킨.toUpdateRequest(review.getReviewId(), product.getId(), newImage.getId()));
 
+        ResponseFieldsSnippet responseFields = responseFields(
+                fieldWithPath("reviewId").description("수정할 리뷰 식별 번호"),
+                fieldWithPath("productRate").description("제품 평가 점수"),
+                fieldWithPath("content").description("리뷰 내용"),
+                fieldWithPath("foodRate").description("궁합 음식 평가 점수"),
+                fieldWithPath("foodCategory").description("궁합 음식 분류"),
+                fieldWithPath("imagePath").description("수정할 리뷰 사진 경로"),
+                fieldWithPath("hashtags[].id").description("리뷰의 해시태그 식별 번호")
+        );
+
         mockMvc.perform(patch("/api/user/review/update")
                         .content(content)
                         .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN)
@@ -95,15 +106,7 @@ class ReviewModifyControllerTest extends ControllerTest {
                                         fieldWithPath("newImageId").description("수정할 리뷰 사진"),
                                         fieldWithPath("hashtags").description("리뷰의 해시태그")
                                 ),
-                                responseFields(
-                                        fieldWithPath("reviewId").description("수정할 리뷰 식별 번호"),
-                                        fieldWithPath("productRate").description("제품 평가 점수"),
-                                        fieldWithPath("content").description("리뷰 내용"),
-                                        fieldWithPath("foodRate").description("궁합 음식 평가 점수"),
-                                        fieldWithPath("foodCategory").description("궁합 음식 분류"),
-                                        fieldWithPath("imagePath").description("수정할 리뷰 사진 경로"),
-                                        fieldWithPath("hashtags").description("리뷰의 해시태그")
-                                )
+                                responseFields
                         )
                 ).andExpect(MockMvcResultMatchers.status().isCreated());
     }
