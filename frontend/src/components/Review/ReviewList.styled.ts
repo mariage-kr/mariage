@@ -15,7 +15,7 @@ const Container = styled.div`
     box-shadow: 3px 3px 3px #9c94d0;
   }
 
-  @media (max-width: 1200px) { 
+  @media (max-width: 1200px) {
     height: 400px;
   }
 `;
@@ -26,7 +26,7 @@ const Wrapper = styled.div`
   margin: 20px auto;
   overflow: hidden;
 
-  @media (max-width: 1200px) { 
+  @media (max-width: 1200px) {
     height: 350px;
     position: relative;
     margin: 20px auto;
@@ -42,7 +42,7 @@ const Left = styled.div`
   padding-right: 2%;
   overflow: hidden;
 
-  @media (max-width: 1200px) { 
+  @media (max-width: 1200px) {
     border-right: none;
     float: none;
     width: 100%;
@@ -57,8 +57,10 @@ const ProductLeft = styled.div`
   height: 100%;
   text-align: center;
 
-  @media (max-width: 1500px) {  width: 30%; }
-  @media (max-width: 1200px) { 
+  @media (max-width: 1500px) {
+    width: 30%;
+  }
+  @media (max-width: 1200px) {
     width: 15%;
     height: 300px;
   }
@@ -69,9 +71,16 @@ const ProductImg = styled.img`
   height: 90%;
   transform: scale(1.2);
 
-  @media (max-width: 1400px) { width: 75%; }
-  @media (max-width: 1300px) { width: 80%; }
-  @media (max-width: 1200px) { width: 90%; transform: scale(1.3);}
+  @media (max-width: 1400px) {
+    width: 75%;
+  }
+  @media (max-width: 1300px) {
+    width: 80%;
+  }
+  @media (max-width: 1200px) {
+    width: 90%;
+    transform: scale(1.3);
+  }
 `;
 
 const ProductRight = styled.div`
@@ -83,10 +92,16 @@ const ProductRight = styled.div`
   margin-top: 50px;
   position: relative;
 
-  @media (max-width: 1700px) { margin-top: 45px; }
-  @media (max-width: 1500px) {  width: 70%; }
-  @media (max-width: 1300px) {  margin-top: 40px; }
-  @media (max-width: 1200px) { 
+  @media (max-width: 1700px) {
+    margin-top: 45px;
+  }
+  @media (max-width: 1500px) {
+    width: 70%;
+  }
+  @media (max-width: 1300px) {
+    margin-top: 40px;
+  }
+  @media (max-width: 1200px) {
     width: 82%;
     height: 100px;
     margin-top: 20px;
@@ -103,7 +118,9 @@ const SubWrap = styled.div`
   bottom: 0;
   width: 100%;
 
-  @media (max-width: 1200px) { top: 40px; }
+  @media (max-width: 1200px) {
+    top: 40px;
+  }
 `;
 
 const CountryWrap = styled.div``;
@@ -117,7 +134,7 @@ const Country = styled.div`
 const country_left = css`
   width: 30px;
   height: 30px;
-  box-shadow: 1px 1px #9C94D0;
+  box-shadow: 1px 1px #9c94d0;
   border-radius: 50%;
 `;
 
@@ -138,11 +155,13 @@ const ABV = styled.p`
   margin: 8px 0 0;
   font-size: 1rem;
 
-  @media (max-width: 1650px) { margin: 5px 0 0; }
+  @media (max-width: 1650px) {
+    margin: 5px 0 0;
+  }
 `;
 
 const ABVText = styled.span`
-  color: #BB2649;
+  color: #bb2649;
   font-size: 1rem;
 `;
 
@@ -155,7 +174,9 @@ const ProductStarRate = styled.div`
   padding: 0;
   vertical-align: middle;
 
-  @media (max-width: 1650px) { margin: 2px 0 0; }
+  @media (max-width: 1650px) {
+    margin: 2px 0 0;
+  }
 `;
 
 const ProductStarRateText = styled.p`
@@ -165,13 +186,13 @@ const ProductStarRateText = styled.p`
 `;
 
 const media1200 = css`
-  @media (max-width: 1200px) { 
-    float: left; 
-    width: 25%; 
+  @media (max-width: 1200px) {
+    float: left;
+    width: 25%;
   }
-  @media (max-width: 1010px) { 
-    float: left; 
-    width: 28%; 
+  @media (max-width: 1010px) {
+    float: left;
+    width: 28%;
   }
 `;
 
@@ -183,7 +204,7 @@ const Right = styled.div`
   height: 100%;
   padding: 1vh 0 0 1.5%;
 
-  @media (max-width: 1200px) { 
+  @media (max-width: 1200px) {
     border-left: none;
     border-top: 1px solid #9c94d033;
     float: none;
@@ -215,10 +236,18 @@ const Profile1 = css`
   width: 13%;
   margin-right: 3%;
 
-  @media (max-width: 1700px) { width: 14%; }
-  @media (max-width: 1550px) { width: 15%; }
-  @media (max-width: 1450px) { width: 16%; }
-  @media (max-width: 1300px) { width: 17%; }
+  @media (max-width: 1700px) {
+    width: 14%;
+  }
+  @media (max-width: 1550px) {
+    width: 15%;
+  }
+  @media (max-width: 1450px) {
+    width: 16%;
+  }
+  @media (max-width: 1300px) {
+    width: 17%;
+  }
 `;
 
 const ProfileImg = styled.img`
@@ -259,7 +288,9 @@ const ReviewTopRight = styled.div`
   overflow: hidden;
   padding-top: 1vh;
 
-  @media (max-width: 1650px) { padding-top: 0.8vh; }
+  @media (max-width: 1650px) {
+    padding-top: 0.8vh;
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -268,9 +299,15 @@ const BtnWrap = styled.div`
   float: left;
   text-align: right;
 
-  @media (max-width: 1750px) { width: 65%; }
-  @media (max-width: 1450px) { width: 60%; }
-  @media (max-width: 1300px) { width: 55%; }
+  @media (max-width: 1750px) {
+    width: 65%;
+  }
+  @media (max-width: 1450px) {
+    width: 60%;
+  }
+  @media (max-width: 1300px) {
+    width: 55%;
+  }
 `;
 
 const Btn = styled.button`
@@ -281,12 +318,15 @@ const Btn = styled.button`
   font-size: 1rem;
 
   &:hover {
-    transform: scale(1.05); 
-    text-shadow: 0 0 10px #9C94D099;
+    transform: scale(1.05);
+    text-shadow: 0 0 10px #9c94d099;
     color: #000;
   }
 
-  @media (max-width: 1675px) { font-size: 0.9rem; margin: 20px 0 0 0;}
+  @media (max-width: 1675px) {
+    font-size: 0.9rem;
+    margin: 20px 0 0 0;
+  }
 `;
 
 const updateBtn = css``;
@@ -299,10 +339,19 @@ const Like = styled.div`
   float: right;
   text-align: right;
 
-  @media (max-width: 1750px) { width: 35%; }
-  @media (max-width: 1675px) { transform: scale(0.95);}
-  @media (max-width: 1450px) { width: 40%; }
-  @media (max-width: 1300px) { width: 45%; transform: scale(0.9); }
+  @media (max-width: 1750px) {
+    width: 35%;
+  }
+  @media (max-width: 1675px) {
+    transform: scale(0.95);
+  }
+  @media (max-width: 1450px) {
+    width: 40%;
+  }
+  @media (max-width: 1300px) {
+    width: 45%;
+    transform: scale(0.9);
+  }
 `;
 
 const ReviewBottom = styled.div`
@@ -317,11 +366,22 @@ const Food = styled.div`
   margin: 20px 0 0 0;
   text-align: center;
 
-  @media (max-width: 1830px) { width: 11.5%; }
-  @media (max-width: 1750px) { width: 12%; }
-  @media (max-width: 1510px) { width: 12.5%; margin: 10px 0 0 0; }
-  @media (max-width: 1300px) { width: 13%; }
-  @media (max-width: 1250px) { width: 13.5%; }
+  @media (max-width: 1830px) {
+    width: 11.5%;
+  }
+  @media (max-width: 1750px) {
+    width: 12%;
+  }
+  @media (max-width: 1510px) {
+    width: 12.5%;
+    margin: 10px 0 0 0;
+  }
+  @media (max-width: 1300px) {
+    width: 13%;
+  }
+  @media (max-width: 1250px) {
+    width: 13.5%;
+  }
 `;
 
 const FoodImg = styled.img`
@@ -334,8 +394,12 @@ const FoodName = styled.p`
   font-size: 1rem;
   margin: 0 auto;
 
-  @media (max-width: 1675px) { font-size: 0.9rem; }
-  @media (max-width: 1475px) { font-size: 0.8rem; }
+  @media (max-width: 1675px) {
+    font-size: 0.9rem;
+  }
+  @media (max-width: 1475px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const Content = styled.div`
@@ -354,12 +418,24 @@ const Content = styled.div`
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
 
-  @media (max-width: 1830px) { width: 85.5%; }
-  @media (max-width: 1750px) { width: 85%; }
-  @media (max-width: 1510px) { width: 84.5%; }
-  @media (max-width: 1300px) { width: 84%; }
-  @media (max-width: 1250px) { width: 83.5%; }
-  @media (max-width: 1200px) { height: 120px;}
+  @media (max-width: 1830px) {
+    width: 85.5%;
+  }
+  @media (max-width: 1750px) {
+    width: 85%;
+  }
+  @media (max-width: 1510px) {
+    width: 84.5%;
+  }
+  @media (max-width: 1300px) {
+    width: 84%;
+  }
+  @media (max-width: 1250px) {
+    width: 83.5%;
+  }
+  @media (max-width: 1200px) {
+    height: 120px;
+  }
 `;
 
 const ReviewText = styled.div`
@@ -367,45 +443,58 @@ const ReviewText = styled.div`
   font-size: 1rem;
   float: left;
 
-  @media (max-width: 1830px) { width: 76.5%; }
-  @media (max-width: 1750px) { width: 71.5%; }
-  @media (max-width: 1100px) { font-size: 0.9rem; }
+  @media (max-width: 1830px) {
+    width: 76.5%;
+  }
+  @media (max-width: 1750px) {
+    width: 71.5%;
+  }
+  @media (max-width: 1100px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ReviewContentText = styled.p`
   width: 100%;
   margin: 10px 0 0 0;
 
-  @media (max-width: 1510px) { margin: 5px 0 0 0; }
+  @media (max-width: 1510px) {
+    margin: 5px 0 0 0;
+  }
 `;
 
 const HashTag = styled.p`
   display: inline-block;
   margin: 15px 10px 0 0;
   padding: 5px 10px;
-  background-color: #9C94D022;
+  background-color: #9c94d022;
   border-radius: 10px;
 `;
 
 const ReviewImg = styled.div`
   box-sizing: border-box;
-  border: 1px solid #9C94D044;
+  border: 1px solid #9c94d044;
   width: 22%;
   text-align: center;
   margin-top: 5px;
   padding: 1vh 0 0;
   float: right;
 
-  @media (max-width: 1750px) { width: 27%; }
-  @media (max-width: 1510px) { margin-top: 15px; }
-  @media (max-width: 1200px) { margin-top: 17px; }
+  @media (max-width: 1750px) {
+    width: 27%;
+  }
+  @media (max-width: 1510px) {
+    margin-top: 15px;
+  }
+  @media (max-width: 1200px) {
+    margin-top: 17px;
+  }
 `;
 
 const Img = styled.img`
   width: 90%;
   height: 90%;
 `;
-
 
 export {
   Container,
