@@ -62,6 +62,7 @@ public class SlopeService {
         memberSlopeRepository.save(memberSlope);
     }
 
+    @Transactional
     public void updateProductSlope(Product thisProduct) {
         List<Product> products = productRepository.findAllIdsByReviewSizeNotEqualZero(thisProduct.getId());
 
@@ -86,7 +87,6 @@ public class SlopeService {
         }
 
         Double deviation = memberSlopeRepository.findAvgDeviationByProductsId(product.getId(), targetProduct.getId());
-
         productSlope.changeDeviation(deviation);
         productSlopeRepository.save(productSlope);
     }
@@ -120,12 +120,6 @@ public class SlopeService {
                 .toList();
     }
 
-    private List<Map.Entry<Long, Double>> getSortDataList(Map<Long, Double> productData) {
-        List<Map.Entry<Long, Double>> entryList = new LinkedList<>(productData.entrySet());
-        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-        return entryList;
-    }
-
     private void getRecommendProductMap(List<Review> memberReviews, Map<Long, Double> productData, List<ProductSlope> productSlopes) {
         Long productId = -1L;
         double totalPreference = 0D;
@@ -147,7 +141,7 @@ public class SlopeService {
             double avgRate = getAvgRate(memberReviews, productSlope);
 
             /* 인원수 * (기존 제품의 선호도 + 편차 평균) */
-            totalPreference += productSlope.getSize() * (avgRate - productSlope.getDeviation());
+            totalPreference += productSlope.getSize() * (avgRate + productSlope.getDeviation());
             memberSize += productSlope.getSize();
         }
     }
@@ -177,5 +171,11 @@ public class SlopeService {
      */
     private List<Review> getReviewsByProductId(List<Review> memberReviews, Long productId) {
         return memberReviews.stream().filter(review -> review.getProduct().getId().equals(productId)).toList();
+    }
+
+    private List<Map.Entry<Long, Double>> getSortDataList(Map<Long, Double> productData) {
+        List<Map.Entry<Long, Double>> entryList = new LinkedList<>(productData.entrySet());
+        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        return entryList;
     }
 }

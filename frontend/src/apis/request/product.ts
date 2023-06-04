@@ -45,6 +45,18 @@ const requestRecommendDate = (option: string) => {
     });
 };
 
+const requestRecommendSlope = () => {
+  return axiosWithAccessToken
+    .get<ProductRecommendType[]>(API_PATH.PRODUCT.RECOMMEND.SLOPE, {
+      params: {
+        size: RECOMMEND_PRODUCT_SIZE,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 const requestRecommendWeather = () => {
   return axios
     .get<ProductRecommendType[]>(API_PATH.PRODUCT.RECOMMEND.WEATHER, {
@@ -123,6 +135,7 @@ export {
   requestSaveProduct,
   requestProductInfo,
   requestUpdateProduct,
+  requestRecommendSlope,
   requestRecommendWeather,
   requestRecommendDate,
   requestProducts,

@@ -1,12 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import { ProductRecommendType } from '@/@types/product';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
-
-import { useNavigate } from 'react-router-dom';
+import { SORT } from '@/constants/option';
 import { BROWSER_PATH } from '@/constants/path';
 
 import * as S from './ProductCard.styled';
-import { SORT } from '@/constants/option';
 
 function ProductCard({
   productId,

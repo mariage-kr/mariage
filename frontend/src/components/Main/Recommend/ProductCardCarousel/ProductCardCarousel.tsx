@@ -6,6 +6,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import { ProductRecommendType } from '@/@types/product';
 import {
   requestRecommendDate,
+  requestRecommendSlope,
   requestRecommendWeather,
 } from '@/apis/request/product';
 import DataLoading from '@/components/Animation/DataLoading';
@@ -44,6 +45,12 @@ function ProductCardCarousel({ option }: PropsType) {
     window.addEventListener('resize', resizeHandler);
   }, [resizeHandler]);
 
+  const getRecommendSlope = () => {
+    requestRecommendSlope().then(data => {
+      setProducts(data);
+    });
+  };
+
   const getRecommendWeather = () => {
     requestRecommendWeather().then(data => {
       if (Array.isArray(data)) {
@@ -67,8 +74,7 @@ function ProductCardCarousel({ option }: PropsType) {
         return getRecommendWeather();
       }
       if (option === 'algo') {
-        /* TODO: 추후 해당 기능이 구현되면 추가 예정 */
-        return setProducts([]);
+        return getRecommendSlope();
       }
       return getRecommendDate(option);
     };

@@ -2,7 +2,6 @@ package com.multi.mariage.slope.domain.member.query;
 
 import com.multi.mariage.slope.domain.member.MemberSlope;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface MemberSlopeRepositoryCustom {
@@ -17,6 +16,4 @@ public interface MemberSlopeRepositoryCustom {
     Optional<MemberSlope> findByMemberIdAndProductsId(Long memberId, Long thisProductId, Long otherProductId);
 
     Double findAvgDeviationByProductsId(Long thisProductId, Long otherProductId);
-
-    List<MemberSlope> findByMemberId(Long memberId);
 }

@@ -4,11 +4,8 @@ import com.multi.mariage.slope.domain.member.MemberSlope;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
-import java.util.List;
 import java.util.Optional;
 
-import static com.multi.mariage.member.domain.QMember.member;
-import static com.multi.mariage.product.domain.QProduct.product;
 import static com.multi.mariage.slope.domain.member.QMemberSlope.memberSlope;
 
 public class MemberSlopeRepositoryImpl implements MemberSlopeRepositoryCustom {
@@ -38,14 +35,5 @@ public class MemberSlopeRepositoryImpl implements MemberSlopeRepositoryCustom {
                 .fetchFirst();
 
         return deviation != null ? deviation : 0D;
-    }
-
-    @Override
-    public List<MemberSlope> findByMemberId(Long memberId) {
-        return queryFactory.selectFrom(memberSlope)
-                .join(memberSlope.member, member)
-                .join(memberSlope.thisProduct, product).fetchJoin()
-                .where(memberSlope.member.id.eq(memberId))
-                .fetch();
     }
 }
