@@ -126,6 +126,19 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .fetchFirst();
     }
 
+    @Override
+    public List<Product> findSearchByWord(String word) {
+        List<Long> productIds = queryFactory.select(product.id)
+                .from(product)
+                .where(hasSearch(word))
+                .limit(5)
+                .fetch();
+
+        return queryFactory.selectFrom(product)
+                .where(product.id.in(productIds))
+                .fetch();
+    }
+
     private BooleanExpression equalsUpperCategory(DrinkUpperCategory upperCategory) {
         return upperCategory != null ? product.upperCategory.eq(upperCategory) : null;
     }

@@ -41,12 +41,13 @@ const ProdList = styled.ul`
 
   padding: 0;
   margin-top: 237px;
+  width: 22.7%;
 
-  min-width: 200px;
-  max-width: 337px;
-  width: 23.2%;
+  @media (max-width: 1000px) {
+    width: 197px;
+  }
 
-  border: 2px solid #9c94d0;
+  border: 3px solid #9c94d0;
   border-radius: 0 0 10px 10px;
 
   background-color: #fff;
