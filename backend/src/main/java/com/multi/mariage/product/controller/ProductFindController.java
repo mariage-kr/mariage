@@ -1,10 +1,7 @@
 package com.multi.mariage.product.controller;
 
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
-import com.multi.mariage.product.dto.response.ProductFilterResponse;
-import com.multi.mariage.product.dto.response.ProductInfoResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +53,12 @@ public class ProductFindController {
     @GetMapping("/user/product/info")
     public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
         ProductInfoResponse response = productFindService.findProductInfo(productId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/search")
+    public ResponseEntity<ProductSearchResponse> findProductToSearch(@Param("word") String word) {
+        ProductSearchResponse response = productFindService.findSearch(word);
         return ResponseEntity.ok(response);
     }
 }

@@ -32,6 +32,7 @@ const API_PATH = {
       DATE: '/api/product/recommend/date',
       WEATHER: '/api/product/recommend/weather',
     },
+    SEARCH: '/api/product/search',
   },
   REVIEW: {
     PRODUCT: '/api/review/product',

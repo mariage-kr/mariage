@@ -8,10 +8,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
-import com.multi.mariage.product.dto.response.ProductFilterResponse;
-import com.multi.mariage.product.dto.response.ProductInfoResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.*;
@@ -196,5 +193,13 @@ public class ProductFindService extends PagingUtil {
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
         return ProductInfoResponse.from(product, imageUrl);
+    }
+
+    public ProductSearchResponse findSearch(String word) {
+        List<Product> products = productRepository.findSearchByWord(word);
+        List<String> productsName = products.stream()
+                .map(Product::getName)
+                .toList();
+        return ProductSearchResponse.from(productsName);
     }
 }
