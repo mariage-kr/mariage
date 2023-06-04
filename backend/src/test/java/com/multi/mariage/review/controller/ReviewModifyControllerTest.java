@@ -78,8 +78,8 @@ class ReviewModifyControllerTest extends ControllerTest {
 
         mockMvc.perform(patch("/api/user/review/update")
                         .content(content)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN))
+                        .header(AUTHORIZATION, BEARER_PREFIX + ACCESS_TOKEN)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andDo(
                         document("Review/Update",

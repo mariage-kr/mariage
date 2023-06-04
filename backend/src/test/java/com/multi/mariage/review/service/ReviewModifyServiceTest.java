@@ -54,10 +54,7 @@ class ReviewModifyServiceTest extends ServiceTest {
     void 리뷰의_제품_점수와_음식_정보를_수정한다(int productRate) {
 
         Food food = saveFood(ReviewFixture.참이슬_치킨, product);
-
         review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
-
-        List<String> hashTags = ReviewFixture.참이슬_치킨.getHashtags();
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
                 .reviewId(review.getId())
@@ -80,10 +77,7 @@ class ReviewModifyServiceTest extends ServiceTest {
     void 리뷰의_이미지를_수정한다() {
 
         Long newImageId = saveImage(ImageFixture.JPEG_IMAGE2).getImageId();
-
         review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
-
-        List<String> hashTags = ReviewFixture.참이슬_치킨.getHashtags();
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
                 .reviewId(review.getId())
@@ -93,7 +87,7 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .foodRate(review.getFoodRate())
                 .foodCategory(review.getFoodCategory().getCategory())
                 .newImageId(newImageId)
-                .hashtags(hashTags)
+                .hashtags(null)
                 .build();
 
         reviewModifyService.update(new AuthMember(member.getId()), request);
@@ -106,10 +100,7 @@ class ReviewModifyServiceTest extends ServiceTest {
     @Test
     void 리뷰의_해시태그를_수정한다() {
 
-        Long newImageId = saveImage(ImageFixture.JPEG_IMAGE2).getImageId();
-
         review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
-
         List<String> hashTags = ReviewFixture.산토리위스키_치즈3.getHashtags();     // 수정할 해시태그
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()

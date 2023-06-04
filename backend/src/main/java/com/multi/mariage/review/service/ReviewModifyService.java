@@ -81,31 +81,12 @@ public class ReviewModifyService {
 
         Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
         Image image = getImage(review.getImage().getId());
-        String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
-
-        if (request.getNewImageId() != null) {  // 이미지 업데이트
-            removeImageByReview(review);
-            imageUrl = updateImage(review, request);
-        }
-        List<ReviewHashtag> hashTagNames = new ArrayList<>();
-        if (request.getHashtags() != null && !request.getHashtags().isEmpty()) {     // 해시태그 업데이트
-            reviewHashtags.clear();
-            reviewHashtagService.removeAllByReview(review);
-            hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
-        } else {
-            hashTagNames.addAll(reviewHashtags);
-        }
+        String imageUrl = getImagePath(request, review, image);
+        List<ReviewHashtag> hashTagNames = getReviewHashtagList(request, review, reviewHashtags);
 
         review.update(request);
 
-        return ReviewUpdateResponse.builder()
-                .reviewId(review.getId())
-                .content(review.getContent())
-                .foodRate(review.getFoodRate())
-                .foodCategory(review.getFoodCategory().getCategory())
-                .imagePath(imageUrl)
-                .hashtags(hashTagNames)
-                .build();
+        return ReviewUpdateResponse.from(review, imageUrl, hashTagNames);
     }
 
     private Image getImage(Long imageId) {
@@ -160,6 +141,28 @@ public class ReviewModifyService {
 
         review.changeImage(image);
         String imageUrl = imageService.getImageUrl(review.getImage().getName());
+        return imageUrl;
+    }
+
+    private List<ReviewHashtag> getReviewHashtagList(ReviewUpdateRequest request, Review review, Set<ReviewHashtag> reviewHashtags) {
+        List<ReviewHashtag> hashTagNames = new ArrayList<>();
+        if (request.getHashtags() != null && !request.getHashtags().isEmpty()) {     // 해시태그 업데이트
+            reviewHashtags.clear();
+            reviewHashtagService.removeAllByReview(review);
+            hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
+        } else {
+            hashTagNames.addAll(reviewHashtags);
+        }
+        return hashTagNames;
+    }
+
+    private String getImagePath(ReviewUpdateRequest request, Review review, Image image) {
+        String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
+
+        if (request.getNewImageId() != null) {  // 이미지 업데이트
+            removeImageByReview(review);
+            imageUrl = updateImage(review, request);
+        }
         return imageUrl;
     }
 }
