@@ -5,8 +5,8 @@ import com.multi.mariage.common.fixture.ImageFixture;
 import com.multi.mariage.common.fixture.MemberFixture;
 import com.multi.mariage.common.fixture.ProductFixture;
 import com.multi.mariage.common.fixture.ReviewFixture;
+import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
-import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.response.ReviewSaveResponse;
 import com.multi.mariage.storage.domain.Image;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,15 +21,15 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ReviewModifyControllerTest extends ControllerTest {
 
     private String ACCESS_TOKEN;
+    private Member member;
 
     @BeforeEach
     void setUp() {
-        saveMember();
+        member = saveMember();
         ACCESS_TOKEN = accessToken(MemberFixture.MARI);
     }
 
@@ -71,7 +71,7 @@ class ReviewModifyControllerTest extends ControllerTest {
     void 리뷰를_수정한다() throws Exception {
         Image image = saveImage(ImageFixture.JPEG_IMAGE);
         Product product = saveProduct(ProductFixture.참이슬, image.getId());
-        ReviewSaveResponse review = saveReview(ReviewFixture.참이슬_치킨, image.getId(), product.getId(), saveMember().getId());
+        ReviewSaveResponse review = saveReview(ReviewFixture.참이슬_치킨, image.getId(), product.getId(), member.getId());
 
         Image newImage = saveImage(ImageFixture.JPEG_IMAGE2);
         String content = objectMapper.writeValueAsString(ReviewFixture.참이슬_치킨.toUpdateRequest(review.getReviewId(), product.getId(), newImage.getId()));
@@ -105,6 +105,6 @@ class ReviewModifyControllerTest extends ControllerTest {
                                         fieldWithPath("hashtags").description("리뷰의 해시태그")
                                 )
                         )
-                ).andExpect(status().isCreated());
+                ).andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }

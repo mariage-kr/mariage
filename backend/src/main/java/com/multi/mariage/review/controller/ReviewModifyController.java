@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -42,6 +41,6 @@ public class ReviewModifyController {
                                                        @RequestBody ReviewUpdateRequest request) {
         ReviewUpdateResponse response = reviewModifyService.update(authMember, request);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

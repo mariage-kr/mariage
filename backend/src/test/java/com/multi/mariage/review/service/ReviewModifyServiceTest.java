@@ -19,7 +19,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 
@@ -55,7 +54,6 @@ class ReviewModifyServiceTest extends ServiceTest {
     void 리뷰의_제품_점수와_음식_정보를_수정한다(int productRate) {
 
         Food food = saveFood(ReviewFixture.참이슬_치킨, product);
-        Long newImageId = saveImage(ImageFixture.JPEG_IMAGE2).getImageId();
 
         review = saveReviewInfo(ReviewFixture.참이슬_치킨, member.getId(), product.getId(), imageId);
 
@@ -68,7 +66,7 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())
                 .foodCategory(food.getCategory())
-                .newImageId(imageId)
+                .newImageId(null)
                 .hashtags(hashTags)
                 .build();
         reviewModifyService.update(new AuthMember(member.getId()), request);
@@ -121,7 +119,7 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())
                 .foodCategory(review.getFoodCategory().getCategory())
-                .newImageId(imageId)
+                .newImageId(null)
                 .hashtags(hashTags)
                 .build();
 

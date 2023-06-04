@@ -16,12 +16,9 @@ import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
 import com.multi.mariage.review.dto.response.ReviewUpdateResponse;
-import com.multi.mariage.review.dto.response.UpdateReviewImageResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.storage.domain.Image;
-import com.multi.mariage.storage.exception.StorageErrorCode;
-import com.multi.mariage.storage.exception.StorageException;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
 import com.multi.mariage.weather.domain.Weather;
@@ -30,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
@@ -81,21 +77,19 @@ public class ReviewModifyService {
         validateOwnerByReview(authMember.getId(), review);
 
         review.changeFoodCategory(foodCategory);
-        System.out.println("시작");
+
         Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
         Image image = getImage(review.getImage().getId());
         String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
-        log.info(imageUrl);
-        System.out.println("끝");
+
         if (request.getNewImageId() != null) {  // 이미지 업데이트
-            removeImageByReview(review);
-            imageUrl = updateImage(review, request);
+        removeImageByReview(review);
+        imageUrl = updateImage(review, request);
         }
-        log.info(imageUrl);
 
         if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
-            reviewHashtagService.removeAllByReview(review);
             reviewHashtags.clear();
+            reviewHashtagService.removeAllByReview(review);
         }
         List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
         review.update(request);
