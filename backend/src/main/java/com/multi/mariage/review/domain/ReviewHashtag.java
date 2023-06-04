@@ -1,6 +1,5 @@
 package com.multi.mariage.review.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

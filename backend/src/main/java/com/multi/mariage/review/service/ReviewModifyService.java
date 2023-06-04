@@ -148,10 +148,7 @@ public class ReviewModifyService {
             reviewHashtags.clear();
             reviewHashtagService.removeAllByReview(review);
 
-            List<String> reviewHashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review)
-                    .stream()
-                    .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
-                    .toList();
+            List<String> reviewHashTagNames = getHashTagNamesToStrings(request, review);
 
             hashTagNames.addAll(reviewHashTagNames);
         } else {
@@ -160,6 +157,13 @@ public class ReviewModifyService {
                     .toList());
         }
         return hashTagNames;
+    }
+
+    private List<String> getHashTagNamesToStrings(ReviewUpdateRequest request, Review review) {
+        return reviewHashtagService.saveAll(request.getHashtags(), review)
+                .stream()
+                .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
+                .toList();
     }
 
     private String getImageUrl(ReviewUpdateRequest request, Review review, Image image) {
