@@ -18,4 +18,6 @@ public interface ProductRepositoryCustom {
     Long countProductWithFilter(ProductFindByFilterRequest cond);
 
     List<Product> findSearchByWord(String word);
+
+    List<Product> findAllIdsByReviewSizeNotEqualZero(Long productId);
 }

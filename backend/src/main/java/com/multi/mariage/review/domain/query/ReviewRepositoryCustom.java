@@ -1,6 +1,7 @@
 package com.multi.mariage.review.domain.query;
 
 import com.multi.mariage.category.domain.FoodCategory;
+import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.cond.MemberReviewsPagingCond;
 import com.multi.mariage.review.dto.cond.ReviewsPagingCond;
@@ -23,4 +24,6 @@ public interface ReviewRepositoryCustom {
     Long findReviewsCountByLikes(Long memberId);
 
     Optional<Review> findByIdToDelete(Long reviewId);
+
+    List<Review> findAllByMemberId(Long memberId, Long productId);
 }

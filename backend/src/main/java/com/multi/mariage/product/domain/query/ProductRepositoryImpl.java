@@ -172,4 +172,14 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private int getOffset(int pageNumber, int pageSize) {
         return (pageNumber - 1) * pageSize;
     }
+
+    @Override
+    public List<Product> findAllIdsByReviewSizeNotEqualZero(Long productId) {
+        return queryFactory.selectFrom(product)
+                .join(product)
+                .leftJoin(product.reviews, review)
+                .where(product.reviews.size().ne(0))
+                .where(product.id.ne(productId))
+                .fetch();
+    }
 }
