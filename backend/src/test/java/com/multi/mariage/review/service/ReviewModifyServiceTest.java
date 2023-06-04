@@ -67,7 +67,7 @@ class ReviewModifyServiceTest extends ServiceTest {
                 .foodRate(review.getFoodRate())
                 .foodCategory(food.getCategory())
                 .newImageId(null)
-                .hashtags(hashTags)
+                .hashtags(null)
                 .build();
         reviewModifyService.update(new AuthMember(member.getId()), request);
         Review actual = reviewFindService.findByIdToUpdate(review.getId());

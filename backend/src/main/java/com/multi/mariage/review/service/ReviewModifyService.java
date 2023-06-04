@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -83,15 +84,18 @@ public class ReviewModifyService {
         String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
 
         if (request.getNewImageId() != null) {  // 이미지 업데이트
-        removeImageByReview(review);
-        imageUrl = updateImage(review, request);
+            removeImageByReview(review);
+            imageUrl = updateImage(review, request);
         }
-
-        if (!request.getHashtags().isEmpty()) {     // 해시태그 업데이트
+        List<ReviewHashtag> hashTagNames = new ArrayList<>();
+        if (request.getHashtags() != null && !request.getHashtags().isEmpty()) {     // 해시태그 업데이트
             reviewHashtags.clear();
             reviewHashtagService.removeAllByReview(review);
+            hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
+        } else {
+            hashTagNames.addAll(reviewHashtags);
         }
-        List<ReviewHashtag> hashTagNames = reviewHashtagService.saveAll(request.getHashtags(), review);
+
         review.update(request);
 
         return ReviewUpdateResponse.builder()
