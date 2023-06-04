@@ -123,10 +123,6 @@ public class Review {
         weather.getReviews().remove(this);
     }
 
-    public void removeHashTag(ReviewHashtag reviewHashtag) {
-        this.reviewHashtags.remove(reviewHashtag);
-    }
-
     public void update(ReviewUpdateRequest request) {
         this.productRate = request.getProductRate();
         this.content = request.getContent();
