@@ -4,6 +4,7 @@ import com.multi.mariage.slope.domain.product.ProductSlope;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.multi.mariage.product.domain.QProduct.product;
@@ -26,5 +27,14 @@ public class ProductSlopeRepositoryImpl implements ProductSlopeRepositoryCustom 
                 .fetchFirst();
 
         return Optional.ofNullable(slope);
+    }
+
+    @Override
+    public List<ProductSlope> findAllByMemberReviewProductIds(List<Long> productIds) {
+        return queryFactory.selectFrom(productSlope)
+                .where(productSlope.thisProduct.id.notIn(productIds))
+                .where(productSlope.targetProduct.id.in(productIds))
+                .orderBy(productSlope.thisProduct.id.asc())
+                .fetch();
     }
 }

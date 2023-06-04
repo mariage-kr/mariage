@@ -194,13 +194,28 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
     @Override
-    public List<Review> findAllByMemberId(Long memberId, Long productId) {
+    public List<Review> findAllByMemberIdAndProductId(Long memberId, Long productId) {
         List<Long> reviewIds = queryFactory.select(review.id)
                 .from(review)
                 .join(review.member, member)
                 .join(review.product, product)
                 .where(review.member.id.eq(memberId))
                 .where(review.product.id.ne(productId))
+                .fetch();
+
+        return queryFactory.selectFrom(review)
+                .join(review.product, product).fetchJoin()
+                .where(review.id.in(reviewIds))
+                .fetch();
+    }
+
+    @Override
+    public List<Review> findAllByMemberId(Long memberId) {
+        List<Long> reviewIds = queryFactory.select(review.id)
+                .from(review)
+                .join(review.product, product)
+                .join(review.member, member)
+                .where(member.id.eq(memberId))
                 .fetch();
 
         return queryFactory.selectFrom(review)

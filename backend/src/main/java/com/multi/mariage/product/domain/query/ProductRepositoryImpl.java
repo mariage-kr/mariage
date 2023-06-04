@@ -84,7 +84,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .join(product.image, image).fetchJoin()
                 .join(product.reviews, review).fetchJoin()
                 .where(product.id.in(productIds))
-                .orderBy(product.name.value.asc())
                 .fetch();
     }
 
@@ -180,6 +179,16 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .leftJoin(product.reviews, review)
                 .where(product.reviews.size().ne(0))
                 .where(product.id.ne(productId))
+                .fetch();
+    }
+
+    @Override
+    public List<Product> findRandomRecommendIdsByMemberId(List<Long> productIds) {
+        return queryFactory.select(product)
+                .from(product)
+                .join(product.image, image).fetchJoin()
+                .join(product.reviews, review).fetchJoin()
+                .where(product.id.in(productIds))
                 .fetch();
     }
 }

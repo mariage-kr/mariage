@@ -4,9 +4,11 @@ import com.multi.mariage.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 public class ProductSlope {
     @Id
@@ -33,8 +35,8 @@ public class ProductSlope {
         this.targetProduct = targetProduct;
     }
 
-    public void changeDeviation(double deviation, Long size) {
+    public void changeDeviation(double deviation) {
         this.deviation = deviation;
-        this.size = size;
+        this.size++;
     }
 }

@@ -20,4 +20,6 @@ public interface ProductRepositoryCustom {
     List<Product> findSearchByWord(String word);
 
     List<Product> findAllIdsByReviewSizeNotEqualZero(Long productId);
+
+    List<Product> findRandomRecommendIdsByMemberId(List<Long> productIds);
 }

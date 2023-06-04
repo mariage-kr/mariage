@@ -92,7 +92,7 @@ function ProductCardCarousel({ option }: PropsType) {
           activeSlideIndex={activeSlideIndex}
           onRequestChange={setActiveSlideIndex}
           itemsToShow={items}
-          itemsToScroll={items / 2}
+          itemsToScroll={items >= 3 ? 3 : items / 2}
           autoplay={true}
           autoplayDelay={5000}
           forwardBtnProps={{

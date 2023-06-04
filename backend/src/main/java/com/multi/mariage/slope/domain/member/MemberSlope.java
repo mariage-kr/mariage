@@ -5,9 +5,11 @@ import com.multi.mariage.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 public class MemberSlope {
     @Id
@@ -15,6 +17,7 @@ public class MemberSlope {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -40,6 +43,7 @@ public class MemberSlope {
 
     public void changeDeviationByReview(int score) {
         double totalScore = deviation * size;
-        deviation = (totalScore + score) / ++size;
+        size++;
+        deviation = (totalScore + score) / size;
     }
 }
