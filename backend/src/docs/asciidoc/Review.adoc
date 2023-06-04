@@ -136,3 +136,27 @@ include::{snippets}/Review/FindReviews/Member/Profile/http-response.adoc[]
 ==== Fields
 
 include::{snippets}/Review/FindReviews/Member/Profile/response-fields.adoc[]
+
+== [Patch] 리뷰 수정
+
+'''
+
+=== Request
+
+'''
+
+include::{snippets}/Review/Update/http-request.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/Update/request-fields.adoc[]
+
+=== Response
+
+'''
+
+include::{snippets}/Review/Update/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/Review/Update/response-fields.adoc[]
