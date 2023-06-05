@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 
 import { ReviewType } from '@/@types/review';
-import siren from '@/assets/png/Siren.png';
 import { Siren } from '@/assets/svg/SVG';
 
 import useSnack from '@/hooks/useSnack';
@@ -93,7 +92,6 @@ function ReviewContent(review: ReviewType) {
             ) : (
               <S.BtnWrap>
                 <S.Btn onClick={reportReview} title="신고하기">
-                  {/* <S.SirenIcon src={siren}/> */}
                   <Siren fill="#bb2649" />
                 </S.Btn>
               </S.BtnWrap>

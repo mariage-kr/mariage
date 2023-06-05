@@ -309,11 +309,7 @@ const SirenIcon = styled.img`
   }
 `;
 
-const Icon = styled.div`
-  /* width: 25px;
-  height: 25px;
-  background: url('../../../../assets/png/Siren.png') no-repeat center/cover; */
-`;
+
 
 export {
   Container,
@@ -345,5 +341,4 @@ export {
   ReviewImg,
   Img,
   SirenIcon,
-  Icon,
 };
