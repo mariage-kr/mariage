@@ -115,22 +115,22 @@ const TopRight = styled.div`
 `;
 
 const BtnWrap = styled.div`
-  width: 80%;
+  width: 73%;
   padding: 10px 0;
   float: left;
   text-align: right;
 
-  @media (max-width: 1750px) {
+  @media (max-width: 1780px) {
+    width: 70%;
+  }
+  @media (max-width: 1600px) {
     width: 65%;
   }
-  @media (max-width: 1450px) {
+  @media (max-width: 1370px) {
     width: 60%;
   }
-  @media (max-width: 1300px) {
-    width: 55%;
-  }
-  @media (max-width: 1050px) {
-    width: 52%;
+  @media (max-width: 1170px) {
+    width: 57%;
   }
 `;
 
@@ -156,28 +156,20 @@ const updateBtn = css``;
 const deleteBtn = css``;
 
 const Like = styled.div`
-  width: 20%;
+  width: 80px;
   float: right;
   text-align: right;
 
-  @media (max-width: 1750px) {
-    width: 35%;
-  }
-  @media (max-width: 1450px) {
-    width: 40%;
-  }
-  @media (max-width: 1300px) {
-    width: 45%;
-  }
-  @media (max-width: 1050px) {
-    width: 48%;
+  @media (max-width: 1100px) {
+    width: 70px;
   }
 `;
 
 const ReviewUpdate = styled.div`
+  box-sizing: border-box;
   z-index: 1;
   width: 100%;
-  height: 100vh;
+  height: 10vh;
 `;
 
 const Bottom = styled.div`
@@ -294,9 +286,20 @@ const ReviewImg = styled.div`
   }
   @media (max-width: 1450px) {
     margin-top: 15px;
+    height: 180px;
+  }
+  @media (max-width: 1300px) {
+    height: 160px;
   }
   @media (max-width: 1200px) {
     margin-top: 17px;
+    height: 150px;
+  }
+  @media (max-width: 1100px) {
+    height: 140px;
+  }
+  @media (max-width: 1000px) {
+    height: 130px;
   }
 `;
 

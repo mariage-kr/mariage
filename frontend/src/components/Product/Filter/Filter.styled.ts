@@ -11,7 +11,6 @@ const Container = styled.div`
   @media (max-width: 1000px) {
     display: flex;
     flex-flow: wrap;
-    padding: 25px;
     box-sizing: border-box;
     border: 5px solid #9c94d080;
     background-color: #fff;
@@ -21,9 +20,10 @@ const Container = styled.div`
 `;
 
 const FilterWrap = styled.div`
-  margin-top: -25px;
+  margin: 0;
+
   @media (max-width: 1000px) {
-    margin: 0;
+    margin: 25px 7%;
   }
 `;
 
@@ -41,7 +41,7 @@ const CategoryWrap = styled.div`
 
 const CategoryTitle = styled.h4`
   width: 100%;
-  margin: 20px 0 10px;
+  margin: 0 0 10px;
 
   @media (max-width: 1000px) {
     margin: 0;

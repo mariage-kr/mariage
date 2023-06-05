@@ -45,12 +45,8 @@ const ActiveTab = css`
   text-decoration: none;
   color: inherit;
   transition: all 0.2s;
-
-  &:hover,
-  :focus {
-    font-weight: bold;
-    text-shadow: 0 0 20px #9c94d033;
-  }
+  font-weight: bold;
+  text-shadow: 0 0 20px #9c94d033;
 
   &::after {
     position: absolute;

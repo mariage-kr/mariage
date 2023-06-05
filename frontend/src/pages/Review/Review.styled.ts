@@ -5,7 +5,7 @@ const Container = styled.div``;
 
 const TopNav = styled.div`
   border-bottom: 1px solid #9c94d055;
-  padding: 20px 10%;
+  padding: 0 10%;
 `;
 
 const NavWrapper = styled.div`
@@ -17,9 +17,65 @@ const NavWrapper = styled.div`
 
 const Nav = styled.p`
   display: inline-block;
+  width: auto;
   margin: 0 30px 0 0;
-
+  padding: 20px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
   cursor: pointer;
+`;
+
+const LinkStyle = css`
+  position: relative;
+
+  &:hover,
+  :focus {
+    font-weight: bold;
+    text-shadow: 0 0 20px #9c94d033;
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #9c94d0;
+    opacity: 0;
+    transition: transform 0.3s ease;
+    transform: scale(0);
+  }
+
+  &:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const ActiveTab = css`
+  position: relative;
+  font-weight: bold;
+  text-shadow: 0 0 20px #9c94d033;
+  
+  &::after {
+    position: absolute;
+    content: '';
+    bottom: 15px;
+    left: 0px;
+    width: 100%;
+    height: 3px;
+    background-color: #9c94d0;
+    opacity: 0;
+    transition: transform 0.3s ease;
+    transform: scale(0);
+  }
+
+  &:focus::after {
+    opacity: 1;
+    transform: scale(1);
+  }
 `;
 
 const Main = styled.div`
@@ -162,6 +218,8 @@ export {
   TopNav,
   NavWrapper,
   Nav,
+  LinkStyle, 
+  ActiveTab,
   Main,
   Profile,
   ProfileLeft,
