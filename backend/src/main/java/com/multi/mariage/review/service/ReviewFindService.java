@@ -1,6 +1,9 @@
 package com.multi.mariage.review.service;
 
 
+import com.multi.mariage.auth.vo.AuthMember;
+import com.multi.mariage.category.domain.Food;
+import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
 import com.multi.mariage.like.domain.LikeRepository;
@@ -18,6 +21,7 @@ import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
+import com.multi.mariage.review.dto.response.ReviewUpdateInfoResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
 import com.multi.mariage.review.vo.ProductReviewVO;
@@ -275,5 +279,29 @@ public class ReviewFindService extends PagingUtil {
     public Review findByIdToUpdate(Long id) {
         return reviewRepository.findByIdToUpdate(id)
                 .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
+    }
+
+    public ReviewUpdateInfoResponse findUpdateReviewInfo(AuthMember authMember, Long reviewId) {
+        Review review = reviewRepository.findByIdAndMemberId(reviewId, authMember.getId())
+                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
+
+        Product product = review.getProduct();
+        Country country = product.getCountry();
+        Food foodCategory = review.getFoodCategory();
+        String imageUrl = imageService.getImageUrl(review.getImage().getName());
+
+        return ReviewUpdateInfoResponse.builder()
+                .productName(product.getName())
+                .productLevel(product.getLevel())
+                .countryId(country.getId())
+                .countryName(country.getValue())
+                .reviewProductRate(review.getProductRate())
+                .reviewContent(review.getContent())
+                .foodCategoryId(foodCategory.getCategory().getId())
+                .foodCategoryName(foodCategory.getCategory().getName())
+                .foodCategoryValue(foodCategory.getCategory())
+                .imageUrl(imageUrl)
+                .hashtags(getHashtags(review))
+                .build();
     }
 }

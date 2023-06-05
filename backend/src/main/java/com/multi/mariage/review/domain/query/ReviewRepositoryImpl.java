@@ -238,4 +238,20 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .where(review.id.in(reviewIds))
                 .fetch();
     }
+
+    @Override
+    public Optional<Review> findByIdAndMemberId(Long reviewId, Long memberId) {
+        Review findReview = queryFactory.selectFrom(review)
+                .join(review.member, member)
+                .join(review.product, product).fetchJoin()
+                .leftJoin(review.foodCategory, food).fetchJoin()
+                .leftJoin(review.image, image).fetchJoin()
+                .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
+                .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
+                .where(review.id.eq(reviewId))
+                .where(member.id.eq(memberId))
+                .fetchOne();
+
+        return Optional.ofNullable(findReview);
+    }
 }
