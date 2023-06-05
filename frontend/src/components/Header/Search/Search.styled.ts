@@ -27,7 +27,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-bottom: 3px solid #9c94d0;
+    border-bottom: 2px solid transparent;
   }
 
   &::placeholder {
@@ -48,29 +48,37 @@ const ProdList = styled.ul`
     width: 197px;
   }
 
-  border: 3px solid #9c94d0;
+  border: 2px solid #9c94d0;
   border-radius: 0 0 10px 10px;
 
   background-color: #fff;
+  box-shadow: 3px 3px 3px 0 #00000040;
 
   list-style: none;
 `;
 
-const Prod = styled.div`
+const Prod = styled.li`
   overflow: hidden;
   padding: 5px 0 5px 5px;
 
   font-size: 1rem;
+  color: ${props => props.color || 'black'};
 
   cursor: pointer;
 
   &:hover {
+    padding: 5px;
+    box-sizing: border-box;
     text-decoration: underline;
   }
+
+ 
 `;
 
 const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-export { Container, Input, Wrapper, SearchWrapper, ProdList, Prod };
+
+
+export { Container, Input, Wrapper, SearchWrapper, ProdList, Prod,  };
