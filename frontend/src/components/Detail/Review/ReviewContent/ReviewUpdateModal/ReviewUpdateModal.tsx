@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react';
-import * as S from './ReviewEditModal.styled';
+import * as S from './ReviewUpdateModal.styled';
 
 interface ModalDefaultType {
-  onClickReviewEdit: () => void;
+  onClickReviewUpdate: () => void;
 }
 
-function ReviewEditModal({
-  onClickReviewEdit,
+function ReviewUpdateModal({
+  onClickReviewUpdate,
   children,
 }: PropsWithChildren<ModalDefaultType>) {
   return (
@@ -16,8 +16,8 @@ function ReviewEditModal({
         <S.Backdrop
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
-            if (onClickReviewEdit) {
-              onClickReviewEdit();
+            if (onClickReviewUpdate) {
+              onClickReviewUpdate();
             }
           }}
         />
@@ -26,4 +26,4 @@ function ReviewEditModal({
   );
 }
 
-export default ReviewEditModal;
+export default ReviewUpdateModal;

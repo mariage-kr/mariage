@@ -84,11 +84,10 @@ function Admin() {
 
   // 업로드 버튼 클릭 이벤트
   const imageInput = useRef<HTMLInputElement>(null);
-  const onClickInputImgBtn = (event : any) => {
+  const onClickInputImgBtn = (event: any) => {
     event.preventDefault();
     if (imageInput.current) {
       imageInput.current.click();
-      console.log('d');
     }
   };
 
