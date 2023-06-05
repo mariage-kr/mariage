@@ -174,6 +174,12 @@ const Like = styled.div`
   }
 `;
 
+const ReviewUpdate = styled.div`
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+`;
+
 const Bottom = styled.div`
   overflow: hidden;
 `;
@@ -313,11 +319,7 @@ const SirenIcon = styled.img`
   }
 `;
 
-const Icon = styled.div`
-  /* width: 25px;
-  height: 25px;
-  background: url('../../../../assets/png/Siren.png') no-repeat center/cover; */
-`;
+
 
 export {
   Container,
@@ -337,6 +339,7 @@ export {
   updateBtn,
   deleteBtn,
   Like,
+  ReviewUpdate,
   Bottom,
   Food,
   FoodName,
@@ -349,5 +352,4 @@ export {
   ReviewImg,
   Img,
   SirenIcon,
-  Icon,
 };

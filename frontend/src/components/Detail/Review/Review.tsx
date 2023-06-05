@@ -56,7 +56,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   /* 리뷰작성 모달창 띄우는 클릭 이벤트 */
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
-  const onClickToggleModal = useCallback(() => {
+  const onClickReviewEdit = useCallback(() => {
     if (isLogin()) {
       setOpenModal(!isOpenModal);
       return;
@@ -140,7 +140,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
       </S.Left>
       <S.Right>
         <RateStatistic {...rating} productId={productId} />
-        <S.EditBtn onClick={onClickToggleModal}>
+        <S.EditBtn onClick={onClickReviewEdit}>
           <S.Edit css={S.EditSize}>
             <S.EditIcon src={editIcon} />
           </S.Edit>
@@ -149,14 +149,14 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
       </S.Right>
       <S.ReviewEdit>
         {isOpenModal && (
-          <ReviewEditModal onClickToggleModal={onClickToggleModal}>
+          <ReviewEditModal onClickReviewEdit={onClickReviewEdit}>
             <ReviewEdit
               id={id}
               name={name}
               level={level}
               country={country}
               countryId={countryId}
-              onClickToggleModal={onClickToggleModal}
+              onClickToggleModal={onClickReviewEdit}
             />
           </ReviewEditModal>
         )}

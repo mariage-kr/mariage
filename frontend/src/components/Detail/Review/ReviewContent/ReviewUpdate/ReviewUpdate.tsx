@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import HashTag from './HashTag/HashTag';
-import FoodImg from './FoodContent/FoodImg';
-import FoodCategory from './FoodContent/FoodCategory';
+import HashTag from '@/components/Detail/Review/ReviewEdit/HashTag/HashTag';
+import FoodImg from '@/components/Detail/Review/ReviewEdit/FoodContent/FoodImg';
+import FoodCategory from '@/components/Detail/Review/ReviewEdit/FoodContent/FoodCategory';
 import StarRate from '@/components/StarRate/Common/StarRate';
 
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
@@ -11,7 +11,7 @@ import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { deleteImage, saveImage } from '@/utils/image';
 
-import * as S from './ReviewEdit.styled';
+import * as S from './ReviewUpdate.styled';
 import useFoodCategory from '@/hooks/useFoodCategory';
 
 type PropsType = {
@@ -20,16 +20,16 @@ type PropsType = {
   level: number;
   country: string;
   countryId: number;
-  onClickReviewEdit: () => void;
+  onClickReviewUpdate: () => void;
 };
 
-function ReviewEdit({
+function ReviewUpdate({
   id,
   name,
   level,
   country,
   countryId,
-  onClickReviewEdit,
+  onClickReviewUpdate,
 }: PropsType) {
   /* 버튼 옵션 선택 */
   const [option, setOption] = useState();
@@ -111,8 +111,8 @@ function ReviewEdit({
 
   return (
     <S.Container>
-      <S.Title>리뷰 작성</S.Title>
-      <S.TitleInfo>술과 안주에 대한 평가를 남겨주세요</S.TitleInfo>
+      <S.Title>리뷰 수정</S.Title>
+      <S.TitleInfo>술과 안주에 대한 평가를 수정해주세요</S.TitleInfo>
       <S.Wrapper>
         <S.Top>
           <S.DrinkInfo>
@@ -133,7 +133,6 @@ function ReviewEdit({
           <S.InputReview
             value={content}
             onChange={setContent}
-            placeholder="** 술과 안주에 대한 리뷰를 적어주세요. **"
           />
         </S.Top>
 
@@ -173,7 +172,7 @@ function ReviewEdit({
           </S.HashTag>
           <S.FinalBtn>
             <S.Cancel>
-              <S.CancelBtn onClick={onClickReviewEdit}>취소</S.CancelBtn>
+              <S.CancelBtn onClick={onClickReviewUpdate}>취소</S.CancelBtn>
             </S.Cancel>
             <S.Submit>
               <S.SubmitBtn onClick={saveReview}>적용</S.SubmitBtn>
@@ -185,4 +184,4 @@ function ReviewEdit({
   );
 }
 
-export default ReviewEdit;
+export default ReviewUpdate;

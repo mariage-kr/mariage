@@ -17,6 +17,7 @@ function Search() {
   const timerRef = useRef<null | NodeJS.Timeout>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isMouseOver, setIsMouseOver] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState('');
 
   const handleOnKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -29,6 +30,7 @@ function Search() {
     if (name === '') {
       return;
     }
+    setSelectedProduct(name);
     navigate(
       `${BROWSER_PATH.PRODUCT}?search=${name}&minRate=${PARAM.RATE.MIN}&maxRate=${PARAM.RATE.MAX}&minLevel=${PARAM.LEVEL.MIN}&maxLevel=${PARAM.LEVEL.MAX}&sort=${SORT.FILTER.RATE}`,
     );
@@ -71,7 +73,7 @@ function Search() {
           onKeyUp={handleOnKeyPress}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-        ></S.Input>
+        />
         {(isFocused || isMouseOver) && (
           <S.ProdList
             onMouseEnter={() => setIsMouseOver(true)}

@@ -189,6 +189,21 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return Optional.ofNullable(review);
     }
 
+    @Override
+    public Optional<Review> findByIdToUpdate(Long reviewId) {
+        Review review = queryFactory.selectFrom(QReview.review)
+                .join(QReview.review.member, member).fetchJoin()
+                .join(QReview.review.product, product).fetchJoin()
+                .leftJoin(QReview.review.foodCategory, food).fetchJoin()
+                .leftJoin(QReview.review.image, image).fetchJoin()
+                .leftJoin(QReview.review.reviewHashtags, reviewHashtag).fetchJoin()
+                .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
+                .where(QReview.review.id.eq(reviewId))
+                .fetchFirst();
+
+        return Optional.ofNullable(review);
+    }
+
     private BooleanExpression isNotReportReview() {
         return review.report.eq(false);
     }
