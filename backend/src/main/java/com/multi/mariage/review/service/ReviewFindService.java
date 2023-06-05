@@ -3,6 +3,7 @@ package com.multi.mariage.review.service;
 
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
+import com.multi.mariage.like.domain.LikeRepository;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
@@ -51,6 +52,7 @@ public class ReviewFindService extends PagingUtil {
     private final MemberFindService memberFindService;
     private final ImageService imageService;
     private final StorageService storageService;
+    private final LikeRepository likeRepository;
 
     /* TODO: 2023/05/24 추후 코드 리팩토링 */
     public Review findById(Long id) {
@@ -89,7 +91,7 @@ public class ReviewFindService extends PagingUtil {
         List<Review> reviews = reviewRepository.findRatedReviewsByMemberId(pageCond);
         Long totalCount = reviewRepository.findReviewsCountByRatings(memberId);
 
-        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
+        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, cond.getVisitMemberId());
         int totalPages = getTotalPages(cond.getPageSize(), totalCount);
 
         return MemberReviewInfoResponse.builder()
@@ -114,7 +116,7 @@ public class ReviewFindService extends PagingUtil {
         List<Review> reviews = reviewRepository.findLikedReviewsByMemberId(pageCond);
         Long totalCount = reviewRepository.findReviewsCountByLikes(memberId);
 
-        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, memberId);
+        List<MemberReviewVO> productAndReviewList = getReviewListByMemberId(reviews, cond.getVisitMemberId());
         int totalPages = getTotalPages(cond.getPageSize(), totalCount);
 
         return MemberReviewInfoResponse.builder()
