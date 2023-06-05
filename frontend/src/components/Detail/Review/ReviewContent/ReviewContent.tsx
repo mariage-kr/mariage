@@ -10,15 +10,15 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 import ReviewUpdateModal from './ReviewUpdateModal/ReviewUpdateModal';
 import ReviewUpdate from './ReviewUpdate/ReviewUpdate';
-
-import * as S from './ReviewContent.styled';
-
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 import {
   requestDeleteReview,
   requestReportReview,
 } from '@/apis/request/review';
 import useAuth from '@/hooks/useAuth';
 
+import * as S from './ReviewContent.styled';
 
 type PropsType = {
   id: number;
@@ -29,8 +29,8 @@ type PropsType = {
 };
 
 function ReviewContent(review: ReviewType, { id, name, level, countryId, country }: PropsType) {
+  const navigate = useNavigate();
   const { loginSnackbar, errorSnackbar } = useSnack();
-
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
   const memberId: number | undefined = userInfo?.id;
@@ -79,16 +79,20 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
     return <div></div>;
   }
 
+  const goReview = () => [
+    navigate(`${BROWSER_PATH.REVIEW}/${review.member.id}`),
+  ];
+
   return (
     <S.Container>
       <S.Wrapper>
         <S.Top>
           <S.TopLeft>
             <S.Profile css={S.Profile1}>
-              <S.ProfileImg src={review.member.img} />
+              <S.ProfileImg src={review.member.img} onClick={goReview} />
             </S.Profile>
             <S.Profile css={S.Profile2}>
-              <S.Name>{review.member.nickname}</S.Name>
+              <S.Name onClick={goReview}>{review.member.nickname}</S.Name>
               <S.RateDate>
                 <SvgStarRateAverage
                   key={review.id}

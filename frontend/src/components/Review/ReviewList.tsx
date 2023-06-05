@@ -1,73 +1,114 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { ReviewPageType } from '@/@types/review';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
+import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
+import { Siren } from '@/assets/svg/SVG';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import LikeButton from '@/components/Button/Like/Like';
+import { BROWSER_PATH } from '@/constants/path';
+import { SORT } from '@/constants/option';
+import useUserInfo from '@/hooks/useUserInfo';
+import useAuth from '@/hooks/useAuth';
+import useSnack from '@/hooks/useSnack';
+import {
+  requestDeleteReview,
+  requestReportReview,
+} from '@/apis/request/review';
 
 import * as S from './ReviewList.styled';
 
-function ReviewList() {
-  const ProductData = {
-    id: 1,
-    img: 'https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png',
-    name: '산토리 위스키 가쿠빈 :suntory whisky kakubin',
-    flagImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png',
-    country: 'Japan',
-    level: 40,
-    rate: 3.8,
+function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
+  const navigate = useNavigate();
+  const { loginSnackbar, errorSnackbar, infoSnackbar } = useSnack();
+  const { userInfo } = useUserInfo();
+
+  const goProduct = () => {
+    navigate(
+      `${BROWSER_PATH.DETAIL}/${productInfo.id}?sort=${SORT.DETAIL.LIKE}`,
+    );
   };
 
-  const ReviewData = {
-    id: 1,
-    profileImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png',
-    nickname: 'maria',
-    rate: 4.6,
-    date: 'April 15, 2023',
-    isLiked: true,
-    likeCount: 10,
-    foodImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/NEUdCmsFva.png',
-    foodName: '돈까스/회/일식',
-    reviewContent:
-      '가격이 저렴해서 대중적이지만 아무래도 저가형 위스키인지라 스트레이트로 마셨을 때 향이 그리 우수하지 못하다. 그러다 보니 하이볼로 만들어 마시는 게 가장 맛있고, 대중적으로 알려진 것 같다. 산토리 위스키 하이볼은 탄산의 맛으로 가볍게 마시는 술이기 때문에 어떤 안주든 다 잘 어울리지만 나는 개인적으로 산토리가 일본 위스키라는 점에서 이자카야 해산물 안주가 특히 잘 어울리는 것 같다.',
-    reviewImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/623HFq9M9q.jpg',
+  /* TODO: 수정 기능 만들기 */
+
+  /* 삭제 기능 만들기 */
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const deleteReview = async () => {
+    if (!confirm('해당 리뷰를 삭제하시겠습니까?')) {
+      infoSnackbar('리뷰 삭제를 취소하셨습니니다.');
+      return;
+    }
+
+    requestDeleteReview(reviewInfo.id)
+      .then(() => {
+        setIsDeleted(true);
+        infoSnackbar('해당 리뷰를 삭제하셨습니다.');
+      })
+      .catch(error => {
+        errorSnackbar(error.response.data.message);
+      });
   };
 
-  const hashTags = [
-    { id: 1, value: '크리스마스' },
-    { id: 2, value: '데이트' },
-    { id: 3, value: '달달한' },
-  ];
+  /* 신고 기능 */
+  const { isLogin } = useAuth();
+  const [isReport, setIsReport] = useState<boolean>(false);
+  const reportReview = () => {
+    if (!isLogin()) {
+      loginSnackbar();
+      return;
+    }
+    confirm('해당 리뷰를 신고하시겠습니까?');
+    requestReportReview(reviewInfo.id)
+      .then(data => {
+        setIsReport(data.report);
+      })
+      .catch(error => {
+        errorSnackbar(error.response.data.message);
+      });
+  };
+
+  if (isDeleted || isReport) {
+    return <div></div>;
+  }
+
+  const goReview = () => {
+    navigate(`${BROWSER_PATH.REVIEW}/${reviewInfo.member.id}`);
+    window.location.reload();
+  };
 
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Left>
+        <S.Left onClick={goProduct}>
           <S.ProductLeft>
-            <S.ProductImg src={ProductData.img} />
+            <S.ProductImg src={productInfo.imageUrl} />
           </S.ProductLeft>
           <S.ProductRight>
-            <S.ProductName>{ProductData.name}</S.ProductName>
+            <S.ProductName>{productInfo.name}</S.ProductName>
             <S.SubWrap>
               <S.CountryWrap css={S.media1200}>
                 <S.Country css={S.country_left}>
-                  <S.FlagImg src={ProductData.flagImg} />
+                  <CountryFlagImg id={productInfo.countryId} />
                 </S.Country>
                 <S.Country css={S.country_right}>
-                  {ProductData.country}
+                  {productInfo.country}
                 </S.Country>
               </S.CountryWrap>
               <S.ABV css={S.media1200}>
-                ABV <S.ABVText>{ProductData.level}</S.ABVText>%
+                ABV <S.ABVText>{productInfo.level}</S.ABVText>%
               </S.ABV>
               <S.ProductStarRateWrap css={S.media1200}>
                 <S.ProductStarRate>
                   <S.ProductStarRateText>
-                    {ProductData.rate}
+                    {productInfo.reviewRate}
                   </S.ProductStarRateText>
                 </S.ProductStarRate>
                 <S.ProductStarRate>
-                  {/* TODO: 평균 별점 */}
                   <SvgStarRateAverage
-                    key={ProductData.id}
-                    id={ProductData.id}
-                    rate={ProductData.rate}
+                    key={productInfo.id}
+                    id={productInfo.id}
+                    rate={productInfo.reviewRate}
                   />
                 </S.ProductStarRate>
               </S.ProductStarRateWrap>
@@ -79,56 +120,62 @@ function ReviewList() {
           <S.ReviewTop>
             <S.ReviewTopLeft>
               <S.Profile css={S.Profile1}>
-                <S.ProfileImg src={ReviewData.profileImg} />
+                <S.ProfileImg src={reviewInfo.member.img} onClick={goReview} />
               </S.Profile>
               <S.Profile css={S.Profile2}>
-                <S.Name>{ReviewData.nickname}</S.Name>
+                <S.Name onClick={goReview}>{reviewInfo.member.nickname}</S.Name>
                 <S.RateDate>
                   <SvgStarRateAverage
-                    id={ReviewData.id}
-                    key={ReviewData.id}
-                    rate={ReviewData.rate}
+                    id={reviewInfo.id}
+                    key={reviewInfo.id}
+                    rate={reviewInfo.review.rate}
                   />
                 </S.RateDate>
                 <S.RateDate>
-                  <S.Date>{ReviewData.date}</S.Date>
+                  <S.Date>{reviewInfo.review.date}</S.Date>
                 </S.RateDate>
               </S.Profile>
             </S.ReviewTopLeft>
             <S.ReviewTopRight>
-              {/* TODO: 리뷰의 작성한 유저의 ID와 자신의 ID가 동일 할 시 보이게 */}
-              <S.BtnWrap>
-                {/* TODO: 수정 모달창으로 할지 고민 */}
-                <S.Btn css={S.updateBtn}>수정</S.Btn>
-                {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
-                <S.Btn css={S.deleteBtn}>삭제</S.Btn>
-              </S.BtnWrap>
+              {userInfo?.id === reviewInfo.member.id ? (
+                <S.BtnWrap>
+                  {/* TODO: 수정 모달창으로 할지 고민 */}
+                  <S.Btn>수정</S.Btn>
+                  <S.Btn onClick={deleteReview}>삭제</S.Btn>
+                </S.BtnWrap>
+              ) : (
+                <S.BtnWrap>
+                  <S.Btn onClick={reportReview} title="신고하기">
+                    <Siren fill="#bb2649" />
+                  </S.Btn>
+                </S.BtnWrap>
+              )}
               <S.Like>
                 <LikeButton
-                  reviewId={ReviewData.id}
-                  liked={ReviewData.isLiked}
-                  likeCount={ReviewData.likeCount}
+                  reviewId={reviewInfo.id}
+                  liked={reviewInfo.like.liked}
+                  likeCount={reviewInfo.like.count}
                 />
               </S.Like>
             </S.ReviewTopRight>
           </S.ReviewTop>
           <S.ReviewBottom>
             <S.Food>
-              <S.FoodImg src={ReviewData.foodImg} />
-              <S.FoodName>{ReviewData.foodName}</S.FoodName>
+              <FoodCategoryImg id={reviewInfo.food.id} />
+              <S.FoodName>{reviewInfo.food.name}</S.FoodName>
             </S.Food>
             <S.Content>
               <S.ReviewText>
                 <S.ReviewContentText>
-                  {ReviewData.reviewContent}
+                  {reviewInfo.review.content}
                 </S.ReviewContentText>
-                {hashTags.map(tag => (
-                  <S.HashTag>#{tag.value}</S.HashTag>
+                {reviewInfo.hashtags.map((tag: string, index: number) => (
+                  <S.HashTag key={index}>#{tag}</S.HashTag>
                 ))}
               </S.ReviewText>
-              {ReviewData.reviewImg && (
+              {reviewInfo.review.img && (
                 <S.ReviewImg>
-                  <S.Img src={ReviewData.reviewImg} />
+                  <S.Img src={reviewInfo.review.img} />
                 </S.ReviewImg>
               )}
             </S.Content>

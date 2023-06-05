@@ -67,10 +67,9 @@ function Snackbar() {
     );
   }
 
-  // TODO: 리뷰가 더 이상 존재하지 않거나 그럴 때 사용
   if (snackbarInfo.option === SNACKBAR.OPTION.INFO) {
     return (
-      <S.Container>
+      <S.Container option={SNACKBAR.OPTION.INFO}>
         <S.Text>{message}</S.Text>
       </S.Container>
     );

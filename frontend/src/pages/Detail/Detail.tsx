@@ -38,6 +38,10 @@ function Detail() {
     fetchDetailData();
   }, []);
 
+  if (loading) {
+    return;
+  }
+
   return (
     <S.Container>
       {detailData && (

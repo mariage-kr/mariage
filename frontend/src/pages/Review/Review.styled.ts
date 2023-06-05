@@ -18,6 +18,8 @@ const NavWrapper = styled.div`
 const Nav = styled.p`
   display: inline-block;
   margin: 0 30px 0 0;
+
+  cursor: pointer;
 `;
 
 const Main = styled.div`
@@ -36,8 +38,12 @@ const ProfileLeft = styled.div`
   height: 150px;
   margin: 0 0 0 2%;
 
-  @media (max-width: 1700px) { width: 140px; }
-  @media (max-width: 1300px) { width: 130px; }
+  @media (max-width: 1700px) {
+    width: 140px;
+  }
+  @media (max-width: 1300px) {
+    width: 130px;
+  }
 `;
 
 const ProfileImg = styled.img`
@@ -53,14 +59,30 @@ const ProfileRight = styled.div`
   width: 85%;
   padding-top: 30px;
 
-  @media (max-width: 1700px) { padding-top: 25px; }
-  @media (max-width: 1550px) { width: 83.5%; }
-  @media (max-width: 1450px) { width: 82.5%; }
-  @media (max-width: 1350px) { width: 81.5%; }
-  @media (max-width: 1250px) { width: 80.7%; }
-  @media (max-width: 1150px) { width: 80%; }
-  @media (max-width: 1050px) { width: 79%; }
-  @media (max-width: 950px) { width: 78%; }
+  @media (max-width: 1700px) {
+    padding-top: 25px;
+  }
+  @media (max-width: 1550px) {
+    width: 83.5%;
+  }
+  @media (max-width: 1450px) {
+    width: 82.5%;
+  }
+  @media (max-width: 1350px) {
+    width: 81.5%;
+  }
+  @media (max-width: 1250px) {
+    width: 80.7%;
+  }
+  @media (max-width: 1150px) {
+    width: 80%;
+  }
+  @media (max-width: 1050px) {
+    width: 79%;
+  }
+  @media (max-width: 950px) {
+    width: 78%;
+  }
 `;
 
 const NameEmail = styled.div`
@@ -103,15 +125,37 @@ const Count = styled.p`
   margin: 0;
   font-size: 1rem;
 
-  @media (max-width: 1500px) { width: 91%; }
-  @media (max-width: 1350px) { width: 90%; }
-  @media (max-width: 1250px) { width: 89%; }
-  @media (max-width: 1150px) { width: 88%; }
-  @media (max-width: 1050px) { width: 87%; }
-  @media (max-width: 980px) { width: 86%; }
+  @media (max-width: 1500px) {
+    width: 91%;
+  }
+  @media (max-width: 1350px) {
+    width: 90%;
+  }
+  @media (max-width: 1250px) {
+    width: 89%;
+  }
+  @media (max-width: 1150px) {
+    width: 88%;
+  }
+  @media (max-width: 1050px) {
+    width: 87%;
+  }
+  @media (max-width: 980px) {
+    width: 86%;
+  }
 `;
 
+const Target = styled.div`
+  height: 30px;
+`;
 
+const AniWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  scale: calc(1);
+`;
 
 export {
   Container,
@@ -129,5 +173,7 @@ export {
   Reviews,
   Likes,
   Title,
-  Count
+  Count,
+  Target,
+  AniWrapper,
 };

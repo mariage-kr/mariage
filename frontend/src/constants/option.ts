@@ -15,6 +15,10 @@ const SORT = {
     LIKE: 'like',
     NEWEST: 'newest',
   },
+  REVIEW: {
+    LIKE: 'like',
+    RATING: 'rating',
+  },
 };
 
 const REGION = {
