@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 
 import { ReviewType } from '@/@types/review';
-
+import { Siren } from '@/assets/svg/SVG';
+import useSnack from '@/hooks/useSnack';
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 import LikeButton from '@/components/Button/Like/Like';
@@ -11,11 +12,13 @@ import ReviewUpdateModal from './ReviewUpdateModal/ReviewUpdateModal';
 import ReviewUpdate from './ReviewUpdate/ReviewUpdate';
 
 import * as S from './ReviewContent.styled';
+
 import {
   requestDeleteReview,
   requestReportReview,
 } from '@/apis/request/review';
 import useAuth from '@/hooks/useAuth';
+
 
 type PropsType = {
   id: number;
@@ -26,6 +29,8 @@ type PropsType = {
 };
 
 function ReviewContent(review: ReviewType, { id, name, level, countryId, country }: PropsType) {
+  const { loginSnackbar, errorSnackbar } = useSnack();
+
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
   const memberId: number | undefined = userInfo?.id;
@@ -47,18 +52,17 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
 
   const deleteReview = () => {
     requestDeleteReview(review.id)
-      .then(response => {
+      .then(() => {
         setIsDeleted(true);
-        console.log(response);
       })
       .catch(error => {
-        console.error(error);
+        errorSnackbar(error.response.data.message);
       });
   };
 
   const reportReview = () => {
     if (!isLogin()) {
-      alert('로그인이 필요합니다.');
+      loginSnackbar();
       return;
     }
     confirm('해당 리뷰를 신고하시겠습니까?');
@@ -67,7 +71,7 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
         setIsReport(data.report);
       })
       .catch(error => {
-        console.log(error);
+        errorSnackbar(error.response.data.message);
       });
   };
 
@@ -107,7 +111,9 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
               </S.BtnWrap>
             ) : (
               <S.BtnWrap>
-                <S.Btn onClick={reportReview}>신고</S.Btn>
+                <S.Btn onClick={reportReview} title="신고하기">
+                  <Siren fill="#bb2649" />
+                </S.Btn>
               </S.BtnWrap>
             )}
             <S.Like>

@@ -78,9 +78,10 @@ function User() {
   }, [key]);
 
   // 닉네임 마스킹
-  const nickname = 
-    userInfo?.nickname && 
-    userInfo?.nickname.length > 3 ? userInfo?.nickname.substring(0, 2) + "**" : userInfo?.nickname; 
+  const nickname =
+    userInfo?.nickname && userInfo?.nickname.length > 3
+      ? userInfo?.nickname.substring(0, 2) + '**'
+      : userInfo?.nickname;
 
   if (isLogin) {
     return (
@@ -92,9 +93,7 @@ function User() {
             </S.StyledLink>
           </S.Wrap>
           <S.Wrap>
-            <S.StyledLink to={BROWSER_PATH.MY}>
-              {nickname}님
-            </S.StyledLink>
+            <S.StyledLink to={BROWSER_PATH.MY}>{nickname}님</S.StyledLink>
           </S.Wrap>
           <S.Wrap>
             <S.TextButton onClick={logout}>로그아웃</S.TextButton>

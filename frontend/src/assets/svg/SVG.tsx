@@ -1,5 +1,6 @@
 export { ReactComponent as Like } from './like.svg';
 export { ReactComponent as Search } from './search.svg';
+export { ReactComponent as Siren } from './Siren.svg';
 export { ReactComponent as Rating000 } from './rating/rating000.svg';
 export { ReactComponent as Rating012 } from './rating/rating012.svg';
 export { ReactComponent as Rating034 } from './rating/rating034.svg';

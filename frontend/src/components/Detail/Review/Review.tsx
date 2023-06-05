@@ -18,6 +18,7 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useAuth from '@/hooks/useAuth';
 import useUserInfo from '@/hooks/useUserInfo';
 import { PAGING } from '@/constants/rule';
+import useSnack from '@/hooks/useSnack';
 
 import * as S from './Review.styled';
 
@@ -31,6 +32,7 @@ type PropsType = {
 };
 
 function Review({ id, name, level, countryId, country, rating }: PropsType) {
+  const { loginSnackbar, infoSnackbar } = useSnack();
   const queryParam = new URLSearchParams(location.search);
   /* 제품 및 사용자 정보 */
   const productId: number = Number.parseInt(useParams().id!);
@@ -57,12 +59,15 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
   const onClickReviewEdit = useCallback(() => {
     if (isLogin()) {
       setOpenModal(!isOpenModal);
+      return;
     }
+    loginSnackbar();
   }, [isOpenModal]);
 
   /* 리뷰 조회 */
   const fetchReview = async (userId: number | undefined) => {
     if (!hasMore) {
+      infoSnackbar('리뷰가 더 이상 존재하지 않습니다.');
       return;
     }
     setLoading(true);

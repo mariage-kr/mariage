@@ -84,7 +84,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .join(product.image, image).fetchJoin()
                 .join(product.reviews, review).fetchJoin()
                 .where(product.id.in(productIds))
-                .orderBy(product.name.value.asc())
                 .fetch();
     }
 
@@ -126,6 +125,19 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .fetchFirst();
     }
 
+    @Override
+    public List<Product> findSearchByWord(String word) {
+        List<Long> productIds = queryFactory.select(product.id)
+                .from(product)
+                .where(hasSearch(word))
+                .limit(5)
+                .fetch();
+
+        return queryFactory.selectFrom(product)
+                .where(product.id.in(productIds))
+                .fetch();
+    }
+
     private BooleanExpression equalsUpperCategory(DrinkUpperCategory upperCategory) {
         return upperCategory != null ? product.upperCategory.eq(upperCategory) : null;
     }
@@ -158,5 +170,25 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     private int getOffset(int pageNumber, int pageSize) {
         return (pageNumber - 1) * pageSize;
+    }
+
+    @Override
+    public List<Product> findAllIdsByReviewSizeNotEqualZero(Long productId) {
+        return queryFactory.selectFrom(product)
+                .join(product)
+                .leftJoin(product.reviews, review)
+                .where(product.reviews.size().ne(0))
+                .where(product.id.ne(productId))
+                .fetch();
+    }
+
+    @Override
+    public List<Product> findRandomRecommendIdsByMemberId(List<Long> productIds) {
+        return queryFactory.select(product)
+                .from(product)
+                .join(product.image, image).fetchJoin()
+                .join(product.reviews, review).fetchJoin()
+                .where(product.id.in(productIds))
+                .fetch();
     }
 }

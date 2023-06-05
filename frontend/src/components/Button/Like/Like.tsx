@@ -5,6 +5,7 @@ import { requestAddLike, requestRemoveLike } from '@/apis/request/like';
 import useAuth from '@/hooks/useAuth';
 
 import * as S from './Like.styled';
+import useSnack from '@/hooks/useSnack';
 
 interface LikeButtonProps {
   reviewId: number;
@@ -13,6 +14,7 @@ interface LikeButtonProps {
 }
 
 function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
+  const { loginSnackbar, errorSnackbar } = useSnack();
   const { isLogin } = useAuth();
 
   const [like, setLike] = useState({
@@ -29,25 +31,32 @@ function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
 
   const changeLike = () => {
     if (validateIsNotLogin()) {
+      loginSnackbar();
       return;
     }
     if (!like.liked) {
-      requestAddLike(reviewId).then(data => {
-        console.log(data);
-        setLike({
-          liked: true,
-          likeCount: data.likedCount,
+      requestAddLike(reviewId)
+        .then(data => {
+          setLike({
+            liked: true,
+            likeCount: data.likedCount,
+          });
+        })
+        .catch(error => {
+          errorSnackbar(error.response.data.message);
         });
-      });
     }
     if (like.liked) {
-      requestRemoveLike(reviewId).then(data => {
-        console.log(data);
-        setLike({
-          liked: false,
-          likeCount: data.likedCount,
+      requestRemoveLike(reviewId)
+        .then(data => {
+          setLike({
+            liked: false,
+            likeCount: data.likedCount,
+          });
+        })
+        .catch(error => {
+          errorSnackbar(error.response.data.message);
         });
-      });
     }
   };
 

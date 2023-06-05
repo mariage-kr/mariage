@@ -111,7 +111,8 @@ const TopRight = styled.div`
 `;
 
 const BtnWrap = styled.div`
-  width: 70%;
+  width: 80%;
+  padding: 10px 0;
   float: left;
   text-align: right;
 
@@ -131,22 +132,17 @@ const BtnWrap = styled.div`
 
 const Btn = styled.button`
   display: inline-block;
-  margin: 20px 0 0 3px;
   background-color: #fff;
-  color: #090909;
+  color: #00000070;
   font-size: 1rem;
 
   &:hover {
     transform: scale(1.05);
     text-shadow: 0 0 10px #9c94d099;
-    color: #000;
+    color: #bb2649;
   }
 
-  @media (max-width: 1150px) {
-    margin: 20px 0 0 0;
-  }
   @media (max-width: 1100px) {
-    margin: 17px 0 0 0;
     font-size: 0.9rem;
   }
 `;
@@ -156,7 +152,7 @@ const updateBtn = css``;
 const deleteBtn = css``;
 
 const Like = styled.div`
-  width: 30%;
+  width: 20%;
   float: right;
   text-align: right;
 
@@ -308,6 +304,19 @@ const Img = styled.img`
   object-position: 50% 50%;
 `;
 
+const SirenIcon = styled.img`
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+
+  &:hover {
+    color: #bb2649;
+    background-color: #bb2649;
+  }
+`;
+
+
+
 export {
   Container,
   Wrapper,
@@ -338,4 +347,5 @@ export {
   HashTag,
   ReviewImg,
   Img,
+  SirenIcon,
 };

@@ -4,6 +4,7 @@ import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
+import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
 import com.multi.mariage.report.domain.Report;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.storage.domain.Image;
@@ -103,7 +104,10 @@ public class Review {
         this.member = member;
     }
 
-    public void setFoodCategory(Food foodCategory) {
+    public void changeFoodCategory(Food foodCategory) {
+        if (this.foodCategory != null) {
+            this.foodCategory.getReviews().remove(this);
+        }
         if (foodCategory == null) {
             return;
         }
@@ -124,6 +128,12 @@ public class Review {
         weather.getReviews().remove(this);
     }
 
+    public void update(ReviewUpdateRequest request) {
+        this.productRate = request.getProductRate();
+        this.content = request.getContent();
+        this.foodRate = request.getFoodRate();
+    }
+  
     public boolean isReport(Long reportCount) {
         report = reportCount > 10 + (likes.size() / 2);
         return report;

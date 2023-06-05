@@ -189,7 +189,53 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return Optional.ofNullable(review);
     }
 
+    @Override
+    public Optional<Review> findByIdToUpdate(Long reviewId) {
+        Review review = queryFactory.selectFrom(QReview.review)
+                .join(QReview.review.member, member).fetchJoin()
+                .join(QReview.review.product, product).fetchJoin()
+                .leftJoin(QReview.review.foodCategory, food).fetchJoin()
+                .leftJoin(QReview.review.image, image).fetchJoin()
+                .leftJoin(QReview.review.reviewHashtags, reviewHashtag).fetchJoin()
+                .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
+                .where(QReview.review.id.eq(reviewId))
+                .fetchFirst();
+
+        return Optional.ofNullable(review);
+    }
+
     private BooleanExpression isNotReportReview() {
         return review.report.eq(false);
+    }
+
+    @Override
+    public List<Review> findAllByMemberIdAndProductId(Long memberId, Long productId) {
+        List<Long> reviewIds = queryFactory.select(review.id)
+                .from(review)
+                .join(review.member, member)
+                .join(review.product, product)
+                .where(review.member.id.eq(memberId))
+                .where(review.product.id.ne(productId))
+                .fetch();
+
+        return queryFactory.selectFrom(review)
+                .join(review.product, product).fetchJoin()
+                .where(review.id.in(reviewIds))
+                .fetch();
+    }
+
+    @Override
+    public List<Review> findAllByMemberId(Long memberId) {
+        List<Long> reviewIds = queryFactory.select(review.id)
+                .from(review)
+                .join(review.product, product)
+                .join(review.member, member)
+                .where(member.id.eq(memberId))
+                .fetch();
+
+        return queryFactory.selectFrom(review)
+                .join(review.product, product).fetchJoin()
+                .where(review.id.in(reviewIds))
+                .fetch();
     }
 }
