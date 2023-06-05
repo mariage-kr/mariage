@@ -1,7 +1,12 @@
 import { axios, axiosWithAccessToken } from '../axios';
 
 import { PagingType } from '@/@types/paging';
-import { ReviewReportType, ReviewSaveType, ReviewType } from '@/@types/review';
+import {
+  ReviewPageType,
+  ReviewReportType,
+  ReviewSaveType,
+  ReviewType,
+} from '@/@types/review';
 
 import { API_PATH } from '@/constants/path';
 import { PAGING } from '@/constants/rule';
@@ -66,9 +71,45 @@ const requestReportReview = (reviewId: number) => {
     });
 };
 
+const requestWriteReview = (
+  pageNumber: number,
+  memberId: number,
+  visitMemberId?: number,
+) => {
+  return axios
+    .get<PagingType<ReviewPageType>>(`${API_PATH.REVIEW.MY}/${memberId}`, {
+      params: {
+        pageNumber,
+        visitMemberId,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
+const requestLikeReview = (
+  pageNumber: number,
+  memberId: number,
+  visitMemberId?: number,
+) => {
+  return axios
+    .get<PagingType<ReviewPageType>>(`${API_PATH.REVIEW.LIKE}/${memberId}`, {
+      params: {
+        pageNumber,
+        visitMemberId,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   getDetailReviews,
   requestSaveReview,
   requestDeleteReview,
   requestReportReview,
+  requestWriteReview,
+  requestLikeReview,
 };

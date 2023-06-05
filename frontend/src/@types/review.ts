@@ -63,6 +63,22 @@ type reviewProfileType = {
   likes: number;
 };
 
+type ReviewPageType = {
+  productInfo: ReviewProductInfo;
+  reviewInfo: ReviewInfoType;
+};
+
+type ReviewProductInfo = {
+  id: number;
+  imageUrl: string;
+  name: string;
+  level: number;
+  reviewRate: number;
+  info: string;
+  countryId: number;
+  country: string;
+};
+
 type ReviewInfoType = {
   id: number;
   member: {
@@ -74,8 +90,7 @@ type ReviewInfoType = {
     date: string;
     rate: number;
     content: string;
-    img: string;
-    weather: string;
+    img: string | null;
   };
   like: {
     count: number;
@@ -98,5 +113,7 @@ export {
   ReviewSaveType,
   ReviewReportType,
   reviewProfileType,
+  ReviewPageType,
+  ReviewProductInfo,
   ReviewInfoType,
 };

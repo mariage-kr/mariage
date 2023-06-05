@@ -41,6 +41,8 @@ const API_PATH = {
     DELETE: '/api/user/review',
     REPORT: '/api/user/review/report',
     MEMBER: '/api/review/member',
+    MY: '/api/review/ratings',
+    LIKE: '/api/review/likes',
   },
   STORAGE: '/api/user/storage/image',
 };
