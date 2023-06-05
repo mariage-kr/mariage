@@ -21,6 +21,7 @@ import * as S from './ReviewList.styled';
 
 function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
   const navigate = useNavigate();
+  const { loginSnackbar, errorSnackbar, infoSnackbar } = useSnack();
   const { userInfo } = useUserInfo();
 
   const goProduct = () => {
@@ -33,10 +34,16 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
 
   /* 삭제 기능 만들기 */
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
-  const deleteReview = () => {
+  const deleteReview = async () => {
+    if (!confirm('해당 리뷰를 삭제하시겠습니까?')) {
+      infoSnackbar('리뷰 삭제를 취소하셨습니니다.');
+      return;
+    }
+
     requestDeleteReview(reviewInfo.id)
       .then(() => {
         setIsDeleted(true);
+        infoSnackbar('해당 리뷰를 삭제하셨습니다.');
       })
       .catch(error => {
         errorSnackbar(error.response.data.message);
@@ -45,7 +52,6 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
 
   /* 신고 기능 */
   const { isLogin } = useAuth();
-  const { loginSnackbar, errorSnackbar } = useSnack();
   const [isReport, setIsReport] = useState<boolean>(false);
   const reportReview = () => {
     if (!isLogin()) {
@@ -65,6 +71,11 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
   if (isDeleted || isReport) {
     return <div></div>;
   }
+
+  const goReview = () => {
+    navigate(`${BROWSER_PATH.REVIEW}/${reviewInfo.member.id}`);
+    window.location.reload();
+  };
 
   return (
     <S.Container>
@@ -109,10 +120,10 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
           <S.ReviewTop>
             <S.ReviewTopLeft>
               <S.Profile css={S.Profile1}>
-                <S.ProfileImg src={reviewInfo.member.img} />
+                <S.ProfileImg src={reviewInfo.member.img} onClick={goReview} />
               </S.Profile>
               <S.Profile css={S.Profile2}>
-                <S.Name>{reviewInfo.member.nickname}</S.Name>
+                <S.Name onClick={goReview}>{reviewInfo.member.nickname}</S.Name>
                 <S.RateDate>
                   <SvgStarRateAverage
                     id={reviewInfo.id}

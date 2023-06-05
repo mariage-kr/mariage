@@ -257,6 +257,8 @@ const ProfileImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+  cursor: pointer;
 `;
 
 const Profile2 = css`
@@ -268,6 +270,8 @@ const Profile2 = css`
 const Name = styled.p`
   margin: 0;
   font-size: 1.1rem;
+
+  cursor: pointer;
 `;
 
 const RateDate = styled.div`

@@ -10,14 +10,16 @@ import { PagingType } from '@/@types/paging';
 import { PAGING } from '@/constants/rule';
 import { SORT } from '@/constants/option';
 import DataLoading from '@/components/Animation/DataLoading';
+import { BROWSER_PATH } from '@/constants/path';
+import useSnack from '@/hooks/useSnack';
 
 import * as S from './Review.styled';
-import { BROWSER_PATH } from '@/constants/path';
+import NoReviews from '@/components/NoReviews/NoReviews';
 
 function Review() {
   const queryParam = new URLSearchParams(location.search);
   const navigate = useNavigate();
-
+  const { infoSnackbar } = useSnack();
   const option = queryParam.get('option');
 
   const [reviewProfile, setReviewProfile] = useState<reviewProfileType>({
@@ -72,6 +74,7 @@ function Review() {
   /* 해당 유저의 리뷰 가져오기 */
   const fetchMyReview = async () => {
     if (!hasMore) {
+      infoSnackbar('리뷰가 더 이상 존재하지 않습니다.');
       return;
     }
     setLoading(true);
@@ -91,6 +94,7 @@ function Review() {
   /* 해당 유저의 좋아요한 리뷰 가져오기 */
   const fetchLikeReview = async () => {
     if (!hasMore) {
+      infoSnackbar('리뷰가 더 이상 존재하지 않습니다.');
       return;
     }
     setLoading(true);
@@ -165,14 +169,17 @@ function Review() {
           </S.ProfileRight>
         </S.Profile>
       </S.Main>
-      {reviews.contents.length !== 0 &&
+      {reviews.contents.length !== 0 ? (
         reviews.contents.map((review: ReviewPageType) => (
           <ReviewList
             key={review.reviewInfo.id}
             reviewInfo={review.reviewInfo}
             productInfo={review.productInfo}
           />
-        ))}
+        ))
+      ) : (
+        <NoReviews />
+      )}
       <S.Target ref={target} />
       {loading && (
         <S.AniWrapper>

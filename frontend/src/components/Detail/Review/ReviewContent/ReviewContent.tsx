@@ -16,10 +16,12 @@ import {
 import useAuth from '@/hooks/useAuth';
 
 import * as S from './ReviewContent.styled';
+import { useNavigate } from 'react-router-dom';
+import { BROWSER_PATH } from '@/constants/path';
 
 function ReviewContent(review: ReviewType) {
+  const navigate = useNavigate();
   const { loginSnackbar, errorSnackbar } = useSnack();
-
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
   const memberId: number | undefined = userInfo?.id;
@@ -60,16 +62,20 @@ function ReviewContent(review: ReviewType) {
     return <div></div>;
   }
 
+  const goReview = () => [
+    navigate(`${BROWSER_PATH.REVIEW}/${review.member.id}`),
+  ];
+
   return (
     <S.Container>
       <S.Wrapper>
         <S.Top>
           <S.TopLeft>
             <S.Profile css={S.Profile1}>
-              <S.ProfileImg src={review.member.img} />
+              <S.ProfileImg src={review.member.img} onClick={goReview} />
             </S.Profile>
             <S.Profile css={S.Profile2}>
-              <S.Name>{review.member.nickname}</S.Name>
+              <S.Name onClick={goReview}>{review.member.nickname}</S.Name>
               <S.RateDate>
                 <SvgStarRateAverage
                   key={review.id}

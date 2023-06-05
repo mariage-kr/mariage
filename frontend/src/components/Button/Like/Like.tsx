@@ -14,7 +14,7 @@ interface LikeButtonProps {
 }
 
 function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
-  const { loginSnackbar, errorSnackbar } = useSnack();
+  const { loginSnackbar, errorSnackbar, infoSnackbar } = useSnack();
   const { isLogin } = useAuth();
 
   const [like, setLike] = useState({
@@ -41,6 +41,7 @@ function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
             liked: true,
             likeCount: data.likedCount,
           });
+          infoSnackbar('해당 리뷰의 좋아요를 등록하셨습니다.');
         })
         .catch(error => {
           errorSnackbar(error.response.data.message);
@@ -53,6 +54,7 @@ function LikeButton({ reviewId, liked, likeCount }: LikeButtonProps) {
             liked: false,
             likeCount: data.likedCount,
           });
+          infoSnackbar('해당 리뷰의 좋아요를 취소하셨습니다.');
         })
         .catch(error => {
           errorSnackbar(error.response.data.message);

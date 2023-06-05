@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-const Container = styled.div`
+type Props = {
+  option?: string;
+};
+
+const Container = styled.div<Props>`
   position: fixed;
   z-index: 10000;
 
@@ -17,7 +21,7 @@ const Container = styled.div`
 
   padding: 0 3rem;
 
-  background: #bb2329;
+  background: ${props => (props.option === 'info' ? '#9c94d0' : '#bb2329')};
   opacity: 0;
 
   text-align: center;
