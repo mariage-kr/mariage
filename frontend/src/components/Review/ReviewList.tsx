@@ -1,22 +1,75 @@
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
-import LikeButton from '@/components/Button/Like/Like';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { ReviewPageType } from '@/@types/review';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
-import { ReviewPageType } from '@/@types/review';
+import { Siren } from '@/assets/svg/SVG';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+import LikeButton from '@/components/Button/Like/Like';
+import { BROWSER_PATH } from '@/constants/path';
+import { SORT } from '@/constants/option';
+import useUserInfo from '@/hooks/useUserInfo';
+import useAuth from '@/hooks/useAuth';
+import useSnack from '@/hooks/useSnack';
+import {
+  requestDeleteReview,
+  requestReportReview,
+} from '@/apis/request/review';
 
 import * as S from './ReviewList.styled';
 
 function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
-  /* TODO: 버튼 링크 만들기 */
+  const navigate = useNavigate();
+  const { userInfo } = useUserInfo();
+
+  const goProduct = () => {
+    navigate(
+      `${BROWSER_PATH.DETAIL}/${productInfo.id}?sort=${SORT.DETAIL.LIKE}`,
+    );
+  };
+
   /* TODO: 수정 기능 만들기 */
-  /* TODO: 좋아요 기능 만들기 */
-  /* TODO: 삭제 기능 만들기 */
-  /* TODO: 사용자 인증 기능 */
-  /* TODO: 신고 기능 */
+
+  /* 삭제 기능 만들기 */
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const deleteReview = () => {
+    requestDeleteReview(reviewInfo.id)
+      .then(() => {
+        setIsDeleted(true);
+      })
+      .catch(error => {
+        errorSnackbar(error.response.data.message);
+      });
+  };
+
+  /* 신고 기능 */
+  const { isLogin } = useAuth();
+  const { loginSnackbar, errorSnackbar } = useSnack();
+  const [isReport, setIsReport] = useState<boolean>(false);
+  const reportReview = () => {
+    if (!isLogin()) {
+      loginSnackbar();
+      return;
+    }
+    confirm('해당 리뷰를 신고하시겠습니까?');
+    requestReportReview(reviewInfo.id)
+      .then(data => {
+        setIsReport(data.report);
+      })
+      .catch(error => {
+        errorSnackbar(error.response.data.message);
+      });
+  };
+
+  if (isDeleted || isReport) {
+    return <div></div>;
+  }
+
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Left>
+        <S.Left onClick={goProduct}>
           <S.ProductLeft>
             <S.ProductImg src={productInfo.imageUrl} />
           </S.ProductLeft>
@@ -41,7 +94,6 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
                   </S.ProductStarRateText>
                 </S.ProductStarRate>
                 <S.ProductStarRate>
-                  {/* TODO: 평균 별점 */}
                   <SvgStarRateAverage
                     key={productInfo.id}
                     id={productInfo.id}
@@ -74,13 +126,19 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
               </S.Profile>
             </S.ReviewTopLeft>
             <S.ReviewTopRight>
-              {/* TODO: 리뷰의 작성한 유저의 ID와 자신의 ID가 동일 할 시 보이게 */}
-              <S.BtnWrap>
-                {/* TODO: 수정 모달창으로 할지 고민 */}
-                <S.Btn css={S.updateBtn}>수정</S.Btn>
-                {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
-                <S.Btn css={S.deleteBtn}>삭제</S.Btn>
-              </S.BtnWrap>
+              {userInfo?.id === reviewInfo.member.id ? (
+                <S.BtnWrap>
+                  {/* TODO: 수정 모달창으로 할지 고민 */}
+                  <S.Btn>수정</S.Btn>
+                  <S.Btn onClick={deleteReview}>삭제</S.Btn>
+                </S.BtnWrap>
+              ) : (
+                <S.BtnWrap>
+                  <S.Btn onClick={reportReview} title="신고하기">
+                    <Siren fill="#bb2649" />
+                  </S.Btn>
+                </S.BtnWrap>
+              )}
               <S.Like>
                 <LikeButton
                   reviewId={reviewInfo.id}

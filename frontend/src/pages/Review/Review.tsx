@@ -1,17 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ReviewList from '@/components/Review/ReviewList';
-import * as S from './Review.styled';
 import { ReviewPageType, reviewProfileType } from '@/@types/review';
 import { requestReviewProfile } from '@/apis/request/member';
-import { requestWriteReview } from '@/apis/request/review';
+import { requestLikeReview, requestWriteReview } from '@/apis/request/review';
 import useUserInfo from '@/hooks/useUserInfo';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { PagingType } from '@/@types/paging';
 import { PAGING } from '@/constants/rule';
+import { SORT } from '@/constants/option';
 import DataLoading from '@/components/Animation/DataLoading';
 
+import * as S from './Review.styled';
+import { BROWSER_PATH } from '@/constants/path';
+
 function Review() {
+  const queryParam = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+
+  const option = queryParam.get('option');
+
   const [reviewProfile, setReviewProfile] = useState<reviewProfileType>({
     nickname: '',
     email: '',
@@ -60,12 +68,33 @@ function Review() {
     lastPage: false,
   });
   const memberId: number = Number.parseInt(id!);
+
+  /* 해당 유저의 리뷰 가져오기 */
   const fetchMyReview = async () => {
     if (!hasMore) {
       return;
     }
     setLoading(true);
     await requestWriteReview(pageNumber, memberId, userInfo?.id)
+      .then(data => {
+        setReviews(prev => ({
+          ...data,
+          contents: [...prev.contents, ...data.contents],
+        }));
+        setHasMore(data.lastPage === false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  /* 해당 유저의 좋아요한 리뷰 가져오기 */
+  const fetchLikeReview = async () => {
+    if (!hasMore) {
+      return;
+    }
+    setLoading(true);
+    await requestLikeReview(pageNumber, memberId, userInfo?.id)
       .then(data => {
         setReviews(prev => ({
           ...data,
@@ -93,15 +122,28 @@ function Review() {
   }, [loading]);
 
   useEffect(() => {
-    fetchMyReview();
+    if (option === SORT.REVIEW.LIKE) {
+      fetchLikeReview();
+    } else {
+      fetchMyReview();
+    }
   }, [pageNumber]);
+
+  const goReview = (option: string) => {
+    navigate(`${BROWSER_PATH.REVIEW}/${id}?option=${option}`);
+    window.location.reload();
+  };
 
   return (
     <S.Container>
       <S.TopNav>
         <S.NavWrapper>
-          <S.Nav>작성한 리뷰</S.Nav>
-          <S.Nav>좋아요한 리뷰</S.Nav>
+          <S.Nav onClick={() => goReview(SORT.REVIEW.RATING)}>
+            작성한 리뷰
+          </S.Nav>
+          <S.Nav onClick={() => goReview(SORT.REVIEW.LIKE)}>
+            좋아요한 리뷰
+          </S.Nav>
         </S.NavWrapper>
       </S.TopNav>
       <S.Main>

@@ -42,6 +42,8 @@ const Left = styled.div`
   padding-right: 2%;
   overflow: hidden;
 
+  cursor: pointer;
+
   @media (max-width: 1200px) {
     border-right: none;
     float: none;

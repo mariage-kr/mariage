@@ -56,7 +56,6 @@ const BROWSER_PATH = {
   PRODUCT: '/product',
   SIGN_UP: '/signup',
   REVIEW: '/review',
-  TEST: '/test' /* prod 때는 삭제 */,
 };
 
 export { API_PATH, BROWSER_PATH };

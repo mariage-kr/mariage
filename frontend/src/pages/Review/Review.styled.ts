@@ -18,6 +18,8 @@ const NavWrapper = styled.div`
 const Nav = styled.p`
   display: inline-block;
   margin: 0 30px 0 0;
+
+  cursor: pointer;
 `;
 
 const Main = styled.div`
