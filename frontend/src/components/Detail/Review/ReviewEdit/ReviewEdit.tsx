@@ -20,7 +20,7 @@ type PropsType = {
   level: number;
   country: string;
   countryId: number;
-  onClickReviewEdit: () => void;
+  onClickReviewCloseEdit: () => void;
 };
 
 function ReviewEdit({
@@ -29,7 +29,7 @@ function ReviewEdit({
   level,
   country,
   countryId,
-  onClickReviewEdit,
+  onClickReviewCloseEdit,
 }: PropsType) {
   /* 버튼 옵션 선택 */
   const [option, setOption] = useState();
@@ -159,21 +159,26 @@ function ReviewEdit({
             </S.FoodCategoryPrint>
           )}
           {option && <S.FoodContent>{selectComponent[option]}</S.FoodContent>}
-          
+
           <S.Pairing>
-            <S.PairingText>궁합 음식 별점<S.PairingOption>&nbsp;(선택)</S.PairingOption></S.PairingText>
+            <S.PairingText>
+              궁합 음식 별점<S.PairingOption>&nbsp;(선택)</S.PairingOption>
+            </S.PairingText>
             <S.PairingStarRate>
-              <StarRate onChange={rate => changeFoodRate(rate)} rate={foodRate} />
+              <StarRate
+                onChange={rate => changeFoodRate(rate)}
+                rate={foodRate}
+              />
             </S.PairingStarRate>
           </S.Pairing>
-          
+
           <S.HashTag>
             <S.HashTagTitle>#해시태그</S.HashTagTitle>
             <HashTag hashTags={hashtags} setHashTags={setHashtags} />
           </S.HashTag>
           <S.FinalBtn>
             <S.Cancel>
-              <S.CancelBtn onClick={onClickReviewEdit}>취소</S.CancelBtn>
+              <S.CancelBtn onClick={onClickReviewCloseEdit}>취소</S.CancelBtn>
             </S.Cancel>
             <S.Submit>
               <S.SubmitBtn onClick={saveReview}>적용</S.SubmitBtn>

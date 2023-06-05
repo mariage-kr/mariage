@@ -64,6 +64,10 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
     loginSnackbar();
   }, [isOpenModal]);
 
+  const onClickReviewCloseEdit = () => {
+    setOpenModal(!isOpenModal);
+  };
+
   /* 리뷰 조회 */
   const fetchReview = async (userId: number | undefined) => {
     if (!hasMore) {
@@ -156,7 +160,7 @@ function Review({ id, name, level, countryId, country, rating }: PropsType) {
               level={level}
               country={country}
               countryId={countryId}
-              onClickToggleModal={onClickReviewEdit}
+              onClickReviewCloseEdit={onClickReviewCloseEdit}
             />
           </ReviewEditModal>
         )}

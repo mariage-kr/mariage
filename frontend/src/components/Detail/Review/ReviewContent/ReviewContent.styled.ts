@@ -177,7 +177,6 @@ const Like = styled.div`
 const ReviewUpdate = styled.div`
   z-index: 1;
   width: 100%;
-  height: 100vh;
 `;
 
 const Bottom = styled.div`
@@ -318,8 +317,6 @@ const SirenIcon = styled.img`
     background-color: #bb2649;
   }
 `;
-
-
 
 export {
   Container,

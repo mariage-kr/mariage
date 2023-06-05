@@ -167,7 +167,7 @@ public class SlopeService {
      *
      * @param memberReviews 사용자가 작성한 리뷰의 목록
      * @param productId     제품의 식별 번호
-     * @return 해당 제품에 작성한 사용자의 리뷰 목록l
+     * @return 해당 제품에 작성한 사용자의 리뷰 목록
      */
     private List<Review> getReviewsByProductId(List<Review> memberReviews, Long productId) {
         return memberReviews.stream().filter(review -> review.getProduct().getId().equals(productId)).toList();

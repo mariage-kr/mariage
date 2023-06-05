@@ -28,7 +28,10 @@ type PropsType = {
   country: string;
 };
 
-function ReviewContent(review: ReviewType, { id, name, level, countryId, country }: PropsType) {
+function ReviewContent(
+  review: ReviewType,
+  { id, name, level, countryId, country }: PropsType,
+) {
   const navigate = useNavigate();
   const { loginSnackbar, errorSnackbar } = useSnack();
   const { userInfo } = useUserInfo();
@@ -37,8 +40,10 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isReport, setIsReport] = useState<boolean>(false);
-  const [isOpenReviewImgModal, setOpenReviewImgModal] = useState<boolean>(false);
-  const [isOpenReviewUpdateModal, setOpenReviewUpdateModal] = useState<boolean>(false);
+  const [isOpenReviewImgModal, setOpenReviewImgModal] =
+    useState<boolean>(false);
+  const [isOpenReviewUpdateModal, setOpenReviewUpdateModal] =
+    useState<boolean>(false);
 
   const onClickReviewImg = useCallback(() => {
     setOpenReviewImgModal(!isOpenReviewImgModal);
@@ -51,6 +56,9 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
   }, [isOpenReviewUpdateModal]);
 
   const deleteReview = () => {
+    if (!confirm('해당 리뷰를 삭제하시겠습니까?')) {
+      return;
+    }
     requestDeleteReview(review.id)
       .then(() => {
         setIsDeleted(true);
@@ -108,7 +116,9 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
           <S.TopRight>
             {memberId === review.member.id ? (
               <S.BtnWrap>
-                <S.Btn css={S.updateBtn} onClick={onClickReviewUpdate}>수정</S.Btn>
+                <S.Btn css={S.updateBtn} onClick={onClickReviewUpdate}>
+                  수정
+                </S.Btn>
                 <S.Btn css={S.deleteBtn} onClick={deleteReview}>
                   삭제
                 </S.Btn>
