@@ -7,6 +7,8 @@ import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 import LikeButton from '@/components/Button/Like/Like';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import useUserInfo from '@/hooks/useUserInfo';
+import ReviewUpdateModal from './ReviewUpdateModal/ReviewUpdateModal';
+import ReviewUpdate from './ReviewUpdate/ReviewUpdate';
 
 import * as S from './ReviewContent.styled';
 import {
@@ -15,17 +17,33 @@ import {
 } from '@/apis/request/review';
 import useAuth from '@/hooks/useAuth';
 
-function ReviewContent(review: ReviewType) {
+type PropsType = {
+  id: number;
+  name: string;
+  level: number;
+  countryId: number;
+  country: string;
+};
+
+function ReviewContent(review: ReviewType, { id, name, level, countryId, country }: PropsType) {
   const { userInfo } = useUserInfo();
   const { isLogin } = useAuth();
   const memberId: number | undefined = userInfo?.id;
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isReport, setIsReport] = useState<boolean>(false);
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
+  const [isOpenReviewImgModal, setOpenReviewImgModal] = useState<boolean>(false);
+  const [isOpenReviewUpdateModal, setOpenReviewUpdateModal] = useState<boolean>(false);
+
+  const onClickReviewImg = useCallback(() => {
+    setOpenReviewImgModal(!isOpenReviewImgModal);
+  }, [isOpenReviewImgModal]);
+
+  const onClickReviewUpdate = useCallback(() => {
+    if (isLogin()) {
+      setOpenReviewUpdateModal(!isOpenReviewUpdateModal);
+    }
+  }, [isOpenReviewUpdateModal]);
 
   const deleteReview = () => {
     requestDeleteReview(review.id)
@@ -82,8 +100,7 @@ function ReviewContent(review: ReviewType) {
           <S.TopRight>
             {memberId === review.member.id ? (
               <S.BtnWrap>
-                {/* TODO: 수정 모달창으로 할지 고민 */}
-                <S.Btn css={S.updateBtn}>수정</S.Btn>
+                <S.Btn css={S.updateBtn} onClick={onClickReviewUpdate}>수정</S.Btn>
                 <S.Btn css={S.deleteBtn} onClick={deleteReview}>
                   삭제
                 </S.Btn>
@@ -100,6 +117,20 @@ function ReviewContent(review: ReviewType) {
                 likeCount={review.like.count}
               />
             </S.Like>
+            <S.ReviewUpdate>
+              {isOpenReviewUpdateModal && (
+                <ReviewUpdateModal onClickReviewUpdate={onClickReviewUpdate}>
+                  <ReviewUpdate
+                    id={id}
+                    name={name}
+                    level={level}
+                    country={country}
+                    countryId={countryId}
+                    onClickReviewUpdate={onClickReviewUpdate}
+                  />
+                </ReviewUpdateModal>
+              )}
+            </S.ReviewUpdate>
           </S.TopRight>
         </S.Top>
         <S.Bottom>
@@ -121,14 +152,14 @@ function ReviewContent(review: ReviewType) {
               ))}
             </S.ReviewText>
             {review.review.img && (
-              <S.ReviewImg onClick={onClickToggleModal}>
+              <S.ReviewImg onClick={onClickReviewImg}>
                 <S.Img src={review.review.img} />
               </S.ReviewImg>
             )}
-            {isOpenModal && (
+            {isOpenReviewImgModal && (
               <ReviewImage
                 imgUrl={review.review.img}
-                onChange={onClickToggleModal}
+                onChange={onClickReviewImg}
                 hashtags={review.hashtags}
               />
             )}
