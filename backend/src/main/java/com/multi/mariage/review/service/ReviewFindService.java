@@ -269,4 +269,9 @@ public class ReviewFindService extends PagingUtil {
         return reviewRepository.findByIdToDelete(id)
                 .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
     }
+
+    public Review findByIdToUpdate(Long id) {
+        return reviewRepository.findByIdToUpdate(id)
+                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_IS_NOT_EXISTED));
+    }
 }

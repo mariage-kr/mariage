@@ -24,6 +24,8 @@ public interface ReviewRepositoryCustom {
 
     Optional<Review> findByIdToDelete(Long reviewId);
 
+    Optional<Review> findByIdToUpdate(Long reviewId);
+
     List<Review> findAllByMemberIdAndProductId(Long memberId, Long productId);
 
     List<Review> findAllByMemberId(Long memberId);

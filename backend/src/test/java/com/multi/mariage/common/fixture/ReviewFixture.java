@@ -6,6 +6,7 @@ import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.domain.Review;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
+import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
 import lombok.AccessLevel;
@@ -22,7 +23,7 @@ public enum ReviewFixture {
     산토리위스키_과자(5, "산토리 위스키로 만든 하이볼을 먹었습니다! 과자는 맥주랑 먹어야 하는 줄 알았는데 산토리위스키와의 조합도 괜찮네요.", 3, FoodCategory.SNACK, List.of("하이볼", "과자")),
     산토리위스키_치즈(5, "산토리 위스키로 만든 하이볼을 먹었습니다! 치즈와 하이볼.. 먹어보고 나서 최애 궁합이 됐네요.", 4, FoodCategory.CHEESE, List.of("하이볼", "치즈")),
     산토리위스키_치즈2(4, "산토리 위스키로 만든 하이볼을 먹었습니다! 하지만 전 사실 치즈를 싫어해요. 근데 왜 같이 먹었냐고요? 살다보면 싫어도 해야 하는 순간이 있습니다.", 1, FoodCategory.CHEESE, List.of("치즈")),
-    산토리위스키_치즈3(2, "산토리 위스키로 만든 하이볼을 먹었습니다! 치즈랑 같이 먹어도 나쁘지 않네요. ", 3, FoodCategory.CHEESE, List.of("하이볼"));
+    산토리위스키_치즈3(2, "산토리 위스키로 만든 하이볼을 먹었습니다! 치즈랑 같이 먹어도 나쁘지 않네요. ", 3, FoodCategory.CHEESE, List.of("하이볼", "치즈", "최고"));
     private int productRate;
     private String content;
     private int foodRate;
@@ -72,5 +73,18 @@ public enum ReviewFixture {
 
     public FoodCategory getFoodCategory() {
         return foodCategory;
+    }
+
+    public ReviewUpdateRequest toUpdateRequest(Long reviewId, Long productId, Long newImageId) {
+        return ReviewUpdateRequest.builder()
+                .reviewId(reviewId)
+                .productId(productId)
+                .productRate(productRate)
+                .content(content)
+                .foodRate(foodRate)
+                .foodCategory(foodCategory)
+                .newImageId(newImageId)
+                .hashtags(hashtags)
+                .build();
     }
 }
