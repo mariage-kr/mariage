@@ -300,6 +300,8 @@ const ReviewTopRight = styled.div`
 `;
 
 const BtnWrap = styled.div`
+  /* margin-top: -3px; */
+
   box-sizing: border-box;
   width: 70%;
   float: left;
@@ -486,6 +488,8 @@ const ReviewImg = styled.div`
   padding: 1vh 0 0;
   float: right;
 
+  cursor: pointer;
+
   @media (max-width: 1750px) {
     width: 27%;
   }
@@ -500,6 +504,19 @@ const ReviewImg = styled.div`
 const Img = styled.img`
   width: 90%;
   height: 90%;
+`;
+
+const BtnHeight = css`
+  margin-top: 10px;
+  @media (max-width: 1750px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 1450px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 1300px) {
+    margin-top: 10px;
+  }
 `;
 
 export {
@@ -548,4 +565,5 @@ export {
   HashTag,
   ReviewImg,
   Img,
+  BtnHeight,
 };
