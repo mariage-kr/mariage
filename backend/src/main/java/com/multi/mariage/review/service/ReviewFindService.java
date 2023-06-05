@@ -300,6 +300,7 @@ public class ReviewFindService extends PagingUtil {
                 .foodCategoryId(foodCategory.getCategory().getId())
                 .foodCategoryName(foodCategory.getCategory().getName())
                 .foodCategoryValue(foodCategory.getCategory())
+                .foodCategoryRate(review.getFoodRate())
                 .imageUrl(imageUrl)
                 .hashtags(getHashtags(review))
                 .build();

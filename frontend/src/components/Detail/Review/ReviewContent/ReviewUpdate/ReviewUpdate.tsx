@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import HashTag from '@/components/Detail/Review/ReviewEdit/HashTag/HashTag';
 import FoodImg from '@/components/Detail/Review/ReviewEdit/FoodContent/FoodImg';
@@ -6,33 +6,90 @@ import FoodCategory from '@/components/Detail/Review/ReviewEdit/FoodContent/Food
 import StarRate from '@/components/StarRate/Common/StarRate';
 
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
-import { requestSaveReview } from '@/apis/request/review';
+import {
+  requestReviewUpdateInfo,
+  requestSaveReview,
+} from '@/apis/request/review';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { deleteImage, saveImage } from '@/utils/image';
+import useFoodCategory from '@/hooks/useFoodCategory';
+import { ReviewUpdateInfoType } from '@/@types/review';
 
 import * as S from './ReviewUpdate.styled';
-import useFoodCategory from '@/hooks/useFoodCategory';
 
 type PropsType = {
   id: number;
-  name: string;
-  level: number;
-  country: string;
-  countryId: number;
   onClickReviewUpdate: () => void;
 };
 
-function ReviewUpdate({
-  id,
-  name,
-  level,
-  country,
-  countryId,
-  onClickReviewUpdate,
-}: PropsType) {
+function ReviewUpdate({ id, onClickReviewUpdate }: PropsType) {
   /* 버튼 옵션 선택 */
+  const [loading, setLoading] = useState<boolean>(false);
   const [option, setOption] = useState();
+
+  /* 수정할 데이터 */
+  const {
+    value: image,
+    setValue: setImage,
+    preview,
+  } = useImage<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+
+  const [foodCategory, setFoodCategory] = useState<string | null>(null);
+  const [productRate, setProductRate] = useState<number | null>(null);
+  const {
+    value: content,
+    setValue: setContent,
+    defaultData: defaultContent,
+  } = useInput<string>('');
+  const [foodRate, setFoodRate] = useState<number | null>(null);
+  const [foodCategoryName, setFoodCategoryName] = useState<string | null>(null);
+  const [hashtags, setHashtags] = useState<string[]>([]);
+
+  const changeProductRate = (value: number) => {
+    setProductRate(value);
+  };
+
+  const changeFoodRate = (value: number) => {
+    setFoodRate(value);
+  };
+
+  const [info, setInfo] = useState<ReviewUpdateInfoType>();
+
+  const fetchReviewInfo = async () => {
+    setLoading(true);
+    await requestReviewUpdateInfo(id)
+      .then(data => {
+        const setReviewInfo = async () => {
+          await setProductRate(data.reviewProductRate);
+          await setFoodCategory(
+            data.foodCategoryValue === undefined
+              ? null
+              : data.foodCategoryValue,
+          );
+          await defaultContent(data.reviewContent);
+          await setFoodRate(
+            data.foodCategoryRate === undefined ? null : data.foodCategoryRate,
+          );
+          await setHashtags(data.hashtags === undefined ? [] : data.hashtags);
+          await setFoodCategoryName(
+            data.foodCategoryName === undefined ? null : data.foodCategoryName,
+          );
+          await setImageUrl(data.imageUrl);
+        };
+
+        setInfo(data);
+        setReviewInfo();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchReviewInfo();
+  }, []);
 
   /* 음식 카테고리 */
   const { foodCategory: category } = useFoodCategory();
@@ -47,29 +104,7 @@ function ReviewUpdate({
     setOption(name);
   };
 
-  /* 저장할 데이터 */
-  const {
-    value: image,
-    setValue: setImage,
-    preview,
-  } = useImage<File | null>(null);
-  const [foodCategory, setFoodCategory] = useState<string | null>(null);
-  const [productRate, setProductRate] = useState<number | null>(null);
-  const { value: content, setValue: setContent } = useInput<string>('');
-  const [foodRate, setFoodRate] = useState<number | null>(null);
-  const [hashtags, setHashtags] = useState<string[]>([]);
-
-  const [foodCategoryName, setFoodCategoryName] = useState<string | null>(null);
-
-  const changeProductRate = (value: number) => {
-    setProductRate(value);
-  };
-
-  const changeFoodRate = (value: number) => {
-    setFoodRate(value);
-  };
-
-  const saveReview = async () => {
+  const updateReview = async () => {
     if (productRate === null) {
       return;
     }
@@ -86,9 +121,8 @@ function ReviewUpdate({
       foodImageId,
       hashtags,
     })
-      .then(data => {
+      .then(() => {
         window.location.reload();
-        console.log(data.reviewId);
       })
       .catch(() => {
         if (foodImageId) {
@@ -117,11 +151,12 @@ function ReviewUpdate({
         <S.Top>
           <S.DrinkInfo>
             <S.Country css={S.country_left}>
-              <CountryFlagImg id={countryId} />
+              <CountryFlagImg id={info?.countryId} />
             </S.Country>
-            <S.Country css={S.country_right}>{country}</S.Country>
+            <S.Country css={S.country_right}>{info?.countryName}</S.Country>
             <S.NameLevel>
-              {name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABV <S.ABV>{level}</S.ABV>%
+              {info?.productName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABV{' '}
+              <S.ABV>{info?.productLevel}</S.ABV>%
             </S.NameLevel>
           </S.DrinkInfo>
           <S.DrinkStarRate>
@@ -130,10 +165,7 @@ function ReviewUpdate({
               rate={productRate}
             />
           </S.DrinkStarRate>
-          <S.InputReview
-            value={content}
-            onChange={setContent}
-          />
+          <S.InputReview value={content} onChange={setContent} />
         </S.Top>
 
         <S.Bottom>
@@ -158,14 +190,19 @@ function ReviewUpdate({
             </S.FoodCategoryPrint>
           )}
           {option && <S.FoodContent>{selectComponent[option]}</S.FoodContent>}
-          
+
           <S.Pairing>
-            <S.PairingText>궁합 음식 별점<S.PairingOption>&nbsp;(선택)</S.PairingOption></S.PairingText>
+            <S.PairingText>
+              궁합 음식 별점<S.PairingOption>&nbsp;(선택)</S.PairingOption>
+            </S.PairingText>
             <S.PairingStarRate>
-              <StarRate onChange={rate => changeFoodRate(rate)} rate={foodRate} />
+              <StarRate
+                onChange={rate => changeFoodRate(rate)}
+                rate={foodRate}
+              />
             </S.PairingStarRate>
           </S.Pairing>
-          
+
           <S.HashTag>
             <S.HashTagTitle>#해시태그</S.HashTagTitle>
             <HashTag hashTags={hashtags} setHashTags={setHashtags} />
@@ -175,7 +212,7 @@ function ReviewUpdate({
               <S.CancelBtn onClick={onClickReviewUpdate}>취소</S.CancelBtn>
             </S.Cancel>
             <S.Submit>
-              <S.SubmitBtn onClick={saveReview}>적용</S.SubmitBtn>
+              <S.SubmitBtn onClick={updateReview}>적용</S.SubmitBtn>
             </S.Submit>
           </S.FinalBtn>
         </S.Bottom>

@@ -141,11 +141,7 @@ function ReviewContent(
               {isOpenReviewUpdateModal && (
                 <ReviewUpdateModal onClickReviewUpdate={onClickReviewUpdate}>
                   <ReviewUpdate
-                    id={id}
-                    name={name}
-                    level={level}
-                    country={country}
-                    countryId={countryId}
+                    id={review.id}
                     onClickReviewUpdate={onClickReviewUpdate}
                   />
                 </ReviewUpdateModal>

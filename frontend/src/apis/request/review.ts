@@ -6,6 +6,7 @@ import {
   ReviewReportType,
   ReviewSaveType,
   ReviewType,
+  ReviewUpdateInfoType,
 } from '@/@types/review';
 
 import { API_PATH } from '@/constants/path';
@@ -107,6 +108,14 @@ const requestLikeReview = (
     });
 };
 
+const requestReviewUpdateInfo = (reviewId: number) => {
+  return axiosWithAccessToken
+    .get<ReviewUpdateInfoType>(`${API_PATH.REVIEW.UPDATE}/${reviewId}`)
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   getDetailReviews,
   requestSaveReview,
@@ -114,4 +123,5 @@ export {
   requestReportReview,
   requestWriteReview,
   requestLikeReview,
+  requestReviewUpdateInfo,
 };

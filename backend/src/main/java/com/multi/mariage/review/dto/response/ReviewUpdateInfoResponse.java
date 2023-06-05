@@ -20,11 +20,15 @@ public class ReviewUpdateInfoResponse {
     private int foodCategoryId;
     private String foodCategoryName;
     private FoodCategory foodCategoryValue;
+    private int foodCategoryRate;
     private String imageUrl;
     private List<String> hashtags;
 
     @Builder
-    public ReviewUpdateInfoResponse(String productName, double productLevel, String countryName, int countryId, int reviewProductRate, String reviewContent, int foodCategoryId, String foodCategoryName, FoodCategory foodCategoryValue, String imageUrl, List<String> hashtags) {
+    public ReviewUpdateInfoResponse(String productName, double productLevel, String countryName, int countryId,
+                                    int reviewProductRate, String reviewContent, int foodCategoryId,
+                                    String foodCategoryName, FoodCategory foodCategoryValue, int foodCategoryRate, String imageUrl,
+                                    List<String> hashtags) {
         this.productName = productName;
         this.productLevel = productLevel;
         this.countryName = countryName;
@@ -34,6 +38,7 @@ public class ReviewUpdateInfoResponse {
         this.foodCategoryId = foodCategoryId;
         this.foodCategoryName = foodCategoryName;
         this.foodCategoryValue = foodCategoryValue;
+        this.foodCategoryRate = foodCategoryRate;
         this.imageUrl = imageUrl;
         this.hashtags = hashtags;
     }

@@ -104,6 +104,21 @@ type ReviewInfoType = {
   hashtags: string[];
 };
 
+type ReviewUpdateInfoType = {
+  productName: string;
+  productLevel: number;
+  countryName: string;
+  countryId: number;
+  reviewProductRate: number;
+  reviewContent: string;
+  foodCategoryId?: number;
+  foodCategoryName?: string;
+  foodCategoryValue?: string;
+  foodCategoryRate?: number;
+  imageUrl?: string;
+  hashtags?: string[];
+};
+
 export {
   ReviewType,
   ReviewMemberType,
@@ -116,4 +131,5 @@ export {
   ReviewPageType,
   ReviewProductInfo,
   ReviewInfoType,
+  ReviewUpdateInfoType,
 };

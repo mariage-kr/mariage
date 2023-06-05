@@ -49,7 +49,7 @@ public class ReviewFindController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/review/update/{reviewId}")
+    @GetMapping("/user/review/update/{reviewId}")
     public ResponseEntity<ReviewUpdateInfoResponse> findUpdateReview(@Authenticated AuthMember authMember,
                                                                      @PathVariable("reviewId") Long reviewId) {
         ReviewUpdateInfoResponse response = reviewFindService.findUpdateReviewInfo(authMember, reviewId);
