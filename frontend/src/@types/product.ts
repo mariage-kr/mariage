@@ -113,4 +113,5 @@ export {
   ReviewRatingType,
   ProductDetailType,
   ProductContentType,
+  ProductSearchType,
 };

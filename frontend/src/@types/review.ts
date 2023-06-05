@@ -61,7 +61,33 @@ type reviewProfileType = {
   imagePath: string;
   reviews: number;
   likes: number;
-}
+};
+
+type ReviewInfoType = {
+  id: number;
+  member: {
+    id: number;
+    nickname: string;
+    img: string;
+  };
+  review: {
+    date: string;
+    rate: number;
+    content: string;
+    img: string;
+    weather: string;
+  };
+  like: {
+    count: number;
+    liked: boolean;
+  };
+  food: {
+    id: number;
+    name: string;
+    rate: number;
+  };
+  hashtags: string[];
+};
 
 export {
   ReviewType,
@@ -72,4 +98,5 @@ export {
   ReviewSaveType,
   ReviewReportType,
   reviewProfileType,
+  ReviewInfoType,
 };
