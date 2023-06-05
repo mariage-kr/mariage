@@ -18,6 +18,7 @@ import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
 import com.multi.mariage.review.dto.response.ReviewUpdateResponse;
 import com.multi.mariage.review.exception.ReviewErrorCode;
 import com.multi.mariage.review.exception.ReviewException;
+import com.multi.mariage.slope.service.SlopeService;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.storage.service.StorageService;
@@ -43,6 +44,7 @@ public class ReviewModifyService {
     private final MemberFindService memberFindService;
     private final ProductFindService productFindService;
     private final WeatherService weatherService;
+    private final SlopeService slopeService;
     private final LikeService likeService;
     private final ReviewFindService reviewFindService;
     private final ReviewHashtagService reviewHashtagService;
@@ -66,7 +68,12 @@ public class ReviewModifyService {
         review.changeImage(image);
         review.changeFoodCategory(foodCategory);
 
-        return reviewRepository.save(review);
+        Review savedReview = reviewRepository.save(review);
+
+        slopeService.updateMemberSlope(member, review, product);
+        slopeService.updateProductSlope(product);
+
+        return savedReview;
     }
 
     public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request) {

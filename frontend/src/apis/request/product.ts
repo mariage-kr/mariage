@@ -5,6 +5,7 @@ import {
   ProductDetailType,
   ProductRecommendType,
   ProductSaveType,
+  ProductSearchType,
   ProductUpdateType,
   ProductsType,
 } from '@/@types/product';
@@ -37,6 +38,18 @@ const requestRecommendDate = (option: string) => {
       params: {
         size: RECOMMEND_PRODUCT_SIZE,
         option,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
+const requestRecommendSlope = () => {
+  return axiosWithAccessToken
+    .get<ProductRecommendType[]>(API_PATH.PRODUCT.RECOMMEND.SLOPE, {
+      params: {
+        size: RECOMMEND_PRODUCT_SIZE,
       },
     })
     .then(response => {
@@ -106,12 +119,26 @@ const requestProductDetailInfo = (id: string) => {
     });
 };
 
+const requestProductSearch = (word: string) => {
+  return axios
+    .get<ProductSearchType>(`${API_PATH.PRODUCT.SEARCH}`, {
+      params: {
+        word,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   requestSaveProduct,
   requestProductInfo,
   requestUpdateProduct,
+  requestRecommendSlope,
   requestRecommendWeather,
   requestRecommendDate,
   requestProducts,
   requestProductDetailInfo,
+  requestProductSearch,
 };

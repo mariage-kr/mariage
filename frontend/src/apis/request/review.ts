@@ -1,7 +1,7 @@
 import { axios, axiosWithAccessToken } from '../axios';
 
 import { PagingType } from '@/@types/paging';
-import { ReviewSaveType, ReviewType } from '@/@types/review';
+import { ReviewReportType, ReviewSaveType, ReviewType } from '@/@types/review';
 
 import { API_PATH } from '@/constants/path';
 import { PAGING } from '@/constants/rule';
@@ -58,4 +58,17 @@ const requestDeleteReview = (reviewId: number) => {
   return axiosWithAccessToken.delete(`${API_PATH.REVIEW.DELETE}/${reviewId}`);
 };
 
-export { getDetailReviews, requestSaveReview, requestDeleteReview };
+const requestReportReview = (reviewId: number) => {
+  return axiosWithAccessToken
+    .post<ReviewReportType>(`${API_PATH.REVIEW.REPORT}/${reviewId}`)
+    .then(response => {
+      return response.data;
+    });
+};
+
+export {
+  getDetailReviews,
+  requestSaveReview,
+  requestDeleteReview,
+  requestReportReview,
+};

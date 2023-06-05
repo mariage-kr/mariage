@@ -9,6 +9,7 @@ const RECOIL_KEY = {
   FOOD_CATEGORY: 'foodCategoryState',
   USER_INFO: 'userInfoState',
   PRODUCT_CATEGORY: 'productCategoryState',
+  SNACKBAR: 'snackbarState',
 };
 
 export { QUERY_KEY, RECOIL_KEY };

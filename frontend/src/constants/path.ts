@@ -18,6 +18,7 @@ const API_PATH = {
     NICKNAME: '/api/user/members/nickname',
     PROFILE: '/api/user/members/profile',
     PASSWORD: '/api/user/members/password',
+    IMAGE: '/api/user/members/image',
   },
   LIKE: '/api/user/review/like',
   PRODUCT: {
@@ -28,14 +29,18 @@ const API_PATH = {
     FILTER: '/api/product/find/filter',
     DETAIL: '/api/product/detail',
     RECOMMEND: {
+      SLOPE: '/api/user/product/recommend/slope',
       DATE: '/api/product/recommend/date',
       WEATHER: '/api/product/recommend/weather',
     },
+    SEARCH: '/api/product/search',
   },
   REVIEW: {
     PRODUCT: '/api/review/product',
     SAVE: '/api/user/review/save',
     DELETE: '/api/user/review',
+    REPORT: '/api/user/review/report',
+    MEMBER: '/api/review/member',
   },
   STORAGE: '/api/user/storage/image',
 };

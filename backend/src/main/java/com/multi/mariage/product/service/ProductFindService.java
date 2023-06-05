@@ -1,5 +1,6 @@
 package com.multi.mariage.product.service;
 
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.category.service.FoodCategoryService;
 import com.multi.mariage.country.domain.Country;
@@ -8,10 +9,7 @@ import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.domain.ProductRepository;
 import com.multi.mariage.product.dto.condition.RecommendCond;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
-import com.multi.mariage.product.dto.response.ProductFilterResponse;
-import com.multi.mariage.product.dto.response.ProductInfoResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.exception.ProductErrorCode;
 import com.multi.mariage.product.exception.ProductException;
 import com.multi.mariage.product.vo.*;
@@ -20,6 +18,7 @@ import com.multi.mariage.product.vo.filter.ProductFilterVO;
 import com.multi.mariage.product.vo.filter.ProductFoodFilterVO;
 import com.multi.mariage.product.vo.filter.ProductReviewFilterVO;
 import com.multi.mariage.review.domain.Review;
+import com.multi.mariage.slope.service.SlopeService;
 import com.multi.mariage.storage.service.ImageService;
 import com.multi.mariage.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +35,55 @@ public class ProductFindService extends PagingUtil {
     private final ProductRepository productRepository;
     private final WeatherService weatherService;
     private final FoodCategoryService foodCategoryService;
+    private final SlopeService slopeService;
 
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST));
+    }
+
+    public List<ProductMainCardResponse> findBySlope(AuthMember authMember, int size) {
+        List<Map.Entry<Long, Double>> dataEntry = slopeService.recommendSlope(authMember.getId(), size);
+        List<Long> productIds = dataEntry.stream().map(Map.Entry::getKey).toList();
+        List<Product> products = productRepository.findRandomRecommendIdsByMemberId(productIds);
+
+        return getProductMainCardResponses(dataEntry, products);
+    }
+
+    private List<ProductMainCardResponse> getProductMainCardResponses(List<Map.Entry<Long, Double>> dataEntry, List<Product> products) {
+        List<ProductMainCardResponse> list = new ArrayList<>();
+
+        for (Map.Entry<Long, Double> entry : dataEntry) {
+            productMainCardResponseFrom(products, list, entry);
+        }
+
+        return list;
+    }
+
+    private void productMainCardResponseFrom(List<Product> products, List<ProductMainCardResponse> list, Map.Entry<Long, Double> entry) {
+        Product product = findProduct(products, entry);
+
+        ProductMainCardResponse response = ProductMainCardResponse.builder()
+                .productId(product.getId())
+                .productName(product.getName())
+                .productImageUrl(imageService.getImageUrl(product.getImage().getName()))
+                .reviewCount(product.getReviews().size())
+                .reviewRate(Math.round(entry.getValue() * 10) / 10D)
+                .country(product.getCountry().getValue())
+                .countryId(product.getCountry().getId())
+                .build();
+
+        list.add(response);
+    }
+
+    private Product findProduct(List<Product> products, Map.Entry<Long, Double> entry) {
+        for (Product product : products) {
+            Long productId = entry.getKey();
+            if (product.getId().equals(productId)) {
+                return product;
+            }
+        }
+        throw new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST);
     }
 
     public List<ProductMainCardResponse> findWeather(int size) {
@@ -175,7 +219,7 @@ public class ProductFindService extends PagingUtil {
 
     public List<FoodRateRankingVO> getFoodsOrderByRate(Long productId) {
         Product product = findById(productId);
-        List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);   // 제품에 대한 음식 리뷰 별점이 높은 순으로 5개 가져옴
+        List<Food> foodList = foodCategoryService.findFoodsByProduct(product, 5);
 
         return foodList.stream()
                 .map(food -> FoodRateRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getAvgFoodRate()))
@@ -184,7 +228,7 @@ public class ProductFindService extends PagingUtil {
 
     public List<FoodCountRankingVO> getFoodsOrderByCount(Long productId) {
         Product product = findById(productId);
-        List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);    // 제품에 대한 음식 리뷰 개수가 많은 순으로 5개 가져옴
+        List<Food> foodList = foodCategoryService.findFoodsOrderByReviewCount(product, 5);
 
         return foodList.stream()
                 .map(food -> FoodCountRankingVO.from(food.getCategory().getId(), food.getCategory().getName(), food.getReviews().size()))
@@ -196,5 +240,13 @@ public class ProductFindService extends PagingUtil {
         String imageUrl = imageService.getImageUrl(product.getImage().getName());
 
         return ProductInfoResponse.from(product, imageUrl);
+    }
+
+    public ProductSearchResponse findSearch(String word) {
+        List<Product> products = productRepository.findSearchByWord(word);
+        List<String> productsName = products.stream()
+                .map(Product::getName)
+                .toList();
+        return ProductSearchResponse.from(productsName);
     }
 }

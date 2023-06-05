@@ -33,6 +33,7 @@ const Profile = styled.div`
 const ProfileLeft = styled.div`
   float: left;
   width: 150px;
+  height: 150px;
   margin: 0 0 0 2%;
 
   @media (max-width: 1700px) { width: 140px; }
@@ -41,7 +42,10 @@ const ProfileLeft = styled.div`
 
 const ProfileImg = styled.img`
   width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 50%;
+  background: url(https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png) no-repeat;
 `;
 
 const ProfileRight = styled.div`

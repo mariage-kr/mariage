@@ -79,7 +79,6 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .memberId(member.getId())
                 .pageSize(size)
                 .pageNumber(1)
-                .sort(Sort.NEWEST.name())
                 .build();
 
         List<Review> actual = reviewRepository.findRatedReviewsByMemberId(cond);
@@ -107,7 +106,6 @@ class ReviewRepositoryQueryTest extends RepositoryTest {
                 .memberId(member.getId())
                 .pageSize(size)
                 .pageNumber(1)
-                .sort(Sort.NEWEST.name())
                 .build();
 
         List<Review> actual = reviewRepository.findLikedReviewsByMemberId(cond);

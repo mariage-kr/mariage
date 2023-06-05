@@ -13,9 +13,11 @@ import { PAGING } from '@/constants/rule';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 import * as S from './Product.styled';
+import useSnack from '@/hooks/useSnack';
 
 function Product() {
   const queryParam = new URLSearchParams(location.search);
+  const { infoSnackbar } = useSnack();
 
   const [products, setProducts] = useState<PagingType<ProductsType>>({
     contents: [],
@@ -42,6 +44,7 @@ function Product() {
 
   const fetchProducts = async () => {
     if (hasMore === false) {
+      infoSnackbar('제품이 더 이상 존재하지 않습니다.');
       return;
     }
     setLoading(true);

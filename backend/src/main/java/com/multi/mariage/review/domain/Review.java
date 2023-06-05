@@ -5,6 +5,7 @@ import com.multi.mariage.like.domain.Like;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
+import com.multi.mariage.report.domain.Report;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.storage.domain.Image;
 import com.multi.mariage.weather.domain.Weather;
@@ -61,6 +62,10 @@ public class Review {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
     private Set<ReviewHashtag> reviewHashtags = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "review", cascade = CascadeType.REMOVE)
+    private Set<Report> reports = new HashSet<>();
+    private boolean report = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_category_id")
@@ -127,5 +132,10 @@ public class Review {
         this.productRate = request.getProductRate();
         this.content = request.getContent();
         this.foodRate = request.getFoodRate();
+    }
+  
+    public boolean isReport(Long reportCount) {
+        report = reportCount > 10 + (likes.size() / 2);
+        return report;
     }
 }

@@ -1,21 +1,32 @@
 import { useCallback, useState } from 'react';
 
 import { ReviewType } from '@/@types/review';
+import siren from '@/assets/png/Siren.png';
+import { Siren } from '@/assets/svg/SVG';
 
+import useSnack from '@/hooks/useSnack';
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import ReviewImage from '@/components/Modal/ReviewImage/ReviewImage';
 import LikeButton from '@/components/Button/Like/Like';
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import useUserInfo from '@/hooks/useUserInfo';
+import {
+  requestDeleteReview,
+  requestReportReview,
+} from '@/apis/request/review';
+import useAuth from '@/hooks/useAuth';
 
 import * as S from './ReviewContent.styled';
-import { requestDeleteReview } from '@/apis/request/review';
 
 function ReviewContent(review: ReviewType) {
+  const { loginSnackbar, errorSnackbar } = useSnack();
+
   const { userInfo } = useUserInfo();
+  const { isLogin } = useAuth();
   const memberId: number | undefined = userInfo?.id;
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const [isReport, setIsReport] = useState<boolean>(false);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -23,16 +34,30 @@ function ReviewContent(review: ReviewType) {
 
   const deleteReview = () => {
     requestDeleteReview(review.id)
-      .then(response => {
+      .then(() => {
         setIsDeleted(true);
-        console.log(response);
       })
       .catch(error => {
-        console.error(error);
+        errorSnackbar(error.response.data.message);
       });
   };
 
-  if (isDeleted) {
+  const reportReview = () => {
+    if (!isLogin()) {
+      loginSnackbar();
+      return;
+    }
+    confirm('해당 리뷰를 신고하시겠습니까?');
+    requestReportReview(review.id)
+      .then(data => {
+        setIsReport(data.report);
+      })
+      .catch(error => {
+        errorSnackbar(error.response.data.message);
+      });
+  };
+
+  if (isDeleted || isReport) {
     return <div></div>;
   }
 
@@ -59,13 +84,17 @@ function ReviewContent(review: ReviewType) {
             </S.Profile>
           </S.TopLeft>
           <S.TopRight>
-            {memberId === review.member.id && (
+            {memberId === review.member.id ? (
               <S.BtnWrap>
                 {/* TODO: 수정 모달창으로 할지 고민 */}
-                <S.Btn css={S.updateBtn}>수정</S.Btn>
-                {/* TODO: 삭제 확인창 후 "확인"시 삭제 */}
-                <S.Btn css={S.deleteBtn} onClick={deleteReview}>
-                  삭제
+                <S.Btn>수정</S.Btn>
+                <S.Btn onClick={deleteReview}>삭제</S.Btn>
+              </S.BtnWrap>
+            ) : (
+              <S.BtnWrap>
+                <S.Btn onClick={reportReview} title="신고하기">
+                  {/* <S.SirenIcon src={siren}/> */}
+                  <Siren fill="#bb2649" />
                 </S.Btn>
               </S.BtnWrap>
             )}

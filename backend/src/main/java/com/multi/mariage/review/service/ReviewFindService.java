@@ -84,7 +84,6 @@ public class ReviewFindService extends PagingUtil {
                 .memberId(memberId)
                 .pageSize(cond.getPageSize())
                 .pageNumber(cond.getPageNumber())
-                .sort(cond.getSort())
                 .build();
 
         List<Review> reviews = reviewRepository.findRatedReviewsByMemberId(pageCond);
@@ -110,7 +109,6 @@ public class ReviewFindService extends PagingUtil {
                 .memberId(memberId)
                 .pageSize(cond.getPageSize())
                 .pageNumber(cond.getPageNumber())
-                .sort(cond.getSort())
                 .build();
 
         List<Review> reviews = reviewRepository.findLikedReviewsByMemberId(pageCond);

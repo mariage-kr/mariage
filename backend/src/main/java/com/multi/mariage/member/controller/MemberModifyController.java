@@ -34,7 +34,6 @@ public class MemberModifyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
     @PatchMapping("/user/members/image")
     public ResponseEntity<Void> removeImage(@Authenticated AuthMember authMember) {
         memberService.removeImage(authMember);

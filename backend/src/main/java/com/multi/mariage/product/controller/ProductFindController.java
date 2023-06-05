@@ -1,10 +1,9 @@
 package com.multi.mariage.product.controller;
 
+import com.multi.mariage.auth.annotation.Authenticated;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.product.dto.request.ProductFindByFilterRequest;
-import com.multi.mariage.product.dto.response.ProductDetailPageResponse;
-import com.multi.mariage.product.dto.response.ProductFilterResponse;
-import com.multi.mariage.product.dto.response.ProductInfoResponse;
-import com.multi.mariage.product.dto.response.ProductMainCardResponse;
+import com.multi.mariage.product.dto.response.*;
 import com.multi.mariage.product.service.ProductFindService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +22,13 @@ import java.util.List;
 @RestController
 public class ProductFindController {
     private final ProductFindService productFindService;
+
+    @GetMapping("/user/product/recommend/slope")
+    public ResponseEntity<List<ProductMainCardResponse>> findSlope(@Authenticated AuthMember authMember,
+                                          @Param("size") int size) {
+        List<ProductMainCardResponse> response = productFindService.findBySlope(authMember, size);
+        return ResponseEntity.ok(response);
+    }
 
     /* TODO: 2023/05/24 테스트 코드 필요 */
     @GetMapping("/product/recommend/weather")
@@ -56,6 +62,12 @@ public class ProductFindController {
     @GetMapping("/user/product/info")
     public ResponseEntity<ProductInfoResponse> findProductInfo(@Param("productId") Long productId) {
         ProductInfoResponse response = productFindService.findProductInfo(productId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/search")
+    public ResponseEntity<ProductSearchResponse> findProductToSearch(@Param("word") String word) {
+        ProductSearchResponse response = productFindService.findSearch(word);
         return ResponseEntity.ok(response);
     }
 }
