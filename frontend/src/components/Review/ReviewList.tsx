@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReviewPageType } from '@/@types/review';
@@ -18,6 +18,7 @@ import {
 } from '@/apis/request/review';
 
 import * as S from './ReviewList.styled';
+import ReviewImage from '../Modal/ReviewImage/ReviewImage';
 
 function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
   const navigate = useNavigate();
@@ -76,6 +77,14 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
     navigate(`${BROWSER_PATH.REVIEW}/${reviewInfo.member.id}`);
     window.location.reload();
   };
+
+  /* 이미지 확대 기능 */
+  const [isOpenReviewImgModal, setOpenReviewImgModal] =
+    useState<boolean>(false);
+
+  const onClickReviewImg = useCallback(() => {
+    setOpenReviewImgModal(!isOpenReviewImgModal);
+  }, [isOpenReviewImgModal]);
 
   return (
     <S.Container>
@@ -178,9 +187,16 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
                 ))}
               </S.ReviewText>
               {reviewInfo.review.img && (
-                <S.ReviewImg>
+                <S.ReviewImg onClick={onClickReviewImg}>
                   <S.Img src={reviewInfo.review.img} />
                 </S.ReviewImg>
+              )}
+              {isOpenReviewImgModal && reviewInfo.review.img && (
+                <ReviewImage
+                  imgUrl={reviewInfo.review.img}
+                  onChange={onClickReviewImg}
+                  hashtags={reviewInfo.hashtags}
+                />
               )}
             </S.Content>
           </S.ReviewBottom>

@@ -488,6 +488,8 @@ const ReviewImg = styled.div`
   padding: 1vh 0 0;
   float: right;
 
+  cursor: pointer;
+
   @media (max-width: 1750px) {
     width: 27%;
   }
