@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+type Props = {
+  option?: boolean;
+};
+
 const Container = styled.div``;
 
 const TopNav = styled.div`
@@ -15,11 +19,14 @@ const NavWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const Nav = styled.p`
+const Nav = styled.p<Props>`
   display: inline-block;
   margin: 0 30px 0 0;
 
   cursor: pointer;
+
+  color: ${props => (props.option ? '#9c94d0' : '#000')};
+  font-weight: ${props => (props.option ? 'bold' : 'normal')};
 `;
 
 const Main = styled.div`

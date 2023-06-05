@@ -142,10 +142,16 @@ function Review() {
     <S.Container>
       <S.TopNav>
         <S.NavWrapper>
-          <S.Nav onClick={() => goReview(SORT.REVIEW.RATING)}>
+          <S.Nav
+            onClick={() => goReview(SORT.REVIEW.RATING)}
+            option={option !== SORT.REVIEW.LIKE}
+          >
             작성한 리뷰
           </S.Nav>
-          <S.Nav onClick={() => goReview(SORT.REVIEW.LIKE)}>
+          <S.Nav
+            onClick={() => goReview(SORT.REVIEW.LIKE)}
+            option={option === SORT.REVIEW.LIKE}
+          >
             좋아요한 리뷰
           </S.Nav>
         </S.NavWrapper>

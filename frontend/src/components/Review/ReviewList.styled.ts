@@ -300,6 +300,8 @@ const ReviewTopRight = styled.div`
 `;
 
 const BtnWrap = styled.div`
+  /* margin-top: -3px; */
+
   box-sizing: border-box;
   width: 70%;
   float: left;
@@ -502,6 +504,19 @@ const Img = styled.img`
   height: 90%;
 `;
 
+const BtnHeight = css`
+  margin-top: 10px;
+  @media (max-width: 1750px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 1450px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 1300px) {
+    margin-top: 10px;
+  }
+`;
+
 export {
   Container,
   Wrapper,
@@ -548,4 +563,5 @@ export {
   HashTag,
   ReviewImg,
   Img,
+  BtnHeight,
 };

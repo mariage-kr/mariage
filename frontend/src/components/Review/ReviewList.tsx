@@ -145,7 +145,11 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
                 </S.BtnWrap>
               ) : (
                 <S.BtnWrap>
-                  <S.Btn onClick={reportReview} title="신고하기">
+                  <S.Btn
+                    onClick={reportReview}
+                    css={S.BtnHeight}
+                    title="신고하기"
+                  >
                     <Siren fill="#bb2649" />
                   </S.Btn>
                 </S.BtnWrap>
