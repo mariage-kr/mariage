@@ -1,73 +1,51 @@
 import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import LikeButton from '@/components/Button/Like/Like';
+import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
+import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
+import { ReviewPageType } from '@/@types/review';
 
 import * as S from './ReviewList.styled';
 
-function ReviewList() {
-  const ProductData = {
-    id: 1,
-    img: 'https://i.esdrop.com/d/f/CeyD9bnnT5/9XYNAZN4ZB.png',
-    name: '산토리 위스키 가쿠빈 :suntory whisky kakubin',
-    flagImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/OT0QaqYDkx.png',
-    country: 'Japan',
-    level: 40,
-    rate: 3.8,
-  };
-
-  const ReviewData = {
-    id: 1,
-    profileImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/K86nd4Er00.png',
-    nickname: 'maria',
-    rate: 4.6,
-    date: 'April 15, 2023',
-    isLiked: true,
-    likeCount: 10,
-    foodImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/NEUdCmsFva.png',
-    foodName: '돈까스/회/일식',
-    reviewContent:
-      '가격이 저렴해서 대중적이지만 아무래도 저가형 위스키인지라 스트레이트로 마셨을 때 향이 그리 우수하지 못하다. 그러다 보니 하이볼로 만들어 마시는 게 가장 맛있고, 대중적으로 알려진 것 같다. 산토리 위스키 하이볼은 탄산의 맛으로 가볍게 마시는 술이기 때문에 어떤 안주든 다 잘 어울리지만 나는 개인적으로 산토리가 일본 위스키라는 점에서 이자카야 해산물 안주가 특히 잘 어울리는 것 같다.',
-    reviewImg: 'https://i.esdrop.com/d/f/CeyD9bnnT5/623HFq9M9q.jpg',
-  };
-
-  const hashTags = [
-    { id: 1, value: '크리스마스' },
-    { id: 2, value: '데이트' },
-    { id: 3, value: '달달한' },
-  ];
-
+function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
+  /* TODO: 버튼 링크 만들기 */
+  /* TODO: 수정 기능 만들기 */
+  /* TODO: 좋아요 기능 만들기 */
+  /* TODO: 삭제 기능 만들기 */
+  /* TODO: 사용자 인증 기능 */
+  /* TODO: 신고 기능 */
   return (
     <S.Container>
       <S.Wrapper>
         <S.Left>
           <S.ProductLeft>
-            <S.ProductImg src={ProductData.img} />
+            <S.ProductImg src={productInfo.imageUrl} />
           </S.ProductLeft>
           <S.ProductRight>
-            <S.ProductName>{ProductData.name}</S.ProductName>
+            <S.ProductName>{productInfo.name}</S.ProductName>
             <S.SubWrap>
               <S.CountryWrap css={S.media1200}>
                 <S.Country css={S.country_left}>
-                  <S.FlagImg src={ProductData.flagImg} />
+                  <CountryFlagImg id={productInfo.countryId} />
                 </S.Country>
                 <S.Country css={S.country_right}>
-                  {ProductData.country}
+                  {productInfo.country}
                 </S.Country>
               </S.CountryWrap>
               <S.ABV css={S.media1200}>
-                ABV <S.ABVText>{ProductData.level}</S.ABVText>%
+                ABV <S.ABVText>{productInfo.level}</S.ABVText>%
               </S.ABV>
               <S.ProductStarRateWrap css={S.media1200}>
                 <S.ProductStarRate>
                   <S.ProductStarRateText>
-                    {ProductData.rate}
+                    {productInfo.reviewRate}
                   </S.ProductStarRateText>
                 </S.ProductStarRate>
                 <S.ProductStarRate>
                   {/* TODO: 평균 별점 */}
                   <SvgStarRateAverage
-                    key={ProductData.id}
-                    id={ProductData.id}
-                    rate={ProductData.rate}
+                    key={productInfo.id}
+                    id={productInfo.id}
+                    rate={productInfo.reviewRate}
                   />
                 </S.ProductStarRate>
               </S.ProductStarRateWrap>
@@ -79,19 +57,19 @@ function ReviewList() {
           <S.ReviewTop>
             <S.ReviewTopLeft>
               <S.Profile css={S.Profile1}>
-                <S.ProfileImg src={ReviewData.profileImg} />
+                <S.ProfileImg src={reviewInfo.member.img} />
               </S.Profile>
               <S.Profile css={S.Profile2}>
-                <S.Name>{ReviewData.nickname}</S.Name>
+                <S.Name>{reviewInfo.member.nickname}</S.Name>
                 <S.RateDate>
                   <SvgStarRateAverage
-                    id={ReviewData.id}
-                    key={ReviewData.id}
-                    rate={ReviewData.rate}
+                    id={reviewInfo.id}
+                    key={reviewInfo.id}
+                    rate={reviewInfo.review.rate}
                   />
                 </S.RateDate>
                 <S.RateDate>
-                  <S.Date>{ReviewData.date}</S.Date>
+                  <S.Date>{reviewInfo.review.date}</S.Date>
                 </S.RateDate>
               </S.Profile>
             </S.ReviewTopLeft>
@@ -105,30 +83,30 @@ function ReviewList() {
               </S.BtnWrap>
               <S.Like>
                 <LikeButton
-                  reviewId={ReviewData.id}
-                  liked={ReviewData.isLiked}
-                  likeCount={ReviewData.likeCount}
+                  reviewId={reviewInfo.id}
+                  liked={reviewInfo.like.liked}
+                  likeCount={reviewInfo.like.count}
                 />
               </S.Like>
             </S.ReviewTopRight>
           </S.ReviewTop>
           <S.ReviewBottom>
             <S.Food>
-              <S.FoodImg src={ReviewData.foodImg} />
-              <S.FoodName>{ReviewData.foodName}</S.FoodName>
+              <FoodCategoryImg id={reviewInfo.food.id} />
+              <S.FoodName>{reviewInfo.food.name}</S.FoodName>
             </S.Food>
             <S.Content>
               <S.ReviewText>
                 <S.ReviewContentText>
-                  {ReviewData.reviewContent}
+                  {reviewInfo.review.content}
                 </S.ReviewContentText>
-                {hashTags.map(tag => (
-                  <S.HashTag>#{tag.value}</S.HashTag>
+                {reviewInfo.hashtags.map((tag: string, index: number) => (
+                  <S.HashTag key={index}>#{tag}</S.HashTag>
                 ))}
               </S.ReviewText>
-              {ReviewData.reviewImg && (
+              {reviewInfo.review.img && (
                 <S.ReviewImg>
-                  <S.Img src={ReviewData.reviewImg} />
+                  <S.Img src={reviewInfo.review.img} />
                 </S.ReviewImg>
               )}
             </S.Content>

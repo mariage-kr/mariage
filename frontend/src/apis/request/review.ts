@@ -80,6 +80,7 @@ const requestWriteReview = (
     .get<PagingType<ReviewPageType>>(`${API_PATH.REVIEW.MY}/${memberId}`, {
       params: {
         pageNumber,
+        pageSize: PAGING.PAGE_SIZE,
         visitMemberId,
       },
     })
@@ -97,6 +98,7 @@ const requestLikeReview = (
     .get<PagingType<ReviewPageType>>(`${API_PATH.REVIEW.LIKE}/${memberId}`, {
       params: {
         pageNumber,
+        pageSize: PAGING.PAGE_SIZE,
         visitMemberId,
       },
     })
