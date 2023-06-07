@@ -19,6 +19,7 @@ function User() {
 
   const { userInfo, setUserInfo, resetUserInfo } = useUserInfo();
   const [isLogin, setIsLogin] = useState<boolean>(isLoginProvider.get());
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handlerIsLogin = () => {
     setIsLogin(isLoginProvider.get());
@@ -60,12 +61,16 @@ function User() {
     };
 
     const getUserInfo = async () => {
+      setLoading(true);
       await requestUserInfo()
         .then(response => {
           setUserInfo({ ...response.data });
         })
         .catch(() => {
           reissueToken();
+        })
+        .finally(() => {
+          setLoading(false);
         });
     };
 
@@ -82,6 +87,10 @@ function User() {
     userInfo?.nickname && userInfo?.nickname.length > 3
       ? userInfo?.nickname.substring(0, 2) + '**'
       : userInfo?.nickname;
+
+  if (loading && !userInfo) {
+    return <div></div>;
+  }
 
   if (isLogin) {
     return (

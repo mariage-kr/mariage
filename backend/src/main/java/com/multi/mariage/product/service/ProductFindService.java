@@ -86,6 +86,7 @@ public class ProductFindService extends PagingUtil {
         throw new ProductException(ProductErrorCode.PRODUCT_IS_NOT_EXIST);
     }
 
+    @Transactional
     public List<ProductMainCardResponse> findWeather(int size) {
         List<Product> products = productRepository.findRecommendProductsByWeather(size, weatherService.findLatestWeather());
 

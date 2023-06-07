@@ -75,7 +75,7 @@ public enum ReviewFixture {
         return foodCategory;
     }
 
-    public ReviewUpdateRequest toUpdateRequest(Long reviewId, Long productId, Long newImageId) {
+    public ReviewUpdateRequest toUpdateRequest(Long reviewId, Long newImageId) {
         return ReviewUpdateRequest.builder()
                 .reviewId(reviewId)
                 .productRate(productRate)
