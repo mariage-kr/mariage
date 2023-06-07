@@ -1,6 +1,7 @@
 package com.multi.mariage.review.dto.response;
 
 import com.multi.mariage.category.domain.FoodCategory;
+import jakarta.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -17,17 +18,24 @@ public class ReviewUpdateInfoResponse {
     private int countryId;
     private int reviewProductRate;
     private String reviewContent;
-    private int foodCategoryId;
+    @Nullable
+    private Integer foodCategoryId;
+    @Nullable
     private String foodCategoryName;
+    @Nullable
     private FoodCategory foodCategoryValue;
-    private int foodCategoryRate;
+    @Nullable
+    private Integer foodCategoryRate;
+    @Nullable
     private String imageUrl;
+    @Nullable
     private List<String> hashtags;
 
     @Builder
     public ReviewUpdateInfoResponse(String productName, double productLevel, String countryName, int countryId,
-                                    int reviewProductRate, String reviewContent, int foodCategoryId,
-                                    String foodCategoryName, FoodCategory foodCategoryValue, int foodCategoryRate, String imageUrl,
+                                    int reviewProductRate, String reviewContent, Integer foodCategoryId,
+                                    String foodCategoryName, FoodCategory foodCategoryValue, Integer foodCategoryRate,
+                                    String imageUrl,
                                     List<String> hashtags) {
         this.productName = productName;
         this.productLevel = productLevel;

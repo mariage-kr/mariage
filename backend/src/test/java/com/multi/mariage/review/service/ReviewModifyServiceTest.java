@@ -58,7 +58,6 @@ class ReviewModifyServiceTest extends ServiceTest {
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
                 .reviewId(review.getId())
-                .productId(product.getId())
                 .productRate(productRate)
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())
@@ -81,7 +80,6 @@ class ReviewModifyServiceTest extends ServiceTest {
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
                 .reviewId(review.getId())
-                .productId(product.getId())
                 .productRate(review.getProductRate())
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())
@@ -105,7 +103,6 @@ class ReviewModifyServiceTest extends ServiceTest {
 
         ReviewUpdateRequest request = ReviewUpdateRequest.builder()
                 .reviewId(review.getId())
-                .productId(product.getId())
                 .productRate(review.getProductRate())
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())

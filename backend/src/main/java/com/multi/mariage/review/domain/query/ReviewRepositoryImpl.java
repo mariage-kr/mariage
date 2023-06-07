@@ -174,19 +174,19 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
     @Override
     public Optional<Review> findByIdToDelete(Long reviewId) {
-        Review review = queryFactory.selectFrom(QReview.review)
-                .join(QReview.review.member, member).fetchJoin()
-                .join(QReview.review.product, product).fetchJoin()
-                .join(QReview.review.weather, weather).fetchJoin()
+        Review findReview = queryFactory.selectFrom(review)
+                .join(review.member, member).fetchJoin()
+                .join(review.product, product).fetchJoin()
+                .join(review.weather, weather).fetchJoin()
                 .leftJoin(member.likes, like).fetchJoin()
-                .leftJoin(QReview.review.foodCategory, food).fetchJoin()
-                .leftJoin(QReview.review.image, image).fetchJoin()
-                .leftJoin(QReview.review.reviewHashtags, reviewHashtag).fetchJoin()
+                .leftJoin(review.foodCategory, food).fetchJoin()
+                .leftJoin(review.image, image).fetchJoin()
+                .leftJoin(review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
-                .where(QReview.review.id.eq(reviewId))
+                .where(review.id.eq(reviewId))
                 .fetchFirst();
 
-        return Optional.ofNullable(review);
+        return Optional.ofNullable(findReview);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .leftJoin(QReview.review.reviewHashtags, reviewHashtag).fetchJoin()
                 .leftJoin(reviewHashtag.hashtag, hashtag).fetchJoin()
                 .where(QReview.review.id.eq(reviewId))
-                .fetchFirst();
+                .fetchOne();
 
         return Optional.ofNullable(review);
     }

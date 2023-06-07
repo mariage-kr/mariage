@@ -78,7 +78,6 @@ public enum ReviewFixture {
     public ReviewUpdateRequest toUpdateRequest(Long reviewId, Long productId, Long newImageId) {
         return ReviewUpdateRequest.builder()
                 .reviewId(reviewId)
-                .productId(productId)
                 .productRate(productRate)
                 .content(content)
                 .foodRate(foodRate)

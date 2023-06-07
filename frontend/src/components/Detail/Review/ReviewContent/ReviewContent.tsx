@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ReviewType } from '@/@types/review';
 import { Siren } from '@/assets/svg/SVG';
@@ -10,7 +11,6 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 import ReviewUpdateModal from './ReviewUpdateModal/ReviewUpdateModal';
 import ReviewUpdate from './ReviewUpdate/ReviewUpdate';
-import { useNavigate } from 'react-router-dom';
 import { BROWSER_PATH } from '@/constants/path';
 import {
   requestDeleteReview,
@@ -20,18 +20,7 @@ import useAuth from '@/hooks/useAuth';
 
 import * as S from './ReviewContent.styled';
 
-type PropsType = {
-  id: number;
-  name: string;
-  level: number;
-  countryId: number;
-  country: string;
-};
-
-function ReviewContent(
-  review: ReviewType,
-  { id, name, level, countryId, country }: PropsType,
-) {
+function ReviewContent(review: ReviewType) {
   const navigate = useNavigate();
   const { loginSnackbar, errorSnackbar } = useSnack();
   const { userInfo } = useUserInfo();
@@ -141,7 +130,7 @@ function ReviewContent(
               {isOpenReviewUpdateModal && (
                 <ReviewUpdateModal onClickReviewUpdate={onClickReviewUpdate}>
                   <ReviewUpdate
-                    id={review.id}
+                    reviewId={review.id}
                     onClickReviewUpdate={onClickReviewUpdate}
                   />
                 </ReviewUpdateModal>

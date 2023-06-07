@@ -6,7 +6,6 @@ import com.multi.mariage.category.domain.Food;
 import com.multi.mariage.country.domain.Country;
 import com.multi.mariage.global.utils.PagingUtil;
 import com.multi.mariage.hashtag.domain.Hashtag;
-import com.multi.mariage.like.domain.LikeRepository;
 import com.multi.mariage.member.domain.Member;
 import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
@@ -56,7 +55,6 @@ public class ReviewFindService extends PagingUtil {
     private final MemberFindService memberFindService;
     private final ImageService imageService;
     private final StorageService storageService;
-    private final LikeRepository likeRepository;
 
     /* TODO: 2023/05/24 추후 코드 리팩토링 */
     public Review findById(Long id) {
@@ -153,7 +151,7 @@ public class ReviewFindService extends PagingUtil {
                         getProductReviewContentFrom(review),
                         ProductReviewFoodVO.from(review),
                         getProductReviewLikeFrom(review, memberId),
-                        getHashtags(review)))
+                        getHashtagsByReview(review)))
                 .toList();
     }
 
@@ -216,7 +214,7 @@ public class ReviewFindService extends PagingUtil {
                 .build();
     }
 
-    private List<String> getHashtags(Review review) {
+    public List<String> getHashtagsByReview(Review review) {
         return review.getReviewHashtags().stream()
                 .map(ReviewHashtag::getHashtag)
                 .map(Hashtag::getName)
@@ -232,7 +230,7 @@ public class ReviewFindService extends PagingUtil {
                             getMemberReviewContentFrom(review),
                             ProductReviewFoodVO.from(review),
                             getProductReviewLikeFrom(review, memberId),
-                            getHashtags(review));
+                            getHashtagsByReview(review));
                     return MemberReviewVO.from(productInfo, reviewInfo);
                 })
                 .toList();
@@ -288,7 +286,7 @@ public class ReviewFindService extends PagingUtil {
         Product product = review.getProduct();
         Country country = product.getCountry();
         Food foodCategory = review.getFoodCategory();
-        String imageUrl = imageService.getImageUrl(review.getImage().getName());
+        String imageUrl = review.getImage() != null ? imageService.getImageUrl(review.getImage().getName()) : null;
 
         return ReviewUpdateInfoResponse.builder()
                 .productName(product.getName())
@@ -297,12 +295,12 @@ public class ReviewFindService extends PagingUtil {
                 .countryName(country.getValue())
                 .reviewProductRate(review.getProductRate())
                 .reviewContent(review.getContent())
-                .foodCategoryId(foodCategory.getCategory().getId())
-                .foodCategoryName(foodCategory.getCategory().getName())
-                .foodCategoryValue(foodCategory.getCategory())
-                .foodCategoryRate(review.getFoodRate())
+                .foodCategoryId(foodCategory != null ? foodCategory.getCategory().getId() : null)
+                .foodCategoryName(foodCategory != null ? foodCategory.getCategory().getName() : null)
+                .foodCategoryValue(foodCategory != null ? foodCategory.getCategory() : null)
+                .foodCategoryRate(review.getFoodRate() != null ? review.getFoodRate() : null)
                 .imageUrl(imageUrl)
-                .hashtags(getHashtags(review))
+                .hashtags(getHashtagsByReview(review))
                 .build();
     }
 }

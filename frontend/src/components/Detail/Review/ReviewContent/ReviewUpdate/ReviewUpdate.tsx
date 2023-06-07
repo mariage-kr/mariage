@@ -8,7 +8,7 @@ import StarRate from '@/components/StarRate/Common/StarRate';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import {
   requestReviewUpdateInfo,
-  requestSaveReview,
+  requestUpdateReview,
 } from '@/apis/request/review';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
@@ -19,11 +19,11 @@ import { ReviewUpdateInfoType } from '@/@types/review';
 import * as S from './ReviewUpdate.styled';
 
 type PropsType = {
-  id: number;
+  reviewId: number;
   onClickReviewUpdate: () => void;
 };
 
-function ReviewUpdate({ id, onClickReviewUpdate }: PropsType) {
+function ReviewUpdate({ reviewId, onClickReviewUpdate }: PropsType) {
   /* 버튼 옵션 선택 */
   const [loading, setLoading] = useState<boolean>(false);
   const [option, setOption] = useState();
@@ -59,7 +59,7 @@ function ReviewUpdate({ id, onClickReviewUpdate }: PropsType) {
 
   const fetchReviewInfo = async () => {
     setLoading(true);
-    await requestReviewUpdateInfo(id)
+    await requestReviewUpdateInfo(reviewId)
       .then(data => {
         const setReviewInfo = async () => {
           await setProductRate(data.reviewProductRate);
@@ -109,24 +109,24 @@ function ReviewUpdate({ id, onClickReviewUpdate }: PropsType) {
       return;
     }
 
-    const productId: number = id;
-    const foodImageId: number | null = await saveImage(image);
+    const newImageId: number | null = await saveImage(image);
 
-    requestSaveReview({
-      productId,
+    requestUpdateReview({
+      reviewId,
       productRate,
       content,
       foodRate,
       foodCategory,
-      foodImageId,
+      newImageId,
       hashtags,
     })
       .then(() => {
         window.location.reload();
       })
-      .catch(() => {
-        if (foodImageId) {
-          deleteImage(foodImageId);
+      .catch(error => {
+        console.log(error);
+        if (newImageId) {
+          deleteImage(newImageId);
         }
       });
   };

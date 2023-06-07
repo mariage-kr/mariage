@@ -87,7 +87,6 @@ class ReviewModifyControllerTest extends ControllerTest {
                                 preprocessResponse(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("reviewId").description("수정할 리뷰 식별 번호"),
-                                        fieldWithPath("productId").description("리뷰의 대상인 제품 식별 번호"),
                                         fieldWithPath("productRate").description("제품 평가 점수"),
                                         fieldWithPath("content").description("리뷰 내용"),
                                         fieldWithPath("foodRate").description("궁합 음식 평가 점수"),

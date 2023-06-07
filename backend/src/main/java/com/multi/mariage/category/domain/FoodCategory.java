@@ -24,7 +24,7 @@ public enum FoodCategory {
     FRUIT(18, "과일"),
     DESSERT(19, "디저트"),
     ETC(20, "기타");
-    private final int id;
+    private final Integer id;
     private final String name;
 
     FoodCategory(int id, String name) {

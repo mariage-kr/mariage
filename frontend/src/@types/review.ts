@@ -119,6 +119,26 @@ type ReviewUpdateInfoType = {
   hashtags?: string[];
 };
 
+type ReviewUpdateRequestType = {
+  reviewId: number;
+  productRate: number;
+  content: string;
+  foodRate: number | null;
+  foodCategory: string | null;
+  newImageId: number | null;
+  hashtags: string[] | null;
+};
+
+type ReviewUpdateResponseType = {
+  reviewId: number;
+  productRate: number;
+  content: string;
+  foodRate: number | null;
+  foodCategory: string | null;
+  imagePath: string | null;
+  hashtags: string[] | null;
+};
+
 export {
   ReviewType,
   ReviewMemberType,
@@ -132,4 +152,6 @@ export {
   ReviewProductInfo,
   ReviewInfoType,
   ReviewUpdateInfoType,
+  ReviewUpdateRequestType,
+  ReviewUpdateResponseType,
 };
