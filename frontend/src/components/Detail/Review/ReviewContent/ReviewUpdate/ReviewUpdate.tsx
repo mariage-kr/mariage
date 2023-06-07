@@ -15,6 +15,7 @@ import useInput from '@/hooks/useInput';
 import { deleteImage, saveImage } from '@/utils/image';
 import useFoodCategory from '@/hooks/useFoodCategory';
 import { ReviewUpdateInfoType } from '@/@types/review';
+import useSnack from '@/hooks/useSnack';
 
 import * as S from './ReviewUpdate.styled';
 
@@ -24,6 +25,7 @@ type PropsType = {
 };
 
 function ReviewUpdate({ reviewId, onClickReviewUpdate }: PropsType) {
+  const { infoSnackbar, errorSnackbar } = useSnack();
   /* 버튼 옵션 선택 */
   const [loading, setLoading] = useState<boolean>(false);
   const [option, setOption] = useState();
@@ -109,6 +111,8 @@ function ReviewUpdate({ reviewId, onClickReviewUpdate }: PropsType) {
       return;
     }
 
+    setLoading(true);
+
     const newImageId: number | null = await saveImage(image);
 
     requestUpdateReview({
@@ -121,13 +125,17 @@ function ReviewUpdate({ reviewId, onClickReviewUpdate }: PropsType) {
       hashtags,
     })
       .then(() => {
+        infoSnackbar('리뷰 수정에 성공하였습니다.');
         window.location.reload();
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
+        errorSnackbar('리뷰 수정에 실패하였습니다.');
         if (newImageId) {
           deleteImage(newImageId);
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 

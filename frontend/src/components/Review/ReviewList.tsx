@@ -1,11 +1,15 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import ReviewImage from '../Modal/ReviewImage/ReviewImage';
+import ReviewUpdate from '../Detail/Review/ReviewContent/ReviewUpdate/ReviewUpdate';
+import ReviewUpdateModal from '../Detail/Review/ReviewContent/ReviewUpdateModal/ReviewUpdateModal';
+import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
+
 import { ReviewPageType } from '@/@types/review';
 import CountryFlagImg from '@/assets/CountryFlag/CountryFlag';
 import FoodCategoryImg from '@/assets/FoodCategory/FoodCategoryImg';
 import { Siren } from '@/assets/svg/SVG';
-import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage';
 import LikeButton from '@/components/Button/Like/Like';
 import { BROWSER_PATH } from '@/constants/path';
 import { SORT } from '@/constants/option';
@@ -18,12 +22,12 @@ import {
 } from '@/apis/request/review';
 
 import * as S from './ReviewList.styled';
-import ReviewImage from '../Modal/ReviewImage/ReviewImage';
 
 function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
   const navigate = useNavigate();
   const { loginSnackbar, errorSnackbar, infoSnackbar } = useSnack();
   const { userInfo } = useUserInfo();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const goProduct = () => {
     navigate(
@@ -31,7 +35,14 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
     );
   };
 
-  /* TODO: 수정 기능 만들기 */
+  const [isOpenReviewUpdateModal, setOpenReviewUpdateModal] =
+    useState<boolean>(false);
+
+  const onClickReviewUpdate = useCallback(() => {
+    if (isLogin()) {
+      setOpenReviewUpdateModal(!isOpenReviewUpdateModal);
+    }
+  }, [isOpenReviewUpdateModal]);
 
   /* 삭제 기능 만들기 */
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
@@ -41,13 +52,17 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
       return;
     }
 
-    requestDeleteReview(reviewInfo.id)
+    setLoading(true);
+    await requestDeleteReview(reviewInfo.id)
       .then(() => {
         setIsDeleted(true);
         infoSnackbar('해당 리뷰를 삭제하셨습니다.');
       })
       .catch(error => {
         errorSnackbar(error.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -62,6 +77,7 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
     confirm('해당 리뷰를 신고하시겠습니까?');
     requestReportReview(reviewInfo.id)
       .then(data => {
+        infoSnackbar('해당 리뷰를 신고하였습니다.');
         setIsReport(data.report);
       })
       .catch(error => {
@@ -69,7 +85,7 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
       });
   };
 
-  if (isDeleted || isReport) {
+  if (isDeleted || isReport || loading) {
     return <div></div>;
   }
 
@@ -82,9 +98,9 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
   const [isOpenReviewImgModal, setOpenReviewImgModal] =
     useState<boolean>(false);
 
-  const onClickReviewImg = useCallback(() => {
+  const onClickReviewImg = () => {
     setOpenReviewImgModal(!isOpenReviewImgModal);
-  }, [isOpenReviewImgModal]);
+  };
 
   return (
     <S.Container>
@@ -148,8 +164,7 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
             <S.ReviewTopRight>
               {userInfo?.id === reviewInfo.member.id ? (
                 <S.BtnWrap>
-                  {/* TODO: 수정 모달창으로 할지 고민 */}
-                  <S.Btn>수정</S.Btn>
+                  <S.Btn onClick={onClickReviewUpdate}>수정</S.Btn>
                   <S.Btn onClick={deleteReview}>삭제</S.Btn>
                 </S.BtnWrap>
               ) : (
@@ -170,6 +185,16 @@ function ReviewList({ productInfo, reviewInfo }: ReviewPageType) {
                   likeCount={reviewInfo.like.count}
                 />
               </S.Like>
+              <S.ReviewUpdate>
+                {isOpenReviewUpdateModal && (
+                  <ReviewUpdateModal onClickReviewUpdate={onClickReviewUpdate}>
+                    <ReviewUpdate
+                      reviewId={reviewInfo.id}
+                      onClickReviewUpdate={onClickReviewUpdate}
+                    />
+                  </ReviewUpdateModal>
+                )}
+              </S.ReviewUpdate>
             </S.ReviewTopRight>
           </S.ReviewTop>
           <S.ReviewBottom>

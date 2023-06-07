@@ -519,6 +519,11 @@ const BtnHeight = css`
   }
 `;
 
+const ReviewUpdate = styled.div`
+  z-index: 1;
+  width: 100%;
+`;
+
 export {
   Container,
   Wrapper,
@@ -566,4 +571,5 @@ export {
   ReviewImg,
   Img,
   BtnHeight,
+  ReviewUpdate,
 };
