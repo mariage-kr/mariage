@@ -137,7 +137,13 @@ function ProductCardCarousel({ option }: PropsType) {
           easing="linear"
         >
           {products.map((product: ProductRecommendType) => {
-            return <ProductCard key={product.productId} {...product} />;
+            return (
+              <ProductCard
+                key={product.productId}
+                product={product}
+                option={option}
+              />
+            );
           })}
         </Carousel>
       ) : (

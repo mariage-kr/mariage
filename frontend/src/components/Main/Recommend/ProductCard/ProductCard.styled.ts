@@ -56,7 +56,20 @@ const inner_right = css`
   box-sizing: border-box;
   float: right;
   width: 50%;
-  margin: 125px auto 0;
+  margin: 0 auto;
+  padding-top: 125px;
+  position: relative;
+`;
+
+const Recommend = styled.p`
+  width: 80%;
+  border-bottom: 2px solid #bb2649; 
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 90px;
+  right: 10%;
 `;
 
 const StarRate = styled.div`
@@ -135,6 +148,7 @@ export {
   inner_left,
   Img,
   inner_right,
+  Recommend,
   StarRate,
   StarRateText,
   Review,

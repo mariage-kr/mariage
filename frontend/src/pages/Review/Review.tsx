@@ -21,6 +21,7 @@ function Review() {
   const navigate = useNavigate();
   const { infoSnackbar } = useSnack();
   const option = queryParam.get('option');
+  const [tabMenu, setTabMenu] = useState(0);
 
   const [reviewProfile, setReviewProfile] = useState<reviewProfileType>({
     nickname: '',
@@ -142,15 +143,15 @@ function Review() {
     <S.Container>
       <S.TopNav>
         <S.NavWrapper>
-          <S.Nav
+          <S.Nav 
+            css={option !== SORT.REVIEW.LIKE ? S.ActiveTab : S.LinkStyle}
             onClick={() => goReview(SORT.REVIEW.RATING)}
-            option={option !== SORT.REVIEW.LIKE}
           >
             작성한 리뷰
           </S.Nav>
-          <S.Nav
+          <S.Nav 
+            css={option === SORT.REVIEW.LIKE ? S.ActiveTab : S.LinkStyle}
             onClick={() => goReview(SORT.REVIEW.LIKE)}
-            option={option === SORT.REVIEW.LIKE}
           >
             좋아요한 리뷰
           </S.Nav>

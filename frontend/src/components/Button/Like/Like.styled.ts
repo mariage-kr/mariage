@@ -13,6 +13,7 @@ interface TextProps {
 const Button = styled.button<Props>`
   background: ${props => (props.liked ? '#bb2649' : 'white')};
   text-align: center;
+  width: 65px;
   margin: 5px;
   padding: 12px 17px;
   border-radius: 10px;
@@ -23,7 +24,10 @@ const Button = styled.button<Props>`
     box-shadow: 1.5px 1.5px 3px #9C94D0;
   }
 
-  @media (max-width: 1100px) { padding: 10px 15px; }
+  @media (max-width: 1100px) { 
+    width: 60px;
+    padding: 10px 15px;
+  }
 `;
 
 const Number = styled.span<TextProps>`
