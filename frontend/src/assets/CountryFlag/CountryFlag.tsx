@@ -34,7 +34,7 @@ import Thailand from './thailand.png';
 import Vietnam from './vietnam.png';
 
 type CountryType = {
-  id: number;
+  id?: number;
 };
 
 const FlagImg = styled.img`

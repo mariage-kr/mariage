@@ -43,6 +43,7 @@ const API_PATH = {
     MEMBER: '/api/review/member',
     MY: '/api/review/ratings',
     LIKE: '/api/review/likes',
+    UPDATE: '/api/user/review/update',
   },
   STORAGE: '/api/user/storage/image',
 };

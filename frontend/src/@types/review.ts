@@ -104,6 +104,41 @@ type ReviewInfoType = {
   hashtags: string[];
 };
 
+type ReviewUpdateInfoType = {
+  productName: string;
+  productLevel: number;
+  countryName: string;
+  countryId: number;
+  reviewProductRate: number;
+  reviewContent: string;
+  foodCategoryId?: number;
+  foodCategoryName?: string;
+  foodCategoryValue?: string;
+  foodCategoryRate?: number;
+  imageUrl?: string;
+  hashtags?: string[];
+};
+
+type ReviewUpdateRequestType = {
+  reviewId: number;
+  productRate: number;
+  content: string;
+  foodRate: number | null;
+  foodCategory: string | null;
+  newImageId: number | null;
+  hashtags: string[] | null;
+};
+
+type ReviewUpdateResponseType = {
+  reviewId: number;
+  productRate: number;
+  content: string;
+  foodRate: number | null;
+  foodCategory: string | null;
+  imagePath: string | null;
+  hashtags: string[] | null;
+};
+
 export {
   ReviewType,
   ReviewMemberType,
@@ -116,4 +151,7 @@ export {
   ReviewPageType,
   ReviewProductInfo,
   ReviewInfoType,
+  ReviewUpdateInfoType,
+  ReviewUpdateRequestType,
+  ReviewUpdateResponseType,
 };
