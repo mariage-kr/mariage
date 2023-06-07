@@ -69,12 +69,13 @@ class ReviewModifyControllerTest extends ControllerTest {
     @DisplayName("리뷰를 수정한다")
     @Test
     void 리뷰를_수정한다() throws Exception {
-        Image image = saveImage(ImageFixture.JPEG_IMAGE);
-        Product product = saveProduct(ProductFixture.참이슬, image.getId());
-        ReviewSaveResponse review = saveReview(ReviewFixture.참이슬_치킨, image.getId(), product.getId(), member.getId());
+        Image productImage = saveImage(ImageFixture.JPEG_IMAGE);
+        Image reviewImage = saveImage(ImageFixture.JPEG_IMAGE3);
+        Product product = saveProduct(ProductFixture.참이슬, productImage.getId());
+        ReviewSaveResponse review = saveReview(ReviewFixture.참이슬_치킨, reviewImage.getId(), product.getId(), member.getId());
 
         Image newImage = saveImage(ImageFixture.JPEG_IMAGE2);
-        String content = objectMapper.writeValueAsString(ReviewFixture.참이슬_치킨.toUpdateRequest(review.getReviewId(), product.getId(), newImage.getId()));
+        String content = objectMapper.writeValueAsString(ReviewFixture.참이슬_치킨.toUpdateRequest(review.getReviewId(), newImage.getId()));
 
         mockMvc.perform(patch("/api/user/review/update")
                         .content(content)

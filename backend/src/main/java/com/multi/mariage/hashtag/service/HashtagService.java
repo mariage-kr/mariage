@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,10 @@ public class HashtagService {
 
     @Transactional
     public List<Hashtag> findHashTagsByList(List<String> list) {
+        if(list == null) {
+            return new ArrayList<>();
+        }
+
         return list.stream()
                 .map(this::findByName)
                 .toList();
