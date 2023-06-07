@@ -1,10 +1,13 @@
 package com.multi.mariage.review.controller;
 
+import com.multi.mariage.auth.annotation.Authenticated;
+import com.multi.mariage.auth.vo.AuthMember;
 import com.multi.mariage.review.dto.request.ReviewDetailRequest;
 import com.multi.mariage.review.dto.request.ReviewFindRequest;
 import com.multi.mariage.review.dto.response.MemberProfileResponse;
 import com.multi.mariage.review.dto.response.MemberReviewInfoResponse;
 import com.multi.mariage.review.dto.response.ProductReviewsResponse;
+import com.multi.mariage.review.dto.response.ReviewUpdateInfoResponse;
 import com.multi.mariage.review.service.ReviewFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +46,13 @@ public class ReviewFindController {
     @GetMapping("/review/member/{memberId}")
     public ResponseEntity<MemberProfileResponse> findMemberProfile(@PathVariable("memberId") Long memberId) {
         MemberProfileResponse response = reviewFindService.findMemberProfile(memberId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/user/review/update/{reviewId}")
+    public ResponseEntity<ReviewUpdateInfoResponse> findUpdateReview(@Authenticated AuthMember authMember,
+                                                                     @PathVariable("reviewId") Long reviewId) {
+        ReviewUpdateInfoResponse response = reviewFindService.findUpdateReviewInfo(authMember, reviewId);
         return ResponseEntity.ok(response);
     }
 }

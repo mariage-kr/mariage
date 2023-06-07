@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+type Props = {
+  option?: boolean;
+};
+
 const Container = styled.div``;
 
 const TopNav = styled.div`
@@ -15,7 +19,7 @@ const NavWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const Nav = styled.p`
+const Nav = styled.p<Props>`
   display: inline-block;
   width: auto;
   margin: 0 30px 0 0;
@@ -24,6 +28,9 @@ const Nav = styled.p`
   color: inherit;
   transition: all 0.2s;
   cursor: pointer;
+
+  color: ${props => (props.option ? '#9c94d0' : '#000')};
+  font-weight: ${props => (props.option ? 'bold' : 'normal')};
 `;
 
 const LinkStyle = css`

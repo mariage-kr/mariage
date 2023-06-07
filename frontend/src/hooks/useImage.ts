@@ -36,7 +36,7 @@ function useImage<T>(initialState: T | File | null) {
 
   const resetImage = () => {
     setValue(null);
-  }
+  };
 
   useEffect(() => {
     changePreview();

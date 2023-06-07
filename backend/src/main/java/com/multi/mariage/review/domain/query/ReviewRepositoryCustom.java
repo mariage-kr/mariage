@@ -29,4 +29,6 @@ public interface ReviewRepositoryCustom {
     List<Review> findAllByMemberIdAndProductId(Long memberId, Long productId);
 
     List<Review> findAllByMemberId(Long memberId);
+
+    Optional<Review> findByIdAndMemberId(Long reviewId, Long memberId);
 }

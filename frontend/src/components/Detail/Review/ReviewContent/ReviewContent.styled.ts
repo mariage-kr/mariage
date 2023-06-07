@@ -322,8 +322,6 @@ const SirenIcon = styled.img`
   }
 `;
 
-
-
 export {
   Container,
   Wrapper,

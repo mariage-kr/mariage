@@ -40,7 +40,6 @@ public class ReviewModifyController {
     public ResponseEntity<ReviewUpdateResponse> update(@Authenticated AuthMember authMember,
                                                        @RequestBody ReviewUpdateRequest request) {
         ReviewUpdateResponse response = reviewModifyService.update(authMember, request);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

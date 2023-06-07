@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ReviewType } from '@/@types/review';
 import { Siren } from '@/assets/svg/SVG';
@@ -10,7 +11,6 @@ import SvgStarRateAverage from '@/components/StarRate/Average/SvgStarRateAverage
 import useUserInfo from '@/hooks/useUserInfo';
 import ReviewUpdateModal from './ReviewUpdateModal/ReviewUpdateModal';
 import ReviewUpdate from './ReviewUpdate/ReviewUpdate';
-import { useNavigate } from 'react-router-dom';
 import { BROWSER_PATH } from '@/constants/path';
 import {
   requestDeleteReview,
@@ -20,15 +20,7 @@ import useAuth from '@/hooks/useAuth';
 
 import * as S from './ReviewContent.styled';
 
-type PropsType = {
-  id: number;
-  name: string;
-  level: number;
-  countryId: number;
-  country: string;
-};
-
-function ReviewContent(review: ReviewType, { id, name, level, countryId, country }: PropsType) {
+function ReviewContent(review: ReviewType) {
   const navigate = useNavigate();
   const { loginSnackbar, errorSnackbar } = useSnack();
   const { userInfo } = useUserInfo();
@@ -37,8 +29,10 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const [isReport, setIsReport] = useState<boolean>(false);
-  const [isOpenReviewImgModal, setOpenReviewImgModal] = useState<boolean>(false);
-  const [isOpenReviewUpdateModal, setOpenReviewUpdateModal] = useState<boolean>(false);
+  const [isOpenReviewImgModal, setOpenReviewImgModal] =
+    useState<boolean>(false);
+  const [isOpenReviewUpdateModal, setOpenReviewUpdateModal] =
+    useState<boolean>(false);
 
   const onClickReviewImg = useCallback(() => {
     setOpenReviewImgModal(!isOpenReviewImgModal);
@@ -51,6 +45,9 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
   }, [isOpenReviewUpdateModal]);
 
   const deleteReview = () => {
+    if (!confirm('해당 리뷰를 삭제하시겠습니까?')) {
+      return;
+    }
     requestDeleteReview(review.id)
       .then(() => {
         setIsDeleted(true);
@@ -108,7 +105,9 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
           <S.TopRight>
             {memberId === review.member.id ? (
               <S.BtnWrap>
-                <S.Btn css={S.updateBtn} onClick={onClickReviewUpdate}>수정</S.Btn>
+                <S.Btn css={S.updateBtn} onClick={onClickReviewUpdate}>
+                  수정
+                </S.Btn>
                 <S.Btn css={S.deleteBtn} onClick={deleteReview}>
                   삭제
                 </S.Btn>
@@ -131,11 +130,7 @@ function ReviewContent(review: ReviewType, { id, name, level, countryId, country
               {isOpenReviewUpdateModal && (
                 <ReviewUpdateModal onClickReviewUpdate={onClickReviewUpdate}>
                   <ReviewUpdate
-                    id={id}
-                    name={name}
-                    level={level}
-                    country={country}
-                    countryId={countryId}
+                    reviewId={review.id}
                     onClickReviewUpdate={onClickReviewUpdate}
                   />
                 </ReviewUpdateModal>

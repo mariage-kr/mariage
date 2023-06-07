@@ -6,6 +6,9 @@ import {
   ReviewReportType,
   ReviewSaveType,
   ReviewType,
+  ReviewUpdateInfoType,
+  ReviewUpdateRequestType,
+  ReviewUpdateResponseType,
 } from '@/@types/review';
 
 import { API_PATH } from '@/constants/path';
@@ -107,6 +110,22 @@ const requestLikeReview = (
     });
 };
 
+const requestReviewUpdateInfo = (reviewId: number) => {
+  return axiosWithAccessToken
+    .get<ReviewUpdateInfoType>(`${API_PATH.REVIEW.UPDATE}/${reviewId}`)
+    .then(response => {
+      return response.data;
+    });
+};
+
+const requestUpdateReview = (request: ReviewUpdateRequestType) => {
+  return axiosWithAccessToken
+    .patch<ReviewUpdateResponseType>(API_PATH.REVIEW.UPDATE, request)
+    .then(response => {
+      return response.data;
+    });
+};
+
 export {
   getDetailReviews,
   requestSaveReview,
@@ -114,4 +133,6 @@ export {
   requestReportReview,
   requestWriteReview,
   requestLikeReview,
+  requestReviewUpdateInfo,
+  requestUpdateReview,
 };

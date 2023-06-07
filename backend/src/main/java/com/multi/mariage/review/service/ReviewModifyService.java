@@ -11,7 +11,6 @@ import com.multi.mariage.member.service.MemberFindService;
 import com.multi.mariage.product.domain.Product;
 import com.multi.mariage.product.service.ProductFindService;
 import com.multi.mariage.review.domain.Review;
-import com.multi.mariage.review.domain.ReviewHashtag;
 import com.multi.mariage.review.domain.ReviewRepository;
 import com.multi.mariage.review.dto.request.ReviewSaveRequest;
 import com.multi.mariage.review.dto.request.ReviewUpdateRequest;
@@ -29,9 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -56,8 +53,7 @@ public class ReviewModifyService {
         Member member = memberFindService.findById(authMember.getId());
         Product product = productFindService.findById(request.getProductId());
         Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
-        Image image = getImage(request.getFoodImageId());
-
+        Image image = getImageById(request.getFoodImageId());
         Review review = Review.from(request);
 
         reviewHashtagService.saveAll(request.getHashtags(), review);
@@ -77,24 +73,21 @@ public class ReviewModifyService {
     }
 
     public ReviewUpdateResponse update(AuthMember authMember, ReviewUpdateRequest request) {
-
-        Product product = productFindService.findById(request.getProductId());
-        Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
         Review review = reviewFindService.findByIdToUpdate(request.getReviewId());
-        Set<ReviewHashtag> reviewHashtags = review.getReviewHashtags();
-        Image image = getImage(review.getImage().getId());
-
         validateOwnerByReview(authMember.getId(), review);
 
+        Product product = review.getProduct();
+        Food foodCategory = getFoodCategory(request.getFoodCategory(), product);
+        String imageUrl = getImageUrl(request, review);
+
+        List<String> hashTagNames = updateHashtag(request.getHashtags(), review);
         review.changeFoodCategory(foodCategory);
-        String imageUrl = getImageUrl(request, review, image);
-        List<String> hashTagNames = getReviewHashtagList(request, review, reviewHashtags);
         review.update(request);
 
         return ReviewUpdateResponse.from(review, imageUrl, hashTagNames);
     }
 
-    private Image getImage(Long imageId) {
+    private Image getImageById(Long imageId) {
         if (imageId == null) {
             return null;
         }
@@ -141,45 +134,26 @@ public class ReviewModifyService {
     }
 
     public String updateImage(Review review, ReviewUpdateRequest request) {
-
         Image image = imageService.findById(request.getNewImageId());
-
         review.changeImage(image);
-        String imageUrl = imageService.getImageUrl(review.getImage().getName());
-        return imageUrl;
+        return imageService.getImageUrl(review.getImage().getName());
     }
 
-    private List<String> getReviewHashtagList(ReviewUpdateRequest request, Review review, Set<ReviewHashtag> reviewHashtags) {
-        List<String> hashTagNames = new ArrayList<>();
-        if (request.getHashtags() != null && !request.getHashtags().isEmpty()) {     // 해시태그 업데이트
-            reviewHashtags.clear();
-            reviewHashtagService.removeAllByReview(review);
-
-            List<String> reviewHashTagNames = getHashTagNamesToStrings(request, review);
-
-            hashTagNames.addAll(reviewHashTagNames);
-        } else {
-            hashTagNames.addAll(reviewHashtags.stream()
-                    .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
-                    .toList());
-        }
-        return hashTagNames;
+    private List<String> updateHashtag(List<String> hashtags, Review review) {
+        reviewHashtagService.removeAllByReview(review);
+        review.getReviewHashtags().clear();
+        reviewHashtagService.saveAll(hashtags, review);
+        return reviewFindService.getHashtagsByReview(review);
     }
 
-    private List<String> getHashTagNamesToStrings(ReviewUpdateRequest request, Review review) {
-        return reviewHashtagService.saveAll(request.getHashtags(), review)
-                .stream()
-                .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
-                .toList();
-    }
-
-    private String getImageUrl(ReviewUpdateRequest request, Review review, Image image) {
-        String imageUrl = imageService.getImageUrl(image.getName());    // 현재 리뷰 이미지 경로
+    private String getImageUrl(ReviewUpdateRequest request, Review review) {
+        String imageUrl = null;
 
         if (request.getNewImageId() != null) {  // 이미지 업데이트
             removeImageByReview(review);
             imageUrl = updateImage(review, request);
         }
+
         return imageUrl;
     }
 }

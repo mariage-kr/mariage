@@ -15,13 +15,13 @@ public class ReviewUpdateResponse {
     private Long reviewId;
     private int productRate;
     private String content;
-    private int foodRate;
+    private Integer foodRate;
     private FoodCategory foodCategory;
     private String imagePath;
     private List<String> hashtags;
 
     @Builder
-    private ReviewUpdateResponse(Long reviewId, int productRate, String content, int foodRate, FoodCategory foodCategory, String imagePath, List<String> hashtags) {
+    private ReviewUpdateResponse(Long reviewId, int productRate, String content, Integer foodRate, FoodCategory foodCategory, String imagePath, List<String> hashtags) {
         this.reviewId = reviewId;
         this.productRate = productRate;
         this.content = content;
@@ -37,7 +37,7 @@ public class ReviewUpdateResponse {
                 .productRate(review.getProductRate())
                 .content(review.getContent())
                 .foodRate(review.getFoodRate())
-                .foodCategory(review.getFoodCategory().getCategory())
+                .foodCategory(review.getFoodCategory() != null ? review.getFoodCategory().getCategory() : null)
                 .imagePath(imagePath)
                 .hashtags(hashtags)
                 .build();
