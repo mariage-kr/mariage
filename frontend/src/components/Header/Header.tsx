@@ -17,10 +17,16 @@ function Header() {
     setCategory;
   }, []);
 
+  const reload = () => {
+    if (location.pathname === BROWSER_PATH.BASE) {
+      location.reload();
+    }
+  };
+
   return (
     <S.Container>
       <S.Logo>
-        <S.StyledLink to={BROWSER_PATH.BASE}>
+        <S.StyledLink to={BROWSER_PATH.BASE} onClick={reload}>
           <S.Header>Mariage</S.Header>
           <S.Header>Mariage</S.Header>
         </S.StyledLink>
