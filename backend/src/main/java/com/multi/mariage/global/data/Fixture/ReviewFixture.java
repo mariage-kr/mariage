@@ -349,7 +349,7 @@ public enum ReviewFixture {
             5,
             "숙주베이컨볶음과 시원을 먹었습니다. 시원은 시원하게 먹어야 제맛! 원래 잘 모르는 술이었는데 먹어보니 정말 괜찮네요. 궁합도 좋았어요.",
             5,
-            ROAST,
+            DESSERT,
             "sei_c1_stirfriedbeefbacon.jpg",
             List.of("숙주베이컨볶음", "시원")),
     리미_딱좋은데이_닭발(
@@ -452,22 +452,22 @@ public enum ReviewFixture {
             "jinee_Terra_Pigs Feet.jpg",
             List.of("튀김족발", "테라")),
 
-    지니_아사히_스낵(
+    지니_코로나_스낵(
             JINEE,
-            아사히_수퍼_드라이, 3,
+            코로나, 3,
             "퇴근 후 라멘에 맥주한잔! 이맛에 퇴근합니당",
             3,
             RICE,
-            "jinee_Asahi_Ramen.jpg",
+            "jinee_Corona_Snack.jpg",
             List.of("퇴근후_한잔")),
 
-    지니_코로나_라멘(
+    지니_아사히_라멘(
             JINEE,
-            코로나, 3,
+            아사히_수퍼_드라이, 3,
             "맥주 안주로 그만인 나쵸는 파삭하고 고소한 나쵸에 치즈 소스를 찍어먹으면 가장 맛나다.",
             3,
             RICE,
-            "jinee_Corona_Snack.jpg",
+            "jinee_Asahi_Ramen.jpg",
             List.of("나초", "가볍게한잔")),
 
     마리_진로_순대볶음(
@@ -667,7 +667,307 @@ public enum ReviewFixture {
             CHICKEN,
             "suri_asahi_chicken.jpg",
             List.of("야식", "치맥")),
-    ;
+
+    세이_블랑_화덕피자(
+            SEI,
+            블랑,
+            5,
+            "쫄깃한 화덕피자와 맥주의 한 잔이 기분을 좋게 만들어주네요",
+            5,
+            PIZZA,
+            "sei_Blanc_Firefired_Pizza.jpg",
+            List.of("피맥", "블랑")),
+
+    세이_클라우드_치킨(
+            SEI,
+            클라우드,
+            5,
+            "치킨에 맥주도 환상의 궁합인데 감튀까지!! 말모조합입니다.",
+            5,
+            CHICKEN,
+            "sei_Cloud_Chicken.jpg",
+            List.of("치킨", "감튀", "맥주")),
+
+    세이_발렌타인_30년_양갈비(
+            SEI,
+            발렌타인_30년,
+            5,
+            "양갈비에 발렌타인. 오랜만에 가족끼리 여행와서 즐거운시간 보냈네요.",
+            5,
+            ROAST,
+            "sei_Valentine_30_Years_Lamb_Rib.jpg",
+            List.of("여행", "위스키", "양갈비")),
+
+    세이_삿포로_라멘(
+            SEI,
+            삿포로_프리미엄_실버컵,
+            4,
+            "라멘에 맥주 한 잔 저녁에 혼술로 최고입니다.",
+            4,
+            RICE,
+            "sei_Sapporo_Ramen.jpg",
+            List.of("혼술", "라멘")),
+
+    세이_배럴_밤_까베르네_쇼비뇽_하몽(
+            SEI,
+            배럴_밤_까베르네_쇼비뇽,
+            4,
+            "초간단 와인 안주입니다. 하몽이 입안에서 사르르 녹아요~^^. ",
+            5,
+            ROAST,
+            "sei_barrel_chestnut_cabernet_sauvignon_hamon.jpg",
+            List.of("와인한잔", "하몽")),
+
+    리미_냅스테인_클레어밸리_쉬라즈_스테이크(
+            RIMI,
+            냅스테인_클레어밸리_쉬라즈,
+            4,
+            "진득한 와인의 풍미와 고기가 만나니 육질도 부드러워져 맛있게 먹었습니다!",
+            5,
+            ROAST,
+            "rimi_Napstein_Clair_Valley_Shiraz_Steak.jpg",
+            List.of("레드와인", "스테이크")),
+
+    리미_오놀로그_로제_와인_감바스(
+            RIMI,
+            오놀로그_로제_와인,
+            4,
+            "로제와인과 감바스의 통통한 새우가 잘 어울렸습니다.",
+            5,
+            SEAFOOD,
+            "rimi_O'nolog_Rosé_Wine_Gambas.jpg",
+            List.of("감바스", "로제와인")),
+
+    리미_폴트랜드_사이더_애플_카프레제(
+            RIMI,
+            폴트랜드_사이더_애플,
+            4,
+            "가벼운 바디감이 샐러드와 잘 어울렸습니다.",
+            3,
+            SEAFOOD,
+            "rimi_Poltland_Cider_Apple_Caprese.jpg",
+            List.of("샐러드", "애플_사이더")),
+
+    리미_원더랜드_화이트_퀸_샤도네이_비스킷플래터(
+            RIMI,
+            원더랜드_화이트_퀸_샤도네이,
+            3,
+            "가볍게 먹기 좋은 비스킷과 와인입니다.",
+            3,
+            SNACK,
+            "rimi_Wonderland_White_Queen_Chardonnay_Biscuit Platter.jpg",
+            List.of("비스킷", "간단한안주")),
+
+    리미_몽타냑_소비뇽_블랑_치즈플래터(
+            RIMI,
+            몽타냑_소비뇽_블랑,
+            3,
+            "와인의 향이 치즈와 잘 어울립니다.",
+            3,
+            CHEESE,
+            "rimi_Montagnac_Sauvignon_Blanc_Cheese platter.jpg",
+            List.of("치즈", "화이트와인")),
+
+    민달팽이_산토리_위스키_양고기스테이크(
+            SLUG,
+            산토리_위스키,
+            4,
+            "하이볼이 양고기의 느끼함을 잡아주어 맛있게 먹었습니다.",
+            4,
+            ROAST,
+            "slug_Suntory_Whiskey_Lamb Steak.jpg",
+            List.of("양고기", "하이볼", "산토리")),
+
+    민달팽이_만프레드_샵_로제_피자(
+            SLUG,
+            만프레드_샵_로제,
+            4,
+            "이탈리아에서 먹었던 와인과 화덕피자입니다. 맛있게 잘 먹었습니다.",
+            3,
+            PIZZA,
+            "slug_Manfred_Shop_Rosé_Pizza.jpg",
+            List.of("화덕피자", "로제와인", "이탈리아")),
+
+    민달팽이_카스_프레시_마라샹궈(
+            SLUG,
+            카스_프레시,
+            3,
+            "얼얼한 마라샹궈와 시원한 맥주의 궁합이 아주 좋습니다.",
+            4,
+            CHINESE,
+            "slug_Cass_Fresh_Maraxiangguo.jpg",
+            List.of("마라샹궈", "맥주")),
+
+    민달팽이_냅스테인_클레어밸리_쉬라즈_스테이크(
+            SLUG,
+            냅스테인_클레어밸리_쉬라즈,
+            4,
+            "육즙가득한 스테이크와 와인 한 모금이 굉장히 잘 어울립니다.",
+            5,
+            ROAST,
+            "slug_Napstein_Claire Valley_Shiraz_Steak.jpg",
+            List.of("스테이크", "레드와인")),
+
+    민달팽이_구포_멜롯_스낵(
+            SLUG,
+            구포_멜롯,
+            4,
+            "육즙가득한 스테이크와 와인 한 모금이 굉장히 잘 어울립니다.",
+            3,
+            SNACK,
+            "slug_gupo_merlot_snack.jpg",
+            List.of("혼술", "레드와인")),
+
+    미니_구포_멜롯_하몽(
+            MINI,
+            구포_멜롯,
+            3,
+            "여행중 먹었던 하몽과 와인입니다. 처음먹어보는 조합이었지만, 맛있게 먹었습니다.",
+            3,
+            ROAST,
+            "mini_Gupo_Melot_Hamong.jpg",
+            List.of("하몽", "여행중한잔")),
+
+    미니_도멘_쁘띠_본듀_쁘띠_몽_양고기스테이크(
+            MINI,
+            도멘_쁘띠_본듀_쁘띠_몽,
+            4,
+            "양고기 스테이크의 느끼함을 와인이 잘 잡아줍니다.",
+            4,
+            ROAST,
+            "mini_Domen_Petit_Bondue_Petit_Mong_Lamb Steak.jpg",
+            List.of("양고기", "스테이크", "레드와인")),
+
+    미니_버나드_론클라스_밀레시움_2014_브뤼_치즈플래터(
+            MINI,
+            버나드_론클라스_밀레시움_2014_브뤼,
+            4,
+            "와인의 향과 치즈가 잘 어울립니다.",
+            4,
+            CHEESE,
+            "mini_Bernard_Ronklass_Millesium_2014_Brue_Cheese Platter.jpg",
+            List.of("치즈플래터", "화이트와인")),
+
+    미니_에딩거_바이스비어_굴라쉬(
+            MINI,
+            에딩거_바이스비어,
+            4,
+            "따뜻한 굴라쉬와 시원한 맥주! 이거 은근 별미입니다.",
+            3,
+            CHEESE,
+            "mini_Edinger_Weissbeer_Goulash.jpg",
+            List.of()),
+
+    미니_칭따오_라거_꿔바로우(
+            MINI,
+            칭따오_라거,
+            4,
+            "양꼬치에 꿔바로우 빠질 수 있나요? 칭따오랑 환상의 궁합이죠!!",
+            4,
+            CHINESE,
+            "mini_Tsingtao_Lager_Kwabarou.jpg",
+            List.of("칭따오", "꿔바로우")),
+
+    마리_호가든_돈까스(
+            MARI,
+            호가든,
+            4,
+            "색다른 돈까스였지만 맛이 특별하진않았고, 시원한 맥주랑은 잘 어울렸습니다.",
+            3,
+            JAPANESE,
+            "mari_Hoegaarden_Pork cutlet.jpg",
+            List.of("색다른돈까스", "호가든")),
+
+    마리_스텔라_아르투아_피자(
+            MARI,
+            스텔라_아르투아,
+            4,
+            "피자와 맥주는 언제 먹어도 맛있는 조합이죠!",
+            4,
+            PIZZA,
+            "mari_Stella_Artois_Pizza.jpg",
+            List.of("화덕피자", "스텔라")),
+
+    마리_기네스_오리지날_립(
+            MARI,
+            기네스_오리지날,
+            4,
+            "기네스의 풍미와 쌉쌀한맛이 립의 맛을 한층 더 업그레이드 시켜줍니다.",
+            5,
+            ROAST,
+            "mari_Guinness_original_rib.jpg",
+            List.of("흑맥주", "기네스", "립")),
+
+    마리_신선주_막걸리_샤브샤브(
+            MARI,
+            신선주_막걸리,
+            3,
+            "샤브샤브에는 막걸리보다 다른 술이 더 잘 어울릴듯 합니다.",
+            2,
+            JJIGAE,
+            "mari_Shinseonju_Makgeolli_Shabu-shabu.jpg",
+            List.of()),
+
+    마리_나루_생_막걸리_육회(
+            MARI,
+            나루_생_막걸리,
+            5,
+            "고소한 육회에 막걸리 한잔! 한번 드셔보세요.",
+            5,
+            ROAST,
+            "mari_Naru_Saeng_Makgeolli_Yukhoe.jpg",
+            List.of()),
+
+    수리_사이공_스페셜_꼬치(
+            SURI,
+            사이공_스페셜,
+            4,
+            "베트남 갔을때 먹었던 꼬치와 맥주입니다. 야시장들러서 가볍게 한 잔 하기 좋았어요.",
+            4,
+            ROAST,
+            "suri_Saigon_Special_Skewer.jpg",
+            List.of("베트남", "꼬치구이맛있다")),
+
+    수리_나루_생_막걸리_모듬전(
+            SURI,
+            나루_생_막걸리,
+            4,
+            "막걸리에는 전이죠? 기름진 전이랑 부드러운 막걸리가 술술 넘어갑니다.",
+            4,
+            ROAST,
+            "suri_Naru_Saeng_Makgeolli_Assorted Jeon.jpg",
+            List.of("막걸리에는전")),
+
+    수리_삿포로_프리미엄_실버컵_오꼬노미야끼(
+            SURI,
+            삿포로_프리미엄_실버컵,
+            4,
+            "오랜만에 먹은 오꼬노미야끼와 맥주. 일본에 와있는듯한 맛이네요.",
+            4,
+            JAPANESE,
+            "suri_Sapporo_Premium_Silver Cup_Okonomiyaki.jpg",
+            List.of("삿포로", "오꼬노미야끼", "여기가일본")),
+
+    수리_별빛청하_족발(
+            SURI,
+            별빛청하,
+            4,
+            "볓빛청하 새로 나왔다고해서 먹어봤는데, 제 입에는 소주가 더 잘맞는거 같아요",
+            2,
+            ROAST,
+            "suri_Byulbit Cheongha_Pig's Feet.jpg",
+            List.of("족발")),
+
+    수리_송도막걸리_인절미치킨(
+            SURI,
+            송도막걸리,
+            4,
+            "고소한 인절미치킨과 과일맛나는 막걸리가 색다른 조합이었어요. 저는 나름 맛있게 먹었습니다.",
+            3,
+            CHICKEN,
+            "suri_Songdo Makgeolli_Injeolmi Chicken.jpg",
+            List.of("인절미치킨", "새로운조합"));
+
     private final MemberFixture member;
     private final ProductFixture product;
     private final int productRate;
