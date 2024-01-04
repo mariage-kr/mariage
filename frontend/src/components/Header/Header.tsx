@@ -28,7 +28,6 @@ function Header() {
       <S.Logo>
         <S.StyledLink to={BROWSER_PATH.BASE} onClick={reload}>
           <S.Header>Mariage</S.Header>
-          <S.Header>Mariage</S.Header>
         </S.StyledLink>
       </S.Logo>
       <S.Nav>
