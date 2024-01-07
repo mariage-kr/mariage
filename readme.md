@@ -35,11 +35,15 @@
 
 [OPEN API(Open Weather Map)](https://openweathermap.org/)을 사용하여 사용자들이 특정 날씨에 선호하는 주류를 확인할 수 있어요!
 
+![01 현재 날씨의 주류](https://github.com/mariage-kr/mariage/assets/74192619/beaf9b96-101b-4e47-b038-d7681e1fe3fb)
+
 </br>
 
 ⭐ **최근 일주일, 한달, 전체 기간동안 인기가 많은 주류를 알려줍니다!**
 
 최근 리뷰가 달린 제품중 일주일, 한달, 전체 기간동안 많은 리뷰가 달린 제품을 추천해줍니다!
+
+![02 최근 인기 주류 확인](https://github.com/mariage-kr/mariage/assets/74192619/53530be6-881b-45ca-b726-bc116cc01b2a)
 
 </br>
 
@@ -47,11 +51,23 @@
 
 주류의 카테고리와 별점, 도수를 지정하여 검색할 수 있어요!
 
+![08 필터 기능](https://github.com/mariage-kr/mariage/assets/74192619/c46ca97a-dce9-4d58-bc2e-878721e3d803)
+
+</br>
+
+⭐ **기능을 제공하여 원하시는 주류를 검색해보세요!**
+
+자동완성 기능을 사용하여 검색할 수 있어요!
+
+![07 주류 검색 기능](https://github.com/mariage-kr/mariage/assets/74192619/7313f9ca-3509-4d9d-a2c0-4b47f2c55f40)
+
 </br>
 
 ⭐ **주류에 대한 리뷰를 남겨주세요!**
 
 주류와 어울리는 궁합 음식에 대한 리뷰를 남겨주세요!
+
+![09 리뷰 작성](https://github.com/mariage-kr/mariage/assets/74192619/0ae325d0-38b9-4eaa-84a9-537329b538b7)
 
 </br>
 
@@ -59,11 +75,16 @@
 
 좋아요 기능으로 해당 리뷰가 마음에 든다면 좋아요를 눌러주세요!
 
+![04 review 작성](https://github.com/mariage-kr/mariage/assets/74192619/566e1e49-7a0b-4edc-aaed-3c7a9d30fe42)
+
+
 </br>
 
 ⭐ **자신의 리뷰, 타인의 리뷰를 모아서보세요!**
 
 자신 혹은 타인의 리뷰를 모아서 볼 수 있습니다!
+
+![06 리뷰 모아보기](https://github.com/mariage-kr/mariage/assets/74192619/6e611283-c16f-431c-886a-ddddb532ff31)
 
 </br>
 
